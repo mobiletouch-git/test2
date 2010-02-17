@@ -1,0 +1,451 @@
+//
+//  CurrencyViewController.m
+//  InfoValutar
+//
+//  Created by Mobile Touch SRL on 28.01.2010.
+//  Copyright 2010 Mobile Touch SRL. All rights reserved.
+//
+
+#import "CurrencyViewController.h"
+#import "CurrencyTableViewCell.h"
+#import "CurrencyItem.h"
+#import "Currency.h"
+#import "UIFactory.h"
+#import "DateFormat.h"
+#import "Constants.h"
+#import "InfoValutarAPI.h"
+
+@implementation CurrencyViewController
+
+@synthesize tableDataSource, selectedDate;
+
+- (void)dealloc {
+	
+	[previousReferenceDay release];
+	[tableDataSource release];
+	[myTableView release];
+	[selectedDate release];
+	
+    [super dealloc];
+}
+
+- (id)init
+{
+    if ((self = [super init])) {
+		//init code
+		
+		//set tabbaritem picture
+		UIImage *buttonImage = [UIImage imageNamed:@"tabCurrency.png"];
+		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Cursul curent" image:buttonImage tag:0];
+		self.tabBarItem = tempTabBarItem;
+		[tempTabBarItem release];
+		
+		self.title = @"Cursul curent";
+		
+	}
+    return self;
+}
+
+/*
+ // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        // Custom initialization
+    }
+    return self;
+}
+*/
+
+/*
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView {
+}
+*/
+
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	
+	doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
+												  style:UIBarButtonItemStyleDone
+												 target:self 
+												 action:@selector(doneAction)];
+	cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
+													style:UIBarButtonItemStyleBordered
+												   target:self
+												   action:@selector(cancelAction)];	
+	editButton = [[UIBarButtonItem alloc] initWithTitle:kEdit
+													style:UIBarButtonItemStyleBordered
+												   target:self
+												   action:@selector(editAction)];	
+
+	[self.navigationItem setLeftBarButtonItem:editButton];
+	
+	transparentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
+	[transparentView setBackgroundColor:[UIColor clearColor]];	
+	
+	
+	// initialization side for the current day
+	
+	previousReferenceDay = [[NSMutableArray alloc] init];	
+	tableDataSource = [[NSMutableArray alloc] init];	
+	
+	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+	[self setSelectedDate:todayDate];
+	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];
+	
+	[tableDataSource removeAllObjects];
+	[previousReferenceDay removeAllObjects];
+	
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+
+	if (validBankingDate)
+	{
+		if (![validBankingDate isEqualToDate:[self selectedDate]])
+			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
+							 title:@"Atentie!"];
+		
+		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
+		
+		NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
+		validBankingDate = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
+		if (validBankingDate)
+			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
+		
+		[self organizeTableSourceWithPriorities];
+	}
+	else
+		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];
+	
+	//initialize and place tableView
+	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
+	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
+	myTableView.delegate = self;
+	myTableView.dataSource = self;
+	myTableView.autoresizesSubviews = YES;
+	myTableView.scrollEnabled=YES;
+	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
+	[self.view addSubview:myTableView];
+	
+	[self.view addSubview:[self getHeaderView]];	
+	
+	titleButton = [[UIButton alloc] initWithFrame:CGRectMake(60,10,160,30)];
+	titleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	titleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+	[titleButton setTitle:todayString forState:UIControlStateNormal];	
+	[titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	[titleButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];	
+	[titleButton.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
+	
+	UIImage *newImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[titleButton setBackgroundImage:newImage forState:UIControlStateNormal];
+	
+	UIImage *newPressedImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[titleButton setBackgroundImage:newPressedImage forState:UIControlStateHighlighted];
+	[titleButton addTarget:self action:@selector (titleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+	// in case the parent view draws with a custom color or gradient, use a transparent color
+	titleButton.backgroundColor = [UIColor clearColor];
+	[titleButton setShowsTouchWhenHighlighted:YES];
+	
+	
+	[self.navigationItem setTitleView:titleButton];	
+
+	float height = 216.0f; 
+	datePicker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0.0, 369.0-height, 320.0, height)];
+	datePicker.datePickerMode = UIDatePickerModeDate;
+	[datePicker setUserInteractionEnabled:YES];	
+	if (self.selectedDate)
+		[datePicker setDate:self.selectedDate animated:YES];
+	[datePicker setHidden:YES];
+	[datePicker setMaximumDate:[NSDate date]];
+	[self.view addSubview:datePicker];
+
+}
+
+
+-(void) titleButtonAction:(id) sender
+{
+	[self.navigationItem setLeftBarButtonItem:cancelButton];
+	[self.navigationItem setRightBarButtonItem:doneButton];
+	[datePicker setHidden:NO];		
+}
+
+-(void) doneAction
+{
+	if (!datePicker.hidden)
+	{
+		NSDate *selDate = [DateFormat normalizeDateFromDate:[datePicker date]];
+		[self setSelectedDate:selDate];
+		[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
+		
+		[self.navigationItem setLeftBarButtonItem:editButton];
+		[self.navigationItem setRightBarButtonItem:nil];
+		[datePicker setHidden:YES];		
+		
+		// =========== table Data Source =========== //
+		[tableDataSource removeAllObjects];
+		[previousReferenceDay removeAllObjects];
+		
+		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		
+		if (validBankingDate)
+		{
+			if (![validBankingDate isEqualToDate:[self selectedDate]])
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
+								 title:@"Atentie!"];
+		
+			[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
+			
+			NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
+			validBankingDate = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
+			if (validBankingDate)
+				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
+			[self organizeTableSourceWithPriorities];			
+		}
+		else
+			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
+
+	}
+	else if (myTableView.editing)
+	{
+		
+		NSMutableDictionary *priorities = [NSMutableDictionary dictionary];
+		for (int i=0;i<[tableDataSource count];i++)
+		{
+			CurrencyItem *cur = [tableDataSource objectAtIndex:i];
+			[priorities setValue:cur.currencyName forKey:[NSString stringWithFormat:@"%d", i]];
+		}
+		
+		NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+		//write tabbar position
+		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:priorities];
+		[prefs setObject:data forKey:@"priorityList"];
+		[prefs synchronize];
+		
+		[self.navigationItem setLeftBarButtonItem:editButton];
+		[self.navigationItem setRightBarButtonItem:nil];
+		[myTableView setEditing:NO];	
+		[self organizeTableSourceWithPriorities];
+	}	
+	[myTableView reloadData];	
+}
+
+
+-(void) organizeTableSourceWithPriorities
+{
+
+	NSLog(@"Total currencies before processing %d", [tableDataSource count]);
+	NSLog(@"Total previous before processing %d", [previousReferenceDay count]);		
+	
+	NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"priorityList"];
+	NSMutableDictionary *priorities = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+
+	if (priorities)
+	{
+		NSMutableArray *organizedDay = [NSMutableArray array];
+		NSMutableArray *organizedPrevious = [NSMutableArray array];
+
+		for (int i=0;i<[tableDataSource count];i++)
+		{
+			NSString *currencyName = [priorities valueForKey:[NSString stringWithFormat:@"%d", i]];
+			NSLog(@"Currencyname %@", currencyName);
+			
+			CurrencyItem *ci1 = [InfoValutarAPI findCurrencyNamed:currencyName inArray:tableDataSource];
+			if (ci1)
+				[organizedDay addObject:ci1];
+			else
+				NSLog(@"Not found %@", currencyName);
+			
+			CurrencyItem *ci2 = [InfoValutarAPI findCurrencyNamed:currencyName inArray:previousReferenceDay];
+			if (ci2)
+				[organizedPrevious addObject:ci2];
+			else
+				NSLog(@"Not found %@", currencyName);
+			
+		}
+		
+		[tableDataSource removeAllObjects];
+		[tableDataSource addObjectsFromArray:organizedDay];
+		
+		[previousReferenceDay removeAllObjects];
+		[previousReferenceDay addObjectsFromArray:organizedPrevious];
+
+		NSLog(@"Total currencies after processing %d", [tableDataSource count]);
+		NSLog(@"Total previous after processing %d", [previousReferenceDay count]);	
+	}
+}
+		
+-(void) cancelAction
+{
+
+	if (!datePicker.hidden)
+	{
+	[self.navigationItem setLeftBarButtonItem:editButton];
+	[self.navigationItem setRightBarButtonItem:nil];
+	[datePicker setHidden:YES];		
+	}
+}
+
+-(void) editAction
+{
+	[myTableView setEditing:YES];
+	[myTableView reloadData];
+	[self.navigationItem setLeftBarButtonItem:doneButton];
+}
+
+
+-(UIView *) getHeaderView
+{
+	UIImageView *headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header_transparent.png"]];
+	[headerView setFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
+	
+	UILabel *l1 = [UIFactory newLabelWithPrimaryColor:[UIColor whiteColor]
+										selectedColor:[UIColor whiteColor] 
+											 fontSize:14 
+												 bold:YES];
+	[l1 setBackgroundColor:[UIColor clearColor]];
+	[l1 setFrame:CGRectMake(10,3,70,16)];
+	[l1 setText:@"Moneda"];
+	[headerView addSubview:l1];
+	
+	UILabel *l2 = [UIFactory newLabelWithPrimaryColor:[UIColor whiteColor]
+										selectedColor:[UIColor whiteColor] 
+											 fontSize:14 
+												 bold:YES];
+	[l2 setBackgroundColor:[UIColor clearColor]];
+	[l2 setFrame:CGRectMake(140,3,90,16)];
+	[l2 setText:@"Cotație RON"];
+	[headerView addSubview:l2];
+	
+	UILabel *l3 = [UIFactory newLabelWithPrimaryColor:[UIColor whiteColor]
+										selectedColor:[UIColor whiteColor] 
+											 fontSize:14 
+												 bold:YES];
+	[l3 setBackgroundColor:[UIColor clearColor]];
+	[l3 setFrame:CGRectMake(258,3,70,16)];
+	[l3 setText:@"Variație"];
+	[headerView addSubview:l3];		
+	
+	return headerView;
+}
+
+
+/*
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+*/
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+
+#pragma mark Table view methods
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+	return transparentView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+	return 22;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 1;
+}
+
+
+// Customize the number of rows in the table view.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [tableDataSource count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return 42;
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+	static NSString *CellIdentifier = @"CurrencyTableViewCell";
+	
+	CurrencyTableViewCell *cell = (CurrencyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[CurrencyTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+	}	
+	
+    // Set up the cell...
+	
+	CurrencyItem *currencyObject=nil;	
+	currencyObject = [tableDataSource objectAtIndex:indexPath.row];
+	
+	CurrencyItem *prevCurrency = nil;
+	prevCurrency = [previousReferenceDay objectAtIndex:indexPath.row];
+	
+	NSString *sign;
+	double changeValue = [currencyObject.currencyValue doubleValue] - [prevCurrency.currencyValue doubleValue];	
+	NSNumber *change = [NSNumber numberWithDouble:changeValue];
+	NSString *changeString = [NSString stringWithFormat:@"%.4f", changeValue];
+
+	if (changeValue>0)
+		sign=@"+";
+	else if (change<0)
+		sign=@"-";
+	else
+		sign=@"=";
+
+	
+	if (currencyObject)
+		[((CurrencyTableViewCell *)cell) setCurrencyImageName:[NSString stringWithFormat:@"%@.png",[currencyObject currencyName] ] 
+												 currencyName:[currencyObject currencyName] 
+											  multiplierValue:[currencyObject multiplierValue]?[currencyObject multiplierValue]:nil
+												currencyValue:[currencyObject currencyValue]
+													   change:changeString
+														 sign:sign];
+
+	cell.selectionStyle = UITableViewCellSelectionStyleBlue;			
+	[cell enterEditMode:myTableView.editing];
+	
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+	return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+	return NO;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+
+	Currency *movedObject = [[tableDataSource objectAtIndex:sourceIndexPath.row] retain];	
+	[tableDataSource removeObjectAtIndex:sourceIndexPath.row];
+	[tableDataSource insertObject:movedObject atIndex:destinationIndexPath.row];
+	[movedObject release];
+	movedObject=nil;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;
+}
+
+@end

@@ -1,0 +1,159 @@
+//
+//  CurrenciesParserDelegate.m
+//  CursValutar
+//
+//  Created by Mobile Touch SRL on 10/29/09.
+//  Copyright 2009 Mobile Touch SRL. All rights reserved.
+//
+
+#import "CurrenciesParserDelegate.h"
+#import "Constants.h"
+#import "UIFactory.h"
+#import "CurrencyItem.h"
+#import "Currency.h"
+#import "DateFormat.h"
+#import "ErrorObject.h"
+
+
+@implementation CurrenciesParserDelegate
+
+@synthesize contentofNode, currentDate;
+
+-(void) dealloc{
+	[contentofNode release];
+	[currentDate release];
+	[super dealloc];
+}
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		// init code
+	}
+	return self;
+}
+
+#pragma mark LoginParserDelegate
+
+- (void)parserDidStartDocument:(NSXMLParser *)parser
+{
+}
+
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName 
+	  namespaceURI:(NSString *)namespaceURI 
+	 qualifiedName:(NSString *)qName 
+		attributes:(NSDictionary *)attributeDict
+{
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	if ([elementName isEqualToString:@"Cube"]) {
+		NSString *attribute1 = [attributeDict valueForKey:@"date"];
+		if (attribute1)
+		{
+			NSDate *normalizedDate = [DateFormat dateFromString:attribute1];
+			[self setCurrentDate:normalizedDate];
+		}
+		
+    }
+	else if ([elementName isEqualToString:@"Rate"]) {
+		
+		currReference = [[CurrencyItem alloc] init];
+		NSString *attribute1 = [attributeDict valueForKey:@"currency"];
+		if (attribute1)
+			[currReference setCurrencyName:attribute1];
+		
+		NSString *attribute2 = [attributeDict valueForKey:@"multiplier"];
+		if (attribute2)
+			[currReference setMultiplierValue:attribute2];		
+		
+		self.contentofNode = [NSMutableString string];		
+    }
+	else if ([elementName isEqualToString:@"eroare"]) {
+		errorObject = [[ErrorObject alloc] init];
+    }	
+	else if ([elementName isEqualToString:@"cod-eroare"]) {
+		self.contentofNode = [NSMutableString string];
+    }
+	else if ([elementName isEqualToString:@"titlu-eroare"]) {
+		self.contentofNode = [NSMutableString string];
+    }
+	else if ([elementName isEqualToString:@"mesaj-eroare"]) {
+		self.contentofNode = [NSMutableString string];
+    }
+	
+	else {
+		self.contentofNode = nil;
+	}
+	
+	[pool release];
+	
+}
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName 
+  namespaceURI:(NSString *)namespaceURI
+ qualifiedName:(NSString *)qName
+{  
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	
+	if ([elementName isEqualToString:@"cod-eroare"]) {
+		[errorObject setErrorCode:self.contentofNode];
+    }
+	else if ([elementName isEqualToString:@"titlu-eroare"]) {
+		[errorObject setErrorTitle:self.contentofNode];		
+    }
+	else if ([elementName isEqualToString:@"mesaj-eroare"]) {
+		[errorObject setErrorMessage:self.contentofNode];
+    }
+	else if ([elementName isEqualToString:@"eroare"]) {
+		[UIFactory showOkAlert:[errorObject errorMessage] title:[errorObject errorTitle]];
+		[errorObject release];
+    }		
+	
+	else if ([elementName isEqualToString:@"Rate"]) {
+
+		[currReference setCurrencyValue:self.contentofNode];
+		//insert the object
+		
+		Currency *newCurrency = [NSEntityDescription insertNewObjectForEntityForName:@"Currency" inManagedObjectContext:[appDelegate managedObjectContext]];		
+		
+		[newCurrency setCurrencyName:[currReference currencyName]];
+		[newCurrency setCurrencyMultiplier:[currReference multiplierValue]];
+		[newCurrency setCurrencyValue:[currReference currencyValue]];
+		[newCurrency setCurrencyDate:currentDate];
+		
+		NSError *error = nil;
+		
+		if (![[appDelegate managedObjectContext] save:&error]) {
+			/*
+			 Replace this implementation with code to handle the error appropriately.
+			 
+			 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+			 */
+			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+			abort();
+		}	
+		
+		
+		[currReference release];
+		currReference=nil;
+    }
+	
+	[pool release];
+}	
+
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if (self.contentofNode) {
+        // If the current element is one whose content we care about, append 'string'
+        // to the property that holds the content of the current element.
+        [self.contentofNode appendString:string];
+    }
+}
+
+
+@end
+
