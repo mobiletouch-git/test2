@@ -60,6 +60,9 @@
 		{
 			self.title = kAddNewTax;					
 			additionFactor = [[AdditionFactorItem alloc] init];
+			[additionFactor setFactorValue:[NSNumber numberWithDouble:0.0]];
+			[additionFactor setFactorSign:1];
+			
 			saveButton = [[UIBarButtonItem alloc] initWithTitle:kAdd
 														  style:UIBarButtonItemStyleDone 
 														 target:self 
@@ -120,7 +123,7 @@
 	taxNameTextField.backgroundColor = [UIColor clearColor];
 	taxNameTextField.keyboardAppearance = UIKeyboardAppearanceDefault;
 	taxNameTextField.keyboardType = UIReturnKeyDefault;
-	taxValueTextField.placeholder = @"Nume";	
+	taxNameTextField.placeholder = @"Nume";	
 	taxNameTextField.returnKeyType = UIReturnKeyDefault;	
 	taxNameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 	[taxNameTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
@@ -151,7 +154,10 @@
 	if ([self.additionFactor factorValue])
 		[taxValueTextField setText:[NSString stringWithFormat:@"%.2f", [[self.additionFactor factorValue] doubleValue]]];
 
-	[taxValueTextField becomeFirstResponder];
+	if ([[self.additionFactor factorName] length])
+		[taxValueTextField becomeFirstResponder];
+	else
+		[taxNameTextField becomeFirstResponder];
 	
 	minusSignButton = [UIFactory newButtonWithTitle:nil 
 											 target:self 
@@ -279,7 +285,8 @@
         cell = [[[TaxTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	
-	[cell setAdditionFactor:self.additionFactor enabled:NO];
+	[cell setAdditionFactor:self.additionFactor
+					enabled:NO];
 	[cell setSpecialRow];
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 	return cell;	

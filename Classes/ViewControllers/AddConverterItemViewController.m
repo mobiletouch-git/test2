@@ -51,18 +51,34 @@
 		doneButton = [[UIBarButtonItem alloc] initWithTitle:kOk
 													  style:UIBarButtonItemStyleDone
 													 target:self 
-													 action:@selector(closeView)];
-		
+													 action:@selector(doneAction)];
+
+		[self.navigationItem setLeftBarButtonItem:cancelButton];		
 		[self.navigationItem setRightBarButtonItem:doneButton];
+		[doneButton setEnabled:NO];
 		
 	}
     return self;
 }
 
 
--(void) closeView
+-(void) cancelAction
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];	
+}
+
+-(void) doneAction
+{
+	// adding a new converter Item.
+
+	ConverterItem *newConverter = [[ConverterItem alloc] init];
+	[newConverter setCurrency:selectedCurrency];
+	[newConverter setAdditionFactors:additionList];
+
+	[[[appDelegate converterViewController] tableDataSource] addObject:newConverter];
+	[[[appDelegate converterViewController] myTableView] reloadData];
+	[newConverter release];
+	[self.navigationController dismissModalViewControllerAnimated:YES];	
 }
 
 
@@ -75,6 +91,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 	[myTableView deselectRowAtIndexPath:[myTableView indexPathForSelectedRow] animated:YES];
+	if (self.selectedCurrency)
+		[doneButton setEnabled:YES];
 }
 
 -(void) refresh
@@ -149,7 +167,7 @@
 {
 	switch (indexPath.section) {
 		case 0:
-			return 60;
+			return 53;
 			break;
 		default:
 			return 44.0;			

@@ -395,12 +395,12 @@
 		7DBF93FB111309510042CD97 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				7DBF93FE111309C60042CD97 /* ErrorObject.h */,
+				7DBF93FF111309C60042CD97 /* ErrorObject.m */,
 				7D41718811131780002A0D0C /* Currency.h */,
 				7D41718911131780002A0D0C /* Currency.m */,
 				7DBF93FC111309C60042CD97 /* CurrencyItem.h */,
 				7DBF93FD111309C60042CD97 /* CurrencyItem.m */,
-				7DBF93FE111309C60042CD97 /* ErrorObject.h */,
-				7DBF93FF111309C60042CD97 /* ErrorObject.m */,
 				7D945FED112939E500F632B2 /* ConverterItem.h */,
 				7D945FEE112939E500F632B2 /* ConverterItem.m */,
 				7D9467741129943F00F632B2 /* AdditionFactorItem.h */,

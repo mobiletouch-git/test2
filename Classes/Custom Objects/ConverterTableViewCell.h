@@ -23,5 +23,6 @@
 -(void) setConverterItem: (ConverterItem *) aConverter;
 -(void) setLightConverter: (ConverterItem *) aConverter;
 -(void) setEditing: (BOOL) yesOrNo;
+-(float) computeOffsetForCellInArray: (NSArray *) cells;
 
 @end

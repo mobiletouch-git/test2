@@ -86,7 +86,16 @@
 
 	[self setCellEnabled:yesOrNo];
 
-	[taxLabel setText:aFactor.factorName?aFactor.factorName:@""];
+	if ([aFactor.factorName length])
+	{
+		[taxLabel setTextColor:[UIColor blackColor]];
+		[taxLabel setText:aFactor.factorName];
+	}
+	else
+	{
+		[taxLabel setTextColor:[UIColor lightGrayColor]];
+		[taxLabel setText:@"Nume"];
+	}
 	
 	if (aFactor.factorSign>0)	
 		[taxSignImageView setImage:[UIImage imageNamed:@"edit_add.png"]];

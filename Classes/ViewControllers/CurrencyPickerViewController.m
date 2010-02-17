@@ -37,6 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+	self.title = @"Alege";
+	
 	tableDataSource = [[NSArray alloc]	initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
 }
 

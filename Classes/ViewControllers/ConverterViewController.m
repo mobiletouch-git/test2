@@ -11,6 +11,7 @@
 #import "InfoValutarAPI.h"
 #import "DateFormat.h"
 #import "Constants.h"
+#import "UIFactory.h"
 #import "ConverterItem.h"
 #import "ConverterTableViewCell.h"
 #import "AddConverterItemViewController.h"
@@ -107,12 +108,27 @@
 		[tableDataSource addObjectsFromArray:savedList];
 	else
 		[self addDefaultConverterValues];
+	
+	
+	NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterReferenceItem"];
+	ConverterItem *storedReferenceItem = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
+	if (storedReferenceItem)
+		referenceItem = [storedReferenceItem retain];
 
 	
 	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
-	NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
-	if ([selectedCurrencies count])
-		[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+	if (validBankingDate)
+	{
+		if (![validBankingDate isEqualToDate:[self selectedDate]])
+			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
+							 title:@"Atentie!"];
+
+		NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+		if ([selectedCurrencies count])
+			[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+	}
+	else
+		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
 	
 	
 	//initialize and place tableView
@@ -300,9 +316,18 @@
 		
 		[selectedReferenceDay removeAllObjects];
 		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
-		NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
-		if ([selectedCurrencies count])
-			[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+		if (validBankingDate)
+		{
+			if (![validBankingDate isEqualToDate:[self selectedDate]])
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
+								 title:@"Atentie!"];
+		
+			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+			if ([selectedCurrencies count])
+				[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+		}
+		else
+			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
 	}
 	if (myTableView.editing)
 	{
@@ -385,7 +410,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 55.0;
+	return 53.0;
 }
 
 // Customize the appearance of table view cells.
@@ -465,6 +490,15 @@
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
 	return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+	
+	if (tableView.editing)
+	{
+			return UITableViewCellEditingStyleDelete;
+	}		
+	return UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

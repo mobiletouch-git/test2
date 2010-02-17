@@ -68,13 +68,17 @@
 	
 	NSMutableArray *converterList = [converterViewController tableDataSource];
 	NSData *converterListData = [NSKeyedArchiver archivedDataWithRootObject:converterList];
-	[[NSUserDefaults standardUserDefaults ] setObject:converterListData forKey:@"converterList"];
+	[prefs setObject:converterListData forKey:@"converterList"];
+
+	NSData *converterReferenceData = [NSKeyedArchiver archivedDataWithRootObject:[[self converterViewController] referenceItem]];
+	[prefs setObject:converterReferenceData forKey:@"converterReferenceItem"];
+	
 	
 	NSMutableArray *taxesList = [taxesViewController tableDataSource];
 	NSData *taxesListData = [NSKeyedArchiver archivedDataWithRootObject:taxesList];
-	[[NSUserDefaults standardUserDefaults ] setObject:taxesListData forKey:@"taxesList"];
+	[prefs setObject:taxesListData forKey:@"taxesList"];
 	
-	[[NSUserDefaults standardUserDefaults ] synchronize];
+	[prefs synchronize];
 	
     NSError *error = nil;
     if (managedObjectContext != nil) {

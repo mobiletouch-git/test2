@@ -189,7 +189,33 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
 	[textField setText:@""];
+	
+	NSArray *visCells = [NSArray arrayWithArray:[[[appDelegate converterViewController] myTableView] visibleCells]];
+	float yOffSet =	[self computeOffsetForCellInArray:visCells];
+	
+	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, yOffSet) animated:YES];
+	
 	return YES;
+}
+
+-(float) computeOffsetForCellInArray: (NSArray *) cells
+{
+	float computed = 0;
+	for (int i=0; i <[cells count]; i++)
+	{
+		id cellAtIndex = [cells objectAtIndex:i];
+		if (cellAtIndex == self)
+		{
+			if (i==0)
+				computed = 0-2*self.bounds.size.height;
+			else if (i==1)
+				computed = 0-self.bounds.size.height;
+			else if (i>=3)
+				computed = 0+(i-2)*self.bounds.size.height;
+		}
+	}
+	
+	return computed;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -206,6 +232,7 @@
 	[textField resignFirstResponder];
 	
 	[[appDelegate converterViewController] setReferenceItem:self.converter];
+	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	[[[appDelegate converterViewController] myTableView] reloadData];
 
     return YES;
