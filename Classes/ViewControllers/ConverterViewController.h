@@ -28,6 +28,9 @@
 	ConverterItem *referenceItem;
 
 }
+@property (nonatomic, retain)	UIBarButtonItem *editButton;
+@property (nonatomic, retain)	UIBarButtonItem *addButton;	
+
 @property (nonatomic, retain)	UITableView *myTableView;
 @property (nonatomic, retain)	NSMutableArray *tableDataSource;
 @property (nonatomic, retain)	NSMutableArray *selectedReferenceDay;

@@ -12,13 +12,13 @@
 #import "ConverterItem.h"
 #import "UIFactory.h"
 #import "CurrencyPickerViewController.h"
-#import "ConverterTableViewCell.h"
+#import "LightConverterTableViewCell.h"
 #import "LightTaxTableViewCell.h"
 #import "AdditionFactorItem.h" 
 
 @implementation AddConverterItemViewController
 
-@synthesize selectedCurrency;
+@synthesize selectedCurrency, additionList;
 
 - (void)dealloc {
 	[doneButton release];
@@ -181,11 +181,11 @@
     
 	if (indexPath.section==0)
 	{
-		static NSString *CellIdentifier2 = @"Cell2";
+		static NSString *CellIdentifier2 = @"LightConverterTableViewCell";
 		
-		ConverterTableViewCell *cell2 = (ConverterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+		LightConverterTableViewCell *cell2 = (LightConverterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
 		if (cell2 == nil) {
-			cell2 = [[[ConverterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
+			cell2 = [[[LightConverterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
 		}
 		
 		ConverterItem *co = [[[ConverterItem alloc] init] autorelease];
@@ -194,11 +194,8 @@
 			[co setCurrency:currencyForConverter];
 		
 		[co setAdditionFactors:additionList];
-		[cell2 setLightConverter:co];
-		
+		[cell2 setConverterItem:co];
 		[cell2 setSelectionStyle:UITableViewCellSelectionStyleBlue];
-		
-	
 		return cell2;
 	}
 
@@ -212,6 +209,7 @@
 		}
 		
 		AdditionFactorItem *addF = [taxesArray objectAtIndex:indexPath.row];
+		
 		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];		
 		[cell setAdditionFactor:addF enabled:NO];
 		
@@ -243,6 +241,7 @@
 		case 0:
 		{
 			CurrencyPickerViewController *pickerView = [[CurrencyPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+			[pickerView setIsPushed:YES];			
 			[pickerView setParent:self];
 			[self.navigationController pushViewController:pickerView animated:YES];
 			[pickerView release];
@@ -261,7 +260,7 @@
 					[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 					
 					[tableView reloadData];
-					
+					[self rearangePriorities];					
 					return;
 				}
 				
@@ -274,13 +273,11 @@
 						[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];						
 						
 						[tableView reloadData];
-						
+						[self rearangePriorities];						
 						return;
 					}
 				}
-
 			}
-
 		}
 			break;
 			
@@ -298,7 +295,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-	
+
+	AdditionFactorItem *movedObject = [[taxesArray objectAtIndex:sourceIndexPath.row] retain];
+	[taxesArray removeObjectAtIndex:sourceIndexPath.row];
+	[taxesArray insertObject: movedObject atIndex: destinationIndexPath.row];
+	[movedObject release];
+	movedObject=nil;
+//	[self rearangePriorities];	
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -316,6 +319,21 @@
 	return YES;
 }
 
+
+-(void) rearangePriorities
+{
+	NSMutableArray *arangedList = [NSMutableArray array];
+	for (int i=0;i<[taxesArray count];i++)
+	{
+		AdditionFactorItem *addF = [taxesArray objectAtIndex:i];	
+		if (addF.checked)
+			[arangedList addObject:addF];
+	}
+	[self setAdditionList:arangedList];
+	
+	[myTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]]
+					   withRowAnimation:UITableViewRowAnimationFade];						
+}
 
 /*
 // Override to allow orientations other than the default portrait orientation.

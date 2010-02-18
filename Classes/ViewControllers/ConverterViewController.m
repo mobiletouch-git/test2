@@ -14,15 +14,19 @@
 #import "UIFactory.h"
 #import "ConverterItem.h"
 #import "ConverterTableViewCell.h"
-#import "AddConverterItemViewController.h"
+#import "CurrencyPickerViewController.h"
 #import "AdditionFactorItem.h"
  
 @implementation ConverterViewController
 
+@synthesize editButton, addButton;
 @synthesize myTableView, tableDataSource, selectedDate, referenceItem, selectedReferenceDay;
 
 - (void)dealloc {
 
+	[editButton release];
+	[addButton release];
+	
 	[myTableView release];
 	[addButton release];
 	[editButton release];
@@ -273,12 +277,20 @@
 -(void) addAction
 {
 	NSLog(@"Add action");
-	
+	/*
 	AddConverterItemViewController *addView = [[AddConverterItemViewController alloc] init];
 	UINavigationController *addNavigation = [[UINavigationController alloc] initWithRootViewController:addView];
 	[self.navigationController presentModalViewController:addNavigation animated:YES];
 	[addNavigation release];
 	[addView release];
+	 */
+	CurrencyPickerViewController *addView = [[CurrencyPickerViewController alloc] init];
+	[addView setIsPushed:NO];
+	UINavigationController *addNavigation = [[UINavigationController alloc] initWithRootViewController:addView];
+	[self.navigationController presentModalViewController:addNavigation animated:YES];
+	[addNavigation release];
+	[addView release];
+	
 }
 
 -(void) editAction

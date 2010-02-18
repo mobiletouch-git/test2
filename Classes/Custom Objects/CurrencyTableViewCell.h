@@ -25,11 +25,6 @@
 					  change: (NSString *) theChange
 						sign: (NSString *) theSign;	
 
--(void) setLightCurrencyImageName: (NSString *) imageName
-					 currencyName: (NSString *) theName
-				  multiplierValue: (NSString *) theMValue
-					currencyValue: (NSString *) theValue;
-
 -(void) enterEditMode: (BOOL) yesOrNo;
 
 @property (nonatomic, retain) 	UILabel *changeLabel;

@@ -11,10 +11,14 @@
 
 @interface CurrencyPickerViewController : UITableViewController {
 
-	NSArray *tableDataSource;
+	NSMutableArray *tableDataSource;
+	UIBarButtonItem *cancelButton;	
 	id parent;
+	BOOL isPushed;
+	NSDictionary *currencyFullDictionary;
 }
 
 @property (nonatomic, retain)	id parent;
+@property (nonatomic, assign)	BOOL isPushed;
 
 @end

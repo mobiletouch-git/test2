@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>RON</key>
+	<string>Leul Românesc</string>
+	<key>AUD</key>
+	<string>Dolarul australian</string>
+	<key>BGN</key>
+	<string>Leva bulgărească</string>
+	<key>CAD</key>
+	<string>Dolarul canadian</string>
+	<key>CHF</key>
+	<string>Francul elveţian</string>
+	<key>CZK</key>
+	<string>Coroana cehă</string>
+	<key>DKK</key>
+	<string>Coroana daneză</string>
+	<key>EGP</key>
+	<string>Lira egipteană</string>
+	<key>EUR</key>
+	<string>Euro</string>
+	<key>GBP</key>
+	<string>Lira sterlină</string>
+	<key>HUF</key>
+	<string>100 Forinţi maghiari</string>
+	<key>JPY</key>
+	<string>100 Yeni japonezi</string>
+	<key>MDL</key>
+	<string>Leul moldovenesc</string>
+	<key>NOK</key>
+	<string>Coroana norvegiană</string>
+	<key>PLN</key>
+	<string>Zlotul polonez</string>
+	<key>RUB</key>
+	<string>Rubla rusească</string>
+	<key>SEK</key>
+	<string>Coroana suedeză</string>
+	<key>TRY</key>
+	<string>Lira turcească</string>
+	<key>USD</key>
+	<string>Dolarul american</string>
+	<key>ZAR</key>
+	<string>Randul sud-african</string>
+	<key>BRL</key>
+	<string>Realul brazilian</string>
+	<key>CNY</key>
+	<string>Renminbi-ul chinezesc</string>
+	<key>INR</key>
+	<string>Rupia indiană</string>
+	<key>KRW</key>
+	<string>100 Woni sud-coreeni</string>
+	<key>MXN</key>
+	<string>Peso-ul mexican</string>
+	<key>NZD</key>
+	<string>Dolarul neo-zeelandez</string>
+	<key>RSD</key>
+	<string>Dinarul sârbesc</string>
+	<key>UAH</key>
+	<string>Hryvna ucraineană</string>
+	<key>AED</key>
+	<string>Dirhamul Emir. Arabe</string>
+	<key>XAU</key>
+	<string>Gramul de aur</string>
+	<key>XDR</key>
+	<string>DST</string>
+</dict>
+</plist>

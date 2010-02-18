@@ -108,54 +108,6 @@
 		[converterValueTextField setText:[NSString stringWithFormat:@"%.2f", [[self.converter converterValue] doubleValue]]];
 }
 
--(void) setLightConverter: (ConverterItem *) aConverter
-{
-	
-	[converterFlagImageView	setFrame:CGRectMake(30,10,32,32)];
-	[converterNameLabel setFrame:CGRectMake(70,12,175,20)];
-	[converterAdditionLabel setFrame:CGRectMake(70,30,175,20)];	
-	
-	[self setConverter:aConverter];
-	
-	CurrencyItem *ci = [aConverter currency];
-	
-	if (ci)
-	{
-		NSString *imageName = [NSString stringWithFormat:@"%@.png", [ci currencyName]];
-		UIImage *flagImage = [UIImage imageNamed:imageName];
-		[converterFlagImageView setImage:flagImage?flagImage:nil];		
-
-		NSString *labelString = [NSString stringWithString: [ci currencyName]];
-		[converterNameLabel setText:labelString];		
-	}
-	
-	NSString *additionString = @"";
-	for (int i=0;i<[aConverter.additionFactors count];i++)
-	{
-		AdditionFactorItem *af = [aConverter.additionFactors objectAtIndex:i];
-		if (af.factorSign>0)
-			additionString = [additionString stringByAppendingFormat:@" + %.2f%%", [af.factorValue doubleValue]];
-		if (af.factorSign<0)
-			additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
-	}
-	
-	if ([additionString length])
-	{
-		[converterAdditionLabel setHidden:NO];		
-		[converterAdditionLabel setText:additionString];
-		[converterAdditionLabel setFrame:CGRectMake(70,30,175,20)];			
-		[converterNameLabel setFrame:CGRectMake(70,5,175,30)];		
-	}
-	else
-	{
-		[converterAdditionLabel setHidden:YES];
-		[converterAdditionLabel setFrame:CGRectMake(70,30,175,20)];			
-		[converterNameLabel setFrame:CGRectMake(70,12,175,30)];				
-	}
-	
-	[converterValueTextField setHidden:YES];
-}
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 
@@ -192,6 +144,8 @@
 	
 	NSArray *visCells = [NSArray arrayWithArray:[[[appDelegate converterViewController] myTableView] visibleCells]];
 	float yOffSet =	[self computeOffsetForCellInArray:visCells];
+	[[[appDelegate converterViewController] editButton] setEnabled:NO];
+	[[[appDelegate converterViewController] addButton] setEnabled:NO];	
 	
 	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, yOffSet) animated:YES];
 	
@@ -231,6 +185,8 @@
 	[self.converter setConverterValue:[NSNumber numberWithDouble:[textField.text doubleValue]]];
 	[textField resignFirstResponder];
 	
+	[[[appDelegate converterViewController] editButton] setEnabled:YES];	
+	[[[appDelegate converterViewController] addButton] setEnabled:YES];		
 	[[appDelegate converterViewController] setReferenceItem:self.converter];
 	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	[[[appDelegate converterViewController] myTableView] reloadData];

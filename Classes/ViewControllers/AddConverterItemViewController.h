@@ -24,7 +24,9 @@
 }
 
 @property (nonatomic, retain)	CurrencyItem *selectedCurrency;
+@property (nonatomic, retain)	NSMutableArray *additionList;
 
 -(void) refresh;
+-(void) rearangePriorities;
 
 @end

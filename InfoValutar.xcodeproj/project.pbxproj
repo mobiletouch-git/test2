@@ -84,6 +84,10 @@
 		7DBF943411130A850042CD97 /* tabInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942A11130A850042CD97 /* tabInfo.png */; };
 		7DBF943511130A850042CD97 /* tabStatistics.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942B11130A850042CD97 /* tabStatistics.png */; };
 		7DBF943611130A850042CD97 /* title_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942C11130A850042CD97 /* title_button.png */; };
+		7DC5FAD8112D7381002422E6 /* accessory_disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC5FAD7112D7381002422E6 /* accessory_disclosure.png */; };
+		7DC5FB4A112D7A9B002422E6 /* CurrencyNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DC5FB49112D7A9B002422E6 /* CurrencyNames.plist */; };
+		7DC5FB4D112D7CF8002422E6 /* LightCurrencyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5FB4C112D7CF8002422E6 /* LightCurrencyTableViewCell.m */; };
+		7DC5FE33112D8903002422E6 /* LightConverterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5FE32112D8903002422E6 /* LightConverterTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,6 +195,12 @@
 		7DBF942A11130A850042CD97 /* tabInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabInfo.png; path = Resources/tabInfo.png; sourceTree = "<group>"; };
 		7DBF942B11130A850042CD97 /* tabStatistics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabStatistics.png; path = Resources/tabStatistics.png; sourceTree = "<group>"; };
 		7DBF942C11130A850042CD97 /* title_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title_button.png; path = Resources/title_button.png; sourceTree = "<group>"; };
+		7DC5FAD7112D7381002422E6 /* accessory_disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = accessory_disclosure.png; path = Resources/accessory_disclosure.png; sourceTree = "<group>"; };
+		7DC5FB49112D7A9B002422E6 /* CurrencyNames.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CurrencyNames.plist; path = Resources/CurrencyNames.plist; sourceTree = "<group>"; };
+		7DC5FB4B112D7CF8002422E6 /* LightCurrencyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCurrencyTableViewCell.h; path = "Classes/Custom Objects/LightCurrencyTableViewCell.h"; sourceTree = "<group>"; };
+		7DC5FB4C112D7CF8002422E6 /* LightCurrencyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightCurrencyTableViewCell.m; path = "Classes/Custom Objects/LightCurrencyTableViewCell.m"; sourceTree = "<group>"; };
+		7DC5FE31112D8903002422E6 /* LightConverterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightConverterTableViewCell.h; path = "Classes/Custom Objects/LightConverterTableViewCell.h"; sourceTree = "<group>"; };
+		7DC5FE32112D8903002422E6 /* LightConverterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightConverterTableViewCell.m; path = "Classes/Custom Objects/LightConverterTableViewCell.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InfoValutar-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InfoValutar-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,6 +264,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DC5FAD7112D7381002422E6 /* accessory_disclosure.png */,
 				7D686B0F112AD7FB003B00B7 /* checkmarkYES.png */,
 				7D6865CB112AAA24003B00B7 /* edit_add_pressed.png */,
 				7D6865CC112AAA24003B00B7 /* edit_remove_pressed.png */,
@@ -273,6 +284,7 @@
 				28C3AD890F43EF2300507BA6 /* InfoValutar.xcdatamodel */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* InfoValutar-Info.plist */,
+				7DC5FB49112D7A9B002422E6 /* CurrencyNames.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -302,10 +314,10 @@
 			children = (
 				7DBF9414111309F60042CD97 /* ConverterViewController.h */,
 				7DBF9415111309F60042CD97 /* ConverterViewController.m */,
-				7D94643911296E6E00F632B2 /* AddConverterItemViewController.h */,
-				7D94643A11296E6E00F632B2 /* AddConverterItemViewController.m */,
 				7D9465FA112989A300F632B2 /* CurrencyPickerViewController.h */,
 				7D9465FB112989A300F632B2 /* CurrencyPickerViewController.m */,
+				7D94643911296E6E00F632B2 /* AddConverterItemViewController.h */,
+				7D94643A11296E6E00F632B2 /* AddConverterItemViewController.m */,
 			);
 			name = "Tab 2";
 			sourceTree = "<group>";
@@ -382,8 +394,12 @@
 			children = (
 				7DBF93F81113094B0042CD97 /* CurrencyTableViewCell.h */,
 				7DBF93F91113094B0042CD97 /* CurrencyTableViewCell.m */,
+				7DC5FB4B112D7CF8002422E6 /* LightCurrencyTableViewCell.h */,
+				7DC5FB4C112D7CF8002422E6 /* LightCurrencyTableViewCell.m */,
 				7D94600E11293E6100F632B2 /* ConverterTableViewCell.h */,
 				7D94600F11293E6100F632B2 /* ConverterTableViewCell.m */,
+				7DC5FE31112D8903002422E6 /* LightConverterTableViewCell.h */,
+				7DC5FE32112D8903002422E6 /* LightConverterTableViewCell.m */,
 				7D685FCE112A80B4003B00B7 /* TaxTableViewCell.h */,
 				7D685FCF112A80B4003B00B7 /* TaxTableViewCell.m */,
 				7D686BB2112ADC36003B00B7 /* LightTaxTableViewCell.h */,
@@ -530,6 +546,8 @@
 				7D6865CD112AAA24003B00B7 /* edit_add_pressed.png in Resources */,
 				7D6865CE112AAA24003B00B7 /* edit_remove_pressed.png in Resources */,
 				7D686B10112AD7FB003B00B7 /* checkmarkYES.png in Resources */,
+				7DC5FAD8112D7381002422E6 /* accessory_disclosure.png in Resources */,
+				7DC5FB4A112D7A9B002422E6 /* CurrencyNames.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +584,8 @@
 				7D685FD0112A80B4003B00B7 /* TaxTableViewCell.m in Sources */,
 				7D6861FA112A94A6003B00B7 /* AddNewTaxViewController.m in Sources */,
 				7D686BB4112ADC36003B00B7 /* LightTaxTableViewCell.m in Sources */,
+				7DC5FB4D112D7CF8002422E6 /* LightCurrencyTableViewCell.m in Sources */,
+				7DC5FE33112D8903002422E6 /* LightConverterTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

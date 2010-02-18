@@ -9,18 +9,20 @@
 #import "CurrencyPickerViewController.h"
 #import "Constants.h"
 #import "CurrencyItem.h"
-#import "CurrencyTableViewCell.h"
+#import "LightCurrencyTableViewCell.h"
 #import "ConverterViewController.h"
 #import "AddConverterItemViewController.h"
 
 @implementation CurrencyPickerViewController
 
-@synthesize parent;
+@synthesize parent, isPushed;
 
 - (void)dealloc {
 	
 	[tableDataSource release];
 	[parent release];
+	[currencyFullDictionary release];
+	
     [super dealloc];
 }
 
@@ -39,10 +41,33 @@
 
 	self.title = @"Alege";
 	
-	tableDataSource = [[NSArray alloc]	initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
+	tableDataSource = [[NSMutableArray alloc]	initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
+	
+	CurrencyItem *c1 = [[CurrencyItem alloc] init];
+	[c1 setCurrencyName:@"RON"];
+	[tableDataSource insertObject:c1 atIndex:0];
+	[c1 release];
+	
+	cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
+													style:UIBarButtonItemStyleBordered
+												   target:self
+												   action:@selector(cancelAction)];
+	[self.navigationItem setLeftBarButtonItem:cancelButton];
+	
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
+	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];
+	
+	if (fullList)
+		currencyFullDictionary = [fullList retain];
 }
 
-
+-(void) cancelAction
+{
+	if (isPushed)
+		[self.navigationController popViewControllerAnimated:YES];
+	else
+		[self.navigationController dismissModalViewControllerAnimated:YES];	
+}
 /*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -103,38 +128,52 @@
     
     // Set up the cell...
 		
-	static NSString *CellIdentifier = @"CurrencyTableViewCell";
+	static NSString *CellIdentifier = @"LightCurrencyTableViewCell";
 	
-	CurrencyTableViewCell *cell = (CurrencyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	LightCurrencyTableViewCell *cell = (LightCurrencyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[CurrencyTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[[LightCurrencyTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
 	}	
 	
 	// Set up the cell...
 	
 	CurrencyItem *currencyObject=nil;	
 	currencyObject = [tableDataSource objectAtIndex:indexPath.row];
-	
+
 
 	if (currencyObject)
-		[((CurrencyTableViewCell *)cell) setLightCurrencyImageName:[NSString stringWithFormat:@"%@.png",[currencyObject currencyName] ] 
-												 currencyName:[currencyObject currencyName] 
-											  multiplierValue:[currencyObject multiplierValue]?[currencyObject multiplierValue]:nil
-													 currencyValue:[currencyObject currencyValue]];
-	
+	{
+		NSString *fullNameCurrency = [currencyFullDictionary valueForKey:[currencyObject currencyName]];		
+		
+		[cell setCurrencyImageName:[NSString stringWithFormat:@"%@.png",[currencyObject currencyName] ]  
+					  currencyName:[currencyObject currencyName] 
+				   multiplierValue:[currencyObject multiplierValue]?[currencyObject multiplierValue]:nil 
+						  fullName:fullNameCurrency];
+	}
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;			
 	return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if ([parent isKindOfClass:[AddConverterItemViewController class]])
+	
+	if (isPushed)
 	{
-		CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];
-		[((AddConverterItemViewController *)parent) setSelectedCurrency:selected];
-		[((AddConverterItemViewController *)parent) refresh];
+		CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];			
+		[((AddConverterItemViewController *) parent) setSelectedCurrency:selected];
+		[((AddConverterItemViewController *) parent) refresh];
+		
 		[self.navigationController popViewControllerAnimated:YES];
 	}
+	else
+	{
+	AddConverterItemViewController *addView = [[AddConverterItemViewController alloc] init];
+	CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];	
+	[addView setSelectedCurrency:selected];
+	[self.navigationController pushViewController:addView animated:YES];
+	[addView release];
+	}
+	
 }
 
 
