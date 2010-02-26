@@ -111,6 +111,9 @@
 	[comps setYear:year];
 	[comps setMonth:month];
 	[comps setDay:day];
+	[comps setHour:23];
+	[comps setMinute:59];
+	[comps setSecond:59];
 	NSDate *date = [gregorian dateFromComponents:comps];
 	
 	// Clean up
@@ -244,17 +247,6 @@
 	NSDateComponents *comps = [[NSDateComponents alloc] init];
 	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];	
 	[comps setDay:1];
-	NSDate *newDate = [gregorian dateByAddingComponents:comps toDate:date options:0];
-	[comps release];
-	[gregorian release];
-	return newDate;
-}
-
-+(NSDate *) getPreviousDayForDay: (NSDate *) date
-{
-	NSDateComponents *comps = [[NSDateComponents alloc] init];
-	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];	
-	[comps setDay:-1];
 	NSDate *newDate = [gregorian dateByAddingComponents:comps toDate:date options:0];
 	[comps release];
 	[gregorian release];

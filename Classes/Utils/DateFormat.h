@@ -47,7 +47,6 @@
 +(NSString *)dayFromDate:(NSDate *)date;
 
 +(NSDate *) getNextDayForDay: (NSDate *) date;
-+(NSDate *) getPreviousDayForDay: (NSDate *) date;
 
 +(NSMutableDictionary *) getDaysForInterval: (NSDate *) intervalStartDate
 					endInterval: (NSDate *) intervalEndDate;
