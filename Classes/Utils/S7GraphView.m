@@ -147,7 +147,7 @@
 			}
 		}
 	}
-	
+/*
 	if (maxY < 100) {
 		maxY = ceil(maxY / 10) * 10;
 	} 
@@ -163,7 +163,7 @@
 	if (maxY > 10000 && maxY < 100000) {
 		maxY = ceil(maxY / 10000) * 10000;
 	}
-	
+*/
 	CGFloat step = (maxY - minY) / 5;
 	CGFloat stepY = (self.frame.size.height - (offsetY * 2)) / maxY;
 	
@@ -241,11 +241,11 @@
 	for (NSUInteger i = 0; i < maxStep; i++) {
 		
 		NSUInteger x = (i * step) * stepX;
-		
+
 		if (x > self.frame.size.width - (offsetX * 2)) {
 			x = self.frame.size.width - (offsetX * 2);
 		}
-		
+
 		NSUInteger index = i * step;
 		
 		if (index >= xValuesCount) {

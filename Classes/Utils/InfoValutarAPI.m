@@ -54,6 +54,28 @@
 	return arrayToReturn;
 }
 
++(NSMutableArray *) getDataForInterval: (NSDate *) startDate
+							   endDate:(NSDate *) endDate
+						  currencyName: (NSString *) currencyName
+{
+	NSMutableDictionary *substDictionary = [NSMutableDictionary dictionary];
+	[substDictionary setObject:startDate forKey:@"STARTDATE"];
+	[substDictionary setObject:endDate forKey:@"ENDDATE"];
+	[substDictionary setObject:currencyName forKey:@"CURRENCYNAME"];	
+	
+	
+	NSManagedObjectModel *model = [appDelegate managedObjectModel];	 
+	NSFetchRequest *fetch = [model fetchRequestFromTemplateWithName:@"getIntervalData"
+											  substitutionVariables:substDictionary];
+	NSMutableArray *mutableFetchResults = [[[appDelegate managedObjectContext] executeFetchRequest:fetch error:nil] mutableCopy];
+	NSMutableArray *arrayToReturn = [NSMutableArray array];
+	[arrayToReturn addObjectsFromArray:mutableFetchResults];
+	
+	[mutableFetchResults release];
+	
+	return arrayToReturn;
+}
+
 +(NSDate *) getValidBankingDayForDay: (NSDate *) someDate
 {
 	

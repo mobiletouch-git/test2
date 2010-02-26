@@ -12,6 +12,8 @@
 #import "LightCurrencyTableViewCell.h"
 #import "ConverterViewController.h"
 #import "AddConverterItemViewController.h"
+#import "InfoValutarAPI.h"
+#import "UIFactory.h"
 
 @implementation CurrencyPickerViewController
 
@@ -42,10 +44,13 @@
 	
 	tableDataSource = [[NSMutableArray alloc]	initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
 	
-	CurrencyItem *c1 = [[CurrencyItem alloc] init];
-	[c1 setCurrencyName:@"RON"];
-	[tableDataSource insertObject:c1 atIndex:0];
-	[c1 release];
+	if (![parent isKindOfClass:[StatisticsViewController class]])
+	{
+		CurrencyItem *c1 = [[CurrencyItem alloc] init];
+		[c1 setCurrencyName:@"RON"];
+		[tableDataSource insertObject:c1 atIndex:0];
+		[c1 release];
+	}
 	
 	cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
 													style:UIBarButtonItemStyleBordered
@@ -151,23 +156,42 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (isPushed)
+	if ([parent isKindOfClass:[StatisticsViewController class]])
 	{
-		CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];			
-		[((AddConverterItemViewController *) parent) setSelectedCurrency:selected];
-		[((AddConverterItemViewController *) parent) refresh];
-		
-		[self.navigationController popViewControllerAnimated:YES];
+		CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];		
+		id foundCurrency = [InfoValutarAPI findCurrencyNamed:selected.currencyName inArray:[((StatisticsViewController *) parent) currenciesList]];
+		if (!foundCurrency)
+		{
+			[[((StatisticsViewController *) parent) currenciesList] addObject:selected];
+			[[((StatisticsViewController *) parent) currenciesTableView] reloadData];
+			[self.navigationController popViewControllerAnimated:YES];			
+		}
+		else {
+			[UIFactory showOkAlert:@"Moneda selectata se afla deja in lista" title:@"Atentie"];
+			[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		}
+
+
 	}
-	else
-	{
-	AddConverterItemViewController *addView = [[AddConverterItemViewController alloc] init];
-	CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];	
-	[addView setSelectedCurrency:selected];
-	[self.navigationController pushViewController:addView animated:YES];
-	[addView release];
+	else {
+		if (isPushed)
+		{
+			CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];			
+			[((AddConverterItemViewController *) parent) setSelectedCurrency:selected];
+			[((AddConverterItemViewController *) parent) refresh];
+			
+			[self.navigationController popViewControllerAnimated:YES];
+		}
+		else
+		{
+			AddConverterItemViewController *addView = [[AddConverterItemViewController alloc] init];
+			CurrencyItem *selected = [tableDataSource objectAtIndex:indexPath.row];	
+			[addView setSelectedCurrency:selected];
+			[self.navigationController pushViewController:addView animated:YES];
+			[addView release];
+		}
 	}
-	
+
 }
 
 

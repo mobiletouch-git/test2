@@ -74,10 +74,17 @@
 	NSData *converterReferenceData = [NSKeyedArchiver archivedDataWithRootObject:[[self converterViewController] referenceItem]];
 	[prefs setObject:converterReferenceData forKey:@"converterReferenceItem"];
 	
-	
 	NSMutableArray *taxesList = [taxesViewController tableDataSource];
 	NSData *taxesListData = [NSKeyedArchiver archivedDataWithRootObject:taxesList];
 	[prefs setObject:taxesListData forKey:@"taxesList"];
+		
+	NSMutableDictionary *dateRangeDictionary = [statisticsViewController dateRangeDictionary];
+	NSData *dateRangeDictionaryData = [NSKeyedArchiver archivedDataWithRootObject:dateRangeDictionary];
+	[prefs setObject:dateRangeDictionaryData forKey:@"dateRangeDictionary"];
+	
+	NSMutableArray *currenciesList = [statisticsViewController currenciesList];
+	NSData *currenciesListData = [NSKeyedArchiver archivedDataWithRootObject:currenciesList];
+	[prefs setObject:currenciesListData forKey:@"statisticsCurrenciesList"];
 	
 	[prefs synchronize];
 	

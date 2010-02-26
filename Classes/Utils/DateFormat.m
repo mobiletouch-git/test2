@@ -111,9 +111,6 @@
 	[comps setYear:year];
 	[comps setMonth:month];
 	[comps setDay:day];
-	[comps setHour:23];
-	[comps setMinute:59];
-	[comps setSecond:59];
 	NSDate *date = [gregorian dateFromComponents:comps];
 	
 	// Clean up
@@ -253,28 +250,39 @@
 	return newDate;
 }
 
++(NSDate *) getPreviousDayForDay: (NSDate *) date
+{
+	NSDateComponents *comps = [[NSDateComponents alloc] init];
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];	
+	[comps setDay:-1];
+	NSDate *newDate = [gregorian dateByAddingComponents:comps toDate:date options:0];
+	[comps release];
+	[gregorian release];
+	return newDate;
+}
+
 +(NSMutableDictionary *) getDaysForInterval: (NSDate *) intervalStartDate
-					endInterval: (NSDate *) intervalEndDate{
+								endInterval: (NSDate *) intervalEndDate{
 	
 	
 	NSDate *nextDay = [NSDate dateWithTimeIntervalSince1970:[intervalStartDate timeIntervalSince1970]];
 	
 	NSMutableDictionary *dictWithDays = [NSMutableDictionary dictionary];
 	
-
+	
 	while (![[DateFormat monthFromDate: nextDay] isEqualToString:[DateFormat monthFromDate: intervalEndDate]])
 	{
 		NSMutableArray *monthDays = [NSMutableArray array];
 		NSDate *normalizedDate = [DateFormat normalizeDateFromDate:nextDay];
 		[monthDays addObject:normalizedDate];		
 		NSDate *temp = [DateFormat getNextDayForDay:nextDay];
-
+		
 		while ([[DateFormat monthFromDate: nextDay] isEqualToString:[DateFormat monthFromDate: temp]])
 		{
 			nextDay = [DateFormat getNextDayForDay:nextDay];
 			NSDate *normalizedDate = [DateFormat normalizeDateFromDate:nextDay];			
 			[monthDays addObject:normalizedDate];
-
+			
 			temp = [DateFormat getNextDayForDay:temp];
 		}
 		[dictWithDays setValue:monthDays forKey:[DateFormat stringValueForDictionaryKeyFromValue:nextDay]];

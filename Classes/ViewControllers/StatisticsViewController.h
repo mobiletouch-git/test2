@@ -26,5 +26,6 @@
 @property (nonatomic, retain) NSMutableArray *currenciesList;
 
 -(void) addDefaultCurrencies;
+-(void) addNewCurrencyAction;
 
 @end

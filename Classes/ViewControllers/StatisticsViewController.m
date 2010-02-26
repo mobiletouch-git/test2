@@ -12,7 +12,9 @@
 #import "DatePickerViewController.h"
 #import "Constants.h"
 #import "LightCurrencyTableViewCell.h"
- 
+#import "CurrencyPickerViewController.h" 
+#import "DateFormat.h"
+
 @implementation StatisticsViewController
 
 @synthesize dateRangeTableView, currenciesTableView;
@@ -53,7 +55,7 @@
 			dateRangeDictionary = [[NSMutableDictionary alloc] init];			
 		}
 		
-		NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"dateRangeDictionary"];
+		NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"statisticsCurrenciesList"];
 		NSMutableDictionary *savedCurrencies = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
 		if (savedCurrencies)
 			currenciesList = [savedCurrencies retain];
@@ -90,6 +92,29 @@
 	
 	UINavigationController *graphNavigation = [[UINavigationController alloc] initWithRootViewController:graphView];
 	[graphNavigation setNavigationBarHidden:YES];
+	
+	if (![currenciesList count]) 
+	{
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie sa aveti macar o moneda de referinta" title:@"Atentie"];
+		return;
+	}
+	NSString *startDateString = [dateRangeDictionary objectForKey:@"startDate"];				
+	if (![startDateString length])
+	{
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie sa selectati o data de start" title:@"Atentie"];		
+		return;		
+	}
+	NSString *endDateString = [dateRangeDictionary objectForKey:@"endDate"];	
+	if (![endDateString length])
+	{
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie sa selectati o data de final" title:@"Atentie"];		
+		return;	
+	}
+
+	[graphView setPlots:currenciesList];
+	[graphView setStartDate:[DateFormat dateFromNormalizedString:startDateString]];
+	[graphView setEndDate:[DateFormat dateFromNormalizedString:endDateString]];	
+	
 	[self.navigationController presentModalViewController:graphNavigation animated:YES];
 	
 	[graphNavigation release];
@@ -104,7 +129,7 @@
 	 [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 	 
 	 //initialize and place tableView
-	 CGRect f1 = CGRectMake(0.0, 20.0, 320, 100);
+	 CGRect f1 = CGRectMake(0.0, 10.0, 320, 100);
 	 dateRangeTableView = [[UITableView alloc] initWithFrame:f1 style:UITableViewStyleGrouped];
 	 dateRangeTableView.delegate = self;
 	 dateRangeTableView.dataSource = self;
@@ -113,12 +138,12 @@
 	 dateRangeTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	 [self.view addSubview:dateRangeTableView];
 	 
-	 CGRect f2 = CGRectMake(0.0, 120.0, 320, 180);
+	 CGRect f2 = CGRectMake(0.0, 115.0, 320, 187);
 	 currenciesTableView = [[UITableView alloc] initWithFrame:f2 style:UITableViewStyleGrouped];
 	 currenciesTableView.delegate = self;
 	 currenciesTableView.dataSource = self;
 	 currenciesTableView.autoresizesSubviews = YES;
-	 currenciesTableView.scrollEnabled=NO;
+	 currenciesTableView.scrollEnabled=YES;
 	 currenciesTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	 [self.view addSubview:currenciesTableView];	 
 	 
@@ -369,7 +394,13 @@
 				break;
 		}
 	}
-	
+	else if (tableView == currenciesTableView)
+	{
+		if (currenciesTableView.editing && indexPath.row==0)
+		{
+			[self addNewCurrencyAction];
+		}
+	}
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -393,23 +424,25 @@
 	if (editingStyle == UITableViewCellEditingStyleInsert)
 	{
 		NSLog(@"Add new tax action");		
-//		[self addNewCurrencyAction];
+		[self addNewCurrencyAction];
 	}
 	
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		NSLog(@"Delete the cell");
 		// Animate the deletion from the table.
-//		[tableDataSource removeObjectAtIndex:indexPath.row-1];	
+		[currenciesList removeObjectAtIndex:indexPath.row-1];	
 	}
 	[currenciesTableView reloadData];
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
-{
-	NSLog(@"Edit existing tax action");		
-	CurrencyItem *ci = [currenciesList objectAtIndex:indexPath.row];
-//		[self addNewCurrencyAction];	
-}
 
+-(void) addNewCurrencyAction
+{
+	CurrencyPickerViewController *pickerView = [[CurrencyPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+	[pickerView setIsPushed:YES];			
+	[pickerView setParent:self];
+	[self.navigationController pushViewController:pickerView animated:YES];
+	[pickerView release];
+}
 
 @end

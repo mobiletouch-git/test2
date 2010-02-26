@@ -119,6 +119,10 @@
 	
 	NSString *sDate = [dict valueForKey:@"startDate"];
 	NSString *eDate = [dict valueForKey:@"endDate"];
+	
+	[datePicker setMinimumDate:[DateFormat dateFromNormalizedString:@"01-01-2009"]];
+	[datePicker setMaximumDate:todayDate];
+	
 	if ([editingValue isEqualToString:@"startDate"])
 		if (eDate)
 		{

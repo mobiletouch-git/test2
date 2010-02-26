@@ -15,6 +15,7 @@
 
 +(NSString *) getStringFromDate: (NSDate *) theDate;
 +(NSMutableArray *) getCurrenciesForDate: (NSDate *) specificDate;
++(NSMutableArray *) getDataForInterval: (NSDate *) startDate endDate:(NSDate *) endDate currencyName: (NSString *) currencyName;
 +(NSDate *) getValidBankingDayForDay: (NSDate *) someDate;
 +(double) getBaseValueForConverterItem: (ConverterItem *) converterItem; 
 +(CurrencyItem *) findCurrencyNamed: (NSString *)currencyName inArray: (NSArray *) anArray;

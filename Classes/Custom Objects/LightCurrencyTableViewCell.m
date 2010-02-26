@@ -80,7 +80,7 @@
 	[currencyFlagImageView setFrame:CGRectMake(30,5,32,32)];
 	[currencyShortNameLabel setFrame:CGRectMake(70,12,40,20)];	
 	[multiplierLabel setFrame:CGRectMake(115,15,30,20)];	
-	[currencyFullNameLabel setFrame:CGRectMake(155,14,155,20)];	
+	[currencyFullNameLabel setFrame:CGRectMake(135,14,155,20)];	
 }
 
 -(void) enterEditMode: (BOOL) yesOrNo
@@ -100,6 +100,8 @@
 		[currencyFullNameLabel setHidden:NO];
 	}
 }
+
+
 
 @end
 

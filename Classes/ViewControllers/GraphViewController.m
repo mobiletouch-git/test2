@@ -8,14 +8,24 @@
 
 #import "GraphViewController.h"
 #import "UIFactory.h"
+#import "InfoValutarAPI.h"
+#import "Currency.h"
+#import "DateFormat.h"
+#import "CurrencyItem.h"
 
 @implementation GraphViewController
 
 @synthesize graphView;
+@synthesize plots, startDate, endDate;
 
 - (void)dealloc {
 	[graphView release];
 	graphView = nil;
+	
+	[plots release];
+	[startDate release];
+	[endDate release];
+	[totalDays release];
 	
     [super dealloc];
 }
@@ -25,9 +35,33 @@
 - (void)loadView {
 	
 	self.graphView = [[S7GraphView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
 	self.view = self.graphView;
 	self.graphView.dataSource = self;
-
+	
+	plotsValues = [[NSMutableArray alloc] initWithCapacity:[plots count]];
+	for (int i=0;i<[plots count];i++)
+	{
+		CurrencyItem *ci = [plots objectAtIndex:i];
+		NSMutableArray *results = [InfoValutarAPI getDataForInterval:startDate endDate:endDate currencyName:ci.currencyName];
+		NSLog(@"Count for currency %d", [results count]);
+		[plotsValues addObject:results];
+	}
+	
+	totalDays = [[NSMutableArray alloc] init];
+	
+	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
+	[totalDays addObject:startDate];
+	
+	while (![endDate compare:nextDay] == NSOrderedSame) {
+		{
+			nextDay = [DateFormat getNextDayForDay:nextDay];
+			[totalDays addObject:nextDay];
+		}
+	}
+	
+	
+	
 	
 	UIButton *closeButton = [UIFactory newButtonWithTitle:nil 
 												   target:self
@@ -48,13 +82,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	NSLog(@"Plots %d, startDate %@, endDate %@", [plots count], startDate, endDate);
+	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
 	NSNumberFormatter *ynumberFormatter = [NSNumberFormatter new];
 	[ynumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[ynumberFormatter setMinimumFractionDigits:0];
-	[ynumberFormatter setMaximumFractionDigits:0];
+	[ynumberFormatter setMinimumFractionDigits:2];
+	[ynumberFormatter setMaximumFractionDigits:3];
 	
 	self.graphView.yValuesFormatter = ynumberFormatter;
 	
@@ -138,42 +174,56 @@
 
 - (NSUInteger)graphViewNumberOfPlots:(S7GraphView *)graphView {
 	/* Return the number of plots you are going to have in the view. 1+ */
-	return 3;
+	return [plots count];
 }
 
 - (NSArray *)graphViewXValues:(S7GraphView *)graphView {
 	/* An array of objects that will be further formatted to be displayed on the X-axis.
 	 The number of elements should be equal to the number of points you have for every plot. */
-	NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:5];
-	for ( int i = 0 ; i < 50 ; i ++ ) {
-		NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:0+i*100000];
-		[array addObject:date];	
-	}
-	return array;
+	return totalDays;
 }
 
 - (NSArray *)graphView:(S7GraphView *)graphView yValuesForPlot:(NSUInteger)plotIndex {
 	/* Return the values for a specific graph. Each plot is meant to have equal number of points.
 	 And this amount should be equal to the amount of elements you return from graphViewXValues: method. */
-	NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:101];
-	switch (plotIndex) {
-		default:
-		case 0:
-			for ( int i = 0 ; i < 50 ; i ++ ) {
-				[array addObject:[NSNumber numberWithInt:i*i]];	// y = x*x		
+	NSMutableArray *array = [[NSMutableArray alloc] init];
+	NSArray *valuesForPlot = [plotsValues objectAtIndex:plotIndex];
+	
+	int counter = 0;
+	
+	for (int i=0; i <[totalDays count] && counter<[valuesForPlot count];i++)
+	{
+		Currency *managed = [valuesForPlot objectAtIndex:counter];
+
+		NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
+		NSDate *dateInCalendar = [totalDays objectAtIndex:i];
+		
+		NSString *valueString = [managed valueForKey:@"currencyValue"];
+		float dblValue = [valueString floatValue];
+		NSNumber *numberToAdd = [NSNumber numberWithFloat:dblValue];
+		
+		if ([dateForEntry compare:dateInCalendar] == NSOrderedSame)
+		{
+			[array addObject:numberToAdd];		
+			counter+=1;
+		}
+		else if ([dateForEntry compare:dateInCalendar] == NSOrderedDescending)
+		{
+
+			if (![array count] || ([[array lastObject] compare:[NSNumber numberWithFloat:0.0]] == NSOrderedSame))
+			{
+				NSNumber *numberToAdd = [NSNumber numberWithFloat:0.0];
+				[array addObject:numberToAdd];							
 			}
-			break;
-		case 1:
-			for ( int i = 0 ; i < 50 ; i ++ ) {
-				[array addObject:[NSNumber numberWithInt:i*i+i*i]];	// y = x*x+x*x				
+			else {
+				[array addObject:numberToAdd];							
 			}
-			break;
-		case 2:
-			for ( int i = 0 ; i < 50 ; i ++ ) {
-				[array addObject:[NSNumber numberWithInt:i*i+i*i+i*i]];	// y = x*x*x				
-			}
-			break;			
+
+			
+		}		
 	}
+
+	NSLog(@"First object %f last object %f", [[array objectAtIndex:0] floatValue], [[array lastObject] floatValue]);
 	
 	return array;
 }

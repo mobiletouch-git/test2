@@ -68,7 +68,6 @@
 		7DBF9401111309C60042CD97 /* ErrorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF93FF111309C60042CD97 /* ErrorObject.m */; };
 		7DBF940F111309E90042CD97 /* AsyncronousResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF9405111309E90042CD97 /* AsyncronousResponse.m */; };
 		7DBF9410111309E90042CD97 /* CurrenciesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF9408111309E90042CD97 /* CurrenciesParserDelegate.m */; };
-		7DBF9411111309E90042CD97 /* DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF940A111309E90042CD97 /* DateFormat.m */; };
 		7DBF9412111309E90042CD97 /* InfoValutarAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF940C111309E90042CD97 /* InfoValutarAPI.m */; };
 		7DBF9413111309E90042CD97 /* UIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF940E111309E90042CD97 /* UIFactory.m */; };
 		7DBF941E111309F60042CD97 /* ConverterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF9415111309F60042CD97 /* ConverterViewController.m */; };
@@ -95,6 +94,7 @@
 		7DD2654D11354E4B009E9B54 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2654B11354E4B009E9B54 /* close.png */; };
 		7DD2654E11354E4B009E9B54 /* close_touch.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2654C11354E4B009E9B54 /* close_touch.png */; };
 		7DD2660111355BA6009E9B54 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2660011355BA6009E9B54 /* DatePickerViewController.m */; };
+		A590831F1137FDB800DBC952 /* DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = A590831E1137FDB800DBC952 /* DateFormat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,8 +180,6 @@
 		7DBF9406111309E90042CD97 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Classes/Utils/Constants.h; sourceTree = "<group>"; };
 		7DBF9407111309E90042CD97 /* CurrenciesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrenciesParserDelegate.h; path = Classes/Utils/CurrenciesParserDelegate.h; sourceTree = "<group>"; };
 		7DBF9408111309E90042CD97 /* CurrenciesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrenciesParserDelegate.m; path = Classes/Utils/CurrenciesParserDelegate.m; sourceTree = "<group>"; };
-		7DBF9409111309E90042CD97 /* DateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormat.h; path = Classes/Utils/DateFormat.h; sourceTree = "<group>"; };
-		7DBF940A111309E90042CD97 /* DateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormat.m; path = Classes/Utils/DateFormat.m; sourceTree = "<group>"; };
 		7DBF940B111309E90042CD97 /* InfoValutarAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoValutarAPI.h; path = Classes/Utils/InfoValutarAPI.h; sourceTree = "<group>"; };
 		7DBF940C111309E90042CD97 /* InfoValutarAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoValutarAPI.m; path = Classes/Utils/InfoValutarAPI.m; sourceTree = "<group>"; };
 		7DBF940D111309E90042CD97 /* UIFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIFactory.h; path = Classes/Utils/UIFactory.h; sourceTree = "<group>"; };
@@ -220,6 +218,8 @@
 		7DD265FF11355BA6009E9B54 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerViewController.h; path = Classes/ViewControllers/DatePickerViewController.h; sourceTree = "<group>"; };
 		7DD2660011355BA6009E9B54 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerViewController.m; path = Classes/ViewControllers/DatePickerViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InfoValutar-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InfoValutar-Info.plist"; sourceTree = "<group>"; };
+		A590831D1137FDB800DBC952 /* DateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormat.h; path = Classes/Utils/DateFormat.h; sourceTree = "<group>"; };
+		A590831E1137FDB800DBC952 /* DateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormat.m; path = Classes/Utils/DateFormat.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,8 +336,6 @@
 			children = (
 				7DBF9414111309F60042CD97 /* ConverterViewController.h */,
 				7DBF9415111309F60042CD97 /* ConverterViewController.m */,
-				7D9465FA112989A300F632B2 /* CurrencyPickerViewController.h */,
-				7D9465FB112989A300F632B2 /* CurrencyPickerViewController.m */,
 				7D94643911296E6E00F632B2 /* AddConverterItemViewController.h */,
 				7D94643A11296E6E00F632B2 /* AddConverterItemViewController.m */,
 			);
@@ -455,13 +453,13 @@
 		7DBF9402111309CB0042CD97 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A590831D1137FDB800DBC952 /* DateFormat.h */,
+				A590831E1137FDB800DBC952 /* DateFormat.m */,
 				7DBF9406111309E90042CD97 /* Constants.h */,
 				7DBF9404111309E90042CD97 /* AsyncronousResponse.h */,
 				7DBF9405111309E90042CD97 /* AsyncronousResponse.m */,
 				7DBF9407111309E90042CD97 /* CurrenciesParserDelegate.h */,
 				7DBF9408111309E90042CD97 /* CurrenciesParserDelegate.m */,
-				7DBF9409111309E90042CD97 /* DateFormat.h */,
-				7DBF940A111309E90042CD97 /* DateFormat.m */,
 				7DBF940B111309E90042CD97 /* InfoValutarAPI.h */,
 				7DBF940C111309E90042CD97 /* InfoValutarAPI.m */,
 				7DBF940D111309E90042CD97 /* UIFactory.h */,
@@ -473,6 +471,8 @@
 		7DBF9403111309D30042CD97 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7D9465FA112989A300F632B2 /* CurrencyPickerViewController.h */,
+				7D9465FB112989A300F632B2 /* CurrencyPickerViewController.m */,
 				7D136E551122D57700D090AB /* Tab1 */,
 				7D136E561122D58D00D090AB /* Tab 2 */,
 				7D136E571122D59200D090AB /* Tab 3 */,
@@ -607,7 +607,6 @@
 				7DBF9401111309C60042CD97 /* ErrorObject.m in Sources */,
 				7DBF940F111309E90042CD97 /* AsyncronousResponse.m in Sources */,
 				7DBF9410111309E90042CD97 /* CurrenciesParserDelegate.m in Sources */,
-				7DBF9411111309E90042CD97 /* DateFormat.m in Sources */,
 				7DBF9412111309E90042CD97 /* InfoValutarAPI.m in Sources */,
 				7DBF9413111309E90042CD97 /* UIFactory.m in Sources */,
 				7DBF941E111309F60042CD97 /* ConverterViewController.m in Sources */,
@@ -630,6 +629,7 @@
 				7DD262CE11354C6B009E9B54 /* GraphViewController.m in Sources */,
 				7DD2660111355BA6009E9B54 /* DatePickerViewController.m in Sources */,
 				7D5D929B1137D0400087B8D2 /* S7GraphView.m in Sources */,
+				A590831F1137FDB800DBC952 /* DateFormat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

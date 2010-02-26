@@ -52,6 +52,44 @@
 		[tempTabBarItem release];
 		
 		self.title = @"Convertor";		
+		
+		NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+		[self setSelectedDate:todayDate];
+		
+		tableDataSource = [[NSMutableArray alloc] init];	
+		selectedReferenceDay = [[NSMutableArray alloc] init];	
+		
+		
+		NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterList"];
+		NSMutableArray *savedList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		if ([savedList count])
+			[tableDataSource addObjectsFromArray:savedList];
+		else
+			[self addDefaultConverterValues];
+		
+		
+		NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterReferenceItem"];
+		ConverterItem *storedReferenceItem = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
+		if (storedReferenceItem)
+			referenceItem = [storedReferenceItem retain];
+		
+		
+		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		if (validBankingDate)
+		{
+			/*
+			if (![validBankingDate isEqualToDate:[self selectedDate]])
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
+								 title:@"Atentie!"];
+			*/
+			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+			if ([selectedCurrencies count])
+				[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+		}
+		else
+			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
+		
+		
 	}
     return self;
 }
@@ -98,43 +136,7 @@
 	[self.navigationItem setLeftBarButtonItem:editButton];
 	
 	
-	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
-	[self setSelectedDate:todayDate];
-	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];
-
-	tableDataSource = [[NSMutableArray alloc] init];	
-	selectedReferenceDay = [[NSMutableArray alloc] init];	
-	
-	
-	NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterList"];
-	NSMutableArray *savedList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-	if ([savedList count])
-		[tableDataSource addObjectsFromArray:savedList];
-	else
-		[self addDefaultConverterValues];
-	
-	
-	NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterReferenceItem"];
-	ConverterItem *storedReferenceItem = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
-	if (storedReferenceItem)
-		referenceItem = [storedReferenceItem retain];
-
-	
-	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
-	if (validBankingDate)
-	{
-		if (![validBankingDate isEqualToDate:[self selectedDate]])
-			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-							 title:@"Atentie!"];
-
-		NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
-		if ([selectedCurrencies count])
-			[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
-	}
-	else
-		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
-	
-	
+		
 	//initialize and place tableView
 	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
 	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
@@ -145,6 +147,7 @@
 	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	[self.view addSubview:myTableView];
 	
+	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];	
 	titleButton = [[UIButton alloc] initWithFrame:CGRectMake(60,10,160,30)];
 	titleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	titleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
