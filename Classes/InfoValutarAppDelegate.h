@@ -34,6 +34,8 @@
 	
 	UITabBarController *tabBarController;
 	
+	NSDictionary *currencyFullDictionary;	
+	
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -55,6 +57,7 @@
 @property (nonatomic, retain) UINavigationController *infoNavigationController;	
 
 @property (nonatomic, retain) UITabBarController *tabBarController;
+@property (nonatomic, retain) NSDictionary *currencyFullDictionary;	
 
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;

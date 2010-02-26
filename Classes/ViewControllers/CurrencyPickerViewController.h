@@ -15,7 +15,6 @@
 	UIBarButtonItem *cancelButton;	
 	id parent;
 	BOOL isPushed;
-	NSDictionary *currencyFullDictionary;
 }
 
 @property (nonatomic, retain)	id parent;

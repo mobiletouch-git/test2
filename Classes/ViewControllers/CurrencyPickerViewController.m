@@ -21,7 +21,6 @@
 	
 	[tableDataSource release];
 	[parent release];
-	[currencyFullDictionary release];
 	
     [super dealloc];
 }
@@ -54,11 +53,6 @@
 												   action:@selector(cancelAction)];
 	[self.navigationItem setLeftBarButtonItem:cancelButton];
 	
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
-	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];
-	
-	if (fullList)
-		currencyFullDictionary = [fullList retain];
 }
 
 -(void) cancelAction
@@ -143,7 +137,7 @@
 
 	if (currencyObject)
 	{
-		NSString *fullNameCurrency = [currencyFullDictionary valueForKey:[currencyObject currencyName]];		
+		NSString *fullNameCurrency = [[appDelegate currencyFullDictionary] valueForKey:[currencyObject currencyName]];		
 		
 		[cell setCurrencyImageName:[NSString stringWithFormat:@"%@.png",[currencyObject currencyName] ]  
 					  currencyName:[currencyObject currencyName] 

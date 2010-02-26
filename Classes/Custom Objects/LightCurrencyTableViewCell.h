@@ -21,5 +21,6 @@
 				currencyName: (NSString *) theName
 			 multiplierValue: (NSString *) theMValue
 					fullName: (NSString *) fullNameValue;
-
+-(void) enterGroupEditState;
+-(void) enterEditMode: (BOOL) yesOrNo;
 @end

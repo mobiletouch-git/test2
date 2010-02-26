@@ -12,6 +12,8 @@
 @interface AddConverterItemViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 
 	CurrencyItem *selectedCurrency;
+
+	UITableView *oneRowTableView;	
 	UITableView *myTableView;
 	NSMutableArray *taxesArray;
 

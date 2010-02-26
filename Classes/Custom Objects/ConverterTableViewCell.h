@@ -22,6 +22,7 @@
 
 -(void) setConverterItem: (ConverterItem *) aConverter;
 -(void) setEditing: (BOOL) yesOrNo;
--(float) computeOffsetForCellInArray: (NSArray *) cells;
+-(float) computeOffsetForCellInArray: (NSArray *) cells
+						  dataSource: (NSArray *) tableDataSource;
 
 @end

@@ -20,8 +20,7 @@
 	UIButton *minusSignButton;	
 	UIBarButtonItem *saveButton;		
 	UITableView *oneRowTableView;
-	
-	BOOL signSelected;
+
 }
 
 @property (nonatomic, retain) AdditionFactorItem *additionFactor;

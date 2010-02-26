@@ -203,8 +203,6 @@
 
 -(void) plusAction
 {
-	[saveButton setEnabled:YES];
-	signSelected = YES;
 	NSLog(@"Plus selected");
 	[plusSignButton removeFromSuperview];
 	[plusSignButton setBackgroundImage:[UIImage imageNamed:@"edit_add_pressed.png"]  forState:UIControlStateNormal];
@@ -220,8 +218,6 @@
 
 -(void) minusAction
 {
-	[saveButton setEnabled:YES];	
-	signSelected = YES;	
 	NSLog(@"Minus selected");	
 	[minusSignButton removeFromSuperview];
 	[minusSignButton setBackgroundImage:[UIImage imageNamed:@"edit_remove_pressed.png"]  forState:UIControlStateNormal];
@@ -341,7 +337,7 @@
 
 
 - (void) text1DidChange:(NSNotification *)note {
-	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && signSelected)
+	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length])
 		[saveButton  setEnabled:YES];
 	else
 		[saveButton  setEnabled:NO];
@@ -350,7 +346,7 @@
 	[oneRowTableView reloadData];	
 }
 - (void) text2DidChange:(NSNotification *)note {
-	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && signSelected)
+	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length])
 		[saveButton  setEnabled:YES];
 	else
 		[saveButton  setEnabled:NO];

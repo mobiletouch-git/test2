@@ -48,6 +48,7 @@
 		7D41712111131435002A0D0C /* ZAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D41710211131435002A0D0C /* ZAR.png */; };
 		7D41714411131595002A0D0C /* InfoValutar.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7D41714311131595002A0D0C /* InfoValutar.sqlite */; };
 		7D41718A11131780002A0D0C /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D41718911131780002A0D0C /* Currency.m */; };
+		7D5D929B1137D0400087B8D2 /* S7GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5D92991137D0400087B8D2 /* S7GraphView.m */; };
 		7D685FAC112A7E7F003B00B7 /* TaxesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D685FAB112A7E7F003B00B7 /* TaxesViewController.m */; };
 		7D685FAF112A7FC8003B00B7 /* edit_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D685FAD112A7FC8003B00B7 /* edit_add.png */; };
 		7D685FB0112A7FC8003B00B7 /* edit_remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D685FAE112A7FC8003B00B7 /* edit_remove.png */; };
@@ -88,6 +89,12 @@
 		7DC5FB4A112D7A9B002422E6 /* CurrencyNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DC5FB49112D7A9B002422E6 /* CurrencyNames.plist */; };
 		7DC5FB4D112D7CF8002422E6 /* LightCurrencyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5FB4C112D7CF8002422E6 /* LightCurrencyTableViewCell.m */; };
 		7DC5FE33112D8903002422E6 /* LightConverterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5FE32112D8903002422E6 /* LightConverterTableViewCell.m */; };
+		7DD262CA11354BD7009E9B54 /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD262C811354BD7009E9B54 /* blueButton.png */; };
+		7DD262CB11354BD7009E9B54 /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD262C911354BD7009E9B54 /* whiteButton.png */; };
+		7DD262CE11354C6B009E9B54 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD262CD11354C6B009E9B54 /* GraphViewController.m */; };
+		7DD2654D11354E4B009E9B54 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2654B11354E4B009E9B54 /* close.png */; };
+		7DD2654E11354E4B009E9B54 /* close_touch.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2654C11354E4B009E9B54 /* close_touch.png */; };
+		7DD2660111355BA6009E9B54 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2660011355BA6009E9B54 /* DatePickerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +143,9 @@
 		7D41714311131595002A0D0C /* InfoValutar.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = InfoValutar.sqlite; path = Resources/InfoValutar.sqlite; sourceTree = "<group>"; };
 		7D41718811131780002A0D0C /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Currency.h; path = "Classes/Data Model/Currency.h"; sourceTree = "<group>"; };
 		7D41718911131780002A0D0C /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Currency.m; path = "Classes/Data Model/Currency.m"; sourceTree = "<group>"; };
+		7D5D92981137D0400087B8D2 /* S7GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S7GraphView.h; path = Classes/Utils/S7GraphView.h; sourceTree = "<group>"; };
+		7D5D92991137D0400087B8D2 /* S7GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S7GraphView.m; path = Classes/Utils/S7GraphView.m; sourceTree = "<group>"; };
+		7D5D929A1137D0400087B8D2 /* S7Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S7Macros.h; path = Classes/Utils/S7Macros.h; sourceTree = "<group>"; };
 		7D685FAA112A7E7F003B00B7 /* TaxesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TaxesViewController.h; path = Classes/ViewControllers/TaxesViewController.h; sourceTree = "<group>"; };
 		7D685FAB112A7E7F003B00B7 /* TaxesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TaxesViewController.m; path = Classes/ViewControllers/TaxesViewController.m; sourceTree = "<group>"; };
 		7D685FAD112A7FC8003B00B7 /* edit_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = edit_add.png; path = Resources/edit_add.png; sourceTree = "<group>"; };
@@ -201,6 +211,14 @@
 		7DC5FB4C112D7CF8002422E6 /* LightCurrencyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightCurrencyTableViewCell.m; path = "Classes/Custom Objects/LightCurrencyTableViewCell.m"; sourceTree = "<group>"; };
 		7DC5FE31112D8903002422E6 /* LightConverterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightConverterTableViewCell.h; path = "Classes/Custom Objects/LightConverterTableViewCell.h"; sourceTree = "<group>"; };
 		7DC5FE32112D8903002422E6 /* LightConverterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightConverterTableViewCell.m; path = "Classes/Custom Objects/LightConverterTableViewCell.m"; sourceTree = "<group>"; };
+		7DD262C811354BD7009E9B54 /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButton.png; path = Resources/blueButton.png; sourceTree = "<group>"; };
+		7DD262C911354BD7009E9B54 /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteButton.png; path = Resources/whiteButton.png; sourceTree = "<group>"; };
+		7DD262CC11354C6B009E9B54 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphViewController.h; path = Classes/ViewControllers/GraphViewController.h; sourceTree = "<group>"; };
+		7DD262CD11354C6B009E9B54 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphViewController.m; path = Classes/ViewControllers/GraphViewController.m; sourceTree = "<group>"; };
+		7DD2654B11354E4B009E9B54 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = Resources/close.png; sourceTree = "<group>"; };
+		7DD2654C11354E4B009E9B54 /* close_touch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_touch.png; path = Resources/close_touch.png; sourceTree = "<group>"; };
+		7DD265FF11355BA6009E9B54 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerViewController.h; path = Classes/ViewControllers/DatePickerViewController.h; sourceTree = "<group>"; };
+		7DD2660011355BA6009E9B54 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerViewController.m; path = Classes/ViewControllers/DatePickerViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InfoValutar-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InfoValutar-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,6 +282,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DD2654B11354E4B009E9B54 /* close.png */,
+				7DD2654C11354E4B009E9B54 /* close_touch.png */,
+				7DD262C811354BD7009E9B54 /* blueButton.png */,
+				7DD262C911354BD7009E9B54 /* whiteButton.png */,
 				7DC5FAD7112D7381002422E6 /* accessory_disclosure.png */,
 				7D686B0F112AD7FB003B00B7 /* checkmarkYES.png */,
 				7D6865CB112AAA24003B00B7 /* edit_add_pressed.png */,
@@ -325,8 +347,13 @@
 		7D136E571122D59200D090AB /* Tab 3 */ = {
 			isa = PBXGroup;
 			children = (
+				7DD262D111354C97009E9B54 /* S7GraphViewShared */,
 				7DBF941A111309F60042CD97 /* StatisticsViewController.h */,
 				7DBF941B111309F60042CD97 /* StatisticsViewController.m */,
+				7DD265FF11355BA6009E9B54 /* DatePickerViewController.h */,
+				7DD2660011355BA6009E9B54 /* DatePickerViewController.m */,
+				7DD262CC11354C6B009E9B54 /* GraphViewController.h */,
+				7DD262CD11354C6B009E9B54 /* GraphViewController.m */,
 			);
 			name = "Tab 3";
 			sourceTree = "<group>";
@@ -457,6 +484,16 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		7DD262D111354C97009E9B54 /* S7GraphViewShared */ = {
+			isa = PBXGroup;
+			children = (
+				7D5D92981137D0400087B8D2 /* S7GraphView.h */,
+				7D5D92991137D0400087B8D2 /* S7GraphView.m */,
+				7D5D929A1137D0400087B8D2 /* S7Macros.h */,
+			);
+			name = S7GraphViewShared;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -548,6 +585,10 @@
 				7D686B10112AD7FB003B00B7 /* checkmarkYES.png in Resources */,
 				7DC5FAD8112D7381002422E6 /* accessory_disclosure.png in Resources */,
 				7DC5FB4A112D7A9B002422E6 /* CurrencyNames.plist in Resources */,
+				7DD262CA11354BD7009E9B54 /* blueButton.png in Resources */,
+				7DD262CB11354BD7009E9B54 /* whiteButton.png in Resources */,
+				7DD2654D11354E4B009E9B54 /* close.png in Resources */,
+				7DD2654E11354E4B009E9B54 /* close_touch.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,6 +627,9 @@
 				7D686BB4112ADC36003B00B7 /* LightTaxTableViewCell.m in Sources */,
 				7DC5FB4D112D7CF8002422E6 /* LightCurrencyTableViewCell.m in Sources */,
 				7DC5FE33112D8903002422E6 /* LightConverterTableViewCell.m in Sources */,
+				7DD262CE11354C6B009E9B54 /* GraphViewController.m in Sources */,
+				7DD2660111355BA6009E9B54 /* DatePickerViewController.m in Sources */,
+				7D5D929B1137D0400087B8D2 /* S7GraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

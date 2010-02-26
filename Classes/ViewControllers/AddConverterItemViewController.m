@@ -21,6 +21,10 @@
 @synthesize selectedCurrency, additionList;
 
 - (void)dealloc {
+	
+	[oneRowTableView release];
+	[myTableView release];
+	
 	[doneButton release];
 	[cancelButton release];
 	[addButton release];
@@ -90,14 +94,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-	[myTableView deselectRowAtIndexPath:[myTableView indexPathForSelectedRow] animated:YES];
+	[oneRowTableView deselectRowAtIndexPath:[oneRowTableView indexPathForSelectedRow] animated:YES];
 	if (self.selectedCurrency)
 		[doneButton setEnabled:YES];
 }
 
 -(void) refresh
 {
-	[myTableView reloadData];
+	[oneRowTableView reloadData];
 }
 
 
@@ -109,9 +113,20 @@
 	
 	additionList = [[NSMutableArray alloc] init];
 	
+	CGRect tableView1Frame = CGRectMake(0.0, 0.0, 320, 130);
+	oneRowTableView = [[UITableView alloc] initWithFrame:tableView1Frame style:UITableViewStyleGrouped];
+	oneRowTableView.delegate = self;
+	oneRowTableView.dataSource = self;
+	oneRowTableView.autoresizesSubviews = YES;
+	oneRowTableView.scrollEnabled=YES;
+	[oneRowTableView setBounces:NO];
+	oneRowTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
+	[self.view addSubview:oneRowTableView];
+	
+	
 	//initialize and place tableView
-	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
-	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStyleGrouped];
+	CGRect tableView2Frame = CGRectMake(0.0, 130.0, 320, 285);
+	myTableView = [[UITableView alloc] initWithFrame:tableView2Frame style:UITableViewStyleGrouped];
 	myTableView.delegate = self;
 	myTableView.dataSource = self;
 	myTableView.autoresizesSubviews = YES;
@@ -143,43 +158,68 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 2;
+	return 1;
+	
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+	if (tableView == oneRowTableView)
+		return 60;
+	else if (tableView == myTableView)
+		return 0;
+	return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+	if (tableView == myTableView)
+		return nil;
+	else if (tableView == oneRowTableView)
+	{
+		UIView *transparentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+		[transparentView setBackgroundColor:[UIColor clearColor]];
+		
+		UILabel *noticeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor darkGrayColor] 
+													 selectedColor:[UIColor darkGrayColor] 
+														  fontSize:14 
+															  bold:NO];
+		[noticeLabel setFrame:CGRectMake(10, 7, 300, 55)];
+		[noticeLabel setBackgroundColor:[UIColor clearColor]];
+		[noticeLabel setNumberOfLines:3];
+		[noticeLabel setText:@"Selectati din lista de mai jos taxele aplicabile monedei selectate. Taxele sunt aplicate la baza in ordinea lor in lista."];
+		
+		[transparentView addSubview:noticeLabel];
+		
+		return [transparentView autorelease];			
+	}
+	return nil;
+	
+}
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	switch (section) {
-		case 0:
-			return 1;
-			break;
-		case 1:
-			return [taxesArray count];
-			break;
-			
-		default:
-			break;
-	}
+	
+	if (tableView == oneRowTableView)
+		return 1;
+	else if (tableView == myTableView)
+		return [taxesArray count];
 	return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	switch (indexPath.section) {
-		case 0:
-			return 53;
-			break;
-		default:
-			return 44.0;			
-			break;
-	}
-	return 44.0;
+	if (tableView == oneRowTableView)
+		return 53;
+	else if (tableView == myTableView)
+		return 44;
+	return 0;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	if (indexPath.section==0)
+	if (tableView == oneRowTableView)
 	{
 		static NSString *CellIdentifier2 = @"LightConverterTableViewCell";
 		
@@ -199,7 +239,7 @@
 		return cell2;
 	}
 
-	else if (indexPath.section==1)
+	else if (tableView == myTableView)
 	{
 		static NSString *CellIdentifier = @"Cell";
 		
@@ -237,8 +277,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	switch (indexPath.section) {
-		case 0:
+	if (tableView == oneRowTableView)
 		{
 			CurrencyPickerViewController *pickerView = [[CurrencyPickerViewController alloc] initWithStyle:UITableViewStylePlain];
 			[pickerView setIsPushed:YES];			
@@ -246,8 +285,7 @@
 			[self.navigationController pushViewController:pickerView animated:YES];
 			[pickerView release];
 		}
-			break;
-		case 1:
+	else if (tableView == myTableView)
 		{
 			if ([additionList count]<=3)
 			{
@@ -258,8 +296,8 @@
 					[addF setChecked:NO];
 					[additionList removeObject:addF];
 					[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-					
 					[tableView reloadData];
+						
 					[self rearangePriorities];					
 					return;
 				}
@@ -271,19 +309,14 @@
 						[addF setChecked:YES];
 						[additionList addObject:addF];
 						[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];						
-						
 						[tableView reloadData];
+
 						[self rearangePriorities];						
 						return;
 					}
 				}
 			}
 		}
-			break;
-			
-		default:
-			break;
-	}
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -301,27 +334,23 @@
 	[taxesArray insertObject: movedObject atIndex: destinationIndexPath.row];
 	[movedObject release];
 	movedObject=nil;
-//	[self rearangePriorities];	
+
+	[NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(rearangePriorities) userInfo:nil repeats:NO];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	switch (indexPath.section) {
-		case 0:
-			return NO;
-			break;
-		case 1:
-			return YES;
-			break;
-			
-		default:
-			break;
-	}
-	return YES;
+	if (tableView == oneRowTableView)
+		return NO;
+	else if (tableView == myTableView)
+		return YES;
+	return NO;
+	
 }
 
 
 -(void) rearangePriorities
 {
+
 	NSMutableArray *arangedList = [NSMutableArray array];
 	for (int i=0;i<[taxesArray count];i++)
 	{
@@ -330,9 +359,8 @@
 			[arangedList addObject:addF];
 	}
 	[self setAdditionList:arangedList];
-	
-	[myTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]]
-					   withRowAnimation:UITableViewRowAnimationFade];						
+
+	[oneRowTableView reloadData];
 }
 
 /*

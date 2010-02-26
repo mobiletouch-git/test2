@@ -143,7 +143,7 @@
 	[textField setText:@""];
 	
 	NSArray *visCells = [NSArray arrayWithArray:[[[appDelegate converterViewController] myTableView] visibleCells]];
-	float yOffSet =	[self computeOffsetForCellInArray:visCells];
+	float yOffSet =	[self computeOffsetForCellInArray:visCells dataSource:[[appDelegate converterViewController] tableDataSource]];
 	[[[appDelegate converterViewController] editButton] setEnabled:NO];
 	[[[appDelegate converterViewController] addButton] setEnabled:NO];	
 	
@@ -153,6 +153,7 @@
 }
 
 -(float) computeOffsetForCellInArray: (NSArray *) cells
+						  dataSource: (NSArray *) tableDataSource
 {
 	float computed = 0;
 	for (int i=0; i <[cells count]; i++)
@@ -165,9 +166,23 @@
 			else if (i==1)
 				computed = 0-self.bounds.size.height;
 			else if (i>=3)
-				computed = 0+(i-2)*self.bounds.size.height;
+			{
+				int foundAtIndex = 0;
+				for (int j=0; j<[tableDataSource count];j++)
+				{
+					ConverterItem *current = [tableDataSource objectAtIndex:j];
+					if (current == self.converter)
+						foundAtIndex = j;
+				}
+
+				if (foundAtIndex>=6 && [cells count]==7)
+					computed = ((foundAtIndex-6)+(-2+i))*self.bounds.size.height;				
+				else
+					computed = (i-2)*self.bounds.size.height;
+			}
 		}
 	}
+	
 	
 	return computed;
 }

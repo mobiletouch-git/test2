@@ -25,6 +25,15 @@
     return self;
 }
 
+-(id) copyItem
+{
+	AdditionFactorItem *af = [[AdditionFactorItem alloc] init];
+	[af setFactorName:self.factorName];
+	[af setFactorSign:self.factorSign];
+	[af setFactorValue:self.factorValue];
+	[af setChecked:self.checked];
+	return [af autorelease];
+}
 
 -(NSString *) description{
 	

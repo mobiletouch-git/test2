@@ -15,7 +15,7 @@
 @synthesize currencyViewController, converterViewController, statisticsViewController, taxesViewController, infoViewController;
 @synthesize currencyNavigationController, converterNavigationController, statisticsNavigationController, taxesNavigationController, infoNavigationController;
 @synthesize tabBarController;
-
+@synthesize currencyFullDictionary;
 
 #pragma mark -
 #pragma mark Memory management
@@ -38,6 +38,7 @@
 	[taxesNavigationController release];
 	[infoNavigationController release];
 	[tabBarController release];
+	[currencyFullDictionary release];
 	
     [window release];
     [super dealloc];
@@ -140,6 +141,13 @@
 	//read tabbar Index from NSUserDefauls	
 	int selectedTabIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedTabIndex"];
 	[tabBarController setSelectedIndex:selectedTabIndex];
+	
+	
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
+	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];
+	
+	if (fullList)
+		currencyFullDictionary = [fullList retain];
 	
 }
 

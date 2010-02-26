@@ -43,3 +43,8 @@
 #define kAdd @"Adauga"
 #define kDelete @"Sterge"
 #define kAddNewTax @"Adauga taxa noua"
+#define kStartDateTitle @"Data de Start"
+#define kStartDateNotice @"Completati data de start pentru raportul care urmeaza a fi generat"
+#define kEndDateTitle @"Data de Final"
+#define kEndDateNotice @"Completati data de final pentru raportul care urmeaza a fi generat"
+

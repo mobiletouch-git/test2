@@ -9,8 +9,22 @@
 #import <UIKit/UIKit.h>
 
 
-@interface StatisticsViewController : UIViewController {
+@interface StatisticsViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource>{
 
+	UITableView *dateRangeTableView;
+	UITableView *currenciesTableView;
+	
+	NSMutableDictionary *dateRangeDictionary;
+	NSMutableArray *currenciesList;
+	
+	UIBarButtonItem *doneButton;
+	UIBarButtonItem *editButton;	
 }
+@property (nonatomic, retain) UITableView *dateRangeTableView;
+@property (nonatomic, retain) UITableView *currenciesTableView;
+@property (nonatomic, retain) NSMutableDictionary *dateRangeDictionary;
+@property (nonatomic, retain) NSMutableArray *currenciesList;
+
+-(void) addDefaultCurrencies;
 
 @end
