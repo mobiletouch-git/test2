@@ -7,7 +7,7 @@
 //
 
 #import "InfoValutarAppDelegate.h"
-
+#import "InfoValutarAPI.h"
 
 @implementation InfoValutarAppDelegate
 
@@ -57,6 +57,9 @@
 //	[converterViewController populate];
 	
 	[window addSubview:tabBarController.view];	
+	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
+	if (settingsUpdate)
+		[self checkForUpdates];
 	[window makeKeyAndVisible];
 }
 
@@ -242,6 +245,14 @@
  */
 - (NSString *)applicationDocumentsDirectory {
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+#pragma mark UpdateDatabase
+
+-(void) checkForUpdates
+{
+	[[InfoValutarAPI sharedInstance] updateDatabaseWithTimeStamp:self.globalTimeStamp
+												inViewController:currencyViewController];
 }
 
 @end

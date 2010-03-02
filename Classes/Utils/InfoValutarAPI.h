@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ConverterItem.h"
+#import "AsyncronousResponse.h"
 
-@interface InfoValutarAPI : NSObject {
+@interface InfoValutarAPI : NSObject <AsyncDelegate> {
 
 }
+
++ (InfoValutarAPI*) sharedInstance;
 
 +(NSString *) getStringFromDate: (NSDate *) theDate;
 +(NSMutableArray *) getCurrenciesForDate: (NSDate *) specificDate;
@@ -20,5 +23,10 @@
 +(NSDecimalNumber *) getBaseValueForConverterItem: (ConverterItem *) converterItem; 
 +(CurrencyItem *) findCurrencyNamed: (NSString *)currencyName inArray: (NSArray *) anArray;
 +(CurrencyItem *) getCurrencyForPriority: (NSInteger) priority inDictionary: (NSDictionary *) aDictionary;
-+(NSDate *)getUTCFormateDate:(NSDate *)theDate;
++(NSDate *)getUTCFormateDateFromDate: (NSDate *) theDate;
+
+- (void) updateDatabaseWithTimeStamp: (NSInteger) timeStmp
+					inViewController: (UIViewController *)theParentViewController;
+
+
 @end

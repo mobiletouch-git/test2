@@ -30,7 +30,7 @@
 @property (nonatomic, retain)	NSDate *selectedDate;
 
 -(UIView *) getHeaderView;
-
+-(void) pageUpdate;
 -(void) organizeTableSourceWithPriorities;
 
 @end

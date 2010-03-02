@@ -33,6 +33,7 @@
 	[editButton release];
 	[doneButton release];
 	[cancelButton release];
+	
 	[referenceItem release];
 	[tableDataSource release];
 	[selectedReferenceDay release];
@@ -124,6 +125,8 @@
 													style:UIBarButtonItemStyleBordered
 												   target:self
 												   action:@selector(cancelAction)];	
+	
+	
 	
 	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
 															   target:self
@@ -300,6 +303,9 @@
 	
 }
 
+
+
+
 -(void) editAction
 {
 	NSLog(@"Edit action");	
@@ -357,6 +363,14 @@
 	}
 	[myTableView reloadData];	
 }
+
+-(void) textEditEnded {
+	//end edit
+	[self.navigationItem setLeftBarButtonItem:editButton];
+	[self.navigationItem setRightBarButtonItem:addButton];	
+}
+
+
 
 -(void) titleButtonAction:(id) sender
 {
@@ -429,7 +443,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 53.0;
+	return 56.0;
 }
 
 // Customize the appearance of table view cells.

@@ -21,6 +21,8 @@
 	UIBarButtonItem *doneButton;
 	UIBarButtonItem *cancelButton;
 	
+
+	
 	UIButton *titleButton;
 	UIDatePicker *datePicker;
 	NSDate *selectedDate;
@@ -39,5 +41,6 @@
 @property (nonatomic, retain)	ConverterItem *referenceItem;
 
 -(void) addDefaultConverterValues;
+-(void) textEditEnded;
 
 @end

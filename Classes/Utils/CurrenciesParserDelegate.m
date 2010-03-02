@@ -47,16 +47,27 @@
 		attributes:(NSDictionary *)attributeDict
 {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	
+
 	if ([elementName isEqualToString:@"Cube"]) {
+/*
 		NSString *attribute1 = [attributeDict valueForKey:@"date"];
 		if (attribute1)
 		{
 			NSDate *normalizedDate = [DateFormat dateFromString:attribute1];
-			NSDate *utcDate = [InfoValutarAPI getUTCFormateDate:normalizedDate];
+			NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:normalizedDate];
 			[self setCurrentDate:utcDate];
 		}
-		
+*/
+
+		NSString *attribute1 = [attributeDict valueForKey:@"timestamp"];
+		if (attribute1)
+		{
+			NSDate *normalizedDate = [NSDate dateWithTimeIntervalSince1970:[attribute1 intValue]];
+			[appDelegate setGlobalTimeStamp: [attribute1 intValue]];
+			NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:normalizedDate];
+			[self setCurrentDate:utcDate];
+		}
+
     }
 	else if ([elementName isEqualToString:@"Rate"]) {
 		
@@ -137,8 +148,7 @@
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			abort();
 		}	
-		
-		
+
 		[currReference release];
 		currReference=nil;
     }
@@ -158,7 +168,7 @@
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
-	appDelegate.globalTimeStamp = 1262303999;
+	NSLog(@"Last update %d", [appDelegate globalTimeStamp]);
 }
 
 @end

@@ -120,9 +120,10 @@
 	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
 	[totalDays addObject:startDate];
 	
-	while (![endDate compare:nextDay] == NSOrderedSame) {
+	while ((![endDate compare:nextDay] == NSOrderedSame) || [endDate compare:nextDay] == NSOrderedDescending) {
 		{
 			nextDay = [DateFormat getNextDayForDay:nextDay];
+			nextDay = [InfoValutarAPI getUTCFormateDateFromDate:nextDay];
 			[totalDays addObject:nextDay];
 		}
 	}
@@ -215,8 +216,8 @@
 	{
 		Currency *managed = [valuesForPlot objectAtIndex:counter];
 
-		NSDate *dateForEntry = [InfoValutarAPI getUTCFormateDate:[managed valueForKey:@"currencyDate"]];
-		NSDate *dateInCalendar = [InfoValutarAPI getUTCFormateDate:[totalDays objectAtIndex:i]];
+		NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
+		NSDate *dateInCalendar = [totalDays objectAtIndex:i];
 		
 		NSString *valueString = [managed valueForKey:@"currencyValue"];
 		float dblValue = [valueString floatValue];

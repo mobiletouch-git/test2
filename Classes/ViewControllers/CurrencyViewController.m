@@ -87,6 +87,19 @@
 
 	[self.navigationItem setLeftBarButtonItem:editButton];
 	
+	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+	NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
+	[self setSelectedDate:utcDate];
+	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];	
+	
+	// initialization side for the current day
+	
+	previousReferenceDay = [[NSMutableArray alloc] init];	
+	tableDataSource = [[NSMutableArray alloc] init];	
+	
+	[tableDataSource removeAllObjects];
+	[previousReferenceDay removeAllObjects];	
+	
 	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
 	if (!settingsUpdate)
 	{
@@ -95,47 +108,17 @@
 																		target:self
 																		action:@selector(updateAction)];	
 		[self.navigationItem setRightBarButtonItem:updateButton];
+		[self pageUpdate];		
 	}
 	else
+	{
 		updateButton = nil;
+	}
 	
 	
 	transparentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
 	[transparentView setBackgroundColor:[UIColor clearColor]];	
 	
-	// initialization side for the current day
-	
-	previousReferenceDay = [[NSMutableArray alloc] init];	
-	tableDataSource = [[NSMutableArray alloc] init];	
-	
-	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
-	[self setSelectedDate:todayDate];
-	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];
-	
-	[tableDataSource removeAllObjects];
-	[previousReferenceDay removeAllObjects];
-	
-	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
-
-	if (validBankingDate)
-	{
-		if (![validBankingDate isEqualToDate:[self selectedDate]])
-			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-							 title:@"Atentie!"];
-		
-		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
-		
-		NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
-		NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
-		if (validBankingDate2)
-			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
-		else
-			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
-		
-		[self organizeTableSourceWithPriorities];
-	}
-	else
-		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];
 	
 	//initialize and place tableView
 	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
@@ -184,7 +167,7 @@
 
 -(void) updateAction
 {
-	
+	[appDelegate checkForUpdates];
 }
 
 
@@ -195,12 +178,44 @@
 	[datePicker setHidden:NO];		
 }
 
+-(void) pageUpdate
+{
+	
+	[tableDataSource removeAllObjects];
+	[previousReferenceDay removeAllObjects];
+	
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+	
+	if (validBankingDate)
+	{
+		if (![validBankingDate isEqualToDate:[self selectedDate]])
+			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
+							 title:@"Atentie!"];
+		
+		
+		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
+		
+		NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
+		NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
+		if (validBankingDate2)
+			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
+		else
+			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
+		
+		[self organizeTableSourceWithPriorities];
+		[myTableView reloadData];
+	}
+	else
+		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];
+}
+
 -(void) doneAction
 {
 	if (!datePicker.hidden)
 	{
 		NSDate *selDate = [DateFormat normalizeDateFromDate:[datePicker date]];
-		[self setSelectedDate:selDate];
+		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:selDate];
+		[self setSelectedDate:utcDate];
 		[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
 		
 		[self.navigationItem setLeftBarButtonItem:editButton];

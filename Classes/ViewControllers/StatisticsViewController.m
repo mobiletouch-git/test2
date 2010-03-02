@@ -14,6 +14,7 @@
 #import "LightCurrencyTableViewCell.h"
 #import "CurrencyPickerViewController.h" 
 #import "DateFormat.h"
+#import "InfoValutarAPI.h"
 
 @implementation StatisticsViewController
 
@@ -112,8 +113,11 @@
 	}
 
 	[graphView setPlots:currenciesList];
-	[graphView setStartDate:[DateFormat dateFromNormalizedString:startDateString]];
-	[graphView setEndDate:[DateFormat dateFromNormalizedString:endDateString]];	
+	
+	NSDate *utcStartDate = [InfoValutarAPI getUTCFormateDateFromDate:[DateFormat dateFromNormalizedString:startDateString]];
+	[graphView setStartDate: utcStartDate];
+	NSDate *utcEndDate = [InfoValutarAPI getUTCFormateDateFromDate:[DateFormat dateFromNormalizedString:endDateString]];
+	[graphView setEndDate:utcEndDate];	
 	
 	[self.navigationController presentModalViewController:graphNavigation animated:YES];
 	

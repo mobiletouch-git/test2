@@ -14,10 +14,13 @@
 
 @implementation ConverterTableViewCell
 
-@synthesize converter;
+@synthesize converter, oldValue;
 
 
 - (void)dealloc {
+	[currencyFormatter release];
+	[doneButton release];
+	[cancelButton release];
 	[converter release];
 	[converterFlagImageView release];
 	[converterValueTextField release];
@@ -41,13 +44,13 @@
 		[self addSubview:converterNameLabel];	
 		
 		converterAdditionLabel = [UIFactory newLabelWithPrimaryColor:[UIColor grayColor] selectedColor:[UIColor whiteColor] fontSize:15 bold:YES];
-		[converterAdditionLabel setFrame:CGRectMake(50,30,175,20)];
+		[converterAdditionLabel setFrame:CGRectMake(50,30,125,15)];
 		[converterAdditionLabel setTextAlignment:UITextAlignmentLeft];		
 		converterAdditionLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:converterAdditionLabel];		
 		
 		converterValueTextField = [[UITextField alloc] init];
-		[converterValueTextField setFrame:CGRectMake(230, 10, 80,35)];
+		[converterValueTextField setFrame:CGRectMake(200, 10, 110,35)];
 		converterValueTextField.borderStyle = UITextBorderStyleRoundedRect;
 		converterValueTextField.textColor = [UIColor blackColor];
 		converterValueTextField.font = [UIFont systemFontOfSize:18.0];
@@ -55,12 +58,29 @@
 		converterValueTextField.textAlignment = UITextAlignmentCenter;
 		converterValueTextField.backgroundColor = [UIColor whiteColor];
 		converterValueTextField.keyboardAppearance = UIKeyboardAppearanceDefault;
-		converterValueTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+		converterValueTextField.keyboardType = UIKeyboardTypeNumberPad;
 		converterValueTextField.returnKeyType = UIReturnKeyDone;	
 		converterValueTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 		[converterValueTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 //		converterValueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;	// has a clear 'x' button to the right
 		[self addSubview:converterValueTextField];
+		
+		
+		
+		doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
+														  style:UIBarButtonItemStyleDone
+														 target:self 
+														 action:@selector(doneAction)];
+		cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
+															style:UIBarButtonItemStyleBordered
+														   target:self
+														   action:@selector(cancelAction)];
+		
+		currencyFormatter = [[NSNumberFormatter alloc] init];
+		[currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+		[currencyFormatter setCurrencySymbol:@""];
+		[currencyFormatter setMinimumFractionDigits:2];
+		[currencyFormatter setMaximumFractionDigits:2];
 		
     }
     return self;
@@ -96,12 +116,12 @@
 	{
 		[converterAdditionLabel setHidden:NO];		
 		[converterAdditionLabel setText:additionString];
-		[converterNameLabel setFrame:CGRectMake(50,5,175,30)];		
+		[converterNameLabel setFrame:CGRectMake(50,5,125,30)];		
 	}
 	else
 	{
 		[converterAdditionLabel setHidden:YES];
-		[converterNameLabel setFrame:CGRectMake(50,12,175,30)];				
+		[converterNameLabel setFrame:CGRectMake(50,12,125,30)];				
 	}
 
 	if ([self.converter converterValue])
@@ -123,36 +143,68 @@
 	{
 		[converterFlagImageView	setFrame:CGRectMake(60,converterFlagImageView.frame.origin.y,32,32)];
 		[converterNameLabel setFrame:CGRectMake(100,converterNameLabel.frame.origin.y,175,30)];
-		[converterAdditionLabel setFrame:CGRectMake(100,converterAdditionLabel.frame.origin.y,175,20)];				
+		[converterAdditionLabel setFrame:CGRectMake(100,converterAdditionLabel.frame.origin.y,125,20)];				
 		[converterValueTextField setHidden:YES]; 
 	}
 	else
 	{
 		[converterFlagImageView	setFrame:CGRectMake(10,converterFlagImageView.frame.origin.y,32,32)];
 		[converterNameLabel setFrame:CGRectMake(50,converterNameLabel.frame.origin.y,175,30)];
-		[converterAdditionLabel setFrame:CGRectMake(50,converterAdditionLabel.frame.origin.y,175,20)];		
+		[converterAdditionLabel setFrame:CGRectMake(50,converterAdditionLabel.frame.origin.y,125,20)];		
 		[converterValueTextField setHidden:NO]; 
 	}
 
+}
+
+- (void)scrollCellToCenterOfScreen:(UIView *)theView {
+	
+	UITableView *myTable = [[appDelegate converterViewController] myTableView];
+	UITableViewCell *myCell = (UITableViewCell *) [theView superview];
+	
+	int index = [myTable indexPathForCell:myCell].row;
+	
+	float cellHeight = myCell.frame.size.height;
+	
+	
+	CGFloat viewCenterY = index * cellHeight + cellHeight / 2;
+	
+	CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
+	
+	CGFloat availableHeight = applicationFrame.size.height - 216;	// Remove area covered by keyboard 216 || 80
+	
+	CGFloat y = viewCenterY - availableHeight / 2.0;
+	if (y < 0) {
+		y = 0;
+	}
+	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, y) animated:YES];
 }
 
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-	[textField setText:@""];
+	//[[appDelegate converterViewController] editMode:YES]
+	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:cancelButton];
+	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:doneButton];
 	
-	NSArray *visCells = [NSArray arrayWithArray:[[[appDelegate converterViewController] myTableView] visibleCells]];
-	float yOffSet =	[self computeOffsetForCellInArray:visCells dataSource:[[appDelegate converterViewController] tableDataSource]];
+	[self setOldValue:textField.text];
+	[textField setText:@"0.00"];
+	
+
+
 	[[[appDelegate converterViewController] editButton] setEnabled:NO];
 	[[[appDelegate converterViewController] addButton] setEnabled:NO];	
 	[[[appDelegate converterViewController] titleButton] setEnabled:NO];		
 	
-	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, yOffSet) animated:YES];
+
+	[self scrollCellToCenterOfScreen:textField];
+	
+
 	
 	return YES;
 }
 
+// Deprecated
 -(float) computeOffsetForCellInArray: (NSArray *) cells
 						  dataSource: (NSArray *) tableDataSource
 {
@@ -202,8 +254,11 @@
 	NSDecimalNumber *nrFromString;
 	if (![textField.text length])
 		nrFromString = [NSDecimalNumber decimalNumberWithString:@"0"];
-	else
-		nrFromString = [NSDecimalNumber decimalNumberWithString:textField.text];
+	else {
+		NSNumber *currentNSNumber = [currencyFormatter numberFromString:textField.text];
+		NSString *currentNSString = [currentNSNumber stringValue];
+		nrFromString = [NSDecimalNumber decimalNumberWithString:currentNSString];
+		}
 	
 	[self.converter setConverterValue:nrFromString];
 	[textField resignFirstResponder];
@@ -220,8 +275,53 @@
 }
 
 - (void) textDidChange:(NSNotification *)note {
-
 }
 
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	
+	
+	//int currencyScale = [currencyFormatter maximumFractionDigits];
+	int currencyScale = 2;
+	
+	NSLog(@"%d",currencyScale);
+	
+	NSLog(@"|%@| %d %d %@",string, range.length, range.location, textField.text);
+	
+	NSNumber *currentNSNumber = [currencyFormatter numberFromString:textField.text];
+	NSString *currentNSString = [currentNSNumber stringValue];
+	
+	if (![string length]) { //Backspace pressed
+		NSDecimalNumber *currentNumber = [NSDecimalNumber decimalNumberWithString:currentNSString];
+		currentNumber = [currentNumber decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"10"]];
+		NSString *currentNumberString = [currencyFormatter stringFromNumber:currentNumber];
+		textField.text = currentNumberString;
+		return NO;
+	}
+	
+	NSDecimalNumber *currentNumber = [NSDecimalNumber decimalNumberWithString:currentNSString];
+	currentNumber = [currentNumber decimalNumberByMultiplyingByPowerOf10:currencyScale+1];
+	currentNumber = [currentNumber decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:string]];
+	currentNumber = [currentNumber decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",pow(10, currencyScale)]]];
+	
+	
+	NSString *currentNumberString = [currencyFormatter stringFromNumber:currentNumber];
+	
+	[textField setText:currentNumberString];
+	return NO;
+}
+
+- (void)doneAction {
+	[converterValueTextField resignFirstResponder];
+	[self textFieldShouldReturn:converterValueTextField];
+	[[appDelegate converterViewController] textEditEnded];
+}
+
+- (void)cancelAction {
+	[converterValueTextField setText:oldValue];
+	[converterValueTextField resignFirstResponder];
+	[self textFieldShouldReturn:converterValueTextField];
+	[[appDelegate converterViewController] textEditEnded];
+}
 
 @end

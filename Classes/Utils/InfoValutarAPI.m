@@ -11,8 +11,22 @@
 #import "Currency.h"
 #import "ConverterItem.h"
 #import "AdditionFactorItem.h"
- 
+#import "AsyncronousResponse.h"
+#import "CurrenciesParserDelegate.h"
+#import "CurrencyViewController.h"
+
+static InfoValutarAPI* INSTANCE;
+
 @implementation InfoValutarAPI
+
++ (InfoValutarAPI*) sharedInstance
+{
+	if (!INSTANCE)
+	{
+		INSTANCE = [[InfoValutarAPI alloc] init];
+	}
+	return INSTANCE;
+}
 
 +(NSString *) getStringFromDate: (NSDate *) theDate{
 	
@@ -157,20 +171,78 @@
 	return nil;
 }
 
-+(NSDate *)getUTCFormateDate:(NSDate *)theDate
++(NSDate *)getUTCFormateDateFromDate: (NSDate *) theDate
 {
-	if (theDate)
-	{
-		NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-		[dateFormatter setDateFormat:@"yyyy-MM-dd 00:00:00"];
-		[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-		
-		NSString *stringDateUTC = [dateFormatter stringFromDate:theDate];
-		NSDate *normalizedDate = [dateFormatter dateFromString:stringDateUTC];
-		
-		return normalizedDate;
-	}
-	return nil;
+	NSString *dateString = [NSString stringWithFormat:@"%@", theDate];
+
+	NSRange yearRange = {0, 4};		
+	NSRange monthRange = {5, 2};			
+	NSRange dayRange =  {8, 2};			
+	
+	NSString *yearString = [dateString substringWithRange:yearRange];
+	NSString *monthString = [dateString substringWithRange:monthRange];
+	NSString *dayString = [dateString substringWithRange:dayRange];			
+	
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	[gregorian setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+	
+	NSDateComponents *comps = [[NSDateComponents alloc] init];
+	
+	[comps setYear:[yearString intValue]];
+	[comps setMonth:[monthString intValue]];
+	[comps setDay:[dayString intValue]];
+	
+	[comps setHour:0];
+	[comps setMinute:0];
+	[comps setSecond:0];
+	
+	NSDate *date = [gregorian dateFromComponents:comps];
+	
+	[comps release];
+	[gregorian release];
+	
+	return date;
+
 }
+
+- (void) updateDatabaseWithTimeStamp: (NSInteger) timeStmp
+					inViewController: (UIViewController *)theParentViewController
+{
+	NSString *updateURL = [NSString stringWithFormat:@"http://api.mobiletouch.ro/0.2/curs-valutar/update.php?timestamp=%d", timeStmp];
+	NSLog([updateURL description]);
+	NSURL *defaultURL = [NSURL URLWithString:updateURL];
+	
+	NSURLRequest *theRequest = [NSURLRequest requestWithURL:defaultURL 
+												cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+											timeoutInterval:10];
+
+	//Initialize the delegate.
+	CurrenciesParserDelegate *parserDelegate = [[CurrenciesParserDelegate alloc] init];
+	
+	AsyncronousResponse *getCurrency = [[AsyncronousResponse alloc] initWithRequest:theRequest
+															andParentViewController:theParentViewController 
+																  andParserDelegate:parserDelegate];
+	getCurrency.delegates=self;
+	[getCurrency start];
+	[parserDelegate release];
+}
+
+#pragma mark AsyncronousResponse delegates
+-(void) freeMemory:(AsyncronousResponse *)response
+{
+	[response release];	
+}
+
+-(void) refreshDataSource: (UIViewController *) parent{
+
+	if ([parent isKindOfClass:[CurrencyViewController class]]) {
+		if([parent respondsToSelector:@selector(pageUpdate)])
+		{
+			[(CurrencyViewController *)parent pageUpdate];
+		}
+	}
+
+}
+
 
 @end

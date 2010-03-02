@@ -16,9 +16,18 @@
 	UILabel *converterNameLabel;
 	UILabel *converterAdditionLabel;	
 	UITextField *converterValueTextField;	
+	
+	UIBarButtonItem *doneButton;
+	UIBarButtonItem *cancelButton;
+	
+	NSString *oldValue;
+	
+	NSNumberFormatter *currencyFormatter;
 }
 
 @property (nonatomic, retain) ConverterItem *converter;
+@property (nonatomic, retain) NSString *oldValue;
+
 
 -(void) setConverterItem: (ConverterItem *) aConverter;
 -(void) setEditing: (BOOL) yesOrNo;

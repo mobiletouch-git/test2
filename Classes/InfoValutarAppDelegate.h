@@ -65,6 +65,7 @@
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;
 -(void) initializeLayout;
+-(void) checkForUpdates;
 
 @end
 
