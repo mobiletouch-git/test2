@@ -25,6 +25,8 @@
 - (id)init
 {
     if ((self = [super init])) {
+		
+		currency = [[CurrencyItem alloc] init];
 	}
     return self;
 }

@@ -13,7 +13,7 @@
 #import "Currency.h"
 #import "DateFormat.h"
 #import "ErrorObject.h"
-
+#import "InfoValutarAPI.h"
 
 @implementation CurrenciesParserDelegate
 
@@ -53,7 +53,8 @@
 		if (attribute1)
 		{
 			NSDate *normalizedDate = [DateFormat dateFromString:attribute1];
-			[self setCurrentDate:normalizedDate];
+			NSDate *utcDate = [InfoValutarAPI getUTCFormateDate:normalizedDate];
+			[self setCurrentDate:utcDate];
 		}
 		
     }
@@ -66,7 +67,7 @@
 		
 		NSString *attribute2 = [attributeDict valueForKey:@"multiplier"];
 		if (attribute2)
-			[currReference setMultiplierValue:attribute2];		
+			[currReference setMultiplierValue:[NSNumber numberWithInt:[attribute2 intValue]]];		
 		
 		self.contentofNode = [NSMutableString string];		
     }
@@ -113,8 +114,9 @@
     }		
 	
 	else if ([elementName isEqualToString:@"Rate"]) {
-
-		[currReference setCurrencyValue:self.contentofNode];
+		
+		NSDecimalNumber *valueNumber = [NSDecimalNumber decimalNumberWithString:self.contentofNode];
+		[currReference setCurrencyValue:valueNumber];
 		//insert the object
 		
 		Currency *newCurrency = [NSEntityDescription insertNewObjectForEntityForName:@"Currency" inManagedObjectContext:[appDelegate managedObjectContext]];		
@@ -154,6 +156,10 @@
     }
 }
 
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+	appDelegate.globalTimeStamp = 1262303999;
+}
 
 @end
 

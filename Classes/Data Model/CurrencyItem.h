@@ -12,17 +12,17 @@
 @interface CurrencyItem : NSObject {
 
 	NSString *currencyName;
-	NSString *multiplierValue;
-	NSString *currencyValue;
-	NSString *change;
+	NSNumber *multiplierValue;
+	NSDecimalNumber *currencyValue;
+	NSDecimalNumber *change;
 	NSString *sign;	
 	NSInteger priority;
 }
 
 @property (nonatomic, retain) NSString *currencyName;
-@property (nonatomic, retain) NSString *multiplierValue;
-@property (nonatomic, retain) NSString *currencyValue;
-@property (nonatomic, retain) NSString *change;
+@property (nonatomic, retain) NSNumber *multiplierValue;
+@property (nonatomic, retain) NSDecimalNumber *currencyValue;
+@property (nonatomic, retain) NSDecimalNumber *change;
 @property (nonatomic, retain) NSString *sign;	
 @property (nonatomic, assign) NSInteger priority;
 

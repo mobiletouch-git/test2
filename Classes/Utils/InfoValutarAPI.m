@@ -107,20 +107,43 @@
 	return testingDate;
 }
 
-+(double) getBaseValueForConverterItem: (ConverterItem *) converterItem
++(NSDecimalNumber *) getBaseValueForConverterItem: (ConverterItem *) converterItem
 {
-	double converterVal = [converterItem.converterValue doubleValue];
-	
+//	double converterVal = [converterItem.converterValue doubleValue];
+	NSDecimalNumber *converterVal = [converterItem converterValue];
+	NSDecimalNumber *decimal100 = [NSDecimalNumber decimalNumberWithString:@"100"];
+
 	for (int i=0;i<[converterItem.additionFactors count];i++)
 	{
 		AdditionFactorItem *af = [converterItem.additionFactors objectAtIndex:i];
 		if (af.factorSign>0)
-			converterVal = (converterVal *100)/(100+[af.factorValue doubleValue]);
-		if (af.factorSign<0)
-			converterVal = (converterVal *100)/(100-[af.factorValue doubleValue]);
+		{
+			NSDecimalNumber *deimp = [converterVal decimalNumberByMultiplyingBy:decimal100];
+			NSDecimalNumber *impar = [af.factorValue decimalNumberByAdding:decimal100];
+			converterVal = [deimp decimalNumberByDividingBy:impar];
+//			converterVal = (converterVal *100)/(100+[af.factorValue doubleValue]);
+		}
+		else if (af.factorSign<0)
+		{
+			NSDecimalNumber *deimp = [converterVal decimalNumberByMultiplyingBy:decimal100];
+			NSDecimalNumber *impar = [decimal100 decimalNumberBySubtracting:af.factorValue];
+			converterVal = [deimp decimalNumberByDividingBy:impar];
+//			converterVal = (converterVal *100)/(100-[af.factorValue doubleValue]);
+		}
 	}
 	
 	return converterVal;
+}
+
++(CurrencyItem *) getCurrencyForPriority: (NSInteger) priority inDictionary: (NSDictionary *) aDictionary
+{
+	CurrencyItem *ct = nil;
+	while (!ct && priority < [aDictionary count]){
+		ct = [aDictionary objectForKey:[NSString stringWithFormat:@"%d", priority]];
+		priority+=1;
+	}
+	
+	return ct;
 }
 
 +(CurrencyItem *) findCurrencyNamed: (NSString *)currencyName inArray: (NSArray *) anArray
@@ -130,6 +153,22 @@
 		CurrencyItem *ct = [anArray objectAtIndex:i];
 		if ([currencyName isEqualToString:ct.currencyName])
 			return ct;
+	}
+	return nil;
+}
+
++(NSDate *)getUTCFormateDate:(NSDate *)theDate
+{
+	if (theDate)
+	{
+		NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+		[dateFormatter setDateFormat:@"yyyy-MM-dd 00:00:00"];
+		[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+		
+		NSString *stringDateUTC = [dateFormatter stringFromDate:theDate];
+		NSDate *normalizedDate = [dateFormatter dateFromString:stringDateUTC];
+		
+		return normalizedDate;
 	}
 	return nil;
 }

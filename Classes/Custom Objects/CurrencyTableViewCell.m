@@ -67,9 +67,9 @@
 
 -(void) setCurrencyImageName: (NSString *) imageName
 				currencyName: (NSString *) theName
-			 multiplierValue: (NSString *) theMValue
-			   currencyValue: (NSString *) theValue
-					  change: (NSString *) theChange
+			 multiplierValue: (NSNumber *) theMValue
+			   currencyValue: (NSDecimalNumber *) theValue
+					  change: (NSDecimalNumber *) theChange
 						sign: (NSString *) theSign
 {
 	
@@ -77,14 +77,16 @@
 		[currencyFlagImageView setImage:[UIImage imageNamed:imageName]];
 	[currencyNameLabel setText:theName];
 	if (theMValue)
-		[multiplierLabel setText:[NSString stringWithFormat:@"x%@", theMValue]];
+		[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];
 	else
 		[multiplierLabel setText:@""];
-	[currencyValueLabel setText:theValue];
+	
+	[currencyValueLabel setText:[NSString stringWithFormat:@"%.4f", [theValue doubleValue]]];
 
 	if (theChange)
 	{
-		[changeLabel setText:theChange];
+		NSString *changeString = [NSString stringWithFormat:@"%.4f", [theChange doubleValue]];
+		[changeLabel setText:changeString];
 		
 		// verde: #0C9D00
 		// rosu: #FF0404

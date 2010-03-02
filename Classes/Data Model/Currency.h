@@ -2,7 +2,7 @@
 //  Currency.h
 //  InfoValutar
 //
-//  Created by Mobile Touch SRL on 29.01.2010.
+//  Created by Mobile Touch SRL on 01.03.2010.
 //  Copyright 2010 Mobile Touch SRL. All rights reserved.
 //
 
@@ -15,8 +15,8 @@
 
 @property (nonatomic, retain) NSString * currencyName;
 @property (nonatomic, retain) NSDate * currencyDate;
-@property (nonatomic, retain) NSString * currencyMultiplier;
-@property (nonatomic, retain) NSString * currencyValue;
+@property (nonatomic, retain) NSNumber * currencyMultiplier;
+@property (nonatomic, retain) NSDecimalNumber * currencyValue;
 
 @end
 

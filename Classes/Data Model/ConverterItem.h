@@ -13,11 +13,11 @@
 		
 	CurrencyItem *currency;
 	NSMutableArray *additionFactors;
-	NSNumber *converterValue;
+	NSDecimalNumber *converterValue;
 }
 
 @property (nonatomic, retain) CurrencyItem *currency;
 @property (nonatomic, retain) NSMutableArray *additionFactors;
-@property (nonatomic, retain) NSNumber *converterValue;
+@property (nonatomic, retain) NSDecimalNumber *converterValue;
 
 @end

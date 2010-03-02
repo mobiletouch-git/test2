@@ -60,7 +60,7 @@
 
 -(void) setCurrencyImageName: (NSString *) imageName
 				currencyName: (NSString *) theName
-			 multiplierValue: (NSString *) theMValue
+			 multiplierValue: (NSNumber *) theMValue
 					fullName: (NSString *) fullNameValue
 {
 	if (imageName)
@@ -68,7 +68,7 @@
 	[currencyShortNameLabel setText:theName?theName:@""];
 	
 	if (theMValue)
-		[multiplierLabel setText:[NSString stringWithFormat:@"x%@", theMValue]];
+		[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];
 	else
 		[multiplierLabel setText:@""];
 	[currencyFullNameLabel	setText:fullNameValue?fullNameValue:@""];

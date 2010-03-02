@@ -21,6 +21,7 @@
 
 @synthesize editButton, addButton;
 @synthesize myTableView, tableDataSource, selectedDate, referenceItem, selectedReferenceDay;
+@synthesize titleButton;
 
 - (void)dealloc {
 
@@ -186,7 +187,8 @@
 /* ======= RON ======= */	
 	CurrencyItem *c1 = [[CurrencyItem alloc] init];
 	[c1 setCurrencyName:@"RON"];
-	[c1 setCurrencyValue:@"1"];
+	NSDecimalNumber *c1Value = [NSDecimalNumber decimalNumberWithString:@"1"];
+	[c1 setCurrencyValue:c1Value];
 	
 	ConverterItem *co1 = [[ConverterItem alloc] init];
 	[co1 setCurrency:c1];
@@ -199,7 +201,8 @@
 /* ======= RON +19 % ======= */	
 	CurrencyItem *c2 = [[CurrencyItem alloc] init];
 	[c2 setCurrencyName:@"RON"];
-	[c2 setCurrencyValue:@"1"];
+	NSDecimalNumber *c2Value = [NSDecimalNumber decimalNumberWithString:@"1"];	
+	[c2 setCurrencyValue:c2Value];
 	
 	ConverterItem *co2 = [[ConverterItem alloc] init];
 	[co2 setCurrency:c2];
@@ -208,7 +211,7 @@
 	
 	AdditionFactorItem *af = [[AdditionFactorItem alloc] init];
 	[af setFactorSign:1];
-	[af setFactorValue:[NSNumber numberWithDouble:19]];
+	[af setFactorValue:[NSDecimalNumber decimalNumberWithString:@"19"]];	
 	[factors addObject:af];
 	[af release];
 	
@@ -223,7 +226,8 @@
 
 	CurrencyItem *c3 = [[CurrencyItem alloc] init];
 	[c3 setCurrencyName:@"RON"];
-	[c3 setCurrencyValue:@"1"];	
+	NSDecimalNumber *c3Value = [NSDecimalNumber decimalNumberWithString:@"1"];		
+	[c3 setCurrencyValue:c3Value];	
 	
 	ConverterItem *co3 = [[ConverterItem alloc] init];
 	[co3 setCurrency:c3];
@@ -232,13 +236,13 @@
 	
 	AdditionFactorItem *af1 = [[AdditionFactorItem alloc] init];
 	[af1 setFactorSign:1];
-	[af1 setFactorValue:[NSNumber numberWithDouble:19]];
+	[af1 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"19"]];	
 	[factorss addObject:af1];
 	[af1 release];
 	
 	AdditionFactorItem *af2 = [[AdditionFactorItem alloc] init];
 	[af2 setFactorSign:1];
-	[af2 setFactorValue:[NSNumber numberWithDouble:3]];
+	[af2 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"3"]];	
 	[factorss addObject:af2];
 	[af2 release];
 	
@@ -443,39 +447,65 @@
 	if (currencyForConverter)
 		[co setCurrency:currencyForConverter];
 	
+	NSDecimalNumber *decimal100 = [NSDecimalNumber decimalNumberWithString:@"100"];
 	
 	if ([[referenceItem.currency currencyName] isEqualToString:@"RON"])
 	{
-		double normalizedAmount = [InfoValutarAPI getBaseValueForConverterItem:referenceItem];
+		NSDecimalNumber *normalizedAmount = [InfoValutarAPI getBaseValueForConverterItem:referenceItem];
 		
 		for (int i=0;i<[co.additionFactors count];i++)
 		{
 			AdditionFactorItem *af = [co.additionFactors objectAtIndex:i];
 			if (af.factorSign>0)
-				normalizedAmount = normalizedAmount + ([af.factorValue doubleValue]/100) * normalizedAmount;
+			{
+//				normalizedAmount = normalizedAmount + ([af.factorValue doubleValue]/100) * normalizedAmount;
+				NSDecimalNumber *rez = [[af.factorValue decimalNumberByDividingBy:decimal100] decimalNumberByMultiplyingBy:normalizedAmount];
+				normalizedAmount = [normalizedAmount decimalNumberByAdding:rez];
+			}
 			if (af.factorSign<0)
-				normalizedAmount = normalizedAmount - ([af.factorValue doubleValue]/100) * normalizedAmount;
+			{
+//				normalizedAmount = normalizedAmount - ([af.factorValue doubleValue]/100) * normalizedAmount;
+				NSDecimalNumber *rez = [[af.factorValue decimalNumberByDividingBy:decimal100] decimalNumberByMultiplyingBy:normalizedAmount];
+				normalizedAmount = [normalizedAmount decimalNumberBySubtracting:rez];
+			}
 		}
 		
-		normalizedAmount = normalizedAmount / [[co.currency currencyValue] doubleValue];
-		[co setConverterValue:[NSNumber numberWithDouble:normalizedAmount]];		
+//		normalizedAmount = normalizedAmount / [[co.currency currencyValue] doubleValue];
+		normalizedAmount = [normalizedAmount decimalNumberByDividingBy:[co.currency currencyValue]];
+		[co setConverterValue:normalizedAmount];		
 	}
 	else
 	{
-		double normalizedAmount = [InfoValutarAPI getBaseValueForConverterItem:referenceItem];
-		normalizedAmount = normalizedAmount * [[referenceItem.currency currencyValue] doubleValue];
-
-		for (int i=0;i<[co.additionFactors count];i++)
+		NSDecimalNumber *normalizedAmount = [InfoValutarAPI getBaseValueForConverterItem:referenceItem];
+//		normalizedAmount = normalizedAmount * [[referenceItem.currency currencyValue] doubleValue];
+		if (referenceItem)
 		{
-			AdditionFactorItem *af = [co.additionFactors objectAtIndex:i];
-			if (af.factorSign>0)
-				normalizedAmount = normalizedAmount + ([af.factorValue doubleValue]/100) * normalizedAmount;
-			if (af.factorSign<0)
-				normalizedAmount = normalizedAmount - ([af.factorValue doubleValue]/100) * normalizedAmount;
+			normalizedAmount = [normalizedAmount decimalNumberByMultiplyingBy:[referenceItem.currency currencyValue]];
+			
+			for (int i=0;i<[co.additionFactors count];i++)
+			{
+				AdditionFactorItem *af = [co.additionFactors objectAtIndex:i];
+				if (af.factorSign>0)
+				{
+					//				normalizedAmount = normalizedAmount + ([af.factorValue doubleValue]/100) * normalizedAmount;
+					NSDecimalNumber *rez = [[af.factorValue decimalNumberByDividingBy:decimal100] decimalNumberByMultiplyingBy:normalizedAmount];
+					normalizedAmount = [normalizedAmount decimalNumberByAdding:rez];
+				}
+				if (af.factorSign<0)
+				{
+					//				normalizedAmount = normalizedAmount - ([af.factorValue doubleValue]/100) * normalizedAmount;
+					NSDecimalNumber *rez = [[af.factorValue decimalNumberByDividingBy:decimal100] decimalNumberByMultiplyingBy:normalizedAmount];
+					normalizedAmount = [normalizedAmount decimalNumberBySubtracting:rez];				
+				}
+			}
+			//		normalizedAmount = normalizedAmount / [[co.currency currencyValue] doubleValue];
+			normalizedAmount = [normalizedAmount decimalNumberByDividingBy:[co.currency currencyValue]];
+			
 		}
+		else
+			[normalizedAmount decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"0"]];
 		
-		normalizedAmount = normalizedAmount / [[co.currency currencyValue] doubleValue];
-		[co setConverterValue:[NSNumber numberWithDouble:normalizedAmount]];		
+		[co setConverterValue:normalizedAmount];		
 	}
 	
 	[cell setConverterItem:co];

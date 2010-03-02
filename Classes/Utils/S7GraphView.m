@@ -76,6 +76,7 @@
 	return color;
 }
 
+@synthesize plotsArray;
 @synthesize dataSource = _dataSource, xValuesFormatter = _xValuesFormatter, yValuesFormatter = _yValuesFormatter;
 @synthesize drawAxisX = _drawAxisX, drawAxisY = _drawAxisY, drawGridX = _drawGridX, drawGridY = _drawGridY;
 @synthesize xValuesColor = _xValuesColor, yValuesColor = _yValuesColor, gridXColor = _gridXColor, gridYColor = _gridYColor;
@@ -100,6 +101,8 @@
 }
 
 - (void)dealloc {
+	
+	[plotsArray  release];
 	
 	[_xValuesFormatter release];
 	[_yValuesFormatter release];
@@ -145,6 +148,11 @@
 			if ([[values objectAtIndex:valueIndex] floatValue] > maxY) {
 				maxY = [[values objectAtIndex:valueIndex] floatValue];
 			}
+/*
+			if ([[values objectAtIndex:valueIndex] floatValue] < minY) {
+				minY = [[values objectAtIndex:valueIndex] floatValue];
+			}
+*/
 		}
 	}
 /*
@@ -164,13 +172,22 @@
 		maxY = ceil(maxY / 10000) * 10000;
 	}
 */
+	
+	NSString *valueString = @"RON";
+	CGRect valueStringRect = CGRectMake(20, 3, 40.0f, 20.0f);
+	[self.yValuesColor set];	
+	[valueString drawInRect:valueStringRect withFont:font
+			  lineBreakMode:UILineBreakModeTailTruncation alignment:UITextAlignmentCenter];	
+	
+	NSLog(@"Max %f min %f", maxY, minY);
+	
 	CGFloat step = (maxY - minY) / 5;
 	CGFloat stepY = (self.frame.size.height - (offsetY * 2)) / maxY;
 	
 	for (NSUInteger i = 0; i < 6; i++) {
 		
 		NSUInteger y = (i * step) * stepY;
-		NSUInteger value = i * step;
+		CGFloat value = i * step;
 		
 		if (_drawGridY) {
 			
@@ -194,7 +211,8 @@
 		
 		if (i > 0 && _drawAxisY) {
 			
-			NSNumber *valueToFormat = [NSNumber numberWithInt:value];
+			CGFloat valueToShow = value/1000;
+			NSNumber *valueToFormat = [NSNumber numberWithFloat:valueToShow];
 			NSString *valueString;
 			
 			if (_yValuesFormatter) {
@@ -304,6 +322,27 @@
 		}
 		
 		CGColorRef plotColor = [S7GraphView colorByIndex:plotIndex].CGColor;
+		
+		//draw label and color line
+
+		CurrencyItem *currentPlot = [plotsArray objectAtIndex:plotIndex];
+		NSString *valueString = [currentPlot currencyName];
+		CGRect valueStringRect = CGRectMake(440, 70 + plotIndex*40, 40.0f, 20.0f);
+		CGContextSetFillColorWithColor(c, [UIColor whiteColor].CGColor);		
+		[valueString drawInRect:valueStringRect withFont:font
+				  lineBreakMode:UILineBreakModeTailTruncation alignment:UITextAlignmentCenter];		
+
+		
+		CGContextSetLineCap(c, kCGLineCapRound);
+		CGContextSetLineWidth(c, 1.5f);
+		CGPoint startPoint = CGPointMake(450, 90 + plotIndex*40 );
+		CGPoint endPoint = CGPointMake(470, 90 + plotIndex*40);
+		CGContextMoveToPoint(c, startPoint.x, startPoint.y);
+		CGContextAddLineToPoint(c, endPoint.x, endPoint.y);
+		CGContextClosePath(c);
+		CGContextSetStrokeColorWithColor(c, plotColor);
+		CGContextStrokePath(c);	
+		//
 		
 		for (NSUInteger valueIndex = 0; valueIndex < values.count - 1; valueIndex++) {
 			

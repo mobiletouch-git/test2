@@ -146,6 +146,7 @@
 	float yOffSet =	[self computeOffsetForCellInArray:visCells dataSource:[[appDelegate converterViewController] tableDataSource]];
 	[[[appDelegate converterViewController] editButton] setEnabled:NO];
 	[[[appDelegate converterViewController] addButton] setEnabled:NO];	
+	[[[appDelegate converterViewController] titleButton] setEnabled:NO];		
 	
 	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, yOffSet) animated:YES];
 	
@@ -179,6 +180,7 @@
 					computed = ((foundAtIndex-6)+(-2+i))*self.bounds.size.height;				
 				else
 					computed = (i-2)*self.bounds.size.height;
+
 			}
 		}
 	}
@@ -197,12 +199,20 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	[self.converter setConverterValue:[NSNumber numberWithDouble:[textField.text doubleValue]]];
+	NSDecimalNumber *nrFromString;
+	if (![textField.text length])
+		nrFromString = [NSDecimalNumber decimalNumberWithString:@"0"];
+	else
+		nrFromString = [NSDecimalNumber decimalNumberWithString:textField.text];
+	
+	[self.converter setConverterValue:nrFromString];
 	[textField resignFirstResponder];
 	
 	[[[appDelegate converterViewController] editButton] setEnabled:YES];	
-	[[[appDelegate converterViewController] addButton] setEnabled:YES];		
-	[[appDelegate converterViewController] setReferenceItem:self.converter];
+	[[[appDelegate converterViewController] addButton] setEnabled:YES];	
+	[[[appDelegate converterViewController] titleButton] setEnabled:YES];		
+	
+	[[appDelegate converterViewController] setReferenceItem:converter];
 	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	[[[appDelegate converterViewController] myTableView] reloadData];
 

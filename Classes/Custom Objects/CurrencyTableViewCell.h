@@ -20,9 +20,9 @@
 
 -(void) setCurrencyImageName: (NSString *) imageName
 				currencyName: (NSString *) theName
-			 multiplierValue: (NSString *) theMValue
-			   currencyValue: (NSString *) theValue
-					  change: (NSString *) theChange
+			 multiplierValue: (NSNumber *) theMValue
+			   currencyValue: (NSDecimalNumber *) theValue
+					  change: (NSDecimalNumber *) theChange
 						sign: (NSString *) theSign;	
 
 -(void) enterEditMode: (BOOL) yesOrNo;

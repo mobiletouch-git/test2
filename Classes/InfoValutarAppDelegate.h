@@ -36,6 +36,7 @@
 	
 	NSDictionary *currencyFullDictionary;	
 	
+	NSInteger globalTimeStamp;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -58,6 +59,8 @@
 
 @property (nonatomic, retain) UITabBarController *tabBarController;
 @property (nonatomic, retain) NSDictionary *currencyFullDictionary;	
+
+@property (nonatomic, assign) NSInteger globalTimeStamp;
 
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;

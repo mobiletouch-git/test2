@@ -19,6 +19,7 @@
 	UIBarButtonItem *doneButton;
 	UIBarButtonItem *cancelButton;
 	UIBarButtonItem *editButton;
+	UIBarButtonItem *updateButton;
 	
 	UIButton *titleButton;
 	UIDatePicker *datePicker;

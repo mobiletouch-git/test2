@@ -111,35 +111,35 @@
 	AdditionFactorItem *af1 = [[AdditionFactorItem alloc] init];
 	[af1 setFactorName:@"Discount"];
 	[af1 setFactorSign:-1];
-	[af1 setFactorValue:[NSNumber numberWithDouble:5]];
+	[af1 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"5"]];
 	[tableDataSource addObject:af1];
 	[af1 release];
 	
 	AdditionFactorItem *af2 = [[AdditionFactorItem alloc] init];
 	[af2 setFactorName:@"Comision"];
 	[af2 setFactorSign:1];
-	[af2 setFactorValue:[NSNumber numberWithDouble:3]];
+	[af2 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"3"]];
 	[tableDataSource addObject:af2];
 	[af2 release];
 	
 	AdditionFactorItem *af3 = [[AdditionFactorItem alloc] init];
 	[af3 setFactorName:@"TVA"];
 	[af3 setFactorSign:1];
-	[af3 setFactorValue:[NSNumber numberWithDouble:19]];
+	[af3 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"19"]];
 	[tableDataSource addObject:af3];
 	[af3 release];	
 	
 	AdditionFactorItem *af4 = [[AdditionFactorItem alloc] init];
 	[af4 setFactorName:@"Impozit"];
 	[af4 setFactorSign:1];
-	[af4 setFactorValue:[NSNumber numberWithDouble:16]];
+	[af4 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"16"]];
 	[tableDataSource addObject:af4];
 	[af4 release];		
 	
 	AdditionFactorItem *af5 = [[AdditionFactorItem alloc] init];
 	[af5 setFactorName:@"CNAS"];
 	[af5 setFactorSign:1];
-	[af5 setFactorValue:[NSNumber numberWithDouble:5.5]];
+	[af5 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"5.5"]];
 	[tableDataSource addObject:af5];
 	[af5 release];		
 	

@@ -19,7 +19,7 @@
 
 -(void) setCurrencyImageName: (NSString *) imageName
 				currencyName: (NSString *) theName
-			 multiplierValue: (NSString *) theMValue
+			 multiplierValue: (NSNumber *) theMValue
 					fullName: (NSString *) fullNameValue;
 -(void) enterGroupEditState;
 -(void) enterEditMode: (BOOL) yesOrNo;

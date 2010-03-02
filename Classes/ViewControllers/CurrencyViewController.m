@@ -26,6 +26,11 @@
 	[myTableView release];
 	[selectedDate release];
 	
+	[doneButton release];
+	[editButton release];
+	[cancelButton release];
+	[updateButton release];
+	
     [super dealloc];
 }
 
@@ -82,9 +87,21 @@
 
 	[self.navigationItem setLeftBarButtonItem:editButton];
 	
+	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
+	if (!settingsUpdate)
+	{
+		updateButton = [[UIBarButtonItem alloc] initWithTitle:kUpdate
+																		 style:UIBarButtonItemStyleBordered
+																		target:self
+																		action:@selector(updateAction)];	
+		[self.navigationItem setRightBarButtonItem:updateButton];
+	}
+	else
+		updateButton = nil;
+	
+	
 	transparentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
 	[transparentView setBackgroundColor:[UIColor clearColor]];	
-	
 	
 	// initialization side for the current day
 	
@@ -109,8 +126,10 @@
 		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
 		
 		NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
-		validBankingDate = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
-		if (validBankingDate)
+		NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
+		if (validBankingDate2)
+			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
+		else
 			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
 		
 		[self organizeTableSourceWithPriorities];
@@ -163,6 +182,11 @@
 
 }
 
+-(void) updateAction
+{
+	
+}
+
 
 -(void) titleButtonAction:(id) sender
 {
@@ -180,7 +204,7 @@
 		[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
 		
 		[self.navigationItem setLeftBarButtonItem:editButton];
-		[self.navigationItem setRightBarButtonItem:nil];
+		[self.navigationItem setRightBarButtonItem:updateButton];
 		[datePicker setHidden:YES];		
 		
 		// =========== table Data Source =========== //
@@ -198,9 +222,12 @@
 			[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
 			
 			NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
-			validBankingDate = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
-			if (validBankingDate)
-				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
+			NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
+			if (validBankingDate2)
+				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
+			else
+				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
+			
 			[self organizeTableSourceWithPriorities];			
 		}
 		else
@@ -214,7 +241,7 @@
 		for (int i=0;i<[tableDataSource count];i++)
 		{
 			CurrencyItem *cur = [tableDataSource objectAtIndex:i];
-			[priorities setValue:cur.currencyName forKey:[NSString stringWithFormat:@"%d", i]];
+			[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i]];
 		}
 		
 		NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
@@ -224,7 +251,7 @@
 		[prefs synchronize];
 		
 		[self.navigationItem setLeftBarButtonItem:editButton];
-		[self.navigationItem setRightBarButtonItem:nil];
+		[self.navigationItem setRightBarButtonItem:updateButton];
 		[myTableView setEditing:NO];	
 		[self organizeTableSourceWithPriorities];
 	}	
@@ -248,22 +275,39 @@
 
 		for (int i=0;i<[tableDataSource count];i++)
 		{
-			NSString *currencyName = [priorities valueForKey:[NSString stringWithFormat:@"%d", i]];
-			NSLog(@"Currencyname %@", currencyName);
-			
-			CurrencyItem *ci1 = [InfoValutarAPI findCurrencyNamed:currencyName inArray:tableDataSource];
+			CurrencyItem *ci1 = [InfoValutarAPI getCurrencyForPriority:i inDictionary:priorities];				
 			if (ci1)
-				[organizedDay addObject:ci1];
-			else
-				NSLog(@"Not found %@", currencyName);
-			
-			CurrencyItem *ci2 = [InfoValutarAPI findCurrencyNamed:currencyName inArray:previousReferenceDay];
-			if (ci2)
-				[organizedPrevious addObject:ci2];
-			else
-				NSLog(@"Not found %@", currencyName);
+			{
+				CurrencyItem *valid =  [InfoValutarAPI findCurrencyNamed:ci1.currencyName inArray:tableDataSource];
+				if (valid)
+				{
+					[organizedDay addObject:valid];
+				
+					CurrencyItem *ci2 = [InfoValutarAPI findCurrencyNamed:valid.currencyName inArray:previousReferenceDay];
+					if (ci2)
+						[organizedPrevious addObject:ci2];
+					else 
+						[organizedPrevious addObject:valid];
+				}
+			}
 			
 		}
+		
+		for (int j=0;j<[tableDataSource count];j++)
+		{
+			CurrencyItem *retrieved = [tableDataSource objectAtIndex:j];
+			CurrencyItem *toFind = [InfoValutarAPI findCurrencyNamed:retrieved.currencyName inArray:organizedDay];
+			if (!toFind)
+				[organizedDay addObject:retrieved];
+		}	
+		
+		for (int k=0;k<[previousReferenceDay count];k++)
+		{
+			CurrencyItem *retrieved = [previousReferenceDay objectAtIndex:k];
+			CurrencyItem *toFind = [InfoValutarAPI findCurrencyNamed:retrieved.currencyName inArray:organizedPrevious];
+			if (!toFind)
+				[organizedPrevious addObject:retrieved];
+		}		
 		
 		[tableDataSource removeAllObjects];
 		[tableDataSource addObjectsFromArray:organizedDay];
@@ -282,7 +326,7 @@
 	if (!datePicker.hidden)
 	{
 	[self.navigationItem setLeftBarButtonItem:editButton];
-	[self.navigationItem setRightBarButtonItem:nil];
+	[self.navigationItem setRightBarButtonItem:updateButton];
 	[datePicker setHidden:YES];		
 	}
 }
@@ -396,13 +440,11 @@
 	prevCurrency = [previousReferenceDay objectAtIndex:indexPath.row];
 	
 	NSString *sign;
-	double changeValue = [currencyObject.currencyValue doubleValue] - [prevCurrency.currencyValue doubleValue];	
-	NSNumber *change = [NSNumber numberWithDouble:changeValue];
-	NSString *changeString = [NSString stringWithFormat:@"%.4f", changeValue];
+	NSDecimalNumber *change = [currencyObject.currencyValue decimalNumberBySubtracting:prevCurrency.currencyValue];
 
-	if (changeValue>0)
+	if ([change doubleValue]>0)
 		sign=@"+";
-	else if (change<0)
+	else if ([change doubleValue]<0)
 		sign=@"-";
 	else
 		sign=@"=";
@@ -413,7 +455,7 @@
 												 currencyName:[currencyObject currencyName] 
 											  multiplierValue:[currencyObject multiplierValue]?[currencyObject multiplierValue]:nil
 												currencyValue:[currencyObject currencyValue]
-													   change:changeString
+													   change:change
 														 sign:sign];
 
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;			

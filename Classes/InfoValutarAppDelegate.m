@@ -16,6 +16,7 @@
 @synthesize currencyNavigationController, converterNavigationController, statisticsNavigationController, taxesNavigationController, infoNavigationController;
 @synthesize tabBarController;
 @synthesize currencyFullDictionary;
+@synthesize globalTimeStamp;
 
 #pragma mark -
 #pragma mark Memory management
@@ -53,6 +54,7 @@
 	
 	[self initializeDatabase];
 	[self initializeLayout];
+//	[converterViewController populate];
 	
 	[window addSubview:tabBarController.view];	
 	[window makeKeyAndVisible];
@@ -66,6 +68,8 @@
 	NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
 	//write tabbar position
 	[prefs setInteger:[self.tabBarController selectedIndex] forKey:@"selectedTabIndex"];	
+
+	[prefs setInteger:self.globalTimeStamp forKey:@"globalTimeStamp"];	
 	
 	NSMutableArray *converterList = [converterViewController tableDataSource];
 	NSData *converterListData = [NSKeyedArchiver archivedDataWithRootObject:converterList];
@@ -148,7 +152,9 @@
 	//read tabbar Index from NSUserDefauls	
 	int selectedTabIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedTabIndex"];
 	[tabBarController setSelectedIndex:selectedTabIndex];
-	
+
+	int savedTimeStamp = [[NSUserDefaults standardUserDefaults] integerForKey:@"globalTimeStamp"];
+	[self setGlobalTimeStamp:savedTimeStamp];
 	
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
 	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];

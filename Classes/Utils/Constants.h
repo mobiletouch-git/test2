@@ -42,6 +42,7 @@
 #define kAddNewCurrency @"Adauga moneda"
 #define kAdd @"Adauga"
 #define kDelete @"Sterge"
+#define kUpdate @"Update"
 #define kAddNewTax @"Adauga taxa noua"
 #define kStartDateTitle @"Data de Start"
 #define kStartDateNotice @"Completati data de start pentru raportul care urmeaza a fi generat"

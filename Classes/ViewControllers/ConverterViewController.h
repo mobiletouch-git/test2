@@ -30,6 +30,7 @@
 }
 @property (nonatomic, retain)	UIBarButtonItem *editButton;
 @property (nonatomic, retain)	UIBarButtonItem *addButton;	
+@property (nonatomic, retain)	UIButton *titleButton;
 
 @property (nonatomic, retain)	UITableView *myTableView;
 @property (nonatomic, retain)	NSMutableArray *tableDataSource;

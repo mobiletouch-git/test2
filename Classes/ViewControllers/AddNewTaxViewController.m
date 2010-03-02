@@ -60,7 +60,7 @@
 		{
 			self.title = kAddNewTax;					
 			additionFactor = [[AdditionFactorItem alloc] init];
-			[additionFactor setFactorValue:[NSNumber numberWithDouble:0.0]];
+			[additionFactor setFactorValue:[NSDecimalNumber decimalNumberWithString:@"0"]];
 			[additionFactor setFactorSign:1];
 			
 			saveButton = [[UIBarButtonItem alloc] initWithTitle:kAdd
@@ -352,7 +352,7 @@
 		[saveButton  setEnabled:NO];
 
 
-	[self.additionFactor setFactorValue: [NSNumber numberWithDouble:[taxValueTextField.text doubleValue]]];
+	[self.additionFactor setFactorValue: [NSDecimalNumber decimalNumberWithString:taxValueTextField.text]];
 	[oneRowTableView reloadData];	
 }
 

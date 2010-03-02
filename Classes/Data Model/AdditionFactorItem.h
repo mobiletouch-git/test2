@@ -12,13 +12,13 @@
 @interface AdditionFactorItem : NSObject {
 	NSString *factorName;
 	int factorSign;
-	NSNumber *factorValue;
+	NSDecimalNumber *factorValue;
 	BOOL checked;
 }
 
 @property (nonatomic, retain) NSString *factorName;
 @property (nonatomic, assign) int factorSign;
-@property (nonatomic, retain) NSNumber *factorValue;
+@property (nonatomic, retain) NSDecimalNumber *factorValue;
 @property (nonatomic, assign) BOOL checked;
 
 @end

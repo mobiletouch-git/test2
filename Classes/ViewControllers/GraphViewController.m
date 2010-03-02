@@ -31,47 +31,72 @@
 }
 
 
+- (id)init
+{
+    if ((self = [super init])) {
+		//init code
+		
+	}
+    return self;
+}
+
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
-	self.graphView = [[S7GraphView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	[[UIApplication sharedApplication] setStatusBarHidden:YES];
+}
 
-	self.view = self.graphView;
-	self.graphView.dataSource = self;
+-(void) initializeLayout
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	plotsValues = [[NSMutableArray alloc] initWithCapacity:[plots count]];
 	for (int i=0;i<[plots count];i++)
 	{
 		CurrencyItem *ci = [plots objectAtIndex:i];
 		NSMutableArray *results = [InfoValutarAPI getDataForInterval:startDate endDate:endDate currencyName:ci.currencyName];
-		NSLog(@"Count for currency %d", [results count]);
 		[plotsValues addObject:results];
 	}
+
+	NSNumberFormatter *ynumberFormatter = [NSNumberFormatter new];
+	[ynumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[ynumberFormatter setMinimumFractionDigits:2];
+	[ynumberFormatter setMaximumFractionDigits:2];
 	
-	totalDays = [[NSMutableArray alloc] init];
+	self.graphView.yValuesFormatter = ynumberFormatter;
 	
-	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
-	[totalDays addObject:startDate];
+	NSDateFormatter *dateFormatter = [NSDateFormatter new];
+	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	
-	while (![endDate compare:nextDay] == NSOrderedSame) {
-		{
-			nextDay = [DateFormat getNextDayForDay:nextDay];
-			[totalDays addObject:nextDay];
-		}
-	}
+	self.graphView.xValuesFormatter = dateFormatter;
 	
+	[dateFormatter release];        
+	[ynumberFormatter release];
 	
 	
+	self.graphView.backgroundColor = [UIColor blackColor];
 	
-	UIButton *closeButton = [UIFactory newButtonWithTitle:nil 
-												   target:self
-												 selector:@selector (dismissView)
-													frame:CGRectMake(445,20,25,26)
-													image:[UIImage imageNamed:@"close.png"]
-											 imagePressed:[UIImage imageNamed:@"close_touch.png"]
-											darkTextColor:NO];
-	[self.view addSubview:closeButton];
-	[closeButton release];
+	self.graphView.drawAxisX = YES;
+	self.graphView.drawAxisY = YES;
+	self.graphView.drawGridX = YES;
+	self.graphView.drawGridY = YES;
+	
+	self.graphView.xValuesColor = [UIColor yellowColor];
+	self.graphView.yValuesColor = [UIColor yellowColor];
+	
+	self.graphView.gridXColor = [UIColor greenColor];
+	self.graphView.gridYColor = [UIColor greenColor];
+	
+	self.graphView.drawInfo = NO;
+	self.graphView.info = @"Load";
+	self.graphView.infoColor = [UIColor magentaColor];
+	
+	self.graphView.plotsArray = [NSArray arrayWithArray:self.plots];
+	//When you need to update the data, make this call:
+	
+	[self.graphView reloadData];
+	
+	[pool drain];
 }
 
 -(void) dismissView
@@ -84,46 +109,40 @@
 	
 	NSLog(@"Plots %d, startDate %@, endDate %@", [plots count], startDate, endDate);
 	
+	self.graphView = [[S7GraphView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	
+	self.view = self.graphView;
+	self.graphView.dataSource = self;
+	
+	plotsValues = [[NSMutableArray alloc] initWithCapacity:[plots count]];
+	totalDays = [[NSMutableArray alloc] init];
+	
+	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
+	[totalDays addObject:startDate];
+	
+	while (![endDate compare:nextDay] == NSOrderedSame) {
+		{
+			nextDay = [DateFormat getNextDayForDay:nextDay];
+			[totalDays addObject:nextDay];
+		}
+	}
+	
+	UIButton *closeButton = [UIFactory newButtonWithTitle:nil 
+												   target:self
+												 selector:@selector (dismissView)
+													frame:CGRectMake(445,20,25,26)
+													image:[UIImage imageNamed:@"close.png"]
+											 imagePressed:[UIImage imageNamed:@"close_touch.png"]
+											darkTextColor:NO];
+	[self.view addSubview:closeButton];
+	[closeButton release];
+	
+//	[self performSelectorInBackground:(@selector(initializeLayout)) withObject:nil];
+	
+	[self performSelectorOnMainThread:@selector(initializeLayout) withObject:nil waitUntilDone:YES];		
+	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	
-	NSNumberFormatter *ynumberFormatter = [NSNumberFormatter new];
-	[ynumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[ynumberFormatter setMinimumFractionDigits:2];
-	[ynumberFormatter setMaximumFractionDigits:3];
-	
-	self.graphView.yValuesFormatter = ynumberFormatter;
-	
-	NSDateFormatter *dateFormatter = [NSDateFormatter new];
-	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
-	
-	self.graphView.xValuesFormatter = dateFormatter;
-	
-	[dateFormatter release];        
-	[ynumberFormatter release];
-
-	
-	self.graphView.backgroundColor = [UIColor blackColor];
-	
-	self.graphView.drawAxisX = YES;
-	self.graphView.drawAxisY = YES;
-	self.graphView.drawGridX = YES;
-	self.graphView.drawGridY = YES;
-	
-	self.graphView.xValuesColor = [UIColor yellowColor];
-	self.graphView.yValuesColor = [UIColor yellowColor];
-	
-	self.graphView.gridXColor = [UIColor magentaColor];
-	self.graphView.gridYColor = [UIColor magentaColor];
-	
-	self.graphView.drawInfo = NO;
-	self.graphView.info = @"Load";
-	self.graphView.infoColor = [UIColor magentaColor];
-	
-	//When you need to update the data, make this call:
-	
-	[self.graphView reloadData];
 	
 }
 
@@ -138,11 +157,12 @@
  [super viewDidAppear:animated];
  }
  */
-/*
+
  - (void)viewWillDisappear:(BOOL)animated {
- [super viewWillDisappear:animated];
+	[super viewWillDisappear:animated];
+	[[UIApplication sharedApplication] setStatusBarHidden:NO];	 
  }
- */
+
 /*
  - (void)viewDidDisappear:(BOOL)animated {
  [super viewDidDisappear:animated];
@@ -195,12 +215,12 @@
 	{
 		Currency *managed = [valuesForPlot objectAtIndex:counter];
 
-		NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
-		NSDate *dateInCalendar = [totalDays objectAtIndex:i];
+		NSDate *dateForEntry = [InfoValutarAPI getUTCFormateDate:[managed valueForKey:@"currencyDate"]];
+		NSDate *dateInCalendar = [InfoValutarAPI getUTCFormateDate:[totalDays objectAtIndex:i]];
 		
 		NSString *valueString = [managed valueForKey:@"currencyValue"];
 		float dblValue = [valueString floatValue];
-		NSNumber *numberToAdd = [NSNumber numberWithFloat:dblValue];
+		NSNumber *numberToAdd = [NSNumber numberWithFloat:dblValue*1000];
 		
 		if ([dateForEntry compare:dateInCalendar] == NSOrderedSame)
 		{

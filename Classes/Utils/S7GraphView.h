@@ -36,6 +36,7 @@
 
 #import <UIKit/UIKit.h>
 #import "S7Macros.h"
+#import "CurrencyItem.h"
 
 @class S7GraphView;
 
@@ -97,6 +98,8 @@
 	
 	id<S7GraphViewDataSource> _dataSource;
 	
+	NSMutableArray *plotsArray;
+	
 	NSFormatter *_xValuesFormatter;
 	NSFormatter *_yValuesFormatter;
 	
@@ -120,6 +123,8 @@
 + (UIColor *)colorByIndex:(NSInteger)index;
 
 @property (nonatomic, assign) IBOutlet id<S7GraphViewDataSource> dataSource;
+
+@property (nonatomic, retain) NSMutableArray *plotsArray;
 
 @property (nonatomic, retain) IBOutlet NSFormatter *xValuesFormatter;
 @property (nonatomic, retain) IBOutlet NSFormatter *yValuesFormatter;

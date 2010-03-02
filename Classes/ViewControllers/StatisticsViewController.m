@@ -138,7 +138,7 @@
 	 dateRangeTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	 [self.view addSubview:dateRangeTableView];
 	 
-	 CGRect f2 = CGRectMake(0.0, 115.0, 320, 187);
+	 CGRect f2 = CGRectMake(0.0, 115.0, 320, 252);
 	 currenciesTableView = [[UITableView alloc] initWithFrame:f2 style:UITableViewStyleGrouped];
 	 currenciesTableView.delegate = self;
 	 currenciesTableView.dataSource = self;
@@ -147,14 +147,14 @@
 	 currenciesTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	 [self.view addSubview:currenciesTableView];	 
 	 
-	 UIButton *showGraphButton = [UIFactory newButtonWithTitle:@"Genereaza" 
-														target:self
-													  selector:@selector (presentModalGraphView) 
-														 frame:CGRectMake(60, 320, 200, 44) 
-														 image:[UIImage imageNamed:@"whiteButton.png"] 
-												  imagePressed:[UIImage imageNamed:@"blueButton.png"]  
-												 darkTextColor:YES];
-	 [self.view addSubview:showGraphButton];	 
+
+	 UIBarButtonItem *generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Genereaza"
+												   style:UIBarButtonItemStyleBordered
+												  target:self 
+												  action:@selector(presentModalGraphView)];
+	 [self.navigationItem setRightBarButtonItem:generateButton];
+	 [generateButton release];
+	 
 	 
 	 doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
 												   style:UIBarButtonItemStyleDone
@@ -438,11 +438,19 @@
 
 -(void) addNewCurrencyAction
 {
-	CurrencyPickerViewController *pickerView = [[CurrencyPickerViewController alloc] initWithStyle:UITableViewStylePlain];
-	[pickerView setIsPushed:YES];			
-	[pickerView setParent:self];
-	[self.navigationController pushViewController:pickerView animated:YES];
-	[pickerView release];
+	if ([currenciesList count] < 5)
+	{
+		CurrencyPickerViewController *pickerView = [[CurrencyPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+		[pickerView setIsPushed:YES];			
+		[pickerView setParent:self];
+		[self.navigationController pushViewController:pickerView animated:YES];
+		[pickerView release];
+	}
+	else
+	{
+		[UIFactory showOkAlert:@"Pentru a putea genera un grafic, puteti avea maxim 5 monede" title:@"Atentie"];
+		[currenciesTableView deselectRowAtIndexPath:[currenciesTableView indexPathForSelectedRow] animated:YES];
+	}
 }
 
 @end
