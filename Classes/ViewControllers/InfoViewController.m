@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "UIFactory.h"
 #import "WebViewController.h"
+#import "TermsViewController.h"
 
 @implementation InfoViewController
 
@@ -63,14 +64,14 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	switch (indexPath.section)
 	{
-		case 2:
+		case 1:
 		{
 			switch (indexPath.row)
 			{
@@ -109,10 +110,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 	
 	switch (section) {
-		case 2:
+		case 1:
 			return 40;
 			break;
-		case 3:
+		case 2:
 			return 30;
 			break;			
 		default:
@@ -139,10 +140,8 @@
 		case 0:
 			return headerLabel;
 			break;
+
 		case 1:
-			return headerLabel;
-			break;
-		case 2:
 		{
 			[headerLabel setFont:[UIFont boldSystemFontOfSize:16]];
 			//#333333
@@ -157,7 +156,7 @@
 			return headerView;
 		}
 			break;
-		case 3:
+		case 2:
 		{
 			[headerLabel setFrame:CGRectMake(0,10,320,40)];
 			[headerLabel setFont:[UIFont boldSystemFontOfSize:16]];
@@ -183,13 +182,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
 		case 0:
-			return 2;
+			return 3;
 			break;
 		case 1:
 			return 1;
 			break;
 		case 2:
-			return 1;
+			return 0;
 			break;
 	}
 	return 0;
@@ -225,28 +224,25 @@
 					[cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];	
 				}
 					break;
-			}
-			break;
-		case 1:
-			switch (indexPath.row) {
-				case 0:
+				case 2:
 				{
-					[cell.textLabel setText:@"Instructiuni"];
+					[cell.textLabel setText:@"Termeni și condiții"];
 					[cell.detailTextLabel setText:@""];					
-					[cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];						
+					[cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];	
 				}
 					break;
 			}
 			break;
-		case 2:
+
+		case 1:
 			switch (indexPath.row) {
 				case 0:
 				{
 					UIImageView *companyLogo = [[UIImageView alloc]	initWithFrame:CGRectMake(20,20,272,43)];
-					[companyLogo setImage:[UIImage imageNamed:@"logo_white.png"]];
+					[companyLogo setImage:[UIImage imageNamed:@"logo_transparent.png"]];
 					[cell addSubview:companyLogo];
 					[companyLogo release];
-					cell.selectionStyle = UITableViewCellSelectionStyleNone;
+					cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 				}
 					break;
 			}
@@ -268,15 +264,18 @@
 		return;
 	}
 	
-	if( indexPath.row == 0 && indexPath.section == 2 ){
+	if( indexPath.row == 2 && indexPath.section == 0 ){
+		[self displayTermsAndConditionsPage];
+		return;
+	}
+	
+	
+	if( indexPath.row == 0 && indexPath.section == 1 ){
 		[self displayCompanyWebSite];
 		return;
 	}
 	
-	if( indexPath.section == 1 ){
-		[self displayInstructions];
-		return;
-	}
+
 	
 	
 	
@@ -291,6 +290,12 @@
 				case 1:
 				{
 					[self displayApplicationFeedBackPage];				
+				}
+					break;
+					
+				case 2:
+				{
+					[self displayTermsAndConditionsPage];				
 				}
 					break;
 					
@@ -342,7 +347,7 @@
 {
 	WebViewController *contactWeb = [[WebViewController alloc] init];
 	UINavigationController *webNavigation = [[UINavigationController alloc] initWithRootViewController:contactWeb];
-	[contactWeb setUrlVar:[NSURL URLWithString:NSLocalizedString(@"LiteApplicationFeedbackWebReference", @"")]];		
+	[contactWeb setUrlVar:[NSURL URLWithString:@"http://www.mobiletouch.ro/feedback/26/"]];		
 	[self.navigationController presentModalViewController:webNavigation animated:YES];
 	[contactWeb release];
 	[webNavigation release];
@@ -364,6 +369,16 @@
 	[self.navigationController pushViewController:instructionsView animated:YES];
 	[instructionsView release];
 	 */
+}
+
+-(void) displayTermsAndConditionsPage
+{	
+	TermsViewController *termsController = 	[[TermsViewController alloc] init];
+	[termsController setTitle:@"Termeni și condiții"];
+	[termsController setHidesBottomBarWhenPushed:YES];
+	[self.navigationController pushViewController:termsController animated:YES];
+	[termsController release];
+	
 }
 
 
