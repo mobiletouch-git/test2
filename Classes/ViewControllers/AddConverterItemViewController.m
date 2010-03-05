@@ -125,7 +125,7 @@
 	
 	
 	//initialize and place tableView
-	CGRect tableView2Frame = CGRectMake(0.0, 130.0, 320, 285);
+	CGRect tableView2Frame = CGRectMake(0.0, 115.0, 320, 285);
 	myTableView = [[UITableView alloc] initWithFrame:tableView2Frame style:UITableViewStyleGrouped];
 	myTableView.delegate = self;
 	myTableView.dataSource = self;
@@ -187,7 +187,7 @@
 		[noticeLabel setFrame:CGRectMake(10, 7, 300, 55)];
 		[noticeLabel setBackgroundColor:[UIColor clearColor]];
 		[noticeLabel setNumberOfLines:3];
-		[noticeLabel setText:@"Selectati din lista de mai jos taxele aplicabile monedei selectate. Taxele sunt aplicate la baza in ordinea lor in lista."];
+		[noticeLabel setText:@"Opțional puteți adăuga taxe, ele sunt aplicate la bază în ordinea lor din listă."];
 		
 		[transparentView addSubview:noticeLabel];
 		
@@ -210,7 +210,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (tableView == oneRowTableView)
-		return 53;
+		return 44;
 	else if (tableView == myTableView)
 		return 44;
 	return 0;

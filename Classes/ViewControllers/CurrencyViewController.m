@@ -20,7 +20,7 @@
 @synthesize tableDataSource, selectedDate;
 
 - (void)dealloc {
-	
+	[titleSeg release];
 	[previousReferenceDay release];
 	[tableDataSource release];
 	[myTableView release];
@@ -40,12 +40,12 @@
 		//init code
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"tabCurrency.png"];
-		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Cursul curent" image:buttonImage tag:0];
+		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_1.png"];
+		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Curs BNR" image:buttonImage tag:0];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];
 		
-		self.title = @"Cursul curent";
+		self.title = @"Curs BNR";
 		
 	}
     return self;
@@ -72,7 +72,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
+	doneButton = [[UIBarButtonItem alloc] initWithTitle:kSave
 												  style:UIBarButtonItemStyleDone
 												 target:self 
 												 action:@selector(doneAction)];
@@ -80,7 +80,7 @@
 													style:UIBarButtonItemStyleBordered
 												   target:self
 												   action:@selector(cancelAction)];	
-	editButton = [[UIBarButtonItem alloc] initWithTitle:kEdit
+	editButton = [[UIBarButtonItem alloc] initWithTitle:kOrder
 													style:UIBarButtonItemStyleBordered
 												   target:self
 												   action:@selector(editAction)];	
@@ -90,7 +90,16 @@
 	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
 	NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
 	[self setSelectedDate:utcDate];
-	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];	
+	
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+	
+	[self setSelectedDate:validBankingDate];
+
+
+//	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];	
+	NSString *todayString = [DateFormat businessStringFromDate:self.selectedDate];	
+
+	
 	
 	// initialization side for the current day
 	
@@ -100,21 +109,21 @@
 	[tableDataSource removeAllObjects];
 	[previousReferenceDay removeAllObjects];	
 	
-	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
-	if (!settingsUpdate)
-	{
+//	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
+//	if (!settingsUpdate)
+//	{
 		updateButton = [[UIBarButtonItem alloc] initWithTitle:kUpdate
 																		 style:UIBarButtonItemStyleBordered
 																		target:self
 																		action:@selector(updateAction)];	
 		[self.navigationItem setRightBarButtonItem:updateButton];
 		[self pageUpdate];		
-	}
+/*	}
 	else
 	{
 		updateButton = nil;
 	}
-	
+	*/
 	
 	transparentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
 	[transparentView setBackgroundColor:[UIColor clearColor]];	
@@ -132,11 +141,12 @@
 	
 	[self.view addSubview:[self getHeaderView]];	
 	
+	/*
 	titleButton = [[UIButton alloc] initWithFrame:CGRectMake(60,10,160,30)];
 	titleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	titleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 	[titleButton setTitle:todayString forState:UIControlStateNormal];	
-	[titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	[titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[titleButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];	
 	[titleButton.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
 	
@@ -147,11 +157,17 @@
 	[titleButton setBackgroundImage:newPressedImage forState:UIControlStateHighlighted];
 	[titleButton addTarget:self action:@selector (titleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
 	// in case the parent view draws with a custom color or gradient, use a transparent color
-	titleButton.backgroundColor = [UIColor clearColor];
+	titleButton.backgroundColor = [UIColor redColor];
 	[titleButton setShowsTouchWhenHighlighted:YES];
 	
+*/
 	
-	[self.navigationItem setTitleView:titleButton];	
+	titleSeg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:todayString]];
+	[titleSeg setFrame:CGRectMake(0, 0, 100, 30)];
+	[titleSeg addTarget:self action:@selector(titleButtonAction:) forControlEvents:UIControlEventValueChanged];
+	[titleSeg setSegmentedControlStyle:UISegmentedControlStyleBar];
+
+	[self.navigationItem setTitleView:titleSeg];	
 
 	float height = 216.0f; 
 	datePicker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0.0, 369.0-height, 320.0, height)];
@@ -160,7 +176,8 @@
 	if (self.selectedDate)
 		[datePicker setDate:self.selectedDate animated:YES];
 	[datePicker setHidden:YES];
-	[datePicker setMaximumDate:[NSDate date]];
+//	[datePicker setMaximumDate:[NSDate date]];
+	[datePicker setMaximumDate:selectedDate];
 	[self.view addSubview:datePicker];
 
 }
@@ -171,11 +188,35 @@
 }
 
 
+-(void) updateCurrentDate {
+	
+	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+	NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
+	[self setSelectedDate:utcDate];
+	
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+	
+	[self setSelectedDate:validBankingDate];
+	
+	[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
+
+	[datePicker setDate:self.selectedDate animated:NO];
+	[datePicker setMaximumDate:selectedDate];
+
+	[self pageUpdate];
+	
+	[self doneAction];
+
+	
+}
+
 -(void) titleButtonAction:(id) sender
 {
 	[self.navigationItem setLeftBarButtonItem:cancelButton];
 	[self.navigationItem setRightBarButtonItem:doneButton];
 	[datePicker setHidden:NO];		
+	[titleSeg setSelectedSegmentIndex:-1];
+	[titleSeg setHidden:YES];
 }
 
 -(void) pageUpdate
@@ -190,7 +231,7 @@
 	{
 		if (![validBankingDate isEqualToDate:[self selectedDate]])
 			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-							 title:@"Atentie!"];
+							 title:@"Atenție!"];
 		
 		
 		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
@@ -206,7 +247,7 @@
 		[myTableView reloadData];
 	}
 	else
-		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];
+		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];
 }
 
 -(void) doneAction
@@ -216,11 +257,14 @@
 		NSDate *selDate = [DateFormat normalizeDateFromDate:[datePicker date]];
 		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:selDate];
 		[self setSelectedDate:utcDate];
-		[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
+	//	[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
+		[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
 		
 		[self.navigationItem setLeftBarButtonItem:editButton];
 		[self.navigationItem setRightBarButtonItem:updateButton];
 		[datePicker setHidden:YES];		
+		[titleSeg setHidden:NO];
+
 		
 		// =========== table Data Source =========== //
 		[tableDataSource removeAllObjects];
@@ -230,10 +274,14 @@
 		
 		if (validBankingDate)
 		{
-			if (![validBankingDate isEqualToDate:[self selectedDate]])
-				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-								 title:@"Atentie!"];
-		
+			if (![validBankingDate isEqualToDate:[self selectedDate]]) {
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat businessStringFromDate:validBankingDate]]
+								 title:@"Atenție!"];
+				[self setSelectedDate:validBankingDate];
+				[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
+
+
+			}
 			[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
 			
 			NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
@@ -246,7 +294,7 @@
 			[self organizeTableSourceWithPriorities];			
 		}
 		else
-			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
+			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
 
 	}
 	else if (myTableView.editing)
@@ -269,6 +317,9 @@
 		[self.navigationItem setRightBarButtonItem:updateButton];
 		[myTableView setEditing:NO];	
 		[self organizeTableSourceWithPriorities];
+		
+		[titleSeg setHidden:NO];
+		[self.navigationItem setRightBarButtonItem:updateButton];
 	}	
 	[myTableView reloadData];	
 }
@@ -342,13 +393,19 @@
 	{
 	[self.navigationItem setLeftBarButtonItem:editButton];
 	[self.navigationItem setRightBarButtonItem:updateButton];
-	[datePicker setHidden:YES];		
+	[datePicker setHidden:YES];	
+	[titleSeg setHidden:NO];
+
 	}
 }
 
 -(void) editAction
 {
 	[myTableView setEditing:YES];
+	
+	[titleSeg setHidden:YES];
+	[self.navigationItem setRightBarButtonItem:nil];
+	
 	[myTableView reloadData];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
 }

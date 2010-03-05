@@ -22,7 +22,7 @@
 @synthesize dateRangeDictionary, currenciesList;
 
 - (void)dealloc {
-	
+	[generateButton release];
 	[dateRangeDictionary release];
 	[currenciesList release];
 	[dateRangeTableView release];
@@ -40,12 +40,12 @@
 		//init code
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"tabStatistics.png"];
-		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Statistici" image:buttonImage tag:0];
+		UIImage *buttonImage = [UIImage imageNamed:@"evolutie 2.png"];
+		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Evoluție" image:buttonImage tag:0];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];
 		
-		self.title = @"Statistici";		
+		self.title = @"Evoluție";		
 		
 		NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"dateRangeDictionary"];
 		NSMutableDictionary *savedRanges = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -96,28 +96,40 @@
 	
 	if (![currenciesList count]) 
 	{
-		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie sa aveti macar o moneda de referinta" title:@"Atentie"];
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să aveți măcar o monedă de referință" title:@"Atenție"];
 		return;
 	}
 	NSString *startDateString = [dateRangeDictionary objectForKey:@"startDate"];				
 	if (![startDateString length])
 	{
-		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie sa selectati o data de start" title:@"Atentie"];		
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să selectați o dată de start" title:@"Atenție"];		
 		return;		
 	}
 	NSString *endDateString = [dateRangeDictionary objectForKey:@"endDate"];	
 	if (![endDateString length])
 	{
-		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie sa selectati o data de final" title:@"Atentie"];		
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să selectați o dată de final" title:@"Atenție"];		
+		return;	
+	}
+	
+	NSDate *utcStartDate = [InfoValutarAPI getUTCFormateDateFromDate:[DateFormat dateFromNormalizedString:startDateString]];
+	NSDate *utcEndDate = [InfoValutarAPI getUTCFormateDateFromDate:[DateFormat dateFromNormalizedString:endDateString]];
+	
+	
+	NSDate *validStartDate = [InfoValutarAPI getValidBankingDayForDay:utcStartDate];
+	NSDate *validEndDate = [InfoValutarAPI getValidBankingDayForDay:utcEndDate];
+	if ([validEndDate isEqual:validStartDate]) {
+		[UIFactory showOkAlert:@"Pentru intervalul selectat nu există date suficiente pentru a genera un grafic. Actualizați sau alegeți alt interval." title:@"Atenție"];		
 		return;	
 	}
 
-	[graphView setPlots:currenciesList];
 	
-	NSDate *utcStartDate = [InfoValutarAPI getUTCFormateDateFromDate:[DateFormat dateFromNormalizedString:startDateString]];
+
+		
 	[graphView setStartDate: utcStartDate];
-	NSDate *utcEndDate = [InfoValutarAPI getUTCFormateDateFromDate:[DateFormat dateFromNormalizedString:endDateString]];
 	[graphView setEndDate:utcEndDate];	
+	[graphView setPlots:currenciesList];
+
 	
 	[self.navigationController presentModalViewController:graphNavigation animated:YES];
 	
@@ -152,12 +164,11 @@
 	 [self.view addSubview:currenciesTableView];	 
 	 
 
-	 UIBarButtonItem *generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Genereaza"
+	 generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Generează"
 												   style:UIBarButtonItemStyleBordered
 												  target:self 
 												  action:@selector(presentModalGraphView)];
 	 [self.navigationItem setRightBarButtonItem:generateButton];
-	 [generateButton release];
 	 
 	 
 	 doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
@@ -176,6 +187,7 @@
 {
 	[currenciesTableView setEditing:YES];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
+	[self.navigationItem setRightBarButtonItem:nil];
 	[currenciesTableView reloadData];
 }
 
@@ -183,6 +195,7 @@
 {
 	[currenciesTableView setEditing:NO];	
 	[self.navigationItem setLeftBarButtonItem:editButton];	
+	[self.navigationItem setRightBarButtonItem:generateButton];
 	[currenciesTableView reloadData];	
 }
 
@@ -311,7 +324,7 @@
 			
 			[addcell.textLabel setText:kAddNewCurrency];
 			[addcell.textLabel setTextColor:[UIColor darkGrayColor]];
-			addcell.textLabel.textAlignment = UITextAlignmentCenter;
+			addcell.textLabel.textAlignment = UITextAlignmentLeft;
 			[addcell setAccessoryType:UITableViewCellAccessoryNone];			
 			addcell.selectionStyle = UITableViewCellSelectionStyleBlue;
 			[addcell.textLabel setFont:[UIFont boldSystemFontOfSize:18]];
@@ -344,12 +357,12 @@
 			
 			if ([currencyObject currencyName])
 			{
-				NSString *fullNameCurrency = [[appDelegate currencyFullDictionary] valueForKey:[currencyObject currencyName]];		
+				//NSString *fullNameCurrency = [[appDelegate currencyFullDictionary] valueForKey:[currencyObject currencyName]];		
 				
 				[cell setCurrencyImageName:[NSString stringWithFormat:@"%@.png",[currencyObject currencyName] ]  
 							  currencyName:[currencyObject currencyName] 
 						   multiplierValue:[currencyObject multiplierValue]?[currencyObject multiplierValue]:nil 
-								  fullName:fullNameCurrency];
+								  fullName:@""];
 				[cell enterGroupEditState];
 				[cell enterEditMode:tableView.editing];
 			}
@@ -452,7 +465,7 @@
 	}
 	else
 	{
-		[UIFactory showOkAlert:@"Pentru a putea genera un grafic, puteti avea maxim 5 monede" title:@"Atentie"];
+		[UIFactory showOkAlert:@"Pentru a putea genera un grafic, puteti avea maxim 5 monede" title:@"Atenție"];
 		[currenciesTableView deselectRowAtIndexPath:[currenciesTableView indexPathForSelectedRow] animated:YES];
 	}
 }

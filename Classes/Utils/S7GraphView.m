@@ -134,8 +134,11 @@
 	CGFloat offsetX = _drawAxisY ? 60.0f : 10.0f;
 	CGFloat offsetY = (_drawAxisX || _drawInfo) ? 30.0f : 10.0f;
 	
+	
 	CGFloat minY = 0.0;
 	CGFloat maxY = 0.0;
+	
+	CGFloat mini = 10000000.0;
 	
 	UIFont *font = [UIFont systemFontOfSize:11.0f];
 	
@@ -148,13 +151,21 @@
 			if ([[values objectAtIndex:valueIndex] floatValue] > maxY) {
 				maxY = [[values objectAtIndex:valueIndex] floatValue];
 			}
-/*
-			if ([[values objectAtIndex:valueIndex] floatValue] < minY) {
-				minY = [[values objectAtIndex:valueIndex] floatValue];
+
+			if ( ([[values objectAtIndex:valueIndex] floatValue] < mini) && ([[values objectAtIndex:valueIndex] floatValue]) ) {
+				mini = [[values objectAtIndex:valueIndex] floatValue];
 			}
-*/
+
 		}
+		
 	}
+	
+	mini -= (mini/100);
+		
+	maxY =  maxY - mini;
+
+		
+	
 /*
 	if (maxY < 100) {
 		maxY = ceil(maxY / 10) * 10;
@@ -173,13 +184,13 @@
 	}
 */
 	
-	NSString *valueString = @"RON";
+ 	NSString *valueString = @"RON";
 	CGRect valueStringRect = CGRectMake(20, 3, 40.0f, 20.0f);
 	[self.yValuesColor set];	
 	[valueString drawInRect:valueStringRect withFont:font
 			  lineBreakMode:UILineBreakModeTailTruncation alignment:UITextAlignmentCenter];	
 	
-	NSLog(@"Max %f min %f", maxY, minY);
+	NSLog(@"Max %f offset %f", maxY, mini);
 	
 	CGFloat step = (maxY - minY) / 5;
 	CGFloat stepY = (self.frame.size.height - (offsetY * 2)) / maxY;
@@ -211,7 +222,7 @@
 		
 		if (i > 0 && _drawAxisY) {
 			
-			CGFloat valueToShow = value/1000;
+			CGFloat valueToShow = (value + mini )/1000;
 			NSNumber *valueToFormat = [NSNumber numberWithFloat:valueToShow];
 			NSString *valueString;
 			
@@ -239,7 +250,7 @@
 		NSUInteger stepCount = 5;
 		NSUInteger count = xValuesCount - 1;
 		
-		for (NSUInteger i = 4; i < 8; i++) {
+		for (NSUInteger i = 4; i < 6; i++) {
 			if (count % i == 0) {
 				stepCount = i;
 			}
@@ -297,7 +308,7 @@
 			NSString *valueString;
 			
 			if (_xValuesFormatter) {
-				valueString = [_xValuesFormatter stringForObjectValue:valueToFormat];
+				valueString = [_xValuesFormatter stringForObjectValue:valueToFormat ];
 			} else {
 				valueString = [NSString stringWithFormat:@"%@", valueToFormat];
 			}
@@ -315,6 +326,21 @@
 	for (NSUInteger plotIndex = 0; plotIndex < numberOfPlots; plotIndex++) {
 		
 		NSArray *values = [self.dataSource graphView:self yValuesForPlot:plotIndex];
+		
+		
+		//convert data
+		NSMutableArray *changeableValues =  [NSMutableArray arrayWithArray:values];
+		
+		for (NSUInteger valueIndex = 0; valueIndex < values.count; valueIndex++) {
+			float val = [[changeableValues objectAtIndex:valueIndex] floatValue] - mini;
+			[changeableValues replaceObjectAtIndex:valueIndex withObject:[NSNumber numberWithFloat:val]];
+			
+		}
+		
+		values = (NSArray *)changeableValues;
+		//convert end
+		
+		
 		BOOL shouldFill = NO;
 		
 		if ([self.dataSource respondsToSelector:@selector(graphView:shouldFillPlot:)]) {
@@ -349,32 +375,35 @@
 			NSUInteger x = valueIndex * stepX;
 			NSUInteger y = [[values objectAtIndex:valueIndex] intValue] * stepY;
 			
-			CGContextSetLineWidth(c, 1.5f);
+			if (y) {
 			
-			CGPoint startPoint = CGPointMake(x + offsetX, self.frame.size.height - y - offsetY);
-			
-			x = (valueIndex + 1) * stepX;
-			y = [[values objectAtIndex:valueIndex + 1] intValue] * stepY;
-			
-			CGPoint endPoint = CGPointMake(x + offsetX, self.frame.size.height - y - offsetY);
-			
-			CGContextMoveToPoint(c, startPoint.x, startPoint.y);
-			CGContextAddLineToPoint(c, endPoint.x, endPoint.y);
-			CGContextClosePath(c);
-			
-			CGContextSetStrokeColorWithColor(c, plotColor);
-			CGContextStrokePath(c);
-			
-			if (shouldFill) {
+				CGContextSetLineWidth(c, 1.5f);
 				
-				CGContextMoveToPoint(c, startPoint.x, self.frame.size.height - offsetY);
-				CGContextAddLineToPoint(c, startPoint.x, startPoint.y);
+				CGPoint startPoint = CGPointMake(x + offsetX,self.frame.size.height - y - offsetY  );
+				
+				x = (valueIndex + 1) * stepX;
+				y = [[values objectAtIndex:valueIndex + 1] intValue] * stepY;
+				
+				CGPoint endPoint = CGPointMake(x + offsetX, self.frame.size.height - y - offsetY );
+				
+				CGContextMoveToPoint(c, startPoint.x, startPoint.y);
 				CGContextAddLineToPoint(c, endPoint.x, endPoint.y);
-				CGContextAddLineToPoint(c, endPoint.x, self.frame.size.height - offsetY);
 				CGContextClosePath(c);
 				
-				CGContextSetFillColorWithColor(c, plotColor);
-				CGContextFillPath(c);
+				CGContextSetStrokeColorWithColor(c, plotColor);
+				CGContextStrokePath(c);
+				
+				if (shouldFill) {
+					
+					CGContextMoveToPoint(c, startPoint.x, self.frame.size.height - offsetY );
+					CGContextAddLineToPoint(c, startPoint.x, startPoint.y);
+					CGContextAddLineToPoint(c, endPoint.x, endPoint.y);
+					CGContextAddLineToPoint(c, endPoint.x, self.frame.size.height - offsetY);
+					CGContextClosePath(c);
+					
+					CGContextSetFillColorWithColor(c, plotColor);
+					CGContextFillPath(c);
+				}
 			}
 		}
 	}

@@ -8,6 +8,18 @@
 
 #import "InfoValutarAppDelegate.h"
 #import "InfoValutarAPI.h"
+#import "DateFormat.h"
+#import "UIFactory.h"
+#import "Constants.h"
+
+
+@implementation UINavigationBar (CustomImage)
+
+- (void)setNeedsLayout{
+	//self.tintColor = definedColor;
+}
+
+@end
 
 @implementation InfoValutarAppDelegate
 
@@ -16,7 +28,7 @@
 @synthesize currencyNavigationController, converterNavigationController, statisticsNavigationController, taxesNavigationController, infoNavigationController;
 @synthesize tabBarController;
 @synthesize currencyFullDictionary;
-@synthesize globalTimeStamp;
+@synthesize globalTimeStamp, dataWasUpdated;
 
 #pragma mark -
 #pragma mark Memory management
@@ -45,6 +57,22 @@
     [super dealloc];
 }
 
+
+- (void)initDefault{
+	
+	
+	
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+    NSDictionary *appDefaults = [NSDictionary
+								 
+								 dictionaryWithObject:@"YES" forKey:@"sAutomaticUpdate"];
+	
+	
+	[defaults registerDefaults:appDefaults];
+	
+}
+
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -57,11 +85,20 @@
 //	[converterViewController populate];
 	
 	[window addSubview:tabBarController.view];	
+	
+	userAction = YES;
+	id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"sAutomaticUpdate"];
+	if (!setting)
+		[self initDefault];
 	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
-	if (settingsUpdate)
+	if (settingsUpdate) {
+		userAction = NO; 
 		[self checkForUpdates];
+	}
 	[window makeKeyAndVisible];
 }
+
+
 
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
@@ -78,7 +115,8 @@
 	NSData *converterListData = [NSKeyedArchiver archivedDataWithRootObject:converterList];
 	[prefs setObject:converterListData forKey:@"converterList"];
 
-	NSData *converterReferenceData = [NSKeyedArchiver archivedDataWithRootObject:[[self converterViewController] referenceItem]];
+	ConverterItem *item = [[self converterViewController] referenceItem];
+	NSData *converterReferenceData = [NSKeyedArchiver archivedDataWithRootObject: item];
 	[prefs setObject:converterReferenceData forKey:@"converterReferenceItem"];
 	
 	NSMutableArray *taxesList = [taxesViewController tableDataSource];
@@ -146,8 +184,8 @@
 	//initiating the tabbar controller	
 	self.tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers = [NSArray arrayWithObjects:	currencyNavigationController, 
-										converterNavigationController, 
 										statisticsNavigationController,
+										converterNavigationController, 
 										taxesNavigationController,
 										infoNavigationController,
 										nil];
@@ -250,9 +288,66 @@
 #pragma mark UpdateDatabase
 
 -(void) checkForUpdates
-{
+{	
+	//Test if update is needed and initiate update
+	
+	NSDate *now = [NSDate date];
+	
+	NSDate *nTodayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+	NSString *todayDateStr = [DateFormat DBformatDateFromDate:nTodayDate];
+
+	NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:nTodayDate];
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:utcDate];
+	NSString *validBankingDateStr = [DateFormat DBformatDateFromDate:validBankingDate];
+
+	NSDate *updateDate = [InfoValutarAPI getUpdateDateForDate:utcDate];
+	
+	NSDate *yesterdayDate = [nTodayDate addTimeInterval:-86400];
+	yesterdayDate = [InfoValutarAPI getUTCFormateDateFromDate:yesterdayDate];
+	
+	//NSString *tomorrowDateStr = [DateFormat DBformatDateFromDate:tomorrowDate];
+	
+	BOOL mustUpdate = NO;
+
+	
+	if ([todayDateStr compare:validBankingDateStr]==1)  { // Latest valid banking date is older than today
+	
+		if (![yesterdayDate compare:validBankingDate]) { //Latest update is yesterdays
+			if ([now compare:updateDate]==1) {	//It's past 11GMT
+				mustUpdate = YES;
+			}
+			else  {								//Not 11GTM yes
+				if (userAction) { 
+					NSDate *today = [NSDate date];
+					NSString *todayStr = [DateFormat businessStringFromDate:today];
+					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR pentru %@ nu a fost încă publicat.",todayStr]
+									 title:@"Atenție!"];
+				}
+				mustUpdate = NO;
+			}
+		}
+		else {											//Latest update is older than yesterday
+			mustUpdate = YES;
+
+		}
+
+		
+	}
+	
+	
+	else {												// Latest valid banking date is up to date
+		if (userAction)
+			[UIFactory showOkAlert:[NSString stringWithFormat:@"Actualizarea nu este necesară "]
+							 title:@"Atenție!"];
+	}
+	
+	
+	userAction = YES;
+
+	if (mustUpdate)
 	[[InfoValutarAPI sharedInstance] updateDatabaseWithTimeStamp:self.globalTimeStamp
 												inViewController:currencyViewController];
+	
 }
 
 @end

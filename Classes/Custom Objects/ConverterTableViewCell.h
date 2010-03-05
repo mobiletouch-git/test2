@@ -10,7 +10,7 @@
 #import "ConverterItem.h"
 
 @interface ConverterTableViewCell : UITableViewCell <UITextFieldDelegate>{
-
+	
 	ConverterItem *converter;
 	UIImageView *converterFlagImageView;
 	UILabel *converterNameLabel;
@@ -33,5 +33,8 @@
 -(void) setEditing: (BOOL) yesOrNo;
 -(float) computeOffsetForCellInArray: (NSArray *) cells
 						  dataSource: (NSArray *) tableDataSource;
+
+-(void) moveView:(UIView *) viewP x:(float) pixP;
+- (void)cancelAction;
 
 @end

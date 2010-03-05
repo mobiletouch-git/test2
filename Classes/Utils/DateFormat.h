@@ -13,6 +13,8 @@
 }
 +(NSString *) stringValueForDictionaryKeyFromValue: (NSDate *) theDate;
 
++(NSString *)businessStringFromDate:(NSDate *)date;
+
 +(NSString *)simpleDateFormatString:(NSDate *)date;
 
 +(NSString *)DBformatDateFromDate:(NSDate *)date;

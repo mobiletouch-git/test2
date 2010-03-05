@@ -36,7 +36,9 @@
 	
 	NSDictionary *currencyFullDictionary;	
 	
+	
 	NSInteger globalTimeStamp;
+	BOOL userAction, dataWasUpdated;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -61,6 +63,7 @@
 @property (nonatomic, retain) NSDictionary *currencyFullDictionary;	
 
 @property (nonatomic, assign) NSInteger globalTimeStamp;
+@property (nonatomic, assign) BOOL dataWasUpdated;
 
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;

@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-	self.title = @"Alege";
+	self.title = @"Alegeți";
 	
 	tableDataSource = [[NSMutableArray alloc]	initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
 	
@@ -56,8 +56,11 @@
 													style:UIBarButtonItemStyleBordered
 												   target:self
 												   action:@selector(cancelAction)];
-	[self.navigationItem setLeftBarButtonItem:cancelButton];
-	
+	[self.navigationItem setRightBarButtonItem:cancelButton];
+
+	self.navigationItem.hidesBackButton = YES;
+
+
 }
 
 -(void) cancelAction
@@ -167,7 +170,7 @@
 			[self.navigationController popViewControllerAnimated:YES];			
 		}
 		else {
-			[UIFactory showOkAlert:@"Moneda selectata se afla deja in lista" title:@"Atentie"];
+			[UIFactory showOkAlert:@"Moneda selectată se află deja în listă" title:@"Atenție"];
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		}
 

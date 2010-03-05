@@ -207,7 +207,7 @@
 - (NSArray *)graphView:(S7GraphView *)graphView yValuesForPlot:(NSUInteger)plotIndex {
 	/* Return the values for a specific graph. Each plot is meant to have equal number of points.
 	 And this amount should be equal to the amount of elements you return from graphViewXValues: method. */
-	NSMutableArray *array = [[NSMutableArray alloc] init];
+	NSMutableArray *array = [NSMutableArray array];
 	NSArray *valuesForPlot = [plotsValues objectAtIndex:plotIndex];
 	
 	int counter = 0;

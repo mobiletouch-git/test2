@@ -30,7 +30,7 @@
 		//init code
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"edit_add.png"];
+		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_4.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Taxe" image:buttonImage tag:0];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];
@@ -185,7 +185,7 @@
 		
 		[addcell.textLabel setText:kAddNewTax];
 		[addcell.textLabel setTextColor:[UIColor darkGrayColor]];
-		addcell.textLabel.textAlignment = UITextAlignmentCenter;
+		addcell.textLabel.textAlignment = UITextAlignmentLeft;
 		[addcell setAccessoryType:UITableViewCellAccessoryNone];			
 		addcell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		[addcell.textLabel setFont:[UIFont boldSystemFontOfSize:18]];

@@ -15,6 +15,16 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* InfoValutar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* InfoValutar.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		3EC482A6114FE42C0014BE41 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A1114FE42C0014BE41 /* Default.png */; };
+		3EC482A7114FE42C0014BE41 /* icon_tab_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A2114FE42C0014BE41 /* icon_tab_1.png */; };
+		3EC482A8114FE42C0014BE41 /* icon_tab_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A3114FE42C0014BE41 /* icon_tab_2.png */; };
+		3EC482A9114FE42C0014BE41 /* icon_tab_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A4114FE42C0014BE41 /* icon_tab_4.png */; };
+		3EC482AA114FE42C0014BE41 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A5114FE42C0014BE41 /* Icon.png */; };
+		3EC48762114FE42C0014BE41 /* logo_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC48761114FE42C0014BE41 /* logo_transparent.png */; };
+		3EC48BA6114FE42C0014BE41 /* evolutie 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC48BA5114FE42C0014BE41 /* evolutie 2.png */; };
+		3EC48D1B114FE42C0014BE41 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC48D1A114FE42C0014BE41 /* TermsViewController.m */; };
+		3EC48D1D114FE42C0014BE41 /* terms.html in Resources */ = {isa = PBXBuildFile; fileRef = 3EC48D1C114FE42C0014BE41 /* terms.html */; };
+		3EC48D41114FE42C0014BE41 /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC48D40114FE42C0014BE41 /* left.png */; };
 		7D3CB6AD113D67EE003AA41C /* ConverterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */; };
 		7D3CB6B0113D67FE003AA41C /* ConverterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */; };
 		7D41710311131435002A0D0C /* AED.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D4170E411131435002A0D0C /* AED.png */; };
@@ -110,6 +120,17 @@
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* InfoValutar_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoValutar_Prefix.pch; sourceTree = "<group>"; };
+		3EC482A1114FE42C0014BE41 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
+		3EC482A2114FE42C0014BE41 /* icon_tab_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_tab_1.png; path = Resources/icon_tab_1.png; sourceTree = "<group>"; };
+		3EC482A3114FE42C0014BE41 /* icon_tab_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_tab_2.png; path = Resources/icon_tab_2.png; sourceTree = "<group>"; };
+		3EC482A4114FE42C0014BE41 /* icon_tab_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_tab_4.png; path = Resources/icon_tab_4.png; sourceTree = "<group>"; };
+		3EC482A5114FE42C0014BE41 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
+		3EC48761114FE42C0014BE41 /* logo_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_transparent.png; path = Resources/logo_transparent.png; sourceTree = "<group>"; };
+		3EC48BA5114FE42C0014BE41 /* evolutie 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "evolutie 2.png"; path = "Resources/evolutie 2.png"; sourceTree = "<group>"; };
+		3EC48D19114FE42C0014BE41 /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TermsViewController.h; path = Classes/ViewControllers/TermsViewController.h; sourceTree = "<group>"; };
+		3EC48D1A114FE42C0014BE41 /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TermsViewController.m; path = Classes/ViewControllers/TermsViewController.m; sourceTree = "<group>"; };
+		3EC48D1C114FE42C0014BE41 /* terms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = terms.html; path = Resources/terms.html; sourceTree = "<group>"; };
+		3EC48D40114FE42C0014BE41 /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = left.png; path = Resources/left.png; sourceTree = "<group>"; };
 		7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConverterViewController.h; path = Classes/ViewControllers/ConverterViewController.h; sourceTree = "<group>"; };
 		7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConverterViewController.m; path = Classes/ViewControllers/ConverterViewController.m; sourceTree = "<group>"; };
 		7D3CB6AE113D67FE003AA41C /* ConverterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConverterTableViewCell.h; path = "Classes/Custom Objects/ConverterTableViewCell.h"; sourceTree = "<group>"; };
@@ -259,6 +280,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				7DBF9406111309E90042CD97 /* Constants.h */,
 				7DBF93F71113093C0042CD97 /* Custom Objects */,
 				7DBF93FB111309510042CD97 /* Data Model */,
 				7DBF9402111309CB0042CD97 /* Utils */,
@@ -284,6 +306,15 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3EC48D40114FE42C0014BE41 /* left.png */,
+				3EC48D1C114FE42C0014BE41 /* terms.html */,
+				3EC48BA5114FE42C0014BE41 /* evolutie 2.png */,
+				3EC48761114FE42C0014BE41 /* logo_transparent.png */,
+				3EC482A1114FE42C0014BE41 /* Default.png */,
+				3EC482A2114FE42C0014BE41 /* icon_tab_1.png */,
+				3EC482A3114FE42C0014BE41 /* icon_tab_2.png */,
+				3EC482A4114FE42C0014BE41 /* icon_tab_4.png */,
+				3EC482A5114FE42C0014BE41 /* Icon.png */,
 				7DD2654B11354E4B009E9B54 /* close.png */,
 				7DD2654C11354E4B009E9B54 /* close_touch.png */,
 				7DD262C811354BD7009E9B54 /* blueButton.png */,
@@ -334,7 +365,7 @@
 			name = Tab1;
 			sourceTree = "<group>";
 		};
-		7D136E561122D58D00D090AB /* Tab 2 */ = {
+		7D136E561122D58D00D090AB /* Tab 3 */ = {
 			isa = PBXGroup;
 			children = (
 				7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */,
@@ -342,10 +373,10 @@
 				7D94643911296E6E00F632B2 /* AddConverterItemViewController.h */,
 				7D94643A11296E6E00F632B2 /* AddConverterItemViewController.m */,
 			);
-			name = "Tab 2";
+			name = "Tab 3";
 			sourceTree = "<group>";
 		};
-		7D136E571122D59200D090AB /* Tab 3 */ = {
+		7D136E571122D59200D090AB /* Tab 2 */ = {
 			isa = PBXGroup;
 			children = (
 				7DD262D111354C97009E9B54 /* S7GraphViewShared */,
@@ -356,7 +387,7 @@
 				7DD262CC11354C6B009E9B54 /* GraphViewController.h */,
 				7DD262CD11354C6B009E9B54 /* GraphViewController.m */,
 			);
-			name = "Tab 3";
+			name = "Tab 2";
 			sourceTree = "<group>";
 		};
 		7D136E581122D59600D090AB /* Tab 4 */ = {
@@ -458,7 +489,6 @@
 			children = (
 				A590831D1137FDB800DBC952 /* DateFormat.h */,
 				A590831E1137FDB800DBC952 /* DateFormat.m */,
-				7DBF9406111309E90042CD97 /* Constants.h */,
 				7DBF9404111309E90042CD97 /* AsyncronousResponse.h */,
 				7DBF9405111309E90042CD97 /* AsyncronousResponse.m */,
 				7DBF9407111309E90042CD97 /* CurrenciesParserDelegate.h */,
@@ -474,11 +504,13 @@
 		7DBF9403111309D30042CD97 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3EC48D19114FE42C0014BE41 /* TermsViewController.h */,
+				3EC48D1A114FE42C0014BE41 /* TermsViewController.m */,
 				7D9465FA112989A300F632B2 /* CurrencyPickerViewController.h */,
 				7D9465FB112989A300F632B2 /* CurrencyPickerViewController.m */,
 				7D136E551122D57700D090AB /* Tab1 */,
-				7D136E561122D58D00D090AB /* Tab 2 */,
-				7D136E571122D59200D090AB /* Tab 3 */,
+				7D136E571122D59200D090AB /* Tab 2 */,
+				7D136E561122D58D00D090AB /* Tab 3 */,
 				7D136E581122D59600D090AB /* Tab 4 */,
 				7D685FA9112A7E3A003B00B7 /* Tab 5 */,
 				7DBF941C111309F60042CD97 /* WebViewController.h */,
@@ -593,6 +625,15 @@
 				7DD2654D11354E4B009E9B54 /* close.png in Resources */,
 				7DD2654E11354E4B009E9B54 /* close_touch.png in Resources */,
 				7D85F25C113D2EE800BDE64B /* Settings.bundle in Resources */,
+				3EC482A6114FE42C0014BE41 /* Default.png in Resources */,
+				3EC482A7114FE42C0014BE41 /* icon_tab_1.png in Resources */,
+				3EC482A8114FE42C0014BE41 /* icon_tab_2.png in Resources */,
+				3EC482A9114FE42C0014BE41 /* icon_tab_4.png in Resources */,
+				3EC482AA114FE42C0014BE41 /* Icon.png in Resources */,
+				3EC48762114FE42C0014BE41 /* logo_transparent.png in Resources */,
+				3EC48BA6114FE42C0014BE41 /* evolutie 2.png in Resources */,
+				3EC48D1D114FE42C0014BE41 /* terms.html in Resources */,
+				3EC48D41114FE42C0014BE41 /* left.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +675,7 @@
 				7DB1E8F4113BF50F0034906D /* Currency.m in Sources */,
 				7D3CB6AD113D67EE003AA41C /* ConverterViewController.m in Sources */,
 				7D3CB6B0113D67FE003AA41C /* ConverterTableViewCell.m in Sources */,
+				3EC48D1B114FE42C0014BE41 /* TermsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +686,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Litu (C7449MNT92)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -655,6 +698,7 @@
 				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				PRODUCT_NAME = InfoValutar;
+				PROVISIONING_PROFILE = "769CF0D6-F8B1-48E5-9675-6CDEB54FDA1D";
 			};
 			name = Debug;
 		};
@@ -674,6 +718,39 @@
 			};
 			name = Release;
 		};
+		3EC48DAE114FE42C0014BE41 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = InfoValutar;
+				PROVISIONING_PROFILE = "A3D38D20-CA18-4DD0-B81B-E5AAB3FEF80B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3D38D20-CA18-4DD0-B81B-E5AAB3FEF80B";
+				SDKROOT = iphoneos3.0;
+			};
+			name = Distribution;
+		};
+		3EC48DAF114FE42C0014BE41 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"/Volumes/Skiiing2/CD/ViewBased/Unknown Path/System/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
+				INFOPLIST_FILE = "InfoValutar-Info.plist";
+				PRODUCT_NAME = InfoValutar;
+			};
+			name = Distribution;
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -681,6 +758,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
@@ -710,6 +788,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				3EC48DAF114FE42C0014BE41 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -719,6 +798,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				3EC48DAE114FE42C0014BE41 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

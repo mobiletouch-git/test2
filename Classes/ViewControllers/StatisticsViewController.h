@@ -19,6 +19,7 @@
 	
 	UIBarButtonItem *doneButton;
 	UIBarButtonItem *editButton;	
+	UIBarButtonItem *generateButton;
 }
 @property (nonatomic, retain) UITableView *dateRangeTableView;
 @property (nonatomic, retain) UITableView *currenciesTableView;

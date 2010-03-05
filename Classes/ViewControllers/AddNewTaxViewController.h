@@ -20,6 +20,8 @@
 	UIButton *minusSignButton;	
 	UIBarButtonItem *saveButton;		
 	UITableView *oneRowTableView;
+	
+	NSNumberFormatter *currencyFormatter;
 
 }
 

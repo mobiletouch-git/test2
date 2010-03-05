@@ -24,6 +24,8 @@
 +(CurrencyItem *) findCurrencyNamed: (NSString *)currencyName inArray: (NSArray *) anArray;
 +(CurrencyItem *) getCurrencyForPriority: (NSInteger) priority inDictionary: (NSDictionary *) aDictionary;
 +(NSDate *)getUTCFormateDateFromDate: (NSDate *) theDate;
++(NSDate *)getUpdateDateForDate: (NSDate *) theDate;
+
 
 - (void) updateDatabaseWithTimeStamp: (NSInteger) timeStmp
 					inViewController: (UIViewController *)theParentViewController;

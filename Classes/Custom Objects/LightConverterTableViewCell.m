@@ -28,22 +28,23 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // Initialization code
 		
-		converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,10,32,32)];
+		converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(25,6,32,32)];
 		[self addSubview:converterFlagImageView];
 		
 		converterNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:16 bold:YES];
-		[converterNameLabel setFrame:CGRectMake(70,12,175,20)];
+		[converterNameLabel setFrame:CGRectMake(65,11,175,20)];
 		[converterNameLabel setTextAlignment:UITextAlignmentLeft];		
-		converterNameLabel.adjustsFontSizeToFitWidth=YES;			
+		converterNameLabel.adjustsFontSizeToFitWidth=YES;	
 		[self addSubview:converterNameLabel];	
 		
 		converterAdditionLabel = [UIFactory newLabelWithPrimaryColor:[UIColor grayColor] selectedColor:[UIColor whiteColor] fontSize:15 bold:YES];
-		[converterAdditionLabel setFrame:CGRectMake(70,30,175,20)];
+//		[converterAdditionLabel setFrame:CGRectMake(70,30,175,20)];
+		[converterAdditionLabel setFrame:CGRectMake(100,15,175,15)];
 		[converterAdditionLabel setTextAlignment:UITextAlignmentLeft];		
 		converterAdditionLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:converterAdditionLabel];		
 		
-		UIImageView *disclosureView = [[UIImageView alloc] initWithFrame:CGRectMake(290,20,10,13)];
+		UIImageView *disclosureView = [[UIImageView alloc] initWithFrame:CGRectMake(290,16,10,13)];
 		[disclosureView setImage:[UIImage imageNamed:@"accessory_disclosure.png"]];
 		[disclosureView setTag:1];
 		[self addSubview:disclosureView];

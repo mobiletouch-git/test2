@@ -27,14 +27,14 @@
 		currencyFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,5,32,32)];
 		[self addSubview:currencyFlagImageView];
 		
-		currencyNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:18 bold:YES];
+		currencyNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
 		[currencyNameLabel setFrame:CGRectMake(50,12,40,20)];
 		[currencyNameLabel setTextAlignment:UITextAlignmentLeft];		
 		currencyNameLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:currencyNameLabel];
 		
 		multiplierLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:12 bold:YES];
-		[multiplierLabel setFrame:CGRectMake(95,15,30,20)];
+		[multiplierLabel setFrame:CGRectMake(95,13,30,20)];
 		[multiplierLabel setFont:[UIFont systemFontOfSize:12]];
 		[multiplierLabel setTextColor:[UIColor lightGrayColor]];
 		multiplierLabel.adjustsFontSizeToFitWidth=YES;			
@@ -46,7 +46,7 @@
 		currencyValueLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:currencyValueLabel];
 		
-		changeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:13 bold:NO];
+		changeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:NO];
 		[changeLabel setFrame:CGRectMake(248,11,60,20)];
 		[changeLabel setTextAlignment:UITextAlignmentRight];
 		changeLabel.adjustsFontSizeToFitWidth=YES;			
@@ -94,6 +94,7 @@
 		if ([theSign isEqualToString:@"+"])
 		{
 			[changeLabel setTextColor:[UIColor colorWithRed:(CGFloat)0x0C/255.0 green:(CGFloat)0x9D/255.0 blue:(CGFloat)0x00/255.0 alpha:1.0]];
+			[changeLabel setText:[NSString stringWithFormat:@"+%@",changeString]];
 		}
 		else if ([theSign isEqualToString:@"-"])
 		{

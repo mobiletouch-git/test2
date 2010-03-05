@@ -21,18 +21,31 @@
 	UIBarButtonItem *doneButton;
 	UIBarButtonItem *cancelButton;
 	
-
 	
-	UIButton *titleButton;
+	
+//	UIButton *titleButton;
+	UISegmentedControl *titleSeg;
+
 	UIDatePicker *datePicker;
 	NSDate *selectedDate;
 	
 	ConverterItem *referenceItem;
-
+	
+	BOOL textChanged;
+	
+	NSDecimalNumber *referenceConverterValue;
+	
 }
 @property (nonatomic, retain)	UIBarButtonItem *editButton;
 @property (nonatomic, retain)	UIBarButtonItem *addButton;	
-@property (nonatomic, retain)	UIButton *titleButton;
+@property (nonatomic, retain)   UISegmentedControl *titleSeg;
+@property (nonatomic, retain)	NSDecimalNumber *referenceConverterValue;
+
+
+
+@property (nonatomic, assign) BOOL textChanged;
+
+//@property (nonatomic, retain)	UIButton *titleButton;
 
 @property (nonatomic, retain)	UITableView *myTableView;
 @property (nonatomic, retain)	NSMutableArray *tableDataSource;
@@ -42,5 +55,6 @@
 
 -(void) addDefaultConverterValues;
 -(void) textEditEnded;
+-(void) updateCurrentDate;
 
 @end

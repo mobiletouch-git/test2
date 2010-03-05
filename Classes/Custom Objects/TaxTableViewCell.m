@@ -41,7 +41,7 @@
 		[self addSubview:checkMarkView];		
 
 		percentLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:18 bold:NO];
-		[percentLabel setFrame:CGRectMake(210,7,70,30)];
+		[percentLabel setFrame:CGRectMake(205,7,80,30)];
 		[percentLabel setTextAlignment:UITextAlignmentLeft];	
 		[percentLabel setBackgroundColor:[UIColor clearColor]];		
 		[self addSubview:percentLabel];		
@@ -61,7 +61,7 @@
 {
 	if (yesOrNo)
 	{
-		[taxLabel setFrame:CGRectMake(60,7,200,30)];
+		[taxLabel setFrame:CGRectMake(52,7,200,30)];
 		[percentLabel setHidden:YES];
 		[taxSignImageView setHidden:YES];
 	}
@@ -77,7 +77,7 @@
 {
 	[taxLabel setFrame:CGRectMake(20,7,130,30)];	
 	[taxSignImageView setFrame:CGRectMake(155,9,26,26)];
-	[percentLabel setFrame:CGRectMake(210,7,70,30)];
+	[percentLabel setFrame:CGRectMake(205,7,75,30)];
 }
 
 -(void) setAdditionFactor: (AdditionFactorItem *) aFactor

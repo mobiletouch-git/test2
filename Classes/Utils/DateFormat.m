@@ -20,6 +20,14 @@
 }
 
 
++(NSString *)businessStringFromDate:(NSDate *)date 
+{
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"dd/MM/yyyy"];
+	NSString *formattedDateString = [dateFormatter stringFromDate:date];
+	return formattedDateString;
+}
+
 +(NSString *)simpleDateFormatString:(NSDate *)date 
 {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];

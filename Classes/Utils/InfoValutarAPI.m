@@ -47,6 +47,16 @@ static InfoValutarAPI* INSTANCE;
 	NSManagedObjectModel *model = [appDelegate managedObjectModel];	 
 	NSFetchRequest *fetch = [model fetchRequestFromTemplateWithName:@"getCurrenciesForDate"
 											  substitutionVariables:substDictionary];
+
+	
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"currencyName" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+	
+	[fetch setSortDescriptors:sortDescriptors];
+	
+	[sortDescriptor release];
+	[sortDescriptors release];
+	
 	NSMutableArray *mutableFetchResults = [[[appDelegate managedObjectContext] executeFetchRequest:fetch error:nil] mutableCopy];
 	NSMutableArray *arrayToReturn = [NSMutableArray array];
 	
@@ -205,9 +215,44 @@ static InfoValutarAPI* INSTANCE;
 
 }
 
++(NSDate *)getUpdateDateForDate: (NSDate *) theDate
+{
+	NSString *dateString = [NSString stringWithFormat:@"%@", theDate];
+	
+	NSRange yearRange = {0, 4};		
+	NSRange monthRange = {5, 2};			
+	NSRange dayRange =  {8, 2};			
+	
+	NSString *yearString = [dateString substringWithRange:yearRange];
+	NSString *monthString = [dateString substringWithRange:monthRange];
+	NSString *dayString = [dateString substringWithRange:dayRange];			
+	
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	[gregorian setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+	
+	NSDateComponents *comps = [[NSDateComponents alloc] init];
+	
+	[comps setYear:[yearString intValue]];
+	[comps setMonth:[monthString intValue]];
+	[comps setDay:[dayString intValue]];
+	
+	[comps setHour:11];
+	[comps setMinute:0];
+	[comps setSecond:0];
+	
+	NSDate *date = [gregorian dateFromComponents:comps];
+	
+	[comps release];
+	[gregorian release];
+	
+	return date;
+	
+}
+
 - (void) updateDatabaseWithTimeStamp: (NSInteger) timeStmp
 					inViewController: (UIViewController *)theParentViewController
 {
+	[appDelegate setDataWasUpdated:NO];
 	NSString *updateURL = [NSString stringWithFormat:@"http://api.mobiletouch.ro/0.2/curs-valutar/update.php?timestamp=%d", timeStmp];
 	NSLog([updateURL description]);
 	NSURL *defaultURL = [NSURL URLWithString:updateURL];

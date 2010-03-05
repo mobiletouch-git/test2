@@ -16,5 +16,6 @@
 -(void) displayApplicationFeedBackPage;
 -(void) displayCompanyWebSite;
 -(void) displayInstructions;
+-(void) displayTermsAndConditionsPage;
 
 @end

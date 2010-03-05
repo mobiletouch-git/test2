@@ -32,20 +32,24 @@
 #define kMinEraseInterval				0.5
 #define kEraseAccelerationThreshold		2.0
 
+#define definedColor ([UIColor colorWithRed:0.149 green:0.435 blue:0.118 alpha:1.0])
+
+
 #define remoteServer @"http://api.mobiletouch.ro/0.1/checker"
 
-#define kCancel @"Cancel"
-#define kEdit @"Edit"
-#define kSave @"Save"
-#define kDone @"Done"
+#define kCancel @"Anulați"
+#define kOrder @"Ordonează"
+#define kEdit @"Editați"
+#define kSave @"Salvați"
+#define kDone @"OK"
 #define kOk @"OK"
-#define kAddNewCurrency @"Adauga moneda"
-#define kAdd @"Adauga"
-#define kDelete @"Sterge"
-#define kUpdate @"Update"
-#define kAddNewTax @"Adauga taxa noua"
+#define kAddNewCurrency @"Adăugați monedă"
+#define kAdd @"Adaugă"
+#define kDelete @"Ștergeți"
+#define kUpdate @"Actualizeză"
+#define kAddNewTax @"Adăugați taxă"
 #define kStartDateTitle @"Data de Start"
-#define kStartDateNotice @"Completati data de start pentru raportul care urmeaza a fi generat"
+#define kStartDateNotice @"Completați data de start pentru raportul care urmează a fi generat"
 #define kEndDateTitle @"Data de Final"
-#define kEndDateNotice @"Completati data de final pentru raportul care urmeaza a fi generat"
+#define kEndDateNotice @"Completați data de final pentru raportul care urmează a fi generat"
 

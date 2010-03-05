@@ -23,6 +23,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:taxNameTextField];	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:taxValueTextField];		
 
+	[currencyFormatter release];
+	
 	[additionFactor release];
 	[editedAdditionFactor release];
 	
@@ -140,15 +142,16 @@
 	taxValueTextField.textColor = [UIColor blackColor];
 	taxValueTextField.font = [UIFont systemFontOfSize:18.0];
 	taxValueTextField.delegate=self;
-	taxValueTextField.textAlignment = UITextAlignmentLeft;
+	taxValueTextField.textAlignment = UITextAlignmentRight;
 	taxValueTextField.backgroundColor = [UIColor clearColor];
 	taxValueTextField.keyboardAppearance = UIKeyboardAppearanceDefault;
-	taxValueTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+	taxValueTextField.keyboardType = UIKeyboardTypeNumberPad;
+
 	taxValueTextField.returnKeyType = UIReturnKeyDefault;	
 	taxValueTextField.placeholder = @"Valoare";
 	taxValueTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 	[taxValueTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-	taxValueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;	// has a clear 'x' button to the right
+//	taxValueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;	// has a clear 'x' button to the right
 	[self.view addSubview:taxValueTextField];
 	
 	if ([self.additionFactor factorValue])
@@ -195,9 +198,21 @@
 	oneRowTableView.scrollEnabled=NO;
 	[oneRowTableView setBackgroundColor:[UIColor clearColor]];
 	oneRowTableView.allowsSelectionDuringEditing= NO; // very important, otherwise cells won't respond to touches
-	[self.view addSubview:oneRowTableView];
+	//[self.view addSubview:oneRowTableView];
 	
 	[saveButton setEnabled:NO];	
+	
+	
+	currencyFormatter = [[NSNumberFormatter alloc] init];
+	
+	[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	
+	[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[currencyFormatter setMinimumFractionDigits:2];
+	[currencyFormatter setMaximumFractionDigits:2];
+	[currencyFormatter setRoundingMode:NSNumberFormatterRoundDown];
+	[currencyFormatter setDecimalSeparator:@"."];
+	[currencyFormatter setGroupingSeparator:@","];
 }
 
 
@@ -309,6 +324,9 @@
     return NO;
 }
 
+
+
+
 - (BOOL) textField:(UITextField*)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)textEntered {
 	
 	if (textField == taxNameTextField)
@@ -318,7 +336,7 @@
 	}
 	if (textField == taxValueTextField)
 	{
-		NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
+		/*NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
 		BOOL shouldChange = YES;
 		
 		for (int i = 0; i < [textEntered length]; i++) {
@@ -330,7 +348,52 @@
 		
 		NSUInteger newLength = [textField.text length] + [textEntered length] - range.length;
 		if (shouldChange)
-			return (newLength > 5) ? NO : YES;
+			return (newLength > 5) ? NO : YES;*/
+		//-----------------------------------------
+		int currencyScale = 2;
+		
+		NSLog(@"%d",currencyScale);
+		
+		NSLog(@"|%@| %d %d %@",textEntered, range.length, range.location, textField.text);
+
+		
+		NSNumber *currentNSNumber = [currencyFormatter numberFromString:textField.text ];
+		NSString *currentNSString = [currentNSNumber stringValue];
+		
+		if (![textEntered length]) { //Backspace pressed
+			NSDecimalNumber *currentNumber = [NSDecimalNumber decimalNumberWithString:currentNSString];
+			currentNumber = [currentNumber decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"10"]];
+			NSString *currentNumberString = [currencyFormatter stringFromNumber:currentNumber];
+			textField.text = currentNumberString;
+			return NO;
+		}
+		
+		//other unallowed char pressed
+		NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+		unichar c = [textEntered characterAtIndex:0];
+		if (![myCharSet characterIsMember:c]) 
+			return NO;
+		
+		//lenght <= 13
+		if ([textField.text length]>5)
+			return NO;
+		
+		NSDecimalNumber *currentNumber = [NSDecimalNumber decimalNumberWithString:currentNSString];
+		currentNumber = [currentNumber decimalNumberByMultiplyingByPowerOf10:currencyScale+1];
+		currentNumber = [currentNumber decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:textEntered]];
+		currentNumber = [currentNumber decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",pow(10, currencyScale)]]];
+		
+		
+		NSString *currentNumberString = [currencyFormatter stringFromNumber:currentNumber];
+		
+		[textField setText:currentNumberString];
+		
+//		[[appDelegate converterViewController] setTextChanged:YES];
+		
+		
+		return NO;
+		//-----------------------------------------
+		
 	}
 	return NO;
 }

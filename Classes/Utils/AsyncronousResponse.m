@@ -13,7 +13,7 @@
 
 @implementation AsyncronousResponse
 
-@synthesize parentViewController, request, responseFromRequest, parserDelegate, delegates, activityView ;
+@synthesize parentViewController, request, responseFromRequest, parserDelegate, delegates, activityView, updateAlert ;
 
 - (void) dealloc
 {
@@ -21,6 +21,7 @@
 	[responseFromRequest release];
 	[request release];
 	[activityView release];
+	[updateAlert release];
 	[super dealloc];
 }
 
@@ -35,10 +36,21 @@
 	if (theRequest)
 		[self setRequest:theRequest];
 	
+	
+	
 	activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.frame = CGRectMake(135.0,200.0,50.0,50.0);
+    activityView.frame = CGRectMake(120.0,70.0,50.0,50.0);
 	activityView.hidesWhenStopped = YES;
 	[activityView setTag:33];
+	
+	updateAlert = [[UIAlertView alloc] initWithTitle:@""
+											 message:@"Vă rugăm asteptați. Aplicația se actualizează.\n" 
+											delegate:nil
+								   cancelButtonTitle:nil 
+								   otherButtonTitles:nil];
+	[updateAlert setTag:44];
+	[updateAlert addSubview:activityView];
+	
 	count=0;
 	return self;
 }
@@ -74,7 +86,7 @@
 		connectionVar = nil;
 		[self stopSpinning];
 		
-		[UIFactory showOkAlert:@"Cererea trimisă la server a eşuat. Vă rugăm reveniți." title:nil];	
+		[UIFactory showOkAlert:@"Vă rugăm verificați conexiunea la Internet și reveniți mai târziu." title:@"Date indisponibile"];	
 		
 	}
 
@@ -143,7 +155,7 @@
 
 -(void) parseReceivedData{
 
-	[responseFromRequest writeToFile:@"/Users/imac20/Desktop/answer.xml" atomically:YES];	
+//	[responseFromRequest writeToFile:@"/Users/imac20/Desktop/answer.xml" atomically:YES];	
 
 	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData: responseFromRequest];
 if (parserDelegate)	
@@ -177,9 +189,11 @@ if (parserDelegate)
 }
 
 -(void) startSpinning
-{
-	[[appDelegate window] addSubview:activityView];
-	[(UIActivityIndicatorView *)([[appDelegate window] viewWithTag:33]) startAnimating];		
+{	
+	[updateAlert show];
+	[[appDelegate window] addSubview:updateAlert];
+	[(UIActivityIndicatorView *)([[appDelegate window] viewWithTag:33]) startAnimating];	
+	
 
 }
 
@@ -187,7 +201,12 @@ if (parserDelegate)
 {
 
 	[(UIActivityIndicatorView *)([[appDelegate window] viewWithTag:33]) stopAnimating];	
-	[[[appDelegate window] viewWithTag:33] removeFromSuperview];			
+//	[[[appDelegate window] viewWithTag:33] removeFromSuperview];
+	[updateAlert dismissWithClickedButtonIndex:0 animated:YES];
+
+	[[[appDelegate window] viewWithTag:44] removeFromSuperview];			
+	
+
 
 }
 

@@ -24,63 +24,71 @@
 	[converter release];
 	[converterFlagImageView release];
 	[converterValueTextField release];
-
+	
 	
     [super dealloc];
 }
+
+
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // Initialization code
 		
-		converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,10,32,32)];
+		converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,6,32,32)];
 		[self addSubview:converterFlagImageView];
 		
-		converterNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:16 bold:YES];
-		[converterNameLabel setFrame:CGRectMake(50,12,175,20)];
+		converterNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
+		[converterNameLabel setFrame:CGRectMake(48,11,175,23)];
 		[converterNameLabel setTextAlignment:UITextAlignmentLeft];		
 		converterNameLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:converterNameLabel];	
 		
-		converterAdditionLabel = [UIFactory newLabelWithPrimaryColor:[UIColor grayColor] selectedColor:[UIColor whiteColor] fontSize:15 bold:YES];
-		[converterAdditionLabel setFrame:CGRectMake(50,30,125,15)];
+		converterAdditionLabel = [UIFactory newLabelWithPrimaryColor:[UIColor grayColor] selectedColor:[UIColor whiteColor] fontSize:12 bold:YES];
+		[converterAdditionLabel setBackgroundColor:[UIColor clearColor]];
+		[converterAdditionLabel setFrame:CGRectMake(8,40,304,15)];
 		[converterAdditionLabel setTextAlignment:UITextAlignmentLeft];		
 		converterAdditionLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:converterAdditionLabel];		
 		
 		converterValueTextField = [[UITextField alloc] init];
-		[converterValueTextField setFrame:CGRectMake(200, 10, 110,35)];
+		[converterValueTextField setFrame:CGRectMake(150, 8, 160,30)];
 		converterValueTextField.borderStyle = UITextBorderStyleRoundedRect;
 		converterValueTextField.textColor = [UIColor blackColor];
 		converterValueTextField.font = [UIFont systemFontOfSize:18.0];
 		converterValueTextField.delegate=self;
-		converterValueTextField.textAlignment = UITextAlignmentCenter;
+		converterValueTextField.textAlignment = UITextAlignmentRight;
 		converterValueTextField.backgroundColor = [UIColor whiteColor];
 		converterValueTextField.keyboardAppearance = UIKeyboardAppearanceDefault;
 		converterValueTextField.keyboardType = UIKeyboardTypeNumberPad;
 		converterValueTextField.returnKeyType = UIReturnKeyDone;	
 		converterValueTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 		[converterValueTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-//		converterValueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;	// has a clear 'x' button to the right
+		//		converterValueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;	// has a clear 'x' button to the right
 		[self addSubview:converterValueTextField];
 		
 		
 		
 		doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
-														  style:UIBarButtonItemStyleDone
-														 target:self 
-														 action:@selector(doneAction)];
+													  style:UIBarButtonItemStyleDone
+													 target:self 
+													 action:@selector(doneAction)];
 		cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
-															style:UIBarButtonItemStyleBordered
-														   target:self
-														   action:@selector(cancelAction)];
+														style:UIBarButtonItemStyleBordered
+													   target:self
+													   action:@selector(cancelAction)];
 		
 		currencyFormatter = [[NSNumberFormatter alloc] init];
-		[currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-		[currencyFormatter setCurrencySymbol:@""];
+	
+		[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	
+		[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 		[currencyFormatter setMinimumFractionDigits:2];
 		[currencyFormatter setMaximumFractionDigits:2];
+		[currencyFormatter setRoundingMode:NSNumberFormatterRoundDown];
+		//[currencyFormatter setDecimalSeparator:@"."];
+		//[currencyFormatter setCurrencyGroupingSeparator:@","];
 		
     }
     return self;
@@ -111,49 +119,54 @@
 		if (af.factorSign<0)
 			additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
 	}
+	
+	
+	[converterAdditionLabel setHidden:NO];		
+	[converterAdditionLabel setText:additionString];
 
-	if ([additionString length])
-	{
-		[converterAdditionLabel setHidden:NO];		
-		[converterAdditionLabel setText:additionString];
-		[converterNameLabel setFrame:CGRectMake(50,5,125,30)];		
-	}
-	else
-	{
-		[converterAdditionLabel setHidden:YES];
-		[converterNameLabel setFrame:CGRectMake(50,12,125,30)];				
-	}
+	
+	if ([self.converter converterValue]) {
+	
+		[converterValueTextField setText:[currencyFormatter stringFromNumber:[self.converter converterValue]]];
+		//[converterValueTextField setText:[NSString stringWithFormat:@"%.2f", [ doubleValue]]];
 
-	if ([self.converter converterValue])
-		[converterValueTextField setText:[NSString stringWithFormat:@"%.2f", [[self.converter converterValue] doubleValue]]];
+	}
 }
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-
+	
     [super setSelected:selected animated:animated];
-
+	
     // Configure the view for the selected state
 }
 
 -(void) setEditing: (BOOL) yesOrNo
 {
-
+ 
+	const int k = 30;
 	if (yesOrNo)
 	{
-		[converterFlagImageView	setFrame:CGRectMake(60,converterFlagImageView.frame.origin.y,32,32)];
-		[converterNameLabel setFrame:CGRectMake(100,converterNameLabel.frame.origin.y,175,30)];
-		[converterAdditionLabel setFrame:CGRectMake(100,converterAdditionLabel.frame.origin.y,125,20)];				
+		[converterFlagImageView setFrame:CGRectMake(10+k,6,32,32)];
+		[converterNameLabel setFrame:CGRectMake(48+k,11,175,23)];
+		[converterAdditionLabel setFrame:CGRectMake(8+k,40,304,15)];					
 		[converterValueTextField setHidden:YES]; 
 	}
 	else
 	{
-		[converterFlagImageView	setFrame:CGRectMake(10,converterFlagImageView.frame.origin.y,32,32)];
-		[converterNameLabel setFrame:CGRectMake(50,converterNameLabel.frame.origin.y,175,30)];
-		[converterAdditionLabel setFrame:CGRectMake(50,converterAdditionLabel.frame.origin.y,125,20)];		
+		[converterFlagImageView setFrame:CGRectMake(10,6,32,32)];
+		[converterNameLabel setFrame:CGRectMake(48,11,175,23)];
+		[converterAdditionLabel setFrame:CGRectMake(8,40,304,15)];	
 		[converterValueTextField setHidden:NO]; 
 	}
 
+	
+}
+
+-(void) moveView:(UIView *) viewP x:(float) pixP {
+	CGRect fr = [viewP frame];
+	fr.origin.x += pixP;
+	[viewP setFrame:fr];
 }
 
 - (void)scrollCellToCenterOfScreen:(UIView *)theView {
@@ -163,10 +176,20 @@
 	
 	int index = [myTable indexPathForCell:myCell].row;
 	
+	int summ = 0;
+	for (int i=0;i<index;i++) {
+		ConverterItem *co = [[appDelegate converterViewController].tableDataSource objectAtIndex:i];
+		if ([co.additionFactors count]) 
+			summ += 60;
+		else 
+			summ += 45;
+		
+	}
+	
 	float cellHeight = myCell.frame.size.height;
 	
 	
-	CGFloat viewCenterY = index * cellHeight + cellHeight / 2;
+	CGFloat viewCenterY = summ + cellHeight / 2;
 	
 	CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
 	
@@ -190,16 +213,16 @@
 	[self setOldValue:textField.text];
 	[textField setText:@"0.00"];
 	
-
-
+	
+	
 	[[[appDelegate converterViewController] editButton] setEnabled:NO];
 	[[[appDelegate converterViewController] addButton] setEnabled:NO];	
-	[[[appDelegate converterViewController] titleButton] setEnabled:NO];		
+	[[[appDelegate converterViewController] titleSeg] setEnabled:NO];		
 	
-
+	
 	[self scrollCellToCenterOfScreen:textField];
 	
-
+	
 	
 	return YES;
 }
@@ -227,12 +250,12 @@
 					if (current == self.converter)
 						foundAtIndex = j;
 				}
-
+				
 				if (foundAtIndex>=6 && [cells count]==7)
 					computed = ((foundAtIndex-6)+(-2+i))*self.bounds.size.height;				
 				else
 					computed = (i-2)*self.bounds.size.height;
-
+				
 			}
 		}
 	}
@@ -243,14 +266,25 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+	
+	[[appDelegate converterViewController] setTextChanged:NO];
+
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+	if (![[appDelegate converterViewController] textChanged])
+		[self cancelAction];
+
+
 }
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+	
+	[[appDelegate converterViewController] textEditEnded];
+	
 	NSDecimalNumber *nrFromString;
 	if (![textField.text length])
 		nrFromString = [NSDecimalNumber decimalNumberWithString:@"0"];
@@ -258,19 +292,20 @@
 		NSNumber *currentNSNumber = [currencyFormatter numberFromString:textField.text];
 		NSString *currentNSString = [currentNSNumber stringValue];
 		nrFromString = [NSDecimalNumber decimalNumberWithString:currentNSString];
-		}
+	}
 	
 	[self.converter setConverterValue:nrFromString];
+		
 	[textField resignFirstResponder];
 	
 	[[[appDelegate converterViewController] editButton] setEnabled:YES];	
 	[[[appDelegate converterViewController] addButton] setEnabled:YES];	
-	[[[appDelegate converterViewController] titleButton] setEnabled:YES];		
+	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
 	
-	[[appDelegate converterViewController] setReferenceItem:converter];
+	[[appDelegate converterViewController] setReferenceItem:self.converter];
 	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	[[[appDelegate converterViewController] myTableView] reloadData];
-
+	
     return YES;
 }
 
@@ -280,8 +315,8 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	
-	
-	//int currencyScale = [currencyFormatter maximumFractionDigits];
+
+			
 	int currencyScale = 2;
 	
 	NSLog(@"%d",currencyScale);
@@ -299,6 +334,16 @@
 		return NO;
 	}
 	
+	//other unallowed char pressed
+	NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+	unichar c = [string characterAtIndex:0];
+	if (![myCharSet characterIsMember:c]) 
+		return NO;
+	
+	//lenght <= 13
+	if ([textField.text length]>12)
+		return NO;
+	
 	NSDecimalNumber *currentNumber = [NSDecimalNumber decimalNumberWithString:currentNSString];
 	currentNumber = [currentNumber decimalNumberByMultiplyingByPowerOf10:currencyScale+1];
 	currentNumber = [currentNumber decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:string]];
@@ -308,20 +353,24 @@
 	NSString *currentNumberString = [currencyFormatter stringFromNumber:currentNumber];
 	
 	[textField setText:currentNumberString];
+	
+	[[appDelegate converterViewController] setTextChanged:YES];
+
+	
 	return NO;
 }
 
 - (void)doneAction {
 	[converterValueTextField resignFirstResponder];
 	[self textFieldShouldReturn:converterValueTextField];
-	[[appDelegate converterViewController] textEditEnded];
+
 }
 
 - (void)cancelAction {
 	[converterValueTextField setText:oldValue];
 	[converterValueTextField resignFirstResponder];
 	[self textFieldShouldReturn:converterValueTextField];
-	[[appDelegate converterViewController] textEditEnded];
+
 }
 
 @end

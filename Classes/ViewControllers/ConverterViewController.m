@@ -16,15 +16,15 @@
 #import "ConverterTableViewCell.h"
 #import "CurrencyPickerViewController.h"
 #import "AdditionFactorItem.h"
- 
+
 @implementation ConverterViewController
 
-@synthesize editButton, addButton;
+@synthesize editButton, addButton, titleSeg, textChanged, referenceConverterValue;
 @synthesize myTableView, tableDataSource, selectedDate, referenceItem, selectedReferenceDay;
-@synthesize titleButton;
+//@synthesize titleButton;
 
 - (void)dealloc {
-
+	
 	[editButton release];
 	[addButton release];
 	
@@ -33,6 +33,8 @@
 	[editButton release];
 	[doneButton release];
 	[cancelButton release];
+	
+	[titleSeg release];
 	
 	[referenceItem release];
 	[tableDataSource release];
@@ -48,7 +50,7 @@
 		//init code
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"tabConverter.png"];
+		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_2.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Convertor" image:buttonImage tag:-1];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];
@@ -56,7 +58,22 @@
 		self.title = @"Convertor";		
 		
 		NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
-		[self setSelectedDate:todayDate];
+		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
+		[self setSelectedDate:utcDate];
+		
+		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		
+		[self setSelectedDate:validBankingDate];
+		
+		/*
+		 NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+		 NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
+		 [self setSelectedDate:utcDate];
+		 
+		 NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		 
+		 [self setSelectedDate:validBankingDate];
+		 */
 		
 		tableDataSource = [[NSMutableArray alloc] init];	
 		selectedReferenceDay = [[NSMutableArray alloc] init];	
@@ -76,41 +93,83 @@
 			referenceItem = [storedReferenceItem retain];
 		
 		
-		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		//NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
 		if (validBankingDate)
 		{
 			/*
-			if (![validBankingDate isEqualToDate:[self selectedDate]])
-				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-								 title:@"Atentie!"];
-			*/
+			 if (![validBankingDate isEqualToDate:[self selectedDate]])
+			 [UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
+			 title:@"Atenție!"];
+			 */
 			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 			if ([selectedCurrencies count])
 				[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
 		}
 		else
-			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
-		
+			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
+
+		CurrencyItem *updatedCurrency = [InfoValutarAPI findCurrencyNamed:[referenceItem.currency currencyName] inArray:selectedReferenceDay];
+		if (updatedCurrency)
+			[referenceItem setCurrency:updatedCurrency];
+
 		
 	}
     return self;
 }
 
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
+
+
+-(void) updateCurrentDate {
+	
+	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+	NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
+	[self setSelectedDate:utcDate];
+	
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+	
+	[self setSelectedDate:validBankingDate];
+	
+	[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
+	
+	[datePicker setDate:self.selectedDate animated:NO];
+	
+	[datePicker setMaximumDate:selectedDate];
+
+	
+	if (validBankingDate)
+	{
+		[selectedReferenceDay removeAllObjects];
+	
+		NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+		if ([selectedCurrencies count])
+			[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+	}
+	else
+		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
+	
+	CurrencyItem *updatedCurrency = [InfoValutarAPI findCurrencyNamed:[referenceItem.currency currencyName] inArray:selectedReferenceDay];
+	if (updatedCurrency)
+		[referenceItem setCurrency:updatedCurrency];
+	
+	[myTableView reloadData];
+		
 }
-*/
 
 /*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
+ // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+ - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+ if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+ // Custom initialization
+ }
+ return self;
+ }
+ */
+
+/*
+ // Implement loadView to create a view hierarchy programmatically, without using a nib.
+ - (void)loadView {
+ }
+ */
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -129,18 +188,18 @@
 	
 	
 	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-															   target:self
-															   action:@selector(addAction)];
+															  target:self
+															  action:@selector(addAction)];
 	[self.navigationItem setRightBarButtonItem:addButton];
 	
 	editButton = [[UIBarButtonItem alloc] initWithTitle:kEdit
-																   style:UIBarButtonItemStyleBordered
-																  target:self 
-																  action:@selector(editAction)];
+												  style:UIBarButtonItemStyleBordered
+												 target:self 
+												 action:@selector(editAction)];
 	[self.navigationItem setLeftBarButtonItem:editButton];
 	
 	
-		
+	
 	//initialize and place tableView
 	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
 	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
@@ -151,8 +210,8 @@
 	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	[self.view addSubview:myTableView];
 	
-	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];	
-	titleButton = [[UIButton alloc] initWithFrame:CGRectMake(60,10,160,30)];
+	NSString *todayString = [DateFormat businessStringFromDate:self.selectedDate];	
+/*	titleButton = [[UIButton alloc] initWithFrame:CGRectMake(60,10,160,30)];
 	titleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	titleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 	[titleButton setTitle:todayString forState:UIControlStateNormal];	
@@ -160,10 +219,10 @@
 	[titleButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];	
 	[titleButton.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
 	
-	UIImage *newImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	UIImage *newImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:8.0 topCapHeight:0.0];
 	[titleButton setBackgroundImage:newImage forState:UIControlStateNormal];
 	
-	UIImage *newPressedImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	UIImage *newPressedImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:8.0 topCapHeight:0.0];
 	[titleButton setBackgroundImage:newPressedImage forState:UIControlStateHighlighted];
 	[titleButton addTarget:self action:@selector (titleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
 	// in case the parent view draws with a custom color or gradient, use a transparent color
@@ -171,7 +230,14 @@
 	[titleButton setShowsTouchWhenHighlighted:YES];
 	
 	
-	[self.navigationItem setTitleView:titleButton];	
+	[self.navigationItem setTitleView:titleButton];	*/
+	
+	titleSeg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:todayString]];
+	[titleSeg setFrame:CGRectMake(0, 0, 100, 30)];
+	[titleSeg addTarget:self action:@selector(titleButtonAction:) forControlEvents:UIControlEventValueChanged];
+	[titleSeg setSegmentedControlStyle:UISegmentedControlStyleBar];
+	
+	[self.navigationItem setTitleView:titleSeg];	
 	
 	float height = 216.0f; 
 	datePicker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0.0, 369.0-height, 320.0, height)];
@@ -180,14 +246,16 @@
 	if (self.selectedDate)
 		[datePicker setDate:self.selectedDate animated:YES];
 	[datePicker setHidden:YES];
-	[datePicker setMaximumDate:[NSDate date]];
+//	[datePicker setMaximumDate:[NSDate date]];
+	[datePicker setMaximumDate:selectedDate];
+
 	[self.view addSubview:datePicker];
 	
 }
 
 -(void) addDefaultConverterValues
 {
-/* ======= RON ======= */	
+	/* ======= RON ======= */	
 	CurrencyItem *c1 = [[CurrencyItem alloc] init];
 	[c1 setCurrencyName:@"RON"];
 	NSDecimalNumber *c1Value = [NSDecimalNumber decimalNumberWithString:@"1"];
@@ -199,9 +267,9 @@
 	
 	[tableDataSource addObject:co1];
 	[co1 release];
-/* ======= RON ======= */
+	/* ======= RON ======= */
 	
-/* ======= RON +19 % ======= */	
+	/* ======= RON +19 % ======= */	
 	CurrencyItem *c2 = [[CurrencyItem alloc] init];
 	[c2 setCurrencyName:@"RON"];
 	NSDecimalNumber *c2Value = [NSDecimalNumber decimalNumberWithString:@"1"];	
@@ -223,10 +291,10 @@
 	
 	[tableDataSource addObject:co2];
 	[co2 release];
-/* ======= RON +19 % ======= */		
-
-/* ======= RON +19 % + 3% ======= */	
-
+	/* ======= RON +19 % ======= */		
+	
+	/* ======= RON +19 % + 3% ======= */	
+	
 	CurrencyItem *c3 = [[CurrencyItem alloc] init];
 	[c3 setCurrencyName:@"RON"];
 	NSDecimalNumber *c3Value = [NSDecimalNumber decimalNumberWithString:@"1"];		
@@ -255,10 +323,10 @@
 	
 	[tableDataSource addObject:co3];
 	[co3 release];
-
-/* ======= RON +19 % + 3% ======= */		
 	
-/* ======= EUR  ======= */	
+	/* ======= RON +19 % + 3% ======= */		
+	
+	/* ======= EUR  ======= */	
 	CurrencyItem *c4 = [[CurrencyItem alloc] init];
 	[c4 setCurrencyName:@"EUR"];
 	
@@ -268,19 +336,19 @@
 	
 	[tableDataSource addObject:co4];
 	[co4 release];
-/* ======= EUR  ======= */	
+	/* ======= EUR  ======= */	
 	
-/* ======= USD  ======= */	
+	/* ======= USD  ======= */	
 	CurrencyItem *c5 = [[CurrencyItem alloc] init];
 	[c5 setCurrencyName:@"USD"];
-
+	
 	ConverterItem *co5 = [[ConverterItem alloc] init];
 	[co5 setCurrency:c5];
 	[c5 release];
 	
 	[tableDataSource addObject:co5];
 	[co5 release];
-/* ======= EUR  ======= */		
+	/* ======= EUR  ======= */		
 	
 }
 
@@ -288,11 +356,11 @@
 {
 	NSLog(@"Add action");
 	/*
-	AddConverterItemViewController *addView = [[AddConverterItemViewController alloc] init];
-	UINavigationController *addNavigation = [[UINavigationController alloc] initWithRootViewController:addView];
-	[self.navigationController presentModalViewController:addNavigation animated:YES];
-	[addNavigation release];
-	[addView release];
+	 AddConverterItemViewController *addView = [[AddConverterItemViewController alloc] init];
+	 UINavigationController *addNavigation = [[UINavigationController alloc] initWithRootViewController:addView];
+	 [self.navigationController presentModalViewController:addNavigation animated:YES];
+	 [addNavigation release];
+	 [addView release];
 	 */
 	CurrencyPickerViewController *addView = [[CurrencyPickerViewController alloc] init];
 	[addView setIsPushed:NO];
@@ -312,6 +380,7 @@
 	[myTableView setEditing:YES];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
 	[self.navigationItem setRightBarButtonItem:nil];
+	[titleSeg setHidden:YES];
 	[myTableView reloadData];
 }
 
@@ -332,36 +401,47 @@
 	if (!datePicker.hidden)
 	{
 		NSDate *selDate = [DateFormat normalizeDateFromDate:[datePicker date]];
-		[self setSelectedDate:selDate];
-		[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
+		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:selDate];
+		[self setSelectedDate:utcDate];
+//		[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
+		[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
 		
 		[self.navigationItem setLeftBarButtonItem:editButton];
 		[self.navigationItem setRightBarButtonItem:addButton];
+		[titleSeg setHidden:NO];
+
 		[datePicker setHidden:YES];		
 		
 		[selectedReferenceDay removeAllObjects];
 		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
 		if (validBankingDate)
 		{
-			if (![validBankingDate isEqualToDate:[self selectedDate]])
-				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-								 title:@"Atentie!"];
-		
+			if (![validBankingDate isEqualToDate:[self selectedDate]]) {
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat businessStringFromDate:validBankingDate]]
+								 title:@"Atenție!"];
+				[self setSelectedDate:validBankingDate];
+				[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
+			}
+			
 			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 			if ([selectedCurrencies count])
 				[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+
+			CurrencyItem *updatedCurrency = [InfoValutarAPI findCurrencyNamed:[referenceItem.currency currencyName] inArray:selectedReferenceDay];
+			if (updatedCurrency)
+				[referenceItem setCurrency:updatedCurrency];			
 		}
 		else
-			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atentie!"];	
+			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
 	}
 	if (myTableView.editing)
 	{
 		[myTableView setEditing:NO];
 		[self.navigationItem setLeftBarButtonItem:editButton];
 		[self.navigationItem setRightBarButtonItem:addButton];
-
+		
 	}
-	[myTableView reloadData];	
+	[myTableView reloadData];
 }
 
 -(void) textEditEnded {
@@ -374,6 +454,7 @@
 
 -(void) titleButtonAction:(id) sender
 {
+	[titleSeg setSelectedSegmentIndex:-1];
 	[self.navigationItem setLeftBarButtonItem:cancelButton];
 	[self.navigationItem setRightBarButtonItem:doneButton];
 	[datePicker setHidden:NO];		
@@ -383,9 +464,9 @@
 {
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"database" ofType:@"xml"];
 	NSData *xmlData = [NSData dataWithContentsOfFile:path];
-
+	
 	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData: xmlData];
-
+	
 	CurrenciesParserDelegate *parserDelegate = [[CurrenciesParserDelegate alloc] init];
 	[xmlParser setDelegate:parserDelegate];
 	[xmlParser setShouldProcessNamespaces:YES];
@@ -409,12 +490,12 @@
 
 
 /*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+ // Override to allow orientations other than the default portrait orientation.
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -443,7 +524,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 56.0;
+	//return 56.0;
+	ConverterItem *co = [tableDataSource objectAtIndex:indexPath.row];
+	if ([co.additionFactors count])
+		return 60;
+	else 
+		return 45;
 }
 
 // Customize the appearance of table view cells.
@@ -472,26 +558,27 @@
 			AdditionFactorItem *af = [co.additionFactors objectAtIndex:i];
 			if (af.factorSign>0)
 			{
-//				normalizedAmount = normalizedAmount + ([af.factorValue doubleValue]/100) * normalizedAmount;
+				//				normalizedAmount = normalizedAmount + ([af.factorValue doubleValue]/100) * normalizedAmount;
 				NSDecimalNumber *rez = [[af.factorValue decimalNumberByDividingBy:decimal100] decimalNumberByMultiplyingBy:normalizedAmount];
 				normalizedAmount = [normalizedAmount decimalNumberByAdding:rez];
 			}
 			if (af.factorSign<0)
 			{
-//				normalizedAmount = normalizedAmount - ([af.factorValue doubleValue]/100) * normalizedAmount;
+				//				normalizedAmount = normalizedAmount - ([af.factorValue doubleValue]/100) * normalizedAmount;
 				NSDecimalNumber *rez = [[af.factorValue decimalNumberByDividingBy:decimal100] decimalNumberByMultiplyingBy:normalizedAmount];
 				normalizedAmount = [normalizedAmount decimalNumberBySubtracting:rez];
 			}
 		}
 		
-//		normalizedAmount = normalizedAmount / [[co.currency currencyValue] doubleValue];
-		normalizedAmount = [normalizedAmount decimalNumberByDividingBy:[co.currency currencyValue]];
+		//		normalizedAmount = normalizedAmount / [[co.currency currencyValue] doubleValue];
+		if ([co.currency currencyValue])
+			normalizedAmount = [normalizedAmount decimalNumberByDividingBy:[co.currency currencyValue]];
 		[co setConverterValue:normalizedAmount];		
 	}
 	else
 	{
 		NSDecimalNumber *normalizedAmount = [InfoValutarAPI getBaseValueForConverterItem:referenceItem];
-//		normalizedAmount = normalizedAmount * [[referenceItem.currency currencyValue] doubleValue];
+		//		normalizedAmount = normalizedAmount * [[referenceItem.currency currencyValue] doubleValue];
 		if (referenceItem)
 		{
 			normalizedAmount = [normalizedAmount decimalNumberByMultiplyingBy:[referenceItem.currency currencyValue]];
@@ -513,7 +600,8 @@
 				}
 			}
 			//		normalizedAmount = normalizedAmount / [[co.currency currencyValue] doubleValue];
-			normalizedAmount = [normalizedAmount decimalNumberByDividingBy:[co.currency currencyValue]];
+			if ([co.currency currencyValue])
+				normalizedAmount = [normalizedAmount decimalNumberByDividingBy:[co.currency currencyValue]];
 			
 		}
 		else
@@ -521,7 +609,7 @@
 		
 		[co setConverterValue:normalizedAmount];		
 	}
-	
+
 	[cell setConverterItem:co];
 	[cell setEditing:myTableView.editing];
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -555,7 +643,7 @@
 	
 	if (tableView.editing)
 	{
-			return UITableViewCellEditingStyleDelete;
+		return UITableViewCellEditingStyleDelete;
 	}		
 	return UITableViewCellEditingStyleNone;
 }

@@ -137,18 +137,16 @@
 		[newCurrency setCurrencyValue:[currReference currencyValue]];
 		[newCurrency setCurrencyDate:currentDate];
 		
-		NSError *error = nil;
+		[appDelegate setDataWasUpdated:YES];
+		
+/*		NSError *error = nil;
 		
 		if (![[appDelegate managedObjectContext] save:&error]) {
-			/*
-			 Replace this implementation with code to handle the error appropriately.
-			 
-			 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-			 */
+
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			abort();
 		}	
-
+*/
 		[currReference release];
 		currReference=nil;
     }
@@ -168,7 +166,33 @@
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
+	NSError *error = nil;
+
+	if (![[appDelegate managedObjectContext] save:&error]) {
+		/*
+		 Replace this implementation with code to handle the error appropriately.
+		 
+		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+		 */
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	}	
+	
+	if ([appDelegate dataWasUpdated]) 
+		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi. "]
+						 title:@"Info Valutar"];
+	else {
+		NSDate *today = [NSDate date];
+		NSString *todayStr = [DateFormat businessStringFromDate:today];
+		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR pentru %@ nu a fost încă publicat.",todayStr]
+						 title:@"Atenție!"];
+	}
+		
+	
 	NSLog(@"Last update %d", [appDelegate globalTimeStamp]);
+	[[appDelegate currencyViewController] updateCurrentDate];
+	[[appDelegate converterViewController] updateCurrentDate];
+
 }
 
 @end

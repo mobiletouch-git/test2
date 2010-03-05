@@ -40,7 +40,7 @@
 		[self addSubview:checkMarkView];		
 		
 		percentLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:18 bold:NO];
-		[percentLabel setFrame:CGRectMake(210,7,70,30)];
+		[percentLabel setFrame:CGRectMake(205,7,75,30)];
 		[percentLabel setTextAlignment:UITextAlignmentLeft];	
 		[percentLabel setBackgroundColor:[UIColor clearColor]];		
 		[self addSubview:percentLabel];		

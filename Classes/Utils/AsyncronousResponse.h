@@ -26,6 +26,7 @@
 	BOOL connectionDidFinish;
 	NSURLConnection *connectionVar;
 	UIActivityIndicatorView *activityView;
+	UIAlertView *updateAlert;
 	int count;
 }
 
@@ -35,6 +36,8 @@
 @property (readwrite, retain) NSObject *parserDelegate;
 @property (assign) 	id <AsyncDelegate> delegates;
 @property (readwrite, retain) UIActivityIndicatorView *activityView;
+@property (nonatomic,retain) UIAlertView *updateAlert;
+
 
 -(id) initWithRequest: (NSURLRequest *) theRequest 
 andParentViewController:(UIViewController *) theParentViewController

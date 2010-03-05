@@ -21,7 +21,8 @@
 	UIBarButtonItem *editButton;
 	UIBarButtonItem *updateButton;
 	
-	UIButton *titleButton;
+//	UIButton *titleButton;
+	UISegmentedControl *titleSeg;
 	UIDatePicker *datePicker;
 	NSDate *selectedDate;
 }
@@ -32,5 +33,7 @@
 -(UIView *) getHeaderView;
 -(void) pageUpdate;
 -(void) organizeTableSourceWithPriorities;
+-(void) updateCurrentDate;
+-(void) doneAction;
 
 @end
