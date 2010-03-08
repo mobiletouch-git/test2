@@ -272,6 +272,40 @@ static InfoValutarAPI* INSTANCE;
 	[parserDelegate release];
 }
 
++(NSDate *) getExtremityDateForCurrencyNamed: (NSString *)currencyName
+								   first: (BOOL) yesOrNo
+{
+	NSMutableDictionary *substDictionary = [NSMutableDictionary dictionary];
+	[substDictionary setObject:currencyName forKey:@"CURRENCYNAME"];
+	
+	NSManagedObjectModel *model = [appDelegate managedObjectModel];	 
+	NSFetchRequest *fetch = [model fetchRequestFromTemplateWithName:@"getTotalYearsInDatabaseForCurrency"
+											  substitutionVariables:substDictionary];
+	
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"currencyDate" ascending:yesOrNo];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+	
+	[fetch setSortDescriptors:sortDescriptors];
+	
+	[sortDescriptor release];
+	[sortDescriptors release];
+	
+	[fetch setFetchLimit:1];
+	NSMutableArray *mutableFetchResults = [[[appDelegate managedObjectContext] executeFetchRequest:fetch error:nil] mutableCopy];
+
+	NSDate *dateToReturn = nil;
+	if ([mutableFetchResults count])
+	{
+		Currency *managed = [mutableFetchResults objectAtIndex:0];
+		dateToReturn = [managed valueForKey:@"currencyDate"];
+	}
+	
+	[mutableFetchResults release];
+
+	return dateToReturn;
+}
+
+
 #pragma mark AsyncronousResponse delegates
 -(void) freeMemory:(AsyncronousResponse *)response
 {

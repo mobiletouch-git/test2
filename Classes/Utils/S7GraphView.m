@@ -152,7 +152,7 @@
 				maxY = [[values objectAtIndex:valueIndex] floatValue];
 			}
 
-			if ( ([[values objectAtIndex:valueIndex] floatValue] < mini) && ([[values objectAtIndex:valueIndex] floatValue]) ) {
+			if ( ([[values objectAtIndex:valueIndex] floatValue] < mini) && ([[values objectAtIndex:valueIndex] floatValue]>=0) ) {
 				mini = [[values objectAtIndex:valueIndex] floatValue];
 			}
 
@@ -160,12 +160,9 @@
 		
 	}
 	
-	mini -= (mini/100);
-		
+	//mini -= (mini/100);
 	maxY =  maxY - mini;
 
-		
-	
 /*
 	if (maxY < 100) {
 		maxY = ceil(maxY / 10) * 10;
@@ -190,7 +187,7 @@
 	[valueString drawInRect:valueStringRect withFont:font
 			  lineBreakMode:UILineBreakModeTailTruncation alignment:UITextAlignmentCenter];	
 	
-	NSLog(@"Max %f offset %f", maxY, mini);
+	NSLog(@"Max %f mini %f", maxY, mini);
 	
 	CGFloat step = (maxY - minY) / 5;
 	CGFloat stepY = (self.frame.size.height - (offsetY * 2)) / maxY;
@@ -332,7 +329,13 @@
 		NSMutableArray *changeableValues =  [NSMutableArray arrayWithArray:values];
 		
 		for (NSUInteger valueIndex = 0; valueIndex < values.count; valueIndex++) {
-			float val = [[changeableValues objectAtIndex:valueIndex] floatValue] - mini;
+			float val = 0;			
+			if ([[changeableValues objectAtIndex:valueIndex] floatValue] == -1.0)
+				val = -1.00;
+			else
+				val = [[changeableValues objectAtIndex:valueIndex] floatValue] - mini;
+			
+//			NSLog(@"%f", val);
 			[changeableValues replaceObjectAtIndex:valueIndex withObject:[NSNumber numberWithFloat:val]];
 			
 		}
@@ -375,7 +378,7 @@
 			NSUInteger x = valueIndex * stepX;
 			NSUInteger y = [[values objectAtIndex:valueIndex] intValue] * stepY;
 			
-			if (y) {
+			if (!([[values objectAtIndex:valueIndex] doubleValue] == -1.0)) {
 			
 				CGContextSetLineWidth(c, 1.5f);
 				

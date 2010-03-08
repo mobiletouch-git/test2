@@ -103,7 +103,10 @@
 			 */
 			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 			if ([selectedCurrencies count])
+			{
+				[selectedReferenceDay removeAllObjects];
 				[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+			}
 		}
 		else
 			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
@@ -138,11 +141,12 @@
 	
 	if (validBankingDate)
 	{
-		[selectedReferenceDay removeAllObjects];
-	
 		NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 		if ([selectedCurrencies count])
+		{
+			[selectedReferenceDay removeAllObjects];			
 			[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+		}
 	}
 	else
 		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
@@ -412,7 +416,6 @@
 
 		[datePicker setHidden:YES];		
 		
-		[selectedReferenceDay removeAllObjects];
 		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
 		if (validBankingDate)
 		{
@@ -425,7 +428,10 @@
 			
 			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 			if ([selectedCurrencies count])
+			{
+				[selectedReferenceDay removeAllObjects];				
 				[selectedReferenceDay addObjectsFromArray:selectedCurrencies];
+			}
 
 			CurrencyItem *updatedCurrency = [InfoValutarAPI findCurrencyNamed:[referenceItem.currency currencyName] inArray:selectedReferenceDay];
 			if (updatedCurrency)

@@ -176,7 +176,15 @@
 		 */
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
-	}	
+	}
+	else
+	{
+		//success
+		
+		NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];		
+		[prefs setInteger:[appDelegate globalTimeStamp] forKey:@"globalTimeStamp"];	
+		[prefs synchronize];
+	}
 	
 	if ([appDelegate dataWasUpdated]) 
 		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi. "]
@@ -187,9 +195,7 @@
 		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR pentru %@ nu a fost încă publicat.",todayStr]
 						 title:@"Atenție!"];
 	}
-		
 	
-	NSLog(@"Last update %d", [appDelegate globalTimeStamp]);
 	[[appDelegate currencyViewController] updateCurrentDate];
 	[[appDelegate converterViewController] updateCurrentDate];
 

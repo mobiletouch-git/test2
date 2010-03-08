@@ -50,6 +50,17 @@
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
+	[totalDays addObject:startDate];
+	
+	while ((![endDate compare:nextDay] == NSOrderedSame) || [endDate compare:nextDay] == NSOrderedDescending) {
+		{
+			nextDay = [DateFormat getNextDayForDay:nextDay];
+			nextDay = [InfoValutarAPI getUTCFormateDateFromDate:nextDay];
+			[totalDays addObject:nextDay];
+		}
+	}
+	
 	for (int i=0;i<[plots count];i++)
 	{
 		CurrencyItem *ci = [plots objectAtIndex:i];
@@ -94,6 +105,11 @@
 	self.graphView.plotsArray = [NSArray arrayWithArray:self.plots];
 	//When you need to update the data, make this call:
 	
+	
+	NSLog(@"Finished loading");	
+	[[self.view viewWithTag:100] removeFromSuperview];	
+
+	self.graphView.dataSource = self;	
 	[self.graphView reloadData];
 	
 	[pool drain];
@@ -110,23 +126,44 @@
 	NSLog(@"Plots %d, startDate %@, endDate %@", [plots count], startDate, endDate);
 	
 	self.graphView = [[S7GraphView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
 	self.view = self.graphView;
-	self.graphView.dataSource = self;
+//	self.graphView.dataSource = self;
 	
 	plotsValues = [[NSMutableArray alloc] initWithCapacity:[plots count]];
 	totalDays = [[NSMutableArray alloc] init];
 	
-	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
-	[totalDays addObject:startDate];
+	NSLog(@"Start loading");	
+
+	UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 480, 300)];
+	[overlayView setBackgroundColor:[UIColor blackColor]];
+	[overlayView setAlpha:0.85];
+	[overlayView setTag:100];
 	
-	while ((![endDate compare:nextDay] == NSOrderedSame) || [endDate compare:nextDay] == NSOrderedDescending) {
-		{
-			nextDay = [DateFormat getNextDayForDay:nextDay];
-			nextDay = [InfoValutarAPI getUTCFormateDateFromDate:nextDay];
-			[totalDays addObject:nextDay];
-		}
-	}
+	UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.frame = CGRectMake(215,105.0,50.0,50.0);
+	activityView.hidesWhenStopped = YES;
+	[activityView startAnimating];
+	
+	UILabel *noticeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor whiteColor] 
+												 selectedColor:[UIColor whiteColor]  
+													  fontSize:16
+														  bold:NO];
+	[noticeLabel setText:@"Vă rugăm așteptați. Generarea unui grafic necesită o procesare mai îndelungată, în funcție de perioada selectată."];
+	[noticeLabel setFrame:CGRectMake(90,175.0,300,70.0)];
+	[noticeLabel setNumberOfLines:0];
+	[noticeLabel setBackgroundColor:[UIColor clearColor]];
+	[noticeLabel setTextAlignment:UITextAlignmentCenter];
+	[overlayView addSubview:noticeLabel];
+	
+	
+	[overlayView addSubview:activityView];
+	[activityView release];
+	
+	[self.view addSubview:overlayView];
+	[overlayView release];	
+	
+//	[self performSelectorOnMainThread:@selector(initializeLayout) withObject:nil waitUntilDone:YES];		
+	[self performSelectorInBackground:(@selector(initializeLayout)) withObject:nil];	
 	
 	UIButton *closeButton = [UIFactory newButtonWithTitle:nil 
 												   target:self
@@ -136,15 +173,7 @@
 											 imagePressed:[UIImage imageNamed:@"close_touch.png"]
 											darkTextColor:NO];
 	[self.view addSubview:closeButton];
-	[closeButton release];
-	
-//	[self performSelectorInBackground:(@selector(initializeLayout)) withObject:nil];
-	
-	[self performSelectorOnMainThread:@selector(initializeLayout) withObject:nil waitUntilDone:YES];		
-	
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	
+	[closeButton release];	
 }
 
 
@@ -233,7 +262,7 @@
 
 			if (![array count] || ([[array lastObject] compare:[NSNumber numberWithFloat:0.0]] == NSOrderedSame))
 			{
-				NSNumber *numberToAdd = [NSNumber numberWithFloat:0.0];
+				NSNumber *numberToAdd = [NSNumber numberWithFloat:-1.0];
 				[array addObject:numberToAdd];							
 			}
 			else {

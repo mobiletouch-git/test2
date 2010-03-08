@@ -14,6 +14,7 @@
 #import "DateFormat.h"
 #import "Constants.h"
 #import "InfoValutarAPI.h"
+#import "HistoryViewController.h"
 
 @implementation CurrencyViewController
 
@@ -47,6 +48,25 @@
 		
 		self.title = @"Curs BNR";
 		
+		NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
+		[self setSelectedDate:utcDate];
+		
+		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		
+		[self setSelectedDate:validBankingDate];	
+		
+		float height = 216.0f; 
+		datePicker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0.0, 369.0-height, 320.0, height)];
+		datePicker.datePickerMode = UIDatePickerModeDate;
+		[datePicker setUserInteractionEnabled:YES];	
+		if (self.selectedDate)
+			[datePicker setDate:self.selectedDate animated:YES];
+		[datePicker setHidden:YES];
+		//	[datePicker setMaximumDate:[NSDate date]];
+		[datePicker setMaximumDate:selectedDate];
+		[self.view addSubview:datePicker];
+		
 	}
     return self;
 }
@@ -68,6 +88,12 @@
 */
 
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+	[myTableView deselectRowAtIndexPath:[myTableView indexPathForSelectedRow] animated:YES];
+}
+
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -86,14 +112,6 @@
 												   action:@selector(editAction)];	
 
 	[self.navigationItem setLeftBarButtonItem:editButton];
-	
-	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
-	NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
-	[self setSelectedDate:utcDate];
-	
-	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
-	
-	[self setSelectedDate:validBankingDate];
 
 
 //	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];	
@@ -168,18 +186,6 @@
 	[titleSeg setSegmentedControlStyle:UISegmentedControlStyleBar];
 
 	[self.navigationItem setTitleView:titleSeg];	
-
-	float height = 216.0f; 
-	datePicker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0.0, 369.0-height, 320.0, height)];
-	datePicker.datePickerMode = UIDatePickerModeDate;
-	[datePicker setUserInteractionEnabled:YES];	
-	if (self.selectedDate)
-		[datePicker setDate:self.selectedDate animated:YES];
-	[datePicker setHidden:YES];
-//	[datePicker setMaximumDate:[NSDate date]];
-	[datePicker setMaximumDate:selectedDate];
-	[self.view addSubview:datePicker];
-
 }
 
 -(void) updateAction
@@ -430,7 +436,7 @@
 											 fontSize:14 
 												 bold:YES];
 	[l2 setBackgroundColor:[UIColor clearColor]];
-	[l2 setFrame:CGRectMake(140,3,90,16)];
+	[l2 setFrame:CGRectMake(120,3,90,16)];
 	[l2 setText:@"Cotație RON"];
 	[headerView addSubview:l2];
 	
@@ -439,7 +445,7 @@
 											 fontSize:14 
 												 bold:YES];
 	[l3 setBackgroundColor:[UIColor clearColor]];
-	[l3 setFrame:CGRectMake(258,3,70,16)];
+	[l3 setFrame:CGRectMake(228,3,70,16)];
 	[l3 setText:@"Variație"];
 	[headerView addSubview:l3];		
 	
@@ -531,6 +537,7 @@
 														 sign:sign];
 
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;			
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	[cell enterEditMode:myTableView.editing];
 	
     return cell;
@@ -538,7 +545,14 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	HistoryViewController *historyView = [[HistoryViewController alloc] init];
+
+	CurrencyItem *currencyObject = [tableDataSource objectAtIndex:indexPath.row];
+	[historyView setSelectedCurrency:currencyObject];
 	
+	[historyView setHidesBottomBarWhenPushed:YES];
+	[self.navigationController pushViewController:historyView animated:YES];
+	[historyView release];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{

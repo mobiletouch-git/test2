@@ -1,31 +1,19 @@
 //
-//  CurrencyTableViewCell.m
-//  CursValutar
+//  HistoryTableViewCell.m
+//  InfoValutar
 //
-//  Created by Mobile Touch SRL on 10/27/09.
-//  Copyright 2009 Mobile Touch SRL. All rights reserved.
+//  Created by Mobile Touch SRL on 08.03.2010.
+//  Copyright 2010 Mobile Touch SRL. All rights reserved.
 //
 
-#import "CurrencyTableViewCell.h"
-#import "UIFactory.h"
+#import "HistoryTableViewCell.h"
 
-@implementation CurrencyTableViewCell
 
-@synthesize changeLabel, currencyValueLabel;
-
-- (void)dealloc {
-	
-	[currencyFlagImageView release];
-	
-    [super dealloc];
-}
+@implementation HistoryTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // Initialization code
-		
-		currencyFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,5,32,32)];
-		[self addSubview:currencyFlagImageView];
 		
 		currencyNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
 		[currencyNameLabel setFrame:CGRectMake(50,12,40,20)];
@@ -41,17 +29,16 @@
 		[self addSubview:multiplierLabel];
 		
 		currencyValueLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
-		[currencyValueLabel setFrame:CGRectMake(122,11,70,20)];
+		[currencyValueLabel setFrame:CGRectMake(152,11,70,20)];
 		[currencyValueLabel setTextAlignment:UITextAlignmentRight];		
 		currencyValueLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:currencyValueLabel];
 		
 		changeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:NO];
-		[changeLabel setFrame:CGRectMake(218,11,60,20)];
+		[changeLabel setFrame:CGRectMake(248,11,60,20)];
 		[changeLabel setTextAlignment:UITextAlignmentRight];
 		changeLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:changeLabel];
-		
 		
     }
     return self;
@@ -65,24 +52,19 @@
     // Configure the view for the selected state
 }
 
--(void) setCurrencyImageName: (NSString *) imageName
-				currencyName: (NSString *) theName
-			 multiplierValue: (NSNumber *) theMValue
-			   currencyValue: (NSDecimalNumber *) theValue
-					  change: (NSDecimalNumber *) theChange
-						sign: (NSString *) theSign
+-(void) setMultiplierValue: (NSNumber *) theMValue
+		  currencyValue: (NSDecimalNumber *) theValue
+				 change: (NSDecimalNumber *) theChange
+				   sign: (NSString *) theSign	
 {
 	
-	if (imageName)
-		[currencyFlagImageView setImage:[UIImage imageNamed:imageName]];
-	[currencyNameLabel setText:theName];
 	if (theMValue)
 		[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];
 	else
 		[multiplierLabel setText:@""];
 	
 	[currencyValueLabel setText:[NSString stringWithFormat:@"%.4f", [theValue doubleValue]]];
-
+	
 	if (theChange)
 	{
 		NSString *changeString = [NSString stringWithFormat:@"%.4f", [theChange doubleValue]];
@@ -105,31 +87,11 @@
 			[changeLabel setTextColor:[UIColor darkGrayColor]];
 		}
 		
-	 }
+	}
 }
 
--(void) setLightCurrencyImageName: (NSString *) imageName
-					 currencyName: (NSString *) theName
-				  multiplierValue: (NSString *) theMValue
-					currencyValue: (NSString *) theValue
-{
-	if (imageName)
-		[currencyFlagImageView setImage:[UIImage imageNamed:imageName]];
-	[currencyNameLabel setText:theName];
-	if (theMValue)
-		[multiplierLabel setText:[NSString stringWithFormat:@"x%@", theMValue]];
-	else
-		[multiplierLabel setText:@""];
-	[currencyValueLabel setText:theValue];
-	[currencyValueLabel	setFrame:CGRectMake(220,11,70,20)];
-	[changeLabel setHidden:YES];
-	
-}
-
--(void) enterEditMode: (BOOL) yesOrNo
-{
-	[currencyValueLabel setHidden:yesOrNo];
-	[changeLabel setHidden:yesOrNo];
+- (void)dealloc {
+    [super dealloc];
 }
 
 

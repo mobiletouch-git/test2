@@ -109,8 +109,6 @@
 	//write tabbar position
 	[prefs setInteger:[self.tabBarController selectedIndex] forKey:@"selectedTabIndex"];	
 
-	[prefs setInteger:self.globalTimeStamp forKey:@"globalTimeStamp"];	
-	
 	NSMutableArray *converterList = [converterViewController tableDataSource];
 	NSData *converterListData = [NSKeyedArchiver archivedDataWithRootObject:converterList];
 	[prefs setObject:converterListData forKey:@"converterList"];

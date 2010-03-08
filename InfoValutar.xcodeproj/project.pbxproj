@@ -103,6 +103,9 @@
 		7DD2654D11354E4B009E9B54 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2654B11354E4B009E9B54 /* close.png */; };
 		7DD2654E11354E4B009E9B54 /* close_touch.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD2654C11354E4B009E9B54 /* close_touch.png */; };
 		7DD2660111355BA6009E9B54 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2660011355BA6009E9B54 /* DatePickerViewController.m */; };
+		7DD55CF91144E70000E86354 /* Iconita.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD55CF81144E70000E86354 /* Iconita.png */; };
+		7DD562F4114515D500E86354 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */; };
+		7DD565CD11453CB900E86354 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD565CC11453CB900E86354 /* HistoryTableViewCell.m */; };
 		A590831F1137FDB800DBC952 /* DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = A590831E1137FDB800DBC952 /* DateFormat.m */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +239,11 @@
 		7DD2654C11354E4B009E9B54 /* close_touch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_touch.png; path = Resources/close_touch.png; sourceTree = "<group>"; };
 		7DD265FF11355BA6009E9B54 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerViewController.h; path = Classes/ViewControllers/DatePickerViewController.h; sourceTree = "<group>"; };
 		7DD2660011355BA6009E9B54 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerViewController.m; path = Classes/ViewControllers/DatePickerViewController.m; sourceTree = "<group>"; };
+		7DD55CF81144E70000E86354 /* Iconita.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Iconita.png; path = Resources/Iconita.png; sourceTree = "<group>"; };
+		7DD562F2114515D500E86354 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryViewController.h; path = Classes/ViewControllers/HistoryViewController.h; sourceTree = "<group>"; };
+		7DD562F3114515D500E86354 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryViewController.m; path = Classes/ViewControllers/HistoryViewController.m; sourceTree = "<group>"; };
+		7DD565CB11453CB900E86354 /* HistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryTableViewCell.h; path = "Classes/Custom Objects/HistoryTableViewCell.h"; sourceTree = "<group>"; };
+		7DD565CC11453CB900E86354 /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryTableViewCell.m; path = "Classes/Custom Objects/HistoryTableViewCell.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InfoValutar-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InfoValutar-Info.plist"; sourceTree = "<group>"; };
 		A590831D1137FDB800DBC952 /* DateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormat.h; path = Classes/Utils/DateFormat.h; sourceTree = "<group>"; };
 		A590831E1137FDB800DBC952 /* DateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormat.m; path = Classes/Utils/DateFormat.m; sourceTree = "<group>"; };
@@ -302,6 +310,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DD55CF81144E70000E86354 /* Iconita.png */,
 				3EC48D40114FE42C0014BE41 /* left.png */,
 				3EC48D1C114FE42C0014BE41 /* terms.html */,
 				3EC48BA5114FE42C0014BE41 /* evolutie 2.png */,
@@ -355,6 +364,8 @@
 			children = (
 				7DBF9416111309F60042CD97 /* CurrencyViewController.h */,
 				7DBF9417111309F60042CD97 /* CurrencyViewController.m */,
+				7DD562F2114515D500E86354 /* HistoryViewController.h */,
+				7DD562F3114515D500E86354 /* HistoryViewController.m */,
 			);
 			name = Tab1;
 			sourceTree = "<group>";
@@ -449,6 +460,8 @@
 				7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */,
 				7DBF93F81113094B0042CD97 /* CurrencyTableViewCell.h */,
 				7DBF93F91113094B0042CD97 /* CurrencyTableViewCell.m */,
+				7DD565CB11453CB900E86354 /* HistoryTableViewCell.h */,
+				7DD565CC11453CB900E86354 /* HistoryTableViewCell.m */,
 				7DC5FB4B112D7CF8002422E6 /* LightCurrencyTableViewCell.h */,
 				7DC5FB4C112D7CF8002422E6 /* LightCurrencyTableViewCell.m */,
 				7DC5FE31112D8903002422E6 /* LightConverterTableViewCell.h */,
@@ -626,6 +639,7 @@
 				3EC48BA6114FE42C0014BE41 /* evolutie 2.png in Resources */,
 				3EC48D1D114FE42C0014BE41 /* terms.html in Resources */,
 				3EC48D41114FE42C0014BE41 /* left.png in Resources */,
+				7DD55CF91144E70000E86354 /* Iconita.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +682,8 @@
 				7D3CB6AD113D67EE003AA41C /* ConverterViewController.m in Sources */,
 				7D3CB6B0113D67FE003AA41C /* ConverterTableViewCell.m in Sources */,
 				3EC48D1B114FE42C0014BE41 /* TermsViewController.m in Sources */,
+				7DD562F4114515D500E86354 /* HistoryViewController.m in Sources */,
+				7DD565CD11453CB900E86354 /* HistoryTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,7 +694,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Litu (C7449MNT92)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -690,7 +706,7 @@
 				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "769CF0D6-F8B1-48E5-9675-6CDEB54FDA1D";
+				PROVISIONING_PROFILE = "F6E4B967-453C-43EA-9056-C87AC1F1EAF3";
 			};
 			name = Debug;
 		};
@@ -698,6 +714,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -707,6 +724,7 @@
 				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				PRODUCT_NAME = InfoValutar;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -748,13 +766,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "F6E4B967-453C-43EA-9056-C87AC1F1EAF3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F6E4B967-453C-43EA-9056-C87AC1F1EAF3";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;

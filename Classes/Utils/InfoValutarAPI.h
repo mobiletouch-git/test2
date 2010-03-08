@@ -26,6 +26,8 @@
 +(NSDate *)getUTCFormateDateFromDate: (NSDate *) theDate;
 +(NSDate *)getUpdateDateForDate: (NSDate *) theDate;
 
++(NSDate *) getExtremityDateForCurrencyNamed: (NSString *)currencyName
+									   first: (BOOL) yesOrNo;
 
 - (void) updateDatabaseWithTimeStamp: (NSInteger) timeStmp
 					inViewController: (UIViewController *)theParentViewController;
