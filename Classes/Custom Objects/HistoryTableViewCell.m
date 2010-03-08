@@ -7,7 +7,8 @@
 //
 
 #import "HistoryTableViewCell.h"
-
+#import "UIFactory.h"
+#import "DateFormat.h"
 
 @implementation HistoryTableViewCell
 
@@ -15,27 +16,27 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // Initialization code
 		
-		currencyNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
-		[currencyNameLabel setFrame:CGRectMake(50,12,40,20)];
-		[currencyNameLabel setTextAlignment:UITextAlignmentLeft];		
-		currencyNameLabel.adjustsFontSizeToFitWidth=YES;			
-		[self addSubview:currencyNameLabel];
+		dateLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
+		[dateLabel setFrame:CGRectMake(10,5,110,20)];
+		[dateLabel setTextAlignment:UITextAlignmentLeft];		
+		dateLabel.adjustsFontSizeToFitWidth=YES;			
+		[self addSubview:dateLabel];
 		
 		multiplierLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:12 bold:YES];
-		[multiplierLabel setFrame:CGRectMake(95,13,30,20)];
+		[multiplierLabel setFrame:CGRectMake(125,5,30,20)];
 		[multiplierLabel setFont:[UIFont systemFontOfSize:12]];
 		[multiplierLabel setTextColor:[UIColor lightGrayColor]];
 		multiplierLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:multiplierLabel];
 		
 		currencyValueLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
-		[currencyValueLabel setFrame:CGRectMake(152,11,70,20)];
-		[currencyValueLabel setTextAlignment:UITextAlignmentRight];		
+		[currencyValueLabel setFrame:CGRectMake(162,5,70,20)];
+		[currencyValueLabel setTextAlignment:UITextAlignmentLeft];		
 		currencyValueLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:currencyValueLabel];
 		
 		changeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:NO];
-		[changeLabel setFrame:CGRectMake(248,11,60,20)];
+		[changeLabel setFrame:CGRectMake(248,5,60,20)];
 		[changeLabel setTextAlignment:UITextAlignmentRight];
 		changeLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:changeLabel];
@@ -52,11 +53,15 @@
     // Configure the view for the selected state
 }
 
--(void) setMultiplierValue: (NSNumber *) theMValue
+-(void) setCurrencyDate: (NSDate *) currencyDate
+		multiplierValue: (NSNumber *) theMValue
 		  currencyValue: (NSDecimalNumber *) theValue
 				 change: (NSDecimalNumber *) theChange
-				   sign: (NSString *) theSign	
+				   sign: (NSString *) theSign;	
+
 {
+	if (currencyDate)
+		[dateLabel setText:[DateFormat DBformatDateFromDate: currencyDate]];
 	
 	if (theMValue)
 		[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];

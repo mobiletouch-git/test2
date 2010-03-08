@@ -234,6 +234,7 @@
 {
 	//	currentPositionOfPicker = [dictList selectedRowInComponent:0];
 	[self pickerViewLoaded:nil];
+	[self refreshDataSource];
 }
 
 // Return the title of each cell by row and component 
@@ -303,7 +304,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 24.0;
+	return 30.0;
 }
 
 // Customize the number of rows in the table view.
@@ -320,24 +321,54 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    HistoryTableViewCell *cell = (HistoryTableViewCell)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    HistoryTableViewCell *cell = (HistoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[HistoryTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[HistoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	
 	NSDictionary *sectionSource = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", indexPath.section+1]];
 	NSArray *sectionData = [sectionSource objectForKey:@"monthData"];
+
     Currency *managedObject = [sectionData objectAtIndex:indexPath.row];
+	Currency *previousManagedObject = managedObject;
+	
+	if (indexPath.row==0 && indexPath.section==0)
+	{
+		previousManagedObject = managedObject;
+	}
+	else if (indexPath.row==0 && indexPath.section>0)
+	{
+		NSDictionary *sectionSource = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", indexPath.section]];
+		NSArray *sectionData = [sectionSource objectForKey:@"monthData"];
+		if (sectionData)
+			previousManagedObject = [sectionData lastObject];
+	}
+	else
+	{
+		previousManagedObject = [sectionData objectAtIndex:indexPath.row-1];
+	}
+
+	NSDecimalNumber *currentValue = [managedObject valueForKey:@"currencyValue"];
+
+	NSDecimalNumber *previousValue = [previousManagedObject valueForKey:@"currencyValue"];	
+	
+	NSString *sign;
+	NSDecimalNumber *change = [currentValue decimalNumberBySubtracting:previousValue];
+	
+	if ([change doubleValue]>0)
+		sign=@"+";
+	else if ([change doubleValue]<0)
+		sign=@"-";
+	else
+		sign=@"=";
 	
     // Set up the cell...
 	
-	[cell.textLabel setText:[[managedObject valueForKey:@"currencyValue"] stringValue]];
-	[cell.detailTextLabel setText:[[managedObject valueForKey:@"currencyDate"] description]];
-	
-	[cell setMultiplierValue:<#(NSNumber *)theMValue#> 
-			currencyValue:<#(NSDecimalNumber *)theValue#> 
-				   change:<#(NSDecimalNumber *)theChange#> 
-					 sign:<#(NSString *)theSign#>];
+	[cell setCurrencyDate:[managedObject valueForKey:@"currencyDate"] 
+		  multiplierValue:[managedObject valueForKey:@"currencyMultiplier"] 
+			currencyValue:[managedObject valueForKey:@"currencyValue"] 
+				   change:change 
+					 sign:sign];
 	
     return cell;
 }

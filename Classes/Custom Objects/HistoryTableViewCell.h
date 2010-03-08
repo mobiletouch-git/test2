@@ -11,12 +11,14 @@
 
 @interface HistoryTableViewCell : UITableViewCell {
 
+	UILabel *dateLabel;
 	UILabel *multiplierLabel;	
 	UILabel *currencyValueLabel;
 	UILabel *changeLabel;
 	
 }
--(void) setMultiplierValue: (NSNumber *) theMValue
+-(void) setCurrencyDate: (NSDate *) currencyDate
+			 multiplierValue: (NSNumber *) theMValue
 			   currencyValue: (NSDecimalNumber *) theValue
 					  change: (NSDecimalNumber *) theChange
 						sign: (NSString *) theSign;	
