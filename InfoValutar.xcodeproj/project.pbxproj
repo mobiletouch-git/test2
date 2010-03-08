@@ -19,7 +19,6 @@
 		3EC482A7114FE42C0014BE41 /* icon_tab_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A2114FE42C0014BE41 /* icon_tab_1.png */; };
 		3EC482A8114FE42C0014BE41 /* icon_tab_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A3114FE42C0014BE41 /* icon_tab_2.png */; };
 		3EC482A9114FE42C0014BE41 /* icon_tab_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A4114FE42C0014BE41 /* icon_tab_4.png */; };
-		3EC482AA114FE42C0014BE41 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC482A5114FE42C0014BE41 /* Icon.png */; };
 		3EC48762114FE42C0014BE41 /* logo_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC48761114FE42C0014BE41 /* logo_transparent.png */; };
 		3EC48BA6114FE42C0014BE41 /* evolutie 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC48BA5114FE42C0014BE41 /* evolutie 2.png */; };
 		3EC48D1B114FE42C0014BE41 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC48D1A114FE42C0014BE41 /* TermsViewController.m */; };
@@ -88,7 +87,6 @@
 		7DBF9422111309F60042CD97 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBF941D111309F60042CD97 /* WebViewController.m */; };
 		7DBF942D11130A850042CD97 /* database.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942311130A850042CD97 /* database.xml */; };
 		7DBF942F11130A850042CD97 /* header_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942511130A850042CD97 /* header_transparent.png */; };
-		7DBF943011130A850042CD97 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942611130A850042CD97 /* icon.png */; };
 		7DBF943111130A850042CD97 /* logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942711130A850042CD97 /* logo_white.png */; };
 		7DBF943211130A850042CD97 /* tabConverter.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942811130A850042CD97 /* tabConverter.png */; };
 		7DBF943311130A850042CD97 /* tabCurrency.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF942911130A850042CD97 /* tabCurrency.png */; };
@@ -124,7 +122,6 @@
 		3EC482A2114FE42C0014BE41 /* icon_tab_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_tab_1.png; path = Resources/icon_tab_1.png; sourceTree = "<group>"; };
 		3EC482A3114FE42C0014BE41 /* icon_tab_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_tab_2.png; path = Resources/icon_tab_2.png; sourceTree = "<group>"; };
 		3EC482A4114FE42C0014BE41 /* icon_tab_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_tab_4.png; path = Resources/icon_tab_4.png; sourceTree = "<group>"; };
-		3EC482A5114FE42C0014BE41 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
 		3EC48761114FE42C0014BE41 /* logo_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_transparent.png; path = Resources/logo_transparent.png; sourceTree = "<group>"; };
 		3EC48BA5114FE42C0014BE41 /* evolutie 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "evolutie 2.png"; path = "Resources/evolutie 2.png"; sourceTree = "<group>"; };
 		3EC48D19114FE42C0014BE41 /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TermsViewController.h; path = Classes/ViewControllers/TermsViewController.h; sourceTree = "<group>"; };
@@ -219,7 +216,6 @@
 		7DBF941D111309F60042CD97 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = Classes/ViewControllers/WebViewController.m; sourceTree = "<group>"; };
 		7DBF942311130A850042CD97 /* database.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = database.xml; path = Resources/database.xml; sourceTree = "<group>"; };
 		7DBF942511130A850042CD97 /* header_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = header_transparent.png; path = Resources/header_transparent.png; sourceTree = "<group>"; };
-		7DBF942611130A850042CD97 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Resources/icon.png; sourceTree = "<group>"; };
 		7DBF942711130A850042CD97 /* logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_white.png; path = Resources/logo_white.png; sourceTree = "<group>"; };
 		7DBF942811130A850042CD97 /* tabConverter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabConverter.png; path = Resources/tabConverter.png; sourceTree = "<group>"; };
 		7DBF942911130A850042CD97 /* tabCurrency.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabCurrency.png; path = Resources/tabCurrency.png; sourceTree = "<group>"; };
@@ -314,7 +310,6 @@
 				3EC482A2114FE42C0014BE41 /* icon_tab_1.png */,
 				3EC482A3114FE42C0014BE41 /* icon_tab_2.png */,
 				3EC482A4114FE42C0014BE41 /* icon_tab_4.png */,
-				3EC482A5114FE42C0014BE41 /* Icon.png */,
 				7DD2654B11354E4B009E9B54 /* close.png */,
 				7DD2654C11354E4B009E9B54 /* close_touch.png */,
 				7DD262C811354BD7009E9B54 /* blueButton.png */,
@@ -329,7 +324,6 @@
 				7D4170E311131426002A0D0C /* Flags */,
 				7DBF942311130A850042CD97 /* database.xml */,
 				7DBF942511130A850042CD97 /* header_transparent.png */,
-				7DBF942611130A850042CD97 /* icon.png */,
 				7DBF942711130A850042CD97 /* logo_white.png */,
 				7DBF942811130A850042CD97 /* tabConverter.png */,
 				7DBF942911130A850042CD97 /* tabCurrency.png */,
@@ -574,7 +568,6 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				7DBF942D11130A850042CD97 /* database.xml in Resources */,
 				7DBF942F11130A850042CD97 /* header_transparent.png in Resources */,
-				7DBF943011130A850042CD97 /* icon.png in Resources */,
 				7DBF943111130A850042CD97 /* logo_white.png in Resources */,
 				7DBF943211130A850042CD97 /* tabConverter.png in Resources */,
 				7DBF943311130A850042CD97 /* tabCurrency.png in Resources */,
@@ -629,7 +622,6 @@
 				3EC482A7114FE42C0014BE41 /* icon_tab_1.png in Resources */,
 				3EC482A8114FE42C0014BE41 /* icon_tab_2.png in Resources */,
 				3EC482A9114FE42C0014BE41 /* icon_tab_4.png in Resources */,
-				3EC482AA114FE42C0014BE41 /* Icon.png in Resources */,
 				3EC48762114FE42C0014BE41 /* logo_transparent.png in Resources */,
 				3EC48BA6114FE42C0014BE41 /* evolutie 2.png in Resources */,
 				3EC48D1D114FE42C0014BE41 /* terms.html in Resources */,
