@@ -457,10 +457,15 @@
 	[myTableView reloadData];
 }
 
+-(void) textEditEnded {
+	//end edit
+	[self.navigationItem setLeftBarButtonItem:editButton];
+	[self.navigationItem setRightBarButtonItem:addButton];	
+}
+
 
 -(void) titleButtonAction:(id) sender
 {
-//	[titleSeg setSelectedSegmentIndex:-1];
 	if ([titleSeg selectedSegmentIndex]>-1)
 	{
 		[self.navigationItem setLeftBarButtonItem:cancelButton];

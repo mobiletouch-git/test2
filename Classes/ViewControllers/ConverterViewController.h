@@ -21,8 +21,6 @@
 	UIBarButtonItem *doneButton;
 	UIBarButtonItem *cancelButton;
 	
-	
-	
 //	UIButton *titleButton;
 	UISegmentedControl *titleSeg;
 
@@ -53,6 +51,7 @@
 @property (nonatomic, retain)	ConverterItem *referenceItem;
 
 -(void) addDefaultConverterValues;
+-(void) textEditEnded;
 -(void) updateCurrentDate;
 
 @end

@@ -179,9 +179,9 @@
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeExecutable = 7DBF93BF111308EC0042CD97 /* InfoValutar */;
-		activeSDKPreference = iphonesimulator3.0;
+		activeSDKPreference = iphoneos3.0;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* InfoValutar */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* InfoValutar */,
@@ -194,11 +194,12 @@
 			7D68690B112AC6F5003B00B7 /* AddNewTaxViewController.m:284 */,
 			7D686983112ACBAF003B00B7 /* TaxesViewController.m:304 */,
 			7D87215A112EB22200664890 /* AddConverterItemViewController.m:236 */,
-			7DB1ED74113C102E0034906D /* ConverterViewController.m:488 */,
+			7DB1ED74113C102E0034906D /* ConverterViewController.m:493 */,
 			7DD5623A1145082300E86354 /* GraphViewController.m:107 */,
 			7D932A5A114639D200876088 /* HistoryViewController.m:129 */,
 			7D932A7711463C6000876088 /* HistoryViewController.m:110 */,
-			7D932A7F11463C7600876088 /* HistoryViewController.m:255 */,
+			7D932A7F11463C7600876088 /* HistoryViewController.m:257 */,
+			7D932CA3114690BD00876088 /* ConverterViewController.m:383 */,
 		);
 		codeSenseManager = 7DBF93C7111308F90042CD97 /* Code sense */;
 		executables = (
@@ -809,6 +810,109 @@
 			7D932C9D1146904E00876088 /* PBXTextBookmark */ = 7D932C9D1146904E00876088 /* PBXTextBookmark */;
 			7D932C9E1146905000876088 /* PBXTextBookmark */ = 7D932C9E1146905000876088 /* PBXTextBookmark */;
 			7D932CA11146905500876088 /* PBXTextBookmark */ = 7D932CA11146905500876088 /* PBXTextBookmark */;
+			7D932CA5114690C500876088 /* PBXTextBookmark */ = 7D932CA5114690C500876088 /* PBXTextBookmark */;
+			7D932CA6114690C500876088 /* PBXTextBookmark */ = 7D932CA6114690C500876088 /* PBXTextBookmark */;
+			7D932CA7114690C500876088 /* PBXTextBookmark */ = 7D932CA7114690C500876088 /* PBXTextBookmark */;
+			7D932CA8114690C500876088 /* PBXTextBookmark */ = 7D932CA8114690C500876088 /* PBXTextBookmark */;
+			7D932CA9114690C500876088 /* PBXTextBookmark */ = 7D932CA9114690C500876088 /* PBXTextBookmark */;
+			7D932CAC1146910A00876088 /* PBXTextBookmark */ = 7D932CAC1146910A00876088 /* PBXTextBookmark */;
+			7D932CAD1146910A00876088 /* PBXTextBookmark */ = 7D932CAD1146910A00876088 /* PBXTextBookmark */;
+			7D932CAF1146910A00876088 /* PBXTextBookmark */ = 7D932CAF1146910A00876088 /* PBXTextBookmark */;
+			7D932CB11146910A00876088 /* PBXTextBookmark */ = 7D932CB11146910A00876088 /* PBXTextBookmark */;
+			7D932CB31146910C00876088 /* PBXTextBookmark */ = 7D932CB31146910C00876088 /* PBXTextBookmark */;
+			7D932CB41146912E00876088 /* PBXTextBookmark */ = 7D932CB41146912E00876088 /* PBXTextBookmark */;
+			7D932CB51146912E00876088 /* PBXTextBookmark */ = 7D932CB51146912E00876088 /* PBXTextBookmark */;
+			7D932CB61146912E00876088 /* PBXTextBookmark */ = 7D932CB61146912E00876088 /* PBXTextBookmark */;
+			7D932CB71146912E00876088 /* PBXTextBookmark */ = 7D932CB71146912E00876088 /* PBXTextBookmark */;
+			7D932CB91146912F00876088 /* PBXTextBookmark */ = 7D932CB91146912F00876088 /* PBXTextBookmark */;
+			7D932CBA1146912F00876088 /* PBXTextBookmark */ = 7D932CBA1146912F00876088 /* PBXTextBookmark */;
+			7D932CBB1146912F00876088 /* PBXTextBookmark */ = 7D932CBB1146912F00876088 /* PBXTextBookmark */;
+			7D932CBC1146912F00876088 /* PBXTextBookmark */ = 7D932CBC1146912F00876088 /* PBXTextBookmark */;
+			7D932CBD1146913900876088 /* PBXTextBookmark */ = 7D932CBD1146913900876088 /* PBXTextBookmark */;
+			7D932CC6114691BB00876088 /* PBXTextBookmark */ = 7D932CC6114691BB00876088 /* PBXTextBookmark */;
+			7D932CC7114691BB00876088 /* PBXTextBookmark */ = 7D932CC7114691BB00876088 /* PBXTextBookmark */;
+			7D932CC8114691BB00876088 /* PBXTextBookmark */ = 7D932CC8114691BB00876088 /* PBXTextBookmark */;
+			7D932CC9114691BB00876088 /* PBXTextBookmark */ = 7D932CC9114691BB00876088 /* PBXTextBookmark */;
+			7D932CCA114691BB00876088 /* PBXTextBookmark */ = 7D932CCA114691BB00876088 /* PBXTextBookmark */;
+			7D932CCB114691BB00876088 /* PBXTextBookmark */ = 7D932CCB114691BB00876088 /* PBXTextBookmark */;
+			7D932CCC114691BB00876088 /* PBXTextBookmark */ = 7D932CCC114691BB00876088 /* PBXTextBookmark */;
+			7D932CCD114691BB00876088 /* PBXTextBookmark */ = 7D932CCD114691BB00876088 /* PBXTextBookmark */;
+			7D932CCE114691C600876088 /* PBXTextBookmark */ = 7D932CCE114691C600876088 /* PBXTextBookmark */;
+			7D932CD0114691F200876088 /* PBXTextBookmark */ = 7D932CD0114691F200876088 /* PBXTextBookmark */;
+			7D932CD1114691F200876088 /* PBXTextBookmark */ = 7D932CD1114691F200876088 /* PBXTextBookmark */;
+			7D932CD2114691F200876088 /* PBXTextBookmark */ = 7D932CD2114691F200876088 /* PBXTextBookmark */;
+			7D932CD3114691F200876088 /* PBXTextBookmark */ = 7D932CD3114691F200876088 /* PBXTextBookmark */;
+			7D932CD4114691F300876088 /* PBXTextBookmark */ = 7D932CD4114691F300876088 /* PBXTextBookmark */;
+			7D932CD51146922000876088 /* PBXTextBookmark */ = 7D932CD51146922000876088 /* PBXTextBookmark */;
+			7D932CD71146923200876088 /* PBXTextBookmark */ = 7D932CD71146923200876088 /* PBXTextBookmark */;
+			7D932CD81146923200876088 /* PBXTextBookmark */ = 7D932CD81146923200876088 /* PBXTextBookmark */;
+			7D932CD91146923800876088 /* PBXTextBookmark */ = 7D932CD91146923800876088 /* PBXTextBookmark */;
+			7D932CDB1146925B00876088 /* PBXTextBookmark */ = 7D932CDB1146925B00876088 /* PBXTextBookmark */;
+			7D932CDC1146925B00876088 /* PBXTextBookmark */ = 7D932CDC1146925B00876088 /* PBXTextBookmark */;
+			7D932CDD1146925B00876088 /* PBXTextBookmark */ = 7D932CDD1146925B00876088 /* PBXTextBookmark */;
+			7D932CDE1146925B00876088 /* PBXTextBookmark */ = 7D932CDE1146925B00876088 /* PBXTextBookmark */;
+			7D932CDF1146925B00876088 /* PBXTextBookmark */ = 7D932CDF1146925B00876088 /* PBXTextBookmark */;
+			7D932CE01146926A00876088 /* PBXTextBookmark */ = 7D932CE01146926A00876088 /* PBXTextBookmark */;
+			7D932CE11146928800876088 /* PBXTextBookmark */ = 7D932CE11146928800876088 /* PBXTextBookmark */;
+			7D932CE3114692D300876088 /* PBXTextBookmark */ = 7D932CE3114692D300876088 /* PBXTextBookmark */;
+			7D932CE4114692D300876088 /* PBXTextBookmark */ = 7D932CE4114692D300876088 /* PBXTextBookmark */;
+			7D932CE5114692D300876088 /* PBXTextBookmark */ = 7D932CE5114692D300876088 /* PBXTextBookmark */;
+			7D932CE6114692D300876088 /* PBXTextBookmark */ = 7D932CE6114692D300876088 /* PBXTextBookmark */;
+			7D932CE7114692D300876088 /* PBXTextBookmark */ = 7D932CE7114692D300876088 /* PBXTextBookmark */;
+			7D932CE8114692D300876088 /* PBXTextBookmark */ = 7D932CE8114692D300876088 /* PBXTextBookmark */;
+			7D932CE9114692D300876088 /* PBXTextBookmark */ = 7D932CE9114692D300876088 /* PBXTextBookmark */;
+			7D932CEA114692D300876088 /* PBXTextBookmark */ = 7D932CEA114692D300876088 /* PBXTextBookmark */;
+			7D932CEB114692DF00876088 /* PBXTextBookmark */ = 7D932CEB114692DF00876088 /* PBXTextBookmark */;
+			7D932CEC114692DF00876088 /* PBXTextBookmark */ = 7D932CEC114692DF00876088 /* PBXTextBookmark */;
+			7D932CEE1146930100876088 /* PBXTextBookmark */ = 7D932CEE1146930100876088 /* PBXTextBookmark */;
+			7D932CEF1146930200876088 /* PBXTextBookmark */ = 7D932CEF1146930200876088 /* PBXTextBookmark */;
+			7D932CF01146930C00876088 /* PBXTextBookmark */ = 7D932CF01146930C00876088 /* PBXTextBookmark */;
+			7D932CF11146931400876088 /* PBXTextBookmark */ = 7D932CF11146931400876088 /* PBXTextBookmark */;
+			7D932CF31146933600876088 /* PBXTextBookmark */ = 7D932CF31146933600876088 /* PBXTextBookmark */;
+			7D932CF41146933700876088 /* PBXTextBookmark */ = 7D932CF41146933700876088 /* PBXTextBookmark */;
+			7D932CF51146933D00876088 /* PBXTextBookmark */ = 7D932CF51146933D00876088 /* PBXTextBookmark */;
+			7D932CF61146936300876088 /* PBXTextBookmark */ = 7D932CF61146936300876088 /* PBXTextBookmark */;
+			7D932CF81146937F00876088 /* PBXTextBookmark */ = 7D932CF81146937F00876088 /* PBXTextBookmark */;
+			7D932CF91146937F00876088 /* PBXTextBookmark */ = 7D932CF91146937F00876088 /* PBXTextBookmark */;
+			7D932CFA1146939C00876088 /* PBXTextBookmark */ = 7D932CFA1146939C00876088 /* PBXTextBookmark */;
+			7D932CFB114693A100876088 /* PBXTextBookmark */ = 7D932CFB114693A100876088 /* PBXTextBookmark */;
+			7D932CFD1146941E00876088 /* PBXTextBookmark */ = 7D932CFD1146941E00876088 /* PBXTextBookmark */;
+			7D932CFE1146941E00876088 /* PBXTextBookmark */ = 7D932CFE1146941E00876088 /* PBXTextBookmark */;
+			7D932CFF1146942500876088 /* PBXTextBookmark */ = 7D932CFF1146942500876088 /* PBXTextBookmark */;
+			7D932D001146942800876088 /* PBXTextBookmark */ = 7D932D001146942800876088 /* PBXTextBookmark */;
+			7D932D04114695A400876088 /* PBXTextBookmark */ = 7D932D04114695A400876088 /* PBXTextBookmark */;
+			7D932D05114695A500876088 /* PBXTextBookmark */ = 7D932D05114695A500876088 /* PBXTextBookmark */;
+			7D932D08114695A500876088 /* PBXTextBookmark */ = 7D932D08114695A500876088 /* PBXTextBookmark */;
+			7D932D09114695A500876088 /* PBXTextBookmark */ = 7D932D09114695A500876088 /* PBXTextBookmark */;
+			7D932D0B114695AD00876088 /* PBXTextBookmark */ = 7D932D0B114695AD00876088 /* PBXTextBookmark */;
+			7D932D0C114695AD00876088 /* PBXTextBookmark */ = 7D932D0C114695AD00876088 /* PBXTextBookmark */;
+			7D932D0D114695AD00876088 /* PBXTextBookmark */ = 7D932D0D114695AD00876088 /* PBXTextBookmark */;
+			7D932D0E114695AE00876088 /* PBXTextBookmark */ = 7D932D0E114695AE00876088 /* PBXTextBookmark */;
+			7D932D0F114695B000876088 /* PBXTextBookmark */ = 7D932D0F114695B000876088 /* PBXTextBookmark */;
+			7D932D10114695B000876088 /* PBXTextBookmark */ = 7D932D10114695B000876088 /* PBXTextBookmark */;
+			7D932D12114695BA00876088 /* PBXTextBookmark */ = 7D932D12114695BA00876088 /* PBXTextBookmark */;
+			7D932D13114695BA00876088 /* PBXTextBookmark */ = 7D932D13114695BA00876088 /* PBXTextBookmark */;
+			7D932D14114695BA00876088 /* PBXTextBookmark */ = 7D932D14114695BA00876088 /* PBXTextBookmark */;
+			7D932D15114695BA00876088 /* PBXTextBookmark */ = 7D932D15114695BA00876088 /* PBXTextBookmark */;
+			7D932D161146960500876088 /* PBXTextBookmark */ = 7D932D161146960500876088 /* PBXTextBookmark */;
+			7D932D191146961100876088 /* PBXTextBookmark */ = 7D932D191146961100876088 /* PBXTextBookmark */;
+			7D932D1A1146961100876088 /* PBXTextBookmark */ = 7D932D1A1146961100876088 /* PBXTextBookmark */;
+			7D932D1F1146967600876088 /* PBXTextBookmark */ = 7D932D1F1146967600876088 /* PBXTextBookmark */;
+			7D932D201146967600876088 /* PBXTextBookmark */ = 7D932D201146967600876088 /* PBXTextBookmark */;
+			7D932D211146977E00876088 /* PBXTextBookmark */ = 7D932D211146977E00876088 /* PBXTextBookmark */;
+			7D932D221146977E00876088 /* PBXTextBookmark */ = 7D932D221146977E00876088 /* PBXTextBookmark */;
+			7D932D24114697B600876088 /* PBXTextBookmark */ = 7D932D24114697B600876088 /* PBXTextBookmark */;
+			7D932D26114697E200876088 /* PBXTextBookmark */ = 7D932D26114697E200876088 /* PBXTextBookmark */;
+			7D932D27114697E200876088 /* PBXTextBookmark */ = 7D932D27114697E200876088 /* PBXTextBookmark */;
+			7D932D29114697E700876088 /* PBXTextBookmark */ = 7D932D29114697E700876088 /* PBXTextBookmark */;
+			7D932D2A114697E700876088 /* PlistBookmark */ = 7D932D2A114697E700876088 /* PlistBookmark */;
+			7D932D2B114697E700876088 /* PBXTextBookmark */ = 7D932D2B114697E700876088 /* PBXTextBookmark */;
+			7D932D2C114697E700876088 /* PlistBookmark */ = 7D932D2C114697E700876088 /* PlistBookmark */;
+			7D932D2E1146995300876088 /* PBXTextBookmark */ = 7D932D2E1146995300876088 /* PBXTextBookmark */;
+			7D932D2F1146995300876088 /* PlistBookmark */ = 7D932D2F1146995300876088 /* PlistBookmark */;
+			7D932D301146995300876088 /* PlistBookmark */ = 7D932D301146995300876088 /* PlistBookmark */;
+			7D932D311146995B00876088 /* PlistBookmark */ = 7D932D311146995B00876088 /* PlistBookmark */;
+			7D932D321146995B00876088 /* PBXTextBookmark */ = 7D932D321146995B00876088 /* PBXTextBookmark */;
 			7DD5649D11452D5300E86354 = 7DD5649D11452D5300E86354 /* PBXTextBookmark */;
 			7DD564A911452D5300E86354 = 7DD564A911452D5300E86354 /* PBXTextBookmark */;
 			7DD565D411453D7100E86354 = 7DD565D411453D7100E86354 /* PBXTextBookmark */;
@@ -854,23 +958,23 @@
 	};
 	7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1182, 9954}}";
-			sepNavSelRange = "{15340, 0}";
-			sepNavVisRange = "{13637, 1709}";
+			sepNavIntBoundsRect = "{{0, 0}, {1182, 10010}}";
+			sepNavSelRange = "{15066, 24}";
+			sepNavVisRange = "{14326, 1451}";
 		};
 	};
 	7D3CB6AE113D67FE003AA41C /* ConverterTableViewCell.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {861, 700}}";
-			sepNavSelRange = "{606, 18}";
+			sepNavSelRange = "{432, 23}";
 			sepNavVisRange = "{0, 1014}";
 		};
 	};
 	7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {861, 5572}}";
-			sepNavSelRange = "{8730, 0}";
-			sepNavVisRange = "{8010, 1270}";
+			sepNavIntBoundsRect = "{{0, 0}, {978, 5432}}";
+			sepNavSelRange = "{11467, 0}";
+			sepNavVisRange = "{10349, 1935}";
 		};
 	};
 	7D5D92981137D0400087B8D2 /* S7GraphView.h */ = {
@@ -950,7 +1054,7 @@
 		ignoreCount = 0;
 		lineNumber = 88;
 		location = InfoValutar;
-		modificationTime = 289836465.934006;
+		modificationTime = 289839096.01724;
 		state = 1;
 	};
 	7D6868F8112AC6C2003B00B7 /* AddNewTaxViewController.m:355 */ = {
@@ -967,7 +1071,7 @@
 		ignoreCount = 0;
 		lineNumber = 355;
 		location = InfoValutar;
-		modificationTime = 289836465.945939;
+		modificationTime = 289839096.017437;
 		state = 1;
 	};
 	7D68690B112AC6F5003B00B7 /* AddNewTaxViewController.m:284 */ = {
@@ -984,7 +1088,7 @@
 		ignoreCount = 0;
 		lineNumber = 284;
 		location = InfoValutar;
-		modificationTime = 289836465.97542;
+		modificationTime = 289839096.017625;
 		state = 1;
 	};
 	7D686981112ACBAF003B00B7 /* TaxesViewController.m */ = {
@@ -1008,7 +1112,7 @@
 		ignoreCount = 0;
 		lineNumber = 304;
 		location = InfoValutar;
-		modificationTime = 289836465.986623;
+		modificationTime = 289839096.017843;
 		state = 1;
 	};
 	7D686BB2112ADC36003B00B7 /* LightTaxTableViewCell.h */ = {
@@ -1030,7 +1134,7 @@
 		fRef = 7DD566241145433200E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 230";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 938;
 		vrLoc = 6552;
@@ -1040,7 +1144,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 230";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 940;
 		vrLoc = 6550;
@@ -1066,7 +1170,7 @@
 		ignoreCount = 0;
 		lineNumber = 236;
 		location = InfoValutar;
-		modificationTime = 289836466.001813;
+		modificationTime = 289839096.018047;
 		state = 1;
 	};
 	7D9329AF11462DBD00876088 /* PBXTextBookmark */ = {
@@ -1074,7 +1178,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 939;
 		vrLoc = 6550;
@@ -1084,7 +1188,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 939;
 		vrLoc = 6550;
@@ -1094,7 +1198,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 939;
 		vrLoc = 6550;
@@ -1104,7 +1208,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 913;
 		vrLoc = 6550;
@@ -1114,7 +1218,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 286;
 		vrLoc = 6607;
@@ -1124,7 +1228,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 1273;
 		vrLoc = 6386;
@@ -1134,7 +1238,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 1077;
 		vrLoc = 6386;
@@ -1144,7 +1248,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 870;
 		vrLoc = 6364;
@@ -1154,7 +1258,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 246;
 		vrLoc = 6694;
@@ -1177,7 +1281,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 246;
 		vrLoc = 6694;
@@ -1212,7 +1316,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 1270;
 		vrLoc = 6386;
@@ -1222,7 +1326,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 1273;
 		vrLoc = 6386;
@@ -1242,7 +1346,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 224";
 		rLen = 0;
-		rLoc = 6853;
+		rLoc = 6877;
 		rType = 0;
 		vrLen = 1270;
 		vrLoc = 6386;
@@ -1444,7 +1548,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 241";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1341;
 		vrLoc = 6133;
@@ -1454,7 +1558,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 241";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 364;
 		vrLoc = 6133;
@@ -1464,7 +1568,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 241";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1009;
 		vrLoc = 5618;
@@ -1474,7 +1578,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 241";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 880;
 		vrLoc = 5618;
@@ -1498,7 +1602,7 @@
 		isa = PBXTextBookmark;
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		rLen = 0;
-		rLoc = 239;
+		rLoc = 241;
 		rType = 1;
 	};
 	7D932A011146354C00876088 /* PBXTextBookmark */ = {
@@ -1506,7 +1610,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 241";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 364;
 		vrLoc = 6133;
@@ -1531,7 +1635,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 372;
 		vrLoc = 6992;
@@ -1727,7 +1831,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 229";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1365;
 		vrLoc = 6467;
@@ -1737,7 +1841,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 229";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 337;
 		vrLoc = 6867;
@@ -1747,7 +1851,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 229";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 974;
 		vrLoc = 6337;
@@ -1757,7 +1861,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 229";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 881;
 		vrLoc = 6559;
@@ -1767,7 +1871,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 229";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 346;
 		vrLoc = 6828;
@@ -1777,7 +1881,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1415;
 		vrLoc = 6335;
@@ -1787,7 +1891,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1419;
 		vrLoc = 6019;
@@ -1797,7 +1901,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 241";
 		rLen = 0;
-		rLoc = 7354;
+		rLoc = 7378;
 		rType = 0;
 		vrLen = 1426;
 		vrLoc = 6317;
@@ -1807,7 +1911,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 235";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1407;
 		vrLoc = 6384;
@@ -1817,7 +1921,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 235";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 408;
 		vrLoc = 6800;
@@ -1827,7 +1931,7 @@
 		comments = "error: 'dictList' undeclared (first use in this function)";
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		rLen = 1;
-		rLoc = 243;
+		rLoc = 245;
 		rType = 1;
 	};
 	7D932A3A1146371E00876088 /* PBXTextBookmark */ = {
@@ -1835,7 +1939,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 244";
 		rLen = 0;
-		rLoc = 7391;
+		rLoc = 7415;
 		rType = 0;
 		vrLen = 996;
 		vrLoc = 6800;
@@ -1845,7 +1949,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 244";
 		rLen = 0;
-		rLoc = 7391;
+		rLoc = 7415;
 		rType = 0;
 		vrLen = 933;
 		vrLoc = 6867;
@@ -1855,7 +1959,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 244";
 		rLen = 0;
-		rLoc = 7391;
+		rLoc = 7415;
 		rType = 0;
 		vrLen = 291;
 		vrLoc = 6955;
@@ -1865,7 +1969,7 @@
 		comments = "warning: unused variable 'currentPositionOfPicker'";
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		rLen = 1;
-		rLoc = 243;
+		rLoc = 245;
 		rType = 1;
 	};
 	7D932A3F1146372400876088 /* PBXTextBookmark */ = {
@@ -1873,7 +1977,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 244";
 		rLen = 70;
-		rLoc = 7349;
+		rLoc = 7373;
 		rType = 0;
 		vrLen = 1008;
 		vrLoc = 6869;
@@ -1883,7 +1987,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 244";
 		rLen = 0;
-		rLoc = 7421;
+		rLoc = 7445;
 		rType = 0;
 		vrLen = 1058;
 		vrLoc = 6701;
@@ -1950,7 +2054,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 243";
 		rLen = 0;
-		rLoc = 7349;
+		rLoc = 7373;
 		rType = 0;
 		vrLen = 1192;
 		vrLoc = 6317;
@@ -2019,7 +2123,7 @@
 		ignoreCount = 0;
 		lineNumber = 129;
 		location = InfoValutar;
-		modificationTime = 289836466.051077;
+		modificationTime = 289839096.018678;
 		state = 1;
 	};
 	7D932A5C114639DE00876088 /* PBXTextBookmark */ = {
@@ -2047,7 +2151,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1329;
 		vrLoc = 6159;
@@ -2057,7 +2161,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 367;
 		vrLoc = 6159;
@@ -2067,7 +2171,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 956;
 		vrLoc = 5625;
@@ -2077,7 +2181,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 902;
 		vrLoc = 5625;
@@ -2087,7 +2191,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 236";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 367;
 		vrLoc = 6159;
@@ -2097,7 +2201,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 234";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1406;
 		vrLoc = 6360;
@@ -2107,7 +2211,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 234";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1322;
 		vrLoc = 6524;
@@ -2117,7 +2221,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 228";
 		rLen = 0;
-		rLoc = 7235;
+		rLoc = 7259;
 		rType = 0;
 		vrLen = 1199;
 		vrLoc = 6524;
@@ -2127,7 +2231,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 222";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 1272;
 		vrLoc = 6524;
@@ -2137,7 +2241,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 226";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 966;
 		vrLoc = 6524;
@@ -2147,7 +2251,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 226";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 852;
 		vrLoc = 6524;
@@ -2157,7 +2261,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 226";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 273;
 		vrLoc = 6524;
@@ -2167,7 +2271,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 226";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 1401;
 		vrLoc = 5975;
@@ -2177,7 +2281,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 222";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 1019;
 		vrLoc = 5975;
@@ -2187,7 +2291,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 222";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 953;
 		vrLoc = 6338;
@@ -2197,7 +2301,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 222";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 273;
 		vrLoc = 6524;
@@ -2207,7 +2311,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 222";
 		rLen = 0;
-		rLoc = 6826;
+		rLoc = 6850;
 		rType = 0;
 		vrLen = 1500;
 		vrLoc = 6360;
@@ -2217,7 +2321,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 268";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 1048;
 		vrLoc = 6935;
@@ -2227,7 +2331,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 268";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 1045;
 		vrLoc = 6935;
@@ -2237,7 +2341,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 268";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 551;
 		vrLoc = 6935;
@@ -2256,7 +2360,7 @@
 		ignoreCount = 0;
 		lineNumber = 110;
 		location = InfoValutar;
-		modificationTime = 289836466.070584;
+		modificationTime = 289839096.019031;
 		state = 1;
 	};
 	7D932A7811463C6100876088 /* PBXTextBookmark */ = {
@@ -2286,7 +2390,7 @@
 		vrLen = 1489;
 		vrLoc = 2475;
 	};
-	7D932A7F11463C7600876088 /* HistoryViewController.m:255 */ = {
+	7D932A7F11463C7600876088 /* HistoryViewController.m:257 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2298,9 +2402,9 @@
 		functionName = "-refreshPicker";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 255;
+		lineNumber = 257;
 		location = InfoValutar;
-		modificationTime = 289836466.087711;
+		modificationTime = 289839096.019336;
 		state = 1;
 	};
 	7D932A8011463C7B00876088 /* PBXTextBookmark */ = {
@@ -2348,7 +2452,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 253";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 364;
 		vrLoc = 7514;
@@ -2358,7 +2462,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 253";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 898;
 		vrLoc = 7149;
@@ -2368,7 +2472,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 253";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 894;
 		vrLoc = 7149;
@@ -2378,7 +2482,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 253";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 364;
 		vrLoc = 7514;
@@ -2388,7 +2492,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 263";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 1000;
 		vrLoc = 7045;
@@ -2398,7 +2502,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 263";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 723;
 		vrLoc = 7490;
@@ -2408,7 +2512,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 263";
 		rLen = 0;
-		rLoc = 7765;
+		rLoc = 7789;
 		rType = 0;
 		vrLen = 366;
 		vrLoc = 7514;
@@ -2448,7 +2552,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 239";
 		rLen = 0;
-		rLoc = 7233;
+		rLoc = 7257;
 		rType = 0;
 		vrLen = 1093;
 		vrLoc = 6691;
@@ -2458,7 +2562,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 239";
 		rLen = 0;
-		rLoc = 7233;
+		rLoc = 7257;
 		rType = 0;
 		vrLen = 1064;
 		vrLoc = 6724;
@@ -2490,7 +2594,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 239";
 		rLen = 0;
-		rLoc = 7233;
+		rLoc = 7257;
 		rType = 0;
 		vrLen = 286;
 		vrLoc = 6691;
@@ -2603,7 +2707,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 1058;
 		vrLoc = 5304;
@@ -2613,7 +2717,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 893;
 		vrLoc = 5806;
@@ -2623,7 +2727,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 497;
 		vrLoc = 5304;
@@ -2633,7 +2737,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 1187;
 		vrLoc = 4788;
@@ -2643,7 +2747,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 1187;
 		vrLoc = 4788;
@@ -2653,7 +2757,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 1183;
 		vrLoc = 4788;
@@ -2663,7 +2767,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 497;
 		vrLoc = 5304;
@@ -2673,7 +2777,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 497;
 		vrLoc = 5304;
@@ -2683,7 +2787,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 1623;
 		vrLoc = 4788;
@@ -2703,7 +2807,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 1623;
 		vrLoc = 4788;
@@ -2925,7 +3029,7 @@
 		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 202";
 		rLen = 0;
-		rLoc = 6335;
+		rLoc = 6359;
 		rType = 0;
 		vrLen = 497;
 		vrLoc = 5304;
@@ -3310,7 +3414,7 @@
 		fRef = 7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 29";
 		rLen = 10;
-		rLoc = 643;
+		rLoc = 639;
 		rType = 0;
 		vrLen = 1197;
 		vrLoc = 0;
@@ -3360,7 +3464,7 @@
 		fRef = 7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 29";
 		rLen = 10;
-		rLoc = 643;
+		rLoc = 639;
 		rType = 0;
 		vrLen = 1197;
 		vrLoc = 0;
@@ -3410,7 +3514,7 @@
 		fRef = 7DBF9415111309F60042CD97 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 465";
 		rLen = 0;
-		rLoc = 15192;
+		rLoc = 15302;
 		rType = 0;
 		vrLen = 1500;
 		vrLoc = 14433;
@@ -3420,7 +3524,7 @@
 		fRef = 7DBF9415111309F60042CD97 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 465";
 		rLen = 0;
-		rLoc = 15109;
+		rLoc = 15259;
 		rType = 0;
 		vrLen = 1035;
 		vrLoc = 14433;
@@ -3430,7 +3534,7 @@
 		fRef = 7DBF9415111309F60042CD97 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 465";
 		rLen = 0;
-		rLoc = 15109;
+		rLoc = 15259;
 		rType = 0;
 		vrLen = 1025;
 		vrLoc = 14799;
@@ -3440,7 +3544,7 @@
 		fRef = 7DBF9415111309F60042CD97 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 465";
 		rLen = 0;
-		rLoc = 15109;
+		rLoc = 15259;
 		rType = 0;
 		vrLen = 514;
 		vrLoc = 14433;
@@ -3512,7 +3616,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 474";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1696;
 		vrLoc = 13804;
@@ -3522,7 +3626,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 474";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 487;
 		vrLoc = 14258;
@@ -3532,7 +3636,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 474";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1605;
 		vrLoc = 13281;
@@ -3542,7 +3646,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 474";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1573;
 		vrLoc = 13281;
@@ -3552,7 +3656,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 474";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 487;
 		vrLoc = 14258;
@@ -3580,7 +3684,7 @@
 		fRef = 7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 43";
 		rLen = 0;
-		rLoc = 1063;
+		rLoc = 1059;
 		rType = 0;
 		vrLen = 1421;
 		vrLoc = 160;
@@ -3599,7 +3703,7 @@
 		isa = PBXTextBookmark;
 		fRef = 7D932B2B11467E1200876088 /* ConverterTableViewCell.m */;
 		rLen = 1;
-		rLoc = 217;
+		rLoc = 216;
 		rType = 1;
 	};
 	7D932B3411467E1900876088 /* PBXTextBookmark */ = {
@@ -3607,7 +3711,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 474";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1937;
 		vrLoc = 13281;
@@ -3617,7 +3721,7 @@
 		fRef = 7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 43";
 		rLen = 0;
-		rLoc = 1063;
+		rLoc = 1059;
 		rType = 0;
 		vrLen = 1421;
 		vrLoc = 160;
@@ -3637,7 +3741,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 215";
 		rLen = 0;
-		rLoc = 7351;
+		rLoc = 7295;
 		rType = 0;
 		vrLen = 1053;
 		vrLoc = 6502;
@@ -3647,7 +3751,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 215";
 		rLen = 0;
-		rLoc = 7351;
+		rLoc = 7295;
 		rType = 0;
 		vrLen = 949;
 		vrLoc = 6502;
@@ -3657,7 +3761,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 474";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 487;
 		vrLoc = 14255;
@@ -3667,7 +3771,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 215";
 		rLen = 0;
-		rLoc = 7351;
+		rLoc = 7295;
 		rType = 0;
 		vrLen = 577;
 		vrLoc = 6840;
@@ -3677,7 +3781,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1348;
 		vrLoc = 8237;
@@ -3687,7 +3791,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1348;
 		vrLoc = 8237;
@@ -3697,7 +3801,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 828;
 		vrLoc = 8237;
@@ -3707,7 +3811,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 154;
 		vrLoc = 8237;
@@ -3717,7 +3821,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1347;
 		vrLoc = 8237;
@@ -3737,7 +3841,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1347;
 		vrLoc = 8237;
@@ -3777,7 +3881,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 154;
 		vrLoc = 8237;
@@ -3897,7 +4001,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 480";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1256;
 		vrLoc = 14909;
@@ -3917,7 +4021,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 218";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1347;
 		vrLoc = 8237;
@@ -3937,7 +4041,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 301";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 8265;
@@ -3947,7 +4051,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 301";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 8265;
@@ -3967,7 +4071,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 301";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 532;
 		vrLoc = 8782;
@@ -3977,7 +4081,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 216";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1538;
 		vrLoc = 6273;
@@ -3987,7 +4091,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 216";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1538;
 		vrLoc = 6273;
@@ -4007,7 +4111,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 216";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1538;
 		vrLoc = 6273;
@@ -4037,7 +4141,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 301";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 565;
 		vrLoc = 9015;
@@ -4057,7 +4161,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 477";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1033;
 		vrLoc = 14186;
@@ -4067,7 +4171,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 477";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1031;
 		vrLoc = 14186;
@@ -4077,7 +4181,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 477";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 592;
 		vrLoc = 14190;
@@ -4087,7 +4191,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 477";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 2021;
 		vrLoc = 13044;
@@ -4097,7 +4201,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 902;
 		vrLoc = 14666;
@@ -4107,7 +4211,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1021;
 		vrLoc = 15063;
@@ -4117,7 +4221,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 368;
 		vrLoc = 14666;
@@ -4127,7 +4231,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1034;
 		vrLoc = 14186;
@@ -4137,7 +4241,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1034;
 		vrLoc = 14186;
@@ -4147,7 +4251,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 368;
 		vrLoc = 14666;
@@ -4157,7 +4261,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1385;
 		vrLoc = 14186;
@@ -4167,7 +4271,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1385;
 		vrLoc = 14186;
@@ -4177,7 +4281,7 @@
 		fRef = 7D932B1911467D6100876088 /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 368;
 		vrLoc = 14666;
@@ -4187,7 +4291,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 351;
 		vrLoc = 15219;
@@ -4197,7 +4301,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 903;
 		vrLoc = 14902;
@@ -4207,7 +4311,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 330;
 		vrLoc = 15260;
@@ -4217,7 +4321,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 330;
 		vrLoc = 15260;
@@ -4247,7 +4351,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 216";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1558;
 		vrLoc = 6271;
@@ -4297,7 +4401,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 476";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 330;
 		vrLoc = 15260;
@@ -4387,7 +4491,7 @@
 		fRef = 7D932B2F11467E1200876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 314";
 		rLen = 124;
-		rLoc = 9561;
+		rLoc = 9817;
 		rType = 0;
 		vrLen = 1882;
 		vrLoc = 9637;
@@ -4409,7 +4513,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 314";
 		rLen = 124;
-		rLoc = 9561;
+		rLoc = 9817;
 		rType = 0;
 		vrLen = 1882;
 		vrLoc = 9637;
@@ -4429,7 +4533,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 314";
 		rLen = 124;
-		rLoc = 9561;
+		rLoc = 9817;
 		rType = 0;
 		vrLen = 1881;
 		vrLoc = 9637;
@@ -4439,7 +4543,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 314";
 		rLen = 124;
-		rLoc = 9561;
+		rLoc = 9817;
 		rType = 0;
 		vrLen = 1882;
 		vrLoc = 9637;
@@ -4459,7 +4563,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 334";
 		rLen = 0;
-		rLoc = 10275;
+		rLoc = 10531;
 		rType = 0;
 		vrLen = 1809;
 		vrLoc = 9808;
@@ -4469,7 +4573,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 334";
 		rLen = 0;
-		rLoc = 10275;
+		rLoc = 10531;
 		rType = 0;
 		vrLen = 244;
 		vrLoc = 9808;
@@ -4479,7 +4583,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 334";
 		rLen = 0;
-		rLoc = 10275;
+		rLoc = 10531;
 		rType = 0;
 		vrLen = 1279;
 		vrLoc = 9618;
@@ -4489,7 +4593,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 334";
 		rLen = 0;
-		rLoc = 10275;
+		rLoc = 10531;
 		rType = 0;
 		vrLen = 1281;
 		vrLoc = 9861;
@@ -4499,7 +4603,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 334";
 		rLen = 0;
-		rLoc = 10275;
+		rLoc = 10531;
 		rType = 0;
 		vrLen = 1281;
 		vrLoc = 9861;
@@ -4509,7 +4613,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 334";
 		rLen = 0;
-		rLoc = 10275;
+		rLoc = 10531;
 		rType = 0;
 		vrLen = 1281;
 		vrLoc = 9861;
@@ -4536,7 +4640,7 @@
 		fRef = 7D932B94114684B000876088 /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 334";
 		rLen = 0;
-		rLoc = 10275;
+		rLoc = 10531;
 		rType = 0;
 		vrLen = 244;
 		vrLoc = 9808;
@@ -4832,7 +4936,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 478";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1222;
 		vrLoc = 14962;
@@ -4862,7 +4966,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 478";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1222;
 		vrLoc = 14962;
@@ -4872,7 +4976,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 222";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1434;
 		vrLoc = 6372;
@@ -4882,7 +4986,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 305";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1228;
 		vrLoc = 8824;
@@ -4892,7 +4996,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 305";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1228;
 		vrLoc = 8824;
@@ -4902,7 +5006,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 305";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1175;
 		vrLoc = 8822;
@@ -4922,7 +5026,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 305";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 565;
 		vrLoc = 9243;
@@ -4932,7 +5036,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 305";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1848;
 		vrLoc = 8824;
@@ -4942,7 +5046,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 305";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1436;
 		vrLoc = 8616;
@@ -4952,7 +5056,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 299";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 859;
 		vrLoc = 8328;
@@ -4962,7 +5066,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 299";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 821;
 		vrLoc = 8328;
@@ -4972,7 +5076,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 299";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 451;
 		vrLoc = 8736;
@@ -4982,7 +5086,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 299";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1704;
 		vrLoc = 8533;
@@ -4992,7 +5096,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 214";
 		rLen = 7;
-		rLoc = 7155;
+		rLoc = 7099;
 		rType = 0;
 		vrLen = 1423;
 		vrLoc = 6430;
@@ -5002,7 +5106,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 478";
 		rLen = 0;
-		rLoc = 15343;
+		rLoc = 15453;
 		rType = 0;
 		vrLen = 1192;
 		vrLoc = 14962;
@@ -5012,7 +5116,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 214";
 		rLen = 7;
-		rLoc = 7155;
+		rLoc = 7099;
 		rType = 0;
 		vrLen = 1423;
 		vrLoc = 6430;
@@ -5032,7 +5136,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 299";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 451;
 		vrLoc = 8736;
@@ -5089,7 +5193,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 212";
 		rLen = 7;
-		rLoc = 7155;
+		rLoc = 7099;
 		rType = 0;
 		vrLen = 1442;
 		vrLoc = 6407;
@@ -5099,7 +5203,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 296";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 826;
 		vrLoc = 8322;
@@ -5109,7 +5213,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 296";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 773;
 		vrLoc = 8322;
@@ -5129,7 +5233,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 296";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 472;
 		vrLoc = 8676;
@@ -5139,7 +5243,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 296";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1638;
 		vrLoc = 8527;
@@ -5149,7 +5253,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 296";
 		rLen = 0;
-		rLoc = 9206;
+		rLoc = 9207;
 		rType = 0;
 		vrLen = 1653;
 		vrLoc = 9915;
@@ -5159,7 +5263,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 279";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1251;
 		vrLoc = 8247;
@@ -5168,7 +5272,7 @@
 		isa = PBXTextBookmark;
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		rLen = 1;
-		rLoc = 459;
+		rLoc = 465;
 		rType = 1;
 	};
 	7D932BF711468B8E00876088 /* PBXTextBookmark */ = {
@@ -5176,7 +5280,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 279";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1251;
 		vrLoc = 8247;
@@ -5186,7 +5290,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 460";
 		rLen = 0;
-		rLoc = 15066;
+		rLoc = 15218;
 		rType = 0;
 		vrLen = 1457;
 		vrLoc = 14190;
@@ -5196,7 +5300,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 460";
 		rLen = 0;
-		rLoc = 15066;
+		rLoc = 15218;
 		rType = 0;
 		vrLen = 1457;
 		vrLoc = 14190;
@@ -5206,7 +5310,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 460";
 		rLen = 0;
-		rLoc = 15066;
+		rLoc = 15218;
 		rType = 0;
 		vrLen = 1457;
 		vrLoc = 14190;
@@ -5216,7 +5320,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 279";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1791;
 		vrLoc = 9769;
@@ -5226,7 +5330,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 279";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1316;
 		vrLoc = 8317;
@@ -5236,7 +5340,7 @@
 		fRef = 7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 45";
 		rLen = 0;
-		rLoc = 1089;
+		rLoc = 1085;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 160;
@@ -5266,7 +5370,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 355";
 		rLen = 0;
-		rLoc = 11587;
+		rLoc = 11589;
 		rType = 0;
 		vrLen = 1903;
 		vrLoc = 9913;
@@ -5276,7 +5380,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 355";
 		rLen = 0;
-		rLoc = 11587;
+		rLoc = 11589;
 		rType = 0;
 		vrLen = 1903;
 		vrLoc = 9913;
@@ -5286,7 +5390,7 @@
 		fRef = 7D3CB6AB113D67EE003AA41C /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 45";
 		rLen = 0;
-		rLoc = 1089;
+		rLoc = 1085;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 160;
@@ -5316,7 +5420,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 365";
 		rLen = 0;
-		rLoc = 12045;
+		rLoc = 11792;
 		rType = 0;
 		vrLen = 1789;
 		vrLoc = 10290;
@@ -5326,7 +5430,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 365";
 		rLen = 0;
-		rLoc = 12045;
+		rLoc = 11792;
 		rType = 0;
 		vrLen = 307;
 		vrLoc = 10290;
@@ -5338,9 +5442,9 @@
 		path = /work/InfoValutar/Classes/ViewControllers/ConverterViewController.h;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1288, 826}}";
-			sepNavSelRange = "{1530, 0}";
-			sepNavVisRange = "{678, 411}";
+			sepNavIntBoundsRect = "{{0, 0}, {861, 812}}";
+			sepNavSelRange = "{565, 0}";
+			sepNavVisRange = "{161, 1421}";
 		};
 	};
 	7D932C1D11468CC600876088 /* PBXTextBookmark */ = {
@@ -5348,7 +5452,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 44";
 		rLen = 1;
-		rLoc = 1089;
+		rLoc = 1085;
 		rType = 0;
 		vrLen = 777;
 		vrLoc = 0;
@@ -5368,7 +5472,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 365";
 		rLen = 0;
-		rLoc = 12045;
+		rLoc = 11792;
 		rType = 0;
 		vrLen = 1347;
 		vrLoc = 10163;
@@ -5378,7 +5482,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 365";
 		rLen = 0;
-		rLoc = 12045;
+		rLoc = 11792;
 		rType = 0;
 		vrLen = 1347;
 		vrLoc = 10163;
@@ -5388,7 +5492,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 44";
 		rLen = 1;
-		rLoc = 1089;
+		rLoc = 1085;
 		rType = 0;
 		vrLen = 777;
 		vrLoc = 0;
@@ -5458,7 +5562,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 366";
 		rLen = 0;
-		rLoc = 12268;
+		rLoc = 12017;
 		rType = 0;
 		vrLen = 1913;
 		vrLoc = 10199;
@@ -5468,7 +5572,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 460";
 		rLen = 0;
-		rLoc = 15066;
+		rLoc = 15218;
 		rType = 0;
 		vrLen = 1733;
 		vrLoc = 13760;
@@ -5478,7 +5582,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1198;
 		vrLoc = 8339;
@@ -5488,7 +5592,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 460";
 		rLen = 0;
-		rLoc = 15066;
+		rLoc = 15218;
 		rType = 0;
 		vrLen = 1733;
 		vrLoc = 13760;
@@ -5498,7 +5602,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 782;
 		vrLoc = 8339;
@@ -5508,7 +5612,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 8380;
@@ -5518,7 +5622,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 164;
 		vrLoc = 8339;
@@ -5528,7 +5632,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1371;
 		vrLoc = 8378;
@@ -5538,7 +5642,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 460";
 		rLen = 0;
-		rLoc = 15066;
+		rLoc = 15218;
 		rType = 0;
 		vrLen = 1734;
 		vrLoc = 13760;
@@ -5548,7 +5652,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 44";
 		rLen = 1;
-		rLoc = 1089;
+		rLoc = 1085;
 		rType = 0;
 		vrLen = 1314;
 		vrLoc = 0;
@@ -5558,7 +5662,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1371;
 		vrLoc = 8378;
@@ -5568,7 +5672,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 460";
 		rLen = 0;
-		rLoc = 15066;
+		rLoc = 15218;
 		rType = 0;
 		vrLen = 1734;
 		vrLoc = 13760;
@@ -5578,7 +5682,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 56";
 		rLen = 0;
-		rLoc = 1530;
+		rLoc = 1549;
 		rType = 0;
 		vrLen = 929;
 		vrLoc = 160;
@@ -5588,7 +5692,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 56";
 		rLen = 0;
-		rLoc = 1530;
+		rLoc = 1549;
 		rType = 0;
 		vrLen = 801;
 		vrLoc = 160;
@@ -5598,7 +5702,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 164;
 		vrLoc = 8339;
@@ -5608,7 +5712,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 56";
 		rLen = 0;
-		rLoc = 1530;
+		rLoc = 1549;
 		rType = 0;
 		vrLen = 411;
 		vrLoc = 678;
@@ -5618,7 +5722,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 56";
 		rLen = 0;
-		rLoc = 1530;
+		rLoc = 1549;
 		rType = 0;
 		vrLen = 1378;
 		vrLoc = 185;
@@ -5628,7 +5732,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 280";
 		rLen = 0;
-		rLoc = 8792;
+		rLoc = 8793;
 		rType = 0;
 		vrLen = 1369;
 		vrLoc = 8378;
@@ -5638,7 +5742,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 56";
 		rLen = 0;
-		rLoc = 1530;
+		rLoc = 1549;
 		rType = 0;
 		vrLen = 1378;
 		vrLoc = 185;
@@ -5648,7 +5752,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 296";
 		rLen = 0;
-		rLoc = 9489;
+		rLoc = 9745;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 8378;
@@ -5658,7 +5762,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 34";
 		rLen = 0;
-		rLoc = 731;
+		rLoc = 727;
 		rType = 0;
 		vrLen = 1378;
 		vrLoc = 185;
@@ -5667,7 +5771,7 @@
 		isa = PBXTextBookmark;
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		rLen = 0;
-		rLoc = 272;
+		rLoc = 270;
 		rType = 1;
 	};
 	7D932C4411468DE200876088 /* PBXTextBookmark */ = {
@@ -5675,7 +5779,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 266";
 		rLen = 0;
-		rLoc = 8527;
+		rLoc = 8469;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 8378;
@@ -5685,7 +5789,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 34";
 		rLen = 0;
-		rLoc = 731;
+		rLoc = 727;
 		rType = 0;
 		vrLen = 1378;
 		vrLoc = 185;
@@ -5695,7 +5799,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 1913;
 		vrLoc = 10140;
@@ -5705,7 +5809,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 1913;
 		vrLoc = 10140;
@@ -5715,7 +5819,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 1913;
 		vrLoc = 10140;
@@ -5725,7 +5829,7 @@
 		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
 		name = "ConverterViewController.h: 56";
 		rLen = 0;
-		rLoc = 1530;
+		rLoc = 1549;
 		rType = 0;
 		vrLen = 411;
 		vrLoc = 678;
@@ -5735,7 +5839,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 419;
 		vrLoc = 10140;
@@ -5745,7 +5849,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 1571;
 		vrLoc = 9937;
@@ -5755,7 +5859,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 1317;
 		vrLoc = 9937;
@@ -5765,7 +5869,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 419;
 		vrLoc = 10140;
@@ -5785,7 +5889,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 2155;
 		vrLoc = 9892;
@@ -5795,7 +5899,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 273";
 		rLen = 0;
-		rLoc = 8706;
+		rLoc = 8648;
 		rType = 0;
 		vrLen = 2111;
 		vrLoc = 9937;
@@ -5815,7 +5919,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 1136;
 		vrLoc = 6489;
@@ -5825,7 +5929,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 990;
 		vrLoc = 6764;
@@ -5835,7 +5939,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7570;
+		rLoc = 7514;
 		rType = 0;
 		vrLen = 306;
 		vrLoc = 7319;
@@ -5845,7 +5949,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 362";
 		rLen = 0;
-		rLoc = 12118;
+		rLoc = 11863;
 		rType = 0;
 		vrLen = 1440;
 		vrLoc = 10140;
@@ -5855,7 +5959,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 362";
 		rLen = 0;
-		rLoc = 12118;
+		rLoc = 11863;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 10140;
@@ -5865,7 +5969,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 362";
 		rLen = 0;
-		rLoc = 12118;
+		rLoc = 11863;
 		rType = 0;
 		vrLen = 419;
 		vrLoc = 10140;
@@ -5875,7 +5979,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 362";
 		rLen = 0;
-		rLoc = 12118;
+		rLoc = 11863;
 		rType = 0;
 		vrLen = 2049;
 		vrLoc = 10140;
@@ -5895,7 +5999,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 362";
 		rLen = 0;
-		rLoc = 12118;
+		rLoc = 11863;
 		rType = 0;
 		vrLen = 2049;
 		vrLoc = 10140;
@@ -5905,7 +6009,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 971;
 		vrLoc = 14375;
@@ -5915,7 +6019,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 937;
 		vrLoc = 14959;
@@ -5925,7 +6029,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 362";
 		rLen = 0;
-		rLoc = 12118;
+		rLoc = 11863;
 		rType = 0;
 		vrLen = 419;
 		vrLoc = 10140;
@@ -5935,7 +6039,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 282;
 		vrLoc = 15063;
@@ -5945,7 +6049,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1189;
 		vrLoc = 14962;
@@ -5985,7 +6089,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1189;
 		vrLoc = 14962;
@@ -6025,7 +6129,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7495;
+		rLoc = 7439;
 		rType = 0;
 		vrLen = 1148;
 		vrLoc = 6481;
@@ -6035,7 +6139,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7495;
+		rLoc = 7439;
 		rType = 0;
 		vrLen = 1118;
 		vrLoc = 6764;
@@ -6045,7 +6149,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 400;
 		vrLoc = 15107;
@@ -6055,7 +6159,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7495;
+		rLoc = 7439;
 		rType = 0;
 		vrLen = 422;
 		vrLoc = 7191;
@@ -6065,7 +6169,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1709;
 		vrLoc = 13637;
@@ -6075,7 +6179,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7495;
+		rLoc = 7439;
 		rType = 0;
 		vrLen = 1424;
 		vrLoc = 6814;
@@ -6085,7 +6189,7 @@
 		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
 		name = "ConverterViewController.m: 469";
 		rLen = 0;
-		rLoc = 15340;
+		rLoc = 15450;
 		rType = 0;
 		vrLen = 1709;
 		vrLoc = 13637;
@@ -6095,7 +6199,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 7437;
 		rType = 0;
 		vrLen = 1048;
 		vrLoc = 6814;
@@ -6105,7 +6209,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 7437;
 		rType = 0;
 		vrLen = 1051;
 		vrLoc = 6764;
@@ -6115,7 +6219,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 7437;
 		rType = 0;
 		vrLen = 535;
 		vrLoc = 7100;
@@ -6125,7 +6229,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 7437;
 		rType = 0;
 		vrLen = 1552;
 		vrLoc = 6814;
@@ -6145,7 +6249,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 7437;
 		rType = 0;
 		vrLen = 1481;
 		vrLoc = 6814;
@@ -6155,7 +6259,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 219";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 7437;
 		rType = 0;
 		vrLen = 1552;
 		vrLoc = 6814;
@@ -6175,7 +6279,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 1312;
 		vrLoc = 8245;
@@ -6185,7 +6289,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 903;
 		vrLoc = 8245;
@@ -6195,7 +6299,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 763;
 		vrLoc = 7968;
@@ -6205,7 +6309,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 218;
 		vrLoc = 8245;
@@ -6215,7 +6319,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 765;
 		vrLoc = 7968;
@@ -6225,7 +6329,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 763;
 		vrLoc = 7968;
@@ -6235,7 +6339,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 228;
 		vrLoc = 8295;
@@ -6245,7 +6349,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 1270;
 		vrLoc = 8010;
@@ -6255,7 +6359,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 778;
 		vrLoc = 8010;
@@ -6265,7 +6369,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 763;
 		vrLoc = 7968;
@@ -6275,7 +6379,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 228;
 		vrLoc = 8295;
@@ -6285,7 +6389,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 1417;
 		vrLoc = 7968;
@@ -6295,7 +6399,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 833;
 		vrLoc = 8239;
@@ -6305,7 +6409,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 763;
 		vrLoc = 7968;
@@ -6315,7 +6419,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 228;
 		vrLoc = 8295;
@@ -6325,7 +6429,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 258";
 		rLen = 0;
-		rLoc = 8438;
+		rLoc = 8382;
 		rType = 0;
 		vrLen = 1270;
 		vrLoc = 8010;
@@ -6335,7 +6439,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 262";
 		rLen = 0;
-		rLoc = 8462;
+		rLoc = 8406;
 		rType = 0;
 		vrLen = 778;
 		vrLoc = 8010;
@@ -6345,7 +6449,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 262";
 		rLen = 0;
-		rLoc = 8462;
+		rLoc = 8406;
 		rType = 0;
 		vrLen = 778;
 		vrLoc = 8010;
@@ -6355,7 +6459,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 262";
 		rLen = 0;
-		rLoc = 8462;
+		rLoc = 8406;
 		rType = 0;
 		vrLen = 228;
 		vrLoc = 8295;
@@ -6365,7 +6469,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 262";
 		rLen = 0;
-		rLoc = 8462;
+		rLoc = 8406;
 		rType = 0;
 		vrLen = 1380;
 		vrLoc = 8108;
@@ -6375,7 +6479,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 274";
 		rLen = 0;
-		rLoc = 8730;
+		rLoc = 8672;
 		rType = 0;
 		vrLen = 747;
 		vrLoc = 8108;
@@ -6385,7 +6489,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 274";
 		rLen = 0;
-		rLoc = 8730;
+		rLoc = 8672;
 		rType = 0;
 		vrLen = 779;
 		vrLoc = 8427;
@@ -6395,7 +6499,7 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 274";
 		rLen = 0;
-		rLoc = 8730;
+		rLoc = 8672;
 		rType = 0;
 		vrLen = 161;
 		vrLoc = 8427;
@@ -6405,10 +6509,1082 @@
 		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
 		name = "ConverterTableViewCell.m: 274";
 		rLen = 0;
-		rLoc = 8730;
+		rLoc = 8672;
 		rType = 0;
 		vrLen = 1270;
 		vrLoc = 8010;
+	};
+	7D932CA3114690BD00876088 /* ConverterViewController.m:383 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		functionName = "-editAction";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 383;
+		location = InfoValutar;
+		modificationTime = 289839096.019626;
+		state = 1;
+	};
+	7D932CA5114690C500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 212";
+		rLen = 0;
+		rLoc = 7044;
+		rType = 0;
+		vrLen = 1591;
+		vrLoc = 6654;
+	};
+	7D932CA6114690C500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 469";
+		rLen = 0;
+		rLoc = 15450;
+		rType = 0;
+		vrLen = 1708;
+		vrLoc = 13637;
+	};
+	7D932CA7114690C500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 212";
+		rLen = 0;
+		rLoc = 7044;
+		rType = 0;
+		vrLen = 1591;
+		vrLoc = 6654;
+	};
+	7D932CA8114690C500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 381";
+		rLen = 18;
+		rLoc = 12451;
+		rType = 0;
+		vrLen = 1022;
+		vrLoc = 11698;
+	};
+	7D932CA9114690C500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 381";
+		rLen = 18;
+		rLoc = 12451;
+		rType = 0;
+		vrLen = 1019;
+		vrLoc = 11698;
+	};
+	7D932CAC1146910A00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 274";
+		rLen = 0;
+		rLoc = 8672;
+		rType = 0;
+		vrLen = 161;
+		vrLoc = 8427;
+	};
+	7D932CAD1146910A00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 381";
+		rLen = 18;
+		rLoc = 12451;
+		rType = 0;
+		vrLen = 218;
+		vrLoc = 12443;
+	};
+	7D932CAF1146910A00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CB01146910A00876088 /* asm -[ConverterViewController editAction]  0x000239d3 */;
+		rLen = 0;
+		rLoc = 7;
+		rType = 1;
+	};
+	7D932CB01146910A00876088 /* asm -[ConverterViewController editAction]  0x000239d3 */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text;
+		path = "asm -[ConverterViewController editAction]  0x000239d3";
+		sourceTree = "<group>";
+	};
+	7D932CB11146910A00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CB21146910A00876088 /* asm -[ConverterViewController editAction]  0x000239d3 */;
+		name = "asm -[ConverterViewController editAction]  0x000239d3: 8";
+		rLen = 0;
+		rLoc = 301;
+		rType = 0;
+		vrLen = 567;
+		vrLoc = 0;
+	};
+	7D932CB21146910A00876088 /* asm -[ConverterViewController editAction]  0x000239d3 */ = {
+		isa = PBXFileReference;
+		path = "asm -[ConverterViewController editAction]  0x000239d3";
+		sourceTree = "<group>";
+	};
+	7D932CB31146910C00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 381";
+		rLen = 18;
+		rLoc = 12451;
+		rType = 0;
+		vrLen = 1325;
+		vrLoc = 11698;
+	};
+	7D932CB41146912E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 381";
+		rLen = 18;
+		rLoc = 12451;
+		rType = 0;
+		vrLen = 1325;
+		vrLoc = 11698;
+	};
+	7D932CB51146912E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 212";
+		rLen = 0;
+		rLoc = 7044;
+		rType = 0;
+		vrLen = 1483;
+		vrLoc = 6762;
+	};
+	7D932CB61146912E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 381";
+		rLen = 18;
+		rLoc = 12451;
+		rType = 0;
+		vrLen = 1325;
+		vrLoc = 11698;
+	};
+	7D932CB71146912E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9709;
+		rType = 0;
+		vrLen = 1370;
+		vrLoc = 8460;
+	};
+	7D932CB91146912F00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 381";
+		rLen = 18;
+		rLoc = 12451;
+		rType = 0;
+		vrLen = 218;
+		vrLoc = 12443;
+	};
+	7D932CBA1146912F00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9709;
+		rType = 0;
+		vrLen = 410;
+		vrLoc = 9280;
+	};
+	7D932CBB1146912F00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9709;
+		rType = 0;
+		vrLen = 1106;
+		vrLoc = 8588;
+	};
+	7D932CBC1146912F00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9709;
+		rType = 0;
+		vrLen = 1099;
+		vrLoc = 8733;
+	};
+	7D932CBD1146913900876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9709;
+		rType = 0;
+		vrLen = 408;
+		vrLoc = 9153;
+	};
+	7D932CC0114691B300876088 /* ConverterTableViewCell.m */ = {
+		isa = PBXFileReference;
+		name = ConverterTableViewCell.m;
+		path = "/work/InfoValutar/Classes/Custom Objects/ConverterTableViewCell.m";
+		sourceTree = "<absolute>";
+	};
+	7D932CC4114691B300876088 /* ConverterTableViewCell.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = ConverterTableViewCell.m;
+		path = "/work/InfoValutar/Classes/Custom Objects/ConverterTableViewCell.m";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1288, 5082}}";
+			sepNavSelRange = "{9708, 0}";
+			sepNavVisRange = "{10228, 605}";
+		};
+	};
+	7D932CC6114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
+		name = "ConverterViewController.h: 56";
+		rLen = 22;
+		rLoc = 1526;
+		rType = 0;
+		vrLen = 1401;
+		vrLoc = 185;
+	};
+	7D932CC7114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 469";
+		rLen = 0;
+		rLoc = 15259;
+		rType = 0;
+		vrLen = 1362;
+		vrLoc = 11494;
+	};
+	7D932CC8114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC0114691B300876088 /* ConverterTableViewCell.m */;
+		rLen = 1;
+		rLoc = 298;
+		rType = 1;
+	};
+	7D932CC9114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AF113D67FE003AA41C /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 351";
+		rLen = 0;
+		rLoc = 11589;
+		rType = 0;
+		vrLen = 1935;
+		vrLoc = 10349;
+	};
+	7D932CCA114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
+		name = "ConverterViewController.h: 56";
+		rLen = 22;
+		rLoc = 1526;
+		rType = 0;
+		vrLen = 1401;
+		vrLoc = 185;
+	};
+	7D932CCB114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 469";
+		rLen = 0;
+		rLoc = 15259;
+		rType = 0;
+		vrLen = 1362;
+		vrLoc = 11494;
+	};
+	7D932CCC114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 279";
+		rLen = 0;
+		rLoc = 8735;
+		rType = 0;
+		vrLen = 971;
+		vrLoc = 8647;
+	};
+	7D932CCD114691BB00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 279";
+		rLen = 0;
+		rLoc = 8735;
+		rType = 0;
+		vrLen = 982;
+		vrLoc = 8460;
+	};
+	7D932CCE114691C600876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 279";
+		rLen = 0;
+		rLoc = 8735;
+		rType = 0;
+		vrLen = 406;
+		vrLoc = 9210;
+	};
+	7D932CD0114691F200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 460";
+		rLen = 24;
+		rLoc = 15066;
+		rType = 0;
+		vrLen = 1492;
+		vrLoc = 14326;
+	};
+	7D932CD1114691F200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 279";
+		rLen = 13;
+		rLoc = 8774;
+		rType = 0;
+		vrLen = 1243;
+		vrLoc = 8375;
+	};
+	7D932CD2114691F200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 460";
+		rLen = 24;
+		rLoc = 15066;
+		rType = 0;
+		vrLen = 1492;
+		vrLoc = 14326;
+	};
+	7D932CD3114691F200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 343";
+		rLen = 0;
+		rLoc = 11490;
+		rType = 0;
+		vrLen = 1644;
+		vrLoc = 10076;
+	};
+	7D932CD4114691F300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 343";
+		rLen = 0;
+		rLoc = 11490;
+		rType = 0;
+		vrLen = 1653;
+		vrLoc = 10456;
+	};
+	7D932CD51146922000876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 343";
+		rLen = 0;
+		rLoc = 11490;
+		rType = 0;
+		vrLen = 573;
+		vrLoc = 10076;
+	};
+	7D932CD71146923200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 359";
+		rLen = 0;
+		rLoc = 11792;
+		rType = 0;
+		vrLen = 1310;
+		vrLoc = 9339;
+	};
+	7D932CD81146923200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 359";
+		rLen = 0;
+		rLoc = 11792;
+		rType = 0;
+		vrLen = 1257;
+		vrLoc = 9339;
+	};
+	7D932CD91146923800876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 359";
+		rLen = 0;
+		rLoc = 11792;
+		rType = 0;
+		vrLen = 616;
+		vrLoc = 10033;
+	};
+	7D932CDB1146925B00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AE113D67FE003AA41C /* ConverterTableViewCell.h */;
+		name = "ConverterTableViewCell.h: 18";
+		rLen = 23;
+		rLoc = 432;
+		rType = 0;
+		vrLen = 1014;
+		vrLoc = 0;
+	};
+	7D932CDC1146925B00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 212";
+		rLen = 0;
+		rLoc = 7044;
+		rType = 0;
+		vrLen = 1600;
+		vrLoc = 6583;
+	};
+	7D932CDD1146925B00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AE113D67FE003AA41C /* ConverterTableViewCell.h */;
+		name = "ConverterTableViewCell.h: 18";
+		rLen = 23;
+		rLoc = 432;
+		rType = 0;
+		vrLen = 1014;
+		vrLoc = 0;
+	};
+	7D932CDE1146925B00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 212";
+		rLen = 0;
+		rLoc = 7044;
+		rType = 0;
+		vrLen = 1225;
+		vrLoc = 6583;
+	};
+	7D932CDF1146925B00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 212";
+		rLen = 0;
+		rLoc = 7044;
+		rType = 0;
+		vrLen = 1210;
+		vrLoc = 6489;
+	};
+	7D932CE01146926A00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 212";
+		rLen = 0;
+		rLoc = 7044;
+		rType = 0;
+		vrLen = 314;
+		vrLoc = 7494;
+	};
+	7D932CE11146928800876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 264";
+		rLen = 0;
+		rLoc = 8467;
+		rType = 0;
+		vrLen = 1200;
+		vrLoc = 7721;
+	};
+	7D932CE3114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 460";
+		rLen = 24;
+		rLoc = 15066;
+		rType = 0;
+		vrLen = 1451;
+		vrLoc = 14326;
+	};
+	7D932CE4114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
+		name = "ConverterViewController.h: 23";
+		rLen = 0;
+		rLoc = 565;
+		rType = 0;
+		vrLen = 1421;
+		vrLoc = 161;
+	};
+	7D932CE5114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 274";
+		rLen = 0;
+		rLoc = 8674;
+		rType = 0;
+		vrLen = 1364;
+		vrLoc = 8194;
+	};
+	7D932CE6114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 274";
+		rLen = 0;
+		rLoc = 8674;
+		rType = 0;
+		vrLen = 1366;
+		vrLoc = 8194;
+	};
+	7D932CE7114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D3CB6AC113D67EE003AA41C /* ConverterViewController.m */;
+		name = "ConverterViewController.m: 460";
+		rLen = 24;
+		rLoc = 15066;
+		rType = 0;
+		vrLen = 1451;
+		vrLoc = 14326;
+	};
+	7D932CE8114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932C1B11468CAA00876088 /* ConverterViewController.h */;
+		name = "ConverterViewController.h: 23";
+		rLen = 0;
+		rLoc = 565;
+		rType = 0;
+		vrLen = 1421;
+		vrLoc = 161;
+	};
+	7D932CE9114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11962;
+		rType = 0;
+		vrLen = 1640;
+		vrLoc = 10020;
+	};
+	7D932CEA114692D300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11962;
+		rType = 0;
+		vrLen = 1568;
+		vrLoc = 10020;
+	};
+	7D932CEB114692DF00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11962;
+		rType = 0;
+		vrLen = 573;
+		vrLoc = 10020;
+	};
+	7D932CEC114692DF00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11962;
+		rType = 0;
+		vrLen = 2251;
+		vrLoc = 10020;
+	};
+	7D932CEE1146930100876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 355";
+		rLen = 0;
+		rLoc = 11766;
+		rType = 0;
+		vrLen = 1436;
+		vrLoc = 10020;
+	};
+	7D932CEF1146930200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 355";
+		rLen = 0;
+		rLoc = 11766;
+		rType = 0;
+		vrLen = 1385;
+		vrLoc = 10020;
+	};
+	7D932CF01146930C00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 355";
+		rLen = 0;
+		rLoc = 11766;
+		rType = 0;
+		vrLen = 573;
+		vrLoc = 10020;
+	};
+	7D932CF11146931400876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 355";
+		rLen = 0;
+		rLoc = 11766;
+		rType = 0;
+		vrLen = 1917;
+		vrLoc = 10368;
+	};
+	7D932CF31146933600876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11909;
+		rType = 0;
+		vrLen = 1406;
+		vrLoc = 10363;
+	};
+	7D932CF41146933700876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11909;
+		rType = 0;
+		vrLen = 1277;
+		vrLoc = 10363;
+	};
+	7D932CF51146933D00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11909;
+		rType = 0;
+		vrLen = 387;
+		vrLoc = 10363;
+	};
+	7D932CF61146936300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 362";
+		rLen = 0;
+		rLoc = 11909;
+		rType = 0;
+		vrLen = 1917;
+		vrLoc = 10368;
+	};
+	7D932CF81146937F00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1285;
+		vrLoc = 8531;
+	};
+	7D932CF91146937F00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1352;
+		vrLoc = 8732;
+	};
+	7D932CFA1146939C00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 608;
+		vrLoc = 9207;
+	};
+	7D932CFB114693A100876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1750;
+		vrLoc = 10275;
+	};
+	7D932CFD1146941E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932CFE1146941E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932CFF1146942500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 605;
+		vrLoc = 10228;
+	};
+	7D932D001146942800876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1792;
+		vrLoc = 10228;
+	};
+	7D932D04114695A400876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932D05114695A500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1361;
+		vrLoc = 10228;
+	};
+	7D932D08114695A500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		rLen = 1;
+		rLoc = 147;
+		rType = 1;
+	};
+	7D932D09114695A500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1992;
+		vrLoc = 3490;
+	};
+	7D932D0B114695AD00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 605;
+		vrLoc = 10228;
+	};
+	7D932D0C114695AD00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932D0D114695AD00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1996;
+		vrLoc = 3490;
+	};
+	7D932D0E114695AE00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932D0F114695B000876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1361;
+		vrLoc = 10228;
+	};
+	7D932D10114695B000876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1992;
+		vrLoc = 3490;
+	};
+	7D932D12114695BA00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 605;
+		vrLoc = 10228;
+	};
+	7D932D13114695BA00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932D14114695BA00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1361;
+		vrLoc = 10228;
+	};
+	7D932D15114695BA00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1992;
+		vrLoc = 3490;
+	};
+	7D932D161146960500876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 605;
+		vrLoc = 10228;
+	};
+	7D932D191146961100876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1797;
+		vrLoc = 10228;
+	};
+	7D932D1A1146961100876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1996;
+		vrLoc = 3490;
+	};
+	7D932D1F1146967600876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932D201146967600876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1996;
+		vrLoc = 3490;
+	};
+	7D932D211146977E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932D221146977E00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1996;
+		vrLoc = 3490;
+	};
+	7D932D24114697B600876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1432;
+		vrLoc = 10228;
+	};
+	7D932D26114697E200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 605;
+		vrLoc = 10228;
+	};
+	7D932D27114697E200876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 605;
+		vrLoc = 10228;
+	};
+	7D932D29114697E700876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1797;
+		vrLoc = 10228;
+	};
+	7D932D2A114697E700876088 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* InfoValutar-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/work/InfoValutar/InfoValutar-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	7D932D2B114697E700876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 1797;
+		vrLoc = 10228;
+	};
+	7D932D2C114697E700876088 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* InfoValutar-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/work/InfoValutar/InfoValutar-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	7D932D2E1146995300876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7D932CC4114691B300876088 /* ConverterTableViewCell.m */;
+		name = "ConverterTableViewCell.m: 295";
+		rLen = 0;
+		rLoc = 9708;
+		rType = 0;
+		vrLen = 605;
+		vrLoc = 10228;
+	};
+	7D932D2F1146995300876088 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* InfoValutar-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/work/InfoValutar/InfoValutar-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	7D932D301146995300876088 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* InfoValutar-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/work/InfoValutar/InfoValutar-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	7D932D311146995B00876088 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* InfoValutar-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/work/InfoValutar/InfoValutar-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	7D932D321146995B00876088 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */;
+		name = "HistoryViewController.m: 159";
+		rLen = 0;
+		rLoc = 4933;
+		rType = 0;
+		vrLen = 1996;
+		vrLoc = 3490;
 	};
 	7D945FED112939E500F632B2 /* ConverterItem.h */ = {
 		uiCtxt = {
@@ -6445,7 +7621,7 @@
 		ignoreCount = 0;
 		lineNumber = 25;
 		location = InfoValutar;
-		modificationTime = 289836465.895913;
+		modificationTime = 289839096.016478;
 		state = 1;
 	};
 	7D94643911296E6E00F632B2 /* AddConverterItemViewController.h */ = {
@@ -6491,7 +7667,7 @@
 		ignoreCount = 0;
 		lineNumber = 122;
 		location = InfoValutar;
-		modificationTime = 289836465.907366;
+		modificationTime = 289839096.017043;
 		state = 1;
 	};
 	7D9467741129943F00F632B2 /* AdditionFactorItem.h */ = {
@@ -6522,7 +7698,7 @@
 			sepNavVisRange = "{0, 302}";
 		};
 	};
-	7DB1ED74113C102E0034906D /* ConverterViewController.m:488 */ = {
+	7DB1ED74113C102E0034906D /* ConverterViewController.m:493 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -6534,9 +7710,9 @@
 		functionName = "-tableView:cellForRowAtIndexPath:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 488;
+		lineNumber = 493;
 		location = InfoValutar;
-		modificationTime = 289836466.012544;
+		modificationTime = 289839096.018237;
 		state = 1;
 	};
 	7DBF93BF111308EC0042CD97 /* InfoValutar */ = {
@@ -6666,9 +7842,10 @@
 	};
 	7DBF940C111309E90042CD97 /* InfoValutarAPI.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {861, 4116}}";
-			sepNavSelRange = "{7774, 0}";
-			sepNavVisRange = "{6572, 1367}";
+			sepNavIntBoundsRect = "{{0, 0}, {1262, 4522}}";
+			sepNavSelRange = "{3079, 13}";
+			sepNavVisRange = "{2081, 2082}";
+			sepNavWindowFrame = "{{15, 107}, {1321, 916}}";
 		};
 	};
 	7DBF940D111309E90042CD97 /* UIFactory.h */ = {
@@ -6777,9 +7954,10 @@
 	};
 	7DD262CD11354C6B009E9B54 /* GraphViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1288, 4088}}";
-			sepNavSelRange = "{766, 0}";
-			sepNavVisRange = "{623, 299}";
+			sepNavIntBoundsRect = "{{0, 0}, {1262, 4032}}";
+			sepNavSelRange = "{1446, 7}";
+			sepNavVisRange = "{637, 1824}";
+			sepNavWindowFrame = "{{38, 86}, {1321, 916}}";
 		};
 	};
 	7DD265FF11355BA6009E9B54 /* DatePickerViewController.h */ = {
@@ -6810,7 +7988,7 @@
 		ignoreCount = 0;
 		lineNumber = 107;
 		location = InfoValutar;
-		modificationTime = 289836466.030248;
+		modificationTime = 289839096.018454;
 		state = 1;
 	};
 	7DD562F2114515D500E86354 /* HistoryViewController.h */ = {
@@ -6822,9 +8000,9 @@
 	};
 	7DD562F3114515D500E86354 /* HistoryViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1288, 6104}}";
-			sepNavSelRange = "{6335, 0}";
-			sepNavVisRange = "{5304, 497}";
+			sepNavIntBoundsRect = "{{0, 0}, {1262, 5866}}";
+			sepNavSelRange = "{4933, 0}";
+			sepNavVisRange = "{3490, 1996}";
 		};
 	};
 	7DD5649D11452D5300E86354 /* PBXTextBookmark */ = {
@@ -6915,7 +8093,7 @@
 		fRef = 7DD565111145330F00E86354 /* HistoryViewController.m */;
 		name = "HistoryViewController.m: 346";
 		rLen = 0;
-		rLoc = 10914;
+		rLoc = 10938;
 		rType = 0;
 		vrLen = 1154;
 		vrLoc = 9286;

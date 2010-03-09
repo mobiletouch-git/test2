@@ -209,7 +209,6 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-	//[[appDelegate converterViewController] editMode:YES]
 	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:cancelButton];
 	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:doneButton];
 	
@@ -262,7 +261,6 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-	
 	[[appDelegate converterViewController] setTextChanged:NO];
 
 }
@@ -276,7 +274,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	
+//	[[appDelegate converterViewController] textEditEnded];
+	 
 	NSDecimalNumber *nrFromString;
 	if (![textField.text length])
 		nrFromString = [NSDecimalNumber decimalNumberWithString:@"0"];
@@ -291,6 +290,8 @@
 	[[appDelegate converterViewController] setReferenceItem:self.converter];
 	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	[[[appDelegate converterViewController] myTableView] reloadData];
+	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
+	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];	
 
 	[textField resignFirstResponder];
 	
@@ -339,16 +340,13 @@
 	NSString *currentNumberString = [currencyFormatter stringFromNumber:currentNumber];
 	
 	[textField setText:currentNumberString];
-	
 	[[appDelegate converterViewController] setTextChanged:YES];
-
 	
 	return NO;
 }
 
 - (void)doneAction {
-	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
-	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];
+
 	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
 	
 	[converterValueTextField resignFirstResponder];
@@ -356,13 +354,12 @@
 }
 
 - (void)cancelAction {
-	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
-	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];	
 	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
 	
 	[converterValueTextField setText:oldValue];
 	[converterValueTextField resignFirstResponder];
-	[self textFieldShouldReturn:converterValueTextField];
+	
+//	[self textFieldShouldReturn:converterValueTextField];
 }
 
 @end

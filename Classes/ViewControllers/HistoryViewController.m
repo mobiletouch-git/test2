@@ -133,7 +133,10 @@
 -(void) processBruteData: (NSArray *) dataArray
 {
 	[tableDataSource removeAllObjects];
-	
+
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"dd-MM-yyyy"];
+
 	for (int i=1;i<=12;i++)
 	{
 		NSMutableDictionary *dictionaryForMonth = [NSMutableDictionary dictionary];
@@ -142,8 +145,6 @@
 		NSString *yearString = [yearArray objectAtIndex:selectedRow];
 		
 		NSString *monthDateString = [NSString stringWithFormat:@"01-%d-%@", i, yearString];		
-		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setDateFormat:@"dd-MM-yyyy"];
 		NSDate *monthDate = [dateFormatter dateFromString:monthDateString];
 		
 		NSString *monthTitle = [DateFormat monthYearDateString:monthDate];
@@ -155,6 +156,7 @@
 		NSLog(@"Month %d", i);
 		[tableDataSource setObject:dictionaryForMonth forKey:[NSString stringWithFormat:@"%d", i]];
 	}
+	[dateFormatter release];
 	
 	for (int i=0;i<[dataArray count];i++)
 	{
