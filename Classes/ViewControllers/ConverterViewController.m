@@ -21,7 +21,7 @@
 
 @synthesize editButton, addButton, titleSeg, textChanged, referenceConverterValue;
 @synthesize myTableView, tableDataSource, selectedDate, referenceItem, selectedReferenceDay;
-//@synthesize titleButton;
+@synthesize datePicker;
 
 - (void)dealloc {
 	
@@ -385,6 +385,7 @@
 	[self.navigationItem setLeftBarButtonItem:doneButton];
 	[self.navigationItem setRightBarButtonItem:nil];
 	[titleSeg setHidden:YES];
+	[datePicker setHidden:YES];
 	[myTableView reloadData];
 }
 
@@ -397,6 +398,9 @@
 		[self.navigationItem setRightBarButtonItem:addButton];
 		[datePicker setHidden:YES];		
 	}
+	[titleSeg setSelectedSegmentIndex:-1];		
+	[titleSeg setHidden:NO];		
+	
 }
 
 -(void) doneAction
@@ -412,8 +416,7 @@
 		
 		[self.navigationItem setLeftBarButtonItem:editButton];
 		[self.navigationItem setRightBarButtonItem:addButton];
-		[titleSeg setHidden:NO];
-
+		
 		[datePicker setHidden:YES];		
 		
 		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
@@ -447,23 +450,23 @@
 		[self.navigationItem setRightBarButtonItem:addButton];
 		
 	}
+
+	[titleSeg setSelectedSegmentIndex:-1];	
+	[titleSeg setHidden:NO];	
+	
 	[myTableView reloadData];
 }
-
--(void) textEditEnded {
-	//end edit
-	[self.navigationItem setLeftBarButtonItem:editButton];
-	[self.navigationItem setRightBarButtonItem:addButton];	
-}
-
 
 
 -(void) titleButtonAction:(id) sender
 {
-	[titleSeg setSelectedSegmentIndex:-1];
-	[self.navigationItem setLeftBarButtonItem:cancelButton];
-	[self.navigationItem setRightBarButtonItem:doneButton];
-	[datePicker setHidden:NO];		
+//	[titleSeg setSelectedSegmentIndex:-1];
+	if ([titleSeg selectedSegmentIndex]>-1)
+	{
+		[self.navigationItem setLeftBarButtonItem:cancelButton];
+		[self.navigationItem setRightBarButtonItem:doneButton];
+		[datePicker setHidden:NO];	
+	}
 }
 
 -(void) populate

@@ -23,6 +23,7 @@
 	NSString *oldValue;
 	
 	NSNumberFormatter *currencyFormatter;
+	NSNumberFormatter *selectionFormatter;	
 }
 
 @property (nonatomic, retain) ConverterItem *converter;

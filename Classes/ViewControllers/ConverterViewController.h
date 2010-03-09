@@ -40,8 +40,7 @@
 @property (nonatomic, retain)	UIBarButtonItem *addButton;	
 @property (nonatomic, retain)   UISegmentedControl *titleSeg;
 @property (nonatomic, retain)	NSDecimalNumber *referenceConverterValue;
-
-
+@property (nonatomic, retain)	UIDatePicker *datePicker;
 
 @property (nonatomic, assign) BOOL textChanged;
 
@@ -54,7 +53,6 @@
 @property (nonatomic, retain)	ConverterItem *referenceItem;
 
 -(void) addDefaultConverterValues;
--(void) textEditEnded;
 -(void) updateCurrentDate;
 
 @end

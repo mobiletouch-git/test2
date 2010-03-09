@@ -11,6 +11,7 @@
 #import "ConverterViewController.h"
 #import "Constants.h"
 #import "AdditionFactorItem.h"
+#import "ConverterViewController.h"
 
 @implementation ConverterTableViewCell
 
@@ -18,13 +19,14 @@
 
 
 - (void)dealloc {
-	[currencyFormatter release];
 	[doneButton release];
 	[cancelButton release];
 	[converter release];
 	[converterFlagImageView release];
 	[converterValueTextField release];
 	
+	[currencyFormatter release];
+	[selectionFormatter release];
 	
     [super dealloc];
 }
@@ -80,15 +82,18 @@
 													   action:@selector(cancelAction)];
 		
 		currencyFormatter = [[NSNumberFormatter alloc] init];
-	
 		[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-	
 		[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 		[currencyFormatter setMinimumFractionDigits:2];
 		[currencyFormatter setMaximumFractionDigits:2];
-		[currencyFormatter setRoundingMode:NSNumberFormatterRoundDown];
-		//[currencyFormatter setDecimalSeparator:@"."];
-		//[currencyFormatter setCurrencyGroupingSeparator:@","];
+		
+		selectionFormatter = [[NSNumberFormatter alloc] init];
+		[selectionFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+		[selectionFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+		[selectionFormatter setMinimumFractionDigits:2];
+		[selectionFormatter setMaximumFractionDigits:2];
+		[selectionFormatter setRoundingMode:NSNumberFormatterRoundDown];
+		
 		
     }
     return self;
@@ -187,8 +192,6 @@
 	}
 	
 	float cellHeight = myCell.frame.size.height;
-	
-	
 	CGFloat viewCenterY = summ + cellHeight / 2;
 	
 	CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
@@ -212,17 +215,11 @@
 	
 	[self setOldValue:textField.text];
 	[textField setText:@"0.00"];
-	
-	
-	
-	[[[appDelegate converterViewController] editButton] setEnabled:NO];
-	[[[appDelegate converterViewController] addButton] setEnabled:NO];	
+	[[[appDelegate converterViewController] datePicker] setHidden:YES];
+	[[[appDelegate converterViewController] titleSeg] setSelectedSegmentIndex:-1];			
 	[[[appDelegate converterViewController] titleSeg] setEnabled:NO];		
 	
-	
 	[self scrollCellToCenterOfScreen:textField];
-	
-	
 	
 	return YES;
 }
@@ -258,8 +255,7 @@
 				
 			}
 		}
-	}
-	
+	}	
 	
 	return computed;
 }
@@ -275,15 +271,11 @@
 {
 	if (![[appDelegate converterViewController] textChanged])
 		[self cancelAction];
-
-
 }
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	
-	[[appDelegate converterViewController] textEditEnded];
 	
 	NSDecimalNumber *nrFromString;
 	if (![textField.text length])
@@ -296,15 +288,11 @@
 	
 	[self.converter setConverterValue:nrFromString];
 		
-	[textField resignFirstResponder];
-	
-	[[[appDelegate converterViewController] editButton] setEnabled:YES];	
-	[[[appDelegate converterViewController] addButton] setEnabled:YES];	
-	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
-	
 	[[appDelegate converterViewController] setReferenceItem:self.converter];
 	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	[[[appDelegate converterViewController] myTableView] reloadData];
+
+	[textField resignFirstResponder];
 	
     return YES;
 }
@@ -314,8 +302,6 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-	
-
 			
 	int currencyScale = 2;
 	
@@ -329,7 +315,7 @@
 	if (![string length]) { //Backspace pressed
 		NSDecimalNumber *currentNumber = [NSDecimalNumber decimalNumberWithString:currentNSString];
 		currentNumber = [currentNumber decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"10"]];
-		NSString *currentNumberString = [currencyFormatter stringFromNumber:currentNumber];
+		NSString *currentNumberString = [selectionFormatter stringFromNumber:currentNumber];
 		textField.text = currentNumberString;
 		return NO;
 	}
@@ -361,16 +347,22 @@
 }
 
 - (void)doneAction {
+	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
+	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];
+	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
+	
 	[converterValueTextField resignFirstResponder];
 	[self textFieldShouldReturn:converterValueTextField];
-
 }
 
 - (void)cancelAction {
+	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
+	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];	
+	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
+	
 	[converterValueTextField setText:oldValue];
 	[converterValueTextField resignFirstResponder];
 	[self textFieldShouldReturn:converterValueTextField];
-
 }
 
 @end

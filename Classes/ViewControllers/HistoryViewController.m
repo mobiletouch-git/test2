@@ -76,6 +76,20 @@
 	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	[self.view addSubview:myTableView];
 	
+	NSDate *firstEntryDate = [InfoValutarAPI getExtremityDateForCurrencyNamed:selectedCurrency.currencyName first:YES];
+	NSDate *lastEntryDate = [InfoValutarAPI getExtremityDateForCurrencyNamed:selectedCurrency.currencyName first:NO];		
+	
+	NSInteger minYear = [[DateFormat yearFromDate:firstEntryDate] intValue];
+	NSInteger maxYear = [[DateFormat yearFromDate:lastEntryDate] intValue];
+	
+	NSLog(@"First %d last %d", minYear, maxYear);	
+	
+	for (int i=minYear;i<=maxYear;i++)
+	{
+		NSString *currentYearString = [NSString stringWithFormat:@"%d", i];
+		[yearArray addObject:currentYearString];
+	}
+	
 	//adding the dictionary picker
 	float height = 216.0f; 
 	yearPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0, 417.0-height, 320.0, height)];
@@ -87,22 +101,6 @@
 	
 	self.title = selectedCurrency.currencyName;
 	
-	NSDate *firstEntryDate = [InfoValutarAPI getExtremityDateForCurrencyNamed:selectedCurrency.currencyName first:YES];
-	NSDate *lastEntryDate = [InfoValutarAPI getExtremityDateForCurrencyNamed:selectedCurrency.currencyName first:NO];		
-	
-	NSInteger minYear = [[DateFormat yearFromDate:firstEntryDate] intValue];
-	NSInteger maxYear = [[DateFormat yearFromDate:lastEntryDate] intValue];
-	
-	for (int i=minYear;i<=maxYear;i++)
-	{
-		NSString *currentYearString = [NSString stringWithFormat:@"%d", i];
-		[yearArray addObject:currentYearString];
-	}
-
-	
-	NSLog(@"First %d last %d", minYear, maxYear);
-
-	[self refreshDataSource];
 }
 
 
@@ -201,6 +199,7 @@
 	[yearButton setTitle:yearString];
 
 	//get new data.
+	[self refreshDataSource];
 }
 
 -(void) cancelAction{
@@ -220,21 +219,30 @@
 
 // Number of rows per wheel
 - (NSInteger)pickerView: (UIPickerView *)pView numberOfRowsInComponent: (NSInteger) component  
-{ 
+{
 	return [yearArray count]; 
 } 
 
 -(void)pickerViewLoaded: (id)blah 
 {
 //	 [yearPicker selectedRowInComponent:0];
+	NSString *currentYear = yearButton.title;
+	for (int i=0;i<[yearArray count];i++)
+	{
+		NSString *currentYearString = [yearArray objectAtIndex:i];
+		if ([currentYear isEqualToString:currentYearString])
+		{
+			[yearPicker selectRow:i inComponent:0 animated:NO];
+		}
+	}
 	
+	[self refreshDataSource];	
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-	//	currentPositionOfPicker = [dictList selectedRowInComponent:0];
-	[self pickerViewLoaded:nil];
-	[self refreshDataSource];
+//	int currentPositionOfPicker = [yearPicker selectedRowInComponent:0];
+//	[self pickerViewLoaded:nil];
 }
 
 // Return the title of each cell by row and component 
@@ -243,7 +251,6 @@
 	NSString *textToDisplay = [NSString stringWithFormat:@"                    %@",[yearArray objectAtIndex:row]];
 	return textToDisplay;
 } 
-
 
 /*
 - (void)viewWillAppear:(BOOL)animated {

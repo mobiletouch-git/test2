@@ -35,15 +35,13 @@
 {
     if ((self = [super init])) {
 		//init code
-		
 	}
     return self;
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	
-	[[UIApplication sharedApplication] setStatusBarHidden:YES];
+	[[UIApplication sharedApplication] setStatusBarHidden:YES];			
 }
 
 -(void) initializeLayout
@@ -122,7 +120,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
 	NSLog(@"Plots %d, startDate %@, endDate %@", [plots count], startDate, endDate);
 	
 	self.graphView = [[S7GraphView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -177,11 +174,11 @@
 }
 
 
-/*
+
  - (void)viewWillAppear:(BOOL)animated {
- [super viewWillAppear:animated];
+	 [super viewWillAppear:animated];
  }
- */
+
 /*
  - (void)viewDidAppear:(BOOL)animated {
  [super viewDidAppear:animated];

@@ -222,7 +222,6 @@
 	[self.navigationItem setRightBarButtonItem:doneButton];
 	[datePicker setHidden:NO];		
 	[titleSeg setSelectedSegmentIndex:-1];
-	[titleSeg setHidden:YES];
 }
 
 -(void) pageUpdate
@@ -269,7 +268,6 @@
 		[self.navigationItem setLeftBarButtonItem:editButton];
 		[self.navigationItem setRightBarButtonItem:updateButton];
 		[datePicker setHidden:YES];		
-		[titleSeg setHidden:NO];
 
 		
 		// =========== table Data Source =========== //
@@ -324,9 +322,9 @@
 		[myTableView setEditing:NO];	
 		[self organizeTableSourceWithPriorities];
 		
-		[titleSeg setHidden:NO];
 		[self.navigationItem setRightBarButtonItem:updateButton];
 	}	
+	[titleSeg setHidden:NO];	
 	[myTableView reloadData];	
 }
 
@@ -400,9 +398,8 @@
 	[self.navigationItem setLeftBarButtonItem:editButton];
 	[self.navigationItem setRightBarButtonItem:updateButton];
 	[datePicker setHidden:YES];	
-	[titleSeg setHidden:NO];
-
 	}
+	[titleSeg setHidden:NO];	
 }
 
 -(void) editAction
