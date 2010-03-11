@@ -13,7 +13,8 @@
 
 	UITableView *myTableView;
 	
-	NSMutableDictionary *tableDataSource;
+	NSMutableDictionary *tableDataSourceDict;
+	NSMutableArray *tableDataSource;
 	NSMutableArray *yearArray;
 	
 	UIBarButtonItem *doneButton;
@@ -22,6 +23,7 @@
 	
 	UIPickerView *yearPicker;	
 	CurrencyItem *selectedCurrency;
+	UIActivityIndicatorView *activityView;
 }
 
 @property (nonatomic, retain) CurrencyItem *selectedCurrency;

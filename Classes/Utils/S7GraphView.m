@@ -192,7 +192,7 @@
 	CGFloat step = (maxY - minY) / 5;
 	CGFloat stepY = (self.frame.size.height - (offsetY * 2)) / maxY;
 	
-	for (NSUInteger i = 0; i < 6; i++) {
+	for (NSUInteger i = 0; i < 8; i++) {
 		
 		NSUInteger y = (i * step) * stepY;
 		CGFloat value = i * step;
@@ -247,7 +247,7 @@
 		NSUInteger stepCount = 5;
 		NSUInteger count = xValuesCount - 1;
 		
-		for (NSUInteger i = 4; i < 6; i++) {
+		for (NSUInteger i = 4; i < 8; i++) {
 			if (count % i == 0) {
 				stepCount = i;
 			}

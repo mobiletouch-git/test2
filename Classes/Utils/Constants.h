@@ -38,7 +38,7 @@
 #define remoteServer @"http://api.mobiletouch.ro/0.1/checker"
 
 #define kCancel @"Anulați"
-#define kOrder @"Ordonează"
+#define kOrder @"Ordonați"
 #define kEdit @"Editați"
 #define kSave @"Salvați"
 #define kDone @"OK"

@@ -296,9 +296,10 @@
 	[tableDataSource addObject:co2];
 	[co2 release];
 	/* ======= RON +19 % ======= */		
+
 	
 	/* ======= RON +19 % + 3% ======= */	
-	
+/*	
 	CurrencyItem *c3 = [[CurrencyItem alloc] init];
 	[c3 setCurrencyName:@"RON"];
 	NSDecimalNumber *c3Value = [NSDecimalNumber decimalNumberWithString:@"1"];		
@@ -327,7 +328,7 @@
 	
 	[tableDataSource addObject:co3];
 	[co3 release];
-	
+*/	
 	/* ======= RON +19 % + 3% ======= */		
 	
 	/* ======= EUR  ======= */	
@@ -472,34 +473,6 @@
 		[self.navigationItem setRightBarButtonItem:doneButton];
 		[datePicker setHidden:NO];	
 	}
-}
-
--(void) populate
-{
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"database" ofType:@"xml"];
-	NSData *xmlData = [NSData dataWithContentsOfFile:path];
-	
-	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData: xmlData];
-	
-	CurrenciesParserDelegate *parserDelegate = [[CurrenciesParserDelegate alloc] init];
-	[xmlParser setDelegate:parserDelegate];
-	[xmlParser setShouldProcessNamespaces:YES];
-    [xmlParser setShouldReportNamespacePrefixes:NO];
-    [xmlParser setShouldResolveExternalEntities:NO];
-	
-	BOOL success = [xmlParser parse];
-	
-	if(success)
-	{
-	}
-	else {
-		NSLog(@"Parsing error");
-	}
-	
-	[xmlParser setDelegate:nil];
-	[xmlParser abortParsing];
-	[xmlParser release];
-	[parserDelegate release];	
 }
 
 

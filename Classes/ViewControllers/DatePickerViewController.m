@@ -10,6 +10,7 @@
 #import "StatisticsViewController.h"
 #import "UIFactory.h"
 #import "DateFormat.h"
+#import "Constants.h"
 
 @implementation DatePickerViewController
 
@@ -90,14 +91,14 @@
 	[self.view addSubview:noticeLabel];	
 	
 	
-	saveButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", @"")
+	saveButton = [[UIBarButtonItem alloc] initWithTitle:kSave
 												  style:UIBarButtonItemStyleDone 
 												 target:self 
 												 action:@selector(saveAction)];	
 	
 	[self.navigationItem setRightBarButtonItem:saveButton];
 	
-	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"")
+	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
 																	 style:UIBarButtonItemStyleBordered
 																	target:self 
 																	action:@selector(cancelAction)];	

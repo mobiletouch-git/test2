@@ -91,6 +91,15 @@ static InfoValutarAPI* INSTANCE;
 	NSManagedObjectModel *model = [appDelegate managedObjectModel];	 
 	NSFetchRequest *fetch = [model fetchRequestFromTemplateWithName:@"getIntervalData"
 											  substitutionVariables:substDictionary];
+	
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"currencyDate" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+	
+	[fetch setSortDescriptors:sortDescriptors];
+	
+	[sortDescriptor release];
+	[sortDescriptors release];
+	
 	NSMutableArray *mutableFetchResults = [[[appDelegate managedObjectContext] executeFetchRequest:fetch error:nil] mutableCopy];
 	NSMutableArray *arrayToReturn = [NSMutableArray array];
 	[arrayToReturn addObjectsFromArray:mutableFetchResults];

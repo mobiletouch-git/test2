@@ -164,7 +164,7 @@
 	 [self.view addSubview:currenciesTableView];	 
 	 
 
-	 generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Generează"
+	 generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Grafic"
 												   style:UIBarButtonItemStyleBordered
 												  target:self 
 												  action:@selector(presentModalGraphView)];

@@ -46,7 +46,7 @@
 		currencyValueLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:currencyValueLabel];
 		
-		changeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:NO];
+		changeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:15 bold:NO];
 		[changeLabel setFrame:CGRectMake(218,11,60,20)];
 		[changeLabel setTextAlignment:UITextAlignmentRight];
 		changeLabel.adjustsFontSizeToFitWidth=YES;			
@@ -102,6 +102,7 @@
 		}
 		else if ([theSign isEqualToString:@"="])
 		{
+			[changeLabel setText:@"0"];
 			[changeLabel setTextColor:[UIColor darkGrayColor]];
 		}
 		

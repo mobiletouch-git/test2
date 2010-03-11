@@ -52,7 +52,7 @@
 		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
 		[self setSelectedDate:utcDate];
 		
-		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:selectedDate];
 		
 		[self setSelectedDate:validBankingDate];	
 		
@@ -126,22 +126,19 @@
 	
 	[tableDataSource removeAllObjects];
 	[previousReferenceDay removeAllObjects];	
-	
-//	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
-//	if (!settingsUpdate)
-//	{
-		updateButton = [[UIBarButtonItem alloc] initWithTitle:kUpdate
-																		 style:UIBarButtonItemStyleBordered
-																		target:self
-																		action:@selector(updateAction)];	
-		[self.navigationItem setRightBarButtonItem:updateButton];
-		[self pageUpdate];		
-/*	}
-	else
-	{
-		updateButton = nil;
-	}
-	*/
+
+	/*
+	updateButton = [[UIBarButtonItem alloc] initWithTitle:kUpdate
+																	 style:UIBarButtonItemStyleBordered
+																	target:self
+																	action:@selector(updateAction)];	
+	 */
+	updateButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
+																 target:self 
+																 action:@selector(updateAction)];
+	[self.navigationItem setRightBarButtonItem:updateButton];
+	[self pageUpdate];		
+
 	
 	transparentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
 	[transparentView setBackgroundColor:[UIColor clearColor]];	
@@ -230,7 +227,7 @@
 	[tableDataSource removeAllObjects];
 	[previousReferenceDay removeAllObjects];
 	
-	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:selectedDate];
 	
 	if (validBankingDate)
 	{
@@ -433,7 +430,7 @@
 											 fontSize:14 
 												 bold:YES];
 	[l2 setBackgroundColor:[UIColor clearColor]];
-	[l2 setFrame:CGRectMake(120,3,90,16)];
+	[l2 setFrame:CGRectMake(110,3,90,16)];
 	[l2 setText:@"Cotație RON"];
 	[headerView addSubview:l2];
 	
@@ -442,7 +439,7 @@
 											 fontSize:14 
 												 bold:YES];
 	[l3 setBackgroundColor:[UIColor clearColor]];
-	[l3 setFrame:CGRectMake(228,3,70,16)];
+	[l3 setFrame:CGRectMake(225,3,70,16)];
 	[l3 setText:@"Variație"];
 	[headerView addSubview:l3];		
 	

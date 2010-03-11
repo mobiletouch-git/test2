@@ -58,7 +58,6 @@
 			[self setCurrentDate:utcDate];
 		}
 */
-
 		NSString *attribute1 = [attributeDict valueForKey:@"timestamp"];
 		if (attribute1)
 		{

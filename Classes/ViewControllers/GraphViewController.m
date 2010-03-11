@@ -65,7 +65,15 @@
 		NSMutableArray *results = [InfoValutarAPI getDataForInterval:startDate endDate:endDate currencyName:ci.currencyName];
 		[plotsValues addObject:results];
 	}
-
+/*
+	NSArray *valuesForPlot = [plotsValues objectAtIndex:0];
+	for (int j=0;j<[valuesForPlot count];j++)	
+	{
+		Currency *managed = [valuesForPlot objectAtIndex:j];
+		NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
+		NSLog(@"Date for entry %@", dateForEntry);
+	}
+*/	
 	NSNumberFormatter *ynumberFormatter = [NSNumberFormatter new];
 	[ynumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[ynumberFormatter setMinimumFractionDigits:2];
@@ -75,6 +83,9 @@
 	
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+	[dateFormatter setLocale:roLocale];
+	[roLocale release];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	
 	self.graphView.xValuesFormatter = dateFormatter;
@@ -237,6 +248,7 @@
 	NSArray *valuesForPlot = [plotsValues objectAtIndex:plotIndex];
 	
 	int counter = 0;
+	NSNumber *lastValidNumber = [NSNumber numberWithFloat:-1.0];
 	
 	for (int i=0; i <[totalDays count] && counter<[valuesForPlot count];i++)
 	{
@@ -248,10 +260,11 @@
 		NSString *valueString = [managed valueForKey:@"currencyValue"];
 		float dblValue = [valueString floatValue];
 		NSNumber *numberToAdd = [NSNumber numberWithFloat:dblValue*1000];
-		
+	
 		if ([dateForEntry compare:dateInCalendar] == NSOrderedSame)
 		{
-			[array addObject:numberToAdd];		
+			[array addObject:numberToAdd];	
+			lastValidNumber = [NSNumber numberWithFloat:[numberToAdd floatValue]];
 			counter+=1;
 		}
 		else if ([dateForEntry compare:dateInCalendar] == NSOrderedDescending)
@@ -260,10 +273,10 @@
 			if (![array count] || ([[array lastObject] compare:[NSNumber numberWithFloat:0.0]] == NSOrderedSame))
 			{
 				NSNumber *numberToAdd = [NSNumber numberWithFloat:-1.0];
-				[array addObject:numberToAdd];							
+				[array addObject:numberToAdd];
 			}
 			else {
-				[array addObject:numberToAdd];							
+				[array addObject:lastValidNumber];							
 			}
 
 			
@@ -271,6 +284,12 @@
 	}
 
 	NSLog(@"First object %f last object %f", [[array objectAtIndex:0] floatValue], [[array lastObject] floatValue]);
+	
+	for (int j=0; j <[array count];j++)
+	{
+		NSNumber *nr = [array objectAtIndex:j];
+		NSLog(@"Value %f", [nr floatValue]);
+	}
 	
 	return array;
 }

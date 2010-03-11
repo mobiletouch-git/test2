@@ -11,7 +11,7 @@
 #import "DateFormat.h"
 #import "UIFactory.h"
 #import "Constants.h"
-
+#import "CurrenciesParserDelegate.h"
 
 @implementation UINavigationBar (CustomImage)
 
@@ -79,10 +79,11 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
     // Override point for customization after app launch    
+
+//	[self populate];
 	
 	[self initializeDatabase];
 	[self initializeLayout];
-//	[converterViewController populate];
 	
 	[window addSubview:tabBarController.view];	
 	
@@ -96,9 +97,36 @@
 		[self checkForUpdates];
 	}
 	[window makeKeyAndVisible];
+
 }
 
-
+-(void) populate
+{
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"database" ofType:@"xml"];
+	NSData *xmlData = [NSData dataWithContentsOfFile:path];
+	
+	NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData: xmlData];
+	
+	CurrenciesParserDelegate *parserDelegate = [[CurrenciesParserDelegate alloc] init];
+	[xmlParser setDelegate:parserDelegate];
+	[xmlParser setShouldProcessNamespaces:YES];
+    [xmlParser setShouldReportNamespacePrefixes:NO];
+    [xmlParser setShouldResolveExternalEntities:NO];
+	
+	BOOL success = [xmlParser parse];
+	
+	if(success)
+	{
+	}
+	else {
+		NSLog(@"Parsing error");
+	}
+	
+	[xmlParser setDelegate:nil];
+	[xmlParser abortParsing];
+	[xmlParser release];
+	[parserDelegate release];	
+}
 
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.

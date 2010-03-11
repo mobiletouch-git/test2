@@ -21,12 +21,14 @@
 - (void)dealloc {
 
 	[myTableView release];
+	[tableDataSourceDict release];
 	[tableDataSource release];
 	[yearButton release];
 	[doneButton release];
 	[cancelButton release];
 	[yearArray release];
 	[selectedCurrency release];
+	[activityView release];
 	
     [super dealloc];
 }
@@ -38,7 +40,8 @@
     if ((self = [super init])) {
 		//init code
 		
-		tableDataSource = [[NSMutableDictionary alloc] init];
+		tableDataSourceDict = [[NSMutableDictionary alloc] init];
+		tableDataSource = [[NSMutableArray alloc] init];
 		yearArray = [[NSMutableArray alloc] init];
 		
 	}
@@ -101,11 +104,16 @@
 	
 	self.title = selectedCurrency.currencyName;
 	
+	activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.frame = CGRectMake(135,150.0,50.0,50.0);
+	activityView.hidesWhenStopped = YES;
+	[self.view addSubview:activityView];
 }
 
 
 -(void) refreshDataSource
 {
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	int selectedRow = [yearPicker selectedRowInComponent:0];
 	NSString *yearString = [yearArray objectAtIndex:selectedRow];
 
@@ -127,12 +135,13 @@
 													  currencyName:selectedCurrency.currencyName];
 	
 	[self processBruteData:bruteData];
-	[myTableView reloadData];
+	[pool release];
 } 
 
 -(void) processBruteData: (NSArray *) dataArray
 {
 	[tableDataSource removeAllObjects];
+	[tableDataSourceDict removeAllObjects];
 
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd-MM-yyyy"];
@@ -154,7 +163,7 @@
 		[dictionaryForMonth setObject:days forKey:@"monthData"];
 		
 		NSLog(@"Month %d", i);
-		[tableDataSource setObject:dictionaryForMonth forKey:[NSString stringWithFormat:@"%d", i]];
+		[tableDataSourceDict setObject:dictionaryForMonth forKey:[NSString stringWithFormat:@"%d", i]];
 	}
 	[dateFormatter release];
 	
@@ -165,7 +174,7 @@
 		NSString *monthString = [DateFormat monthFromDate:currencyDate];
 		NSInteger month = [monthString intValue];
 
-		NSMutableDictionary *dictForMonth = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", month]];
+		NSMutableDictionary *dictForMonth = [tableDataSourceDict objectForKey:[NSString stringWithFormat:@"%d", month]];
 		NSMutableArray *days = [dictForMonth objectForKey:@"monthData"];
 		[days addObject:managedObject];
 		[dictForMonth setObject:days forKey:@"monthData"];
@@ -174,11 +183,31 @@
 	// trim empty months
 	for (int i=1;i<=12;i++)
 	{
-		NSMutableDictionary *dictionaryForMonth = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", i]];
+		NSMutableDictionary *dictionaryForMonth = [tableDataSourceDict objectForKey:[NSString stringWithFormat:@"%d", i]];
 		NSMutableArray *days = [dictionaryForMonth objectForKey:@"monthData"];	
 		if (![days count])
-			[tableDataSource removeObjectForKey:[NSString stringWithFormat:@"%d", i]];
+			[tableDataSourceDict removeObjectForKey:[NSString stringWithFormat:@"%d", i]];
+		else
+		{
+			NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"currencyDate" ascending:NO];
+			NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+			
+			[days sortUsingDescriptors:sortDescriptors];
+			
+			[sortDescriptor release];
+			[sortDescriptors release];
+		}
 	}
+	
+	for (int i=12;i>=1;i--)
+	{
+		NSMutableDictionary *dictForMonth = [tableDataSourceDict objectForKey:[NSString stringWithFormat:@"%d", i]];
+		if (dictForMonth)
+			[tableDataSource addObject:dictForMonth];
+	}
+	
+	[activityView stopAnimating];		
+	[myTableView reloadData];	
 
 }
 
@@ -201,7 +230,8 @@
 	[yearButton setTitle:yearString];
 
 	//get new data.
-	[self refreshDataSource];
+	[activityView startAnimating];
+	[self performSelectorInBackground:(@selector(refreshDataSource)) withObject:nil];		
 }
 
 -(void) cancelAction{
@@ -237,8 +267,8 @@
 			[yearPicker selectRow:i inComponent:0 animated:NO];
 		}
 	}
-	
-	[self refreshDataSource];	
+	[activityView startAnimating];	
+	[self performSelectorInBackground:(@selector(refreshDataSource)) withObject:nil];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
@@ -305,7 +335,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	NSDictionary *dictForMonth = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", section+1]];
+	NSDictionary *dictForMonth = [tableDataSource objectAtIndex:section];
 	NSString *monthName = [[dictForMonth valueForKey:@"monthName"] capitalizedString];
 	
     return monthName;
@@ -318,7 +348,7 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSDictionary *dictForMonth = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", section+1]];
+	NSDictionary *dictForMonth = [tableDataSource objectAtIndex:section];	
 	NSArray *monthData = [dictForMonth objectForKey:@"monthData"];
 	
     return [monthData count];
@@ -335,30 +365,32 @@
         cell = [[[HistoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 	
-	NSDictionary *sectionSource = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", indexPath.section+1]];
+	NSDictionary *sectionSource = [tableDataSource objectAtIndex:indexPath.section];
+	
 	NSArray *sectionData = [sectionSource objectForKey:@"monthData"];
 
     Currency *managedObject = [sectionData objectAtIndex:indexPath.row];
 	Currency *previousManagedObject = managedObject;
 	
-	if (indexPath.row==0 && indexPath.section==0)
+
+	if (indexPath.row==([sectionData count]-1) && indexPath.section== ([tableDataSource count]-1))
 	{
 		previousManagedObject = managedObject;
 	}
-	else if (indexPath.row==0 && indexPath.section>0)
+	else if (indexPath.row== ([sectionData count]-1) && (indexPath.section<[tableDataSource count]))
 	{
-		NSDictionary *sectionSource = [tableDataSource objectForKey:[NSString stringWithFormat:@"%d", indexPath.section]];
+		NSDictionary *sectionSource = [tableDataSource objectAtIndex:indexPath.section+1];
 		NSArray *sectionData = [sectionSource objectForKey:@"monthData"];
 		if (sectionData)
-			previousManagedObject = [sectionData lastObject];
+			previousManagedObject = [sectionData objectAtIndex:0];
 	}
 	else
 	{
-		previousManagedObject = [sectionData objectAtIndex:indexPath.row-1];
+		if (indexPath.row+1<[sectionData count])
+			previousManagedObject = [sectionData objectAtIndex:indexPath.row+1];
 	}
-
+	
 	NSDecimalNumber *currentValue = [managedObject valueForKey:@"currencyValue"];
-
 	NSDecimalNumber *previousValue = [previousManagedObject valueForKey:@"currencyValue"];	
 	
 	NSString *sign;

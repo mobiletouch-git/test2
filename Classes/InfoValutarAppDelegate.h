@@ -69,6 +69,6 @@
 -(void) initializeDatabase;
 -(void) initializeLayout;
 -(void) checkForUpdates;
-
+-(void) populate;
 @end
 
