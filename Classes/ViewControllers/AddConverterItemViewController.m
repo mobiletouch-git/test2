@@ -184,10 +184,10 @@
 													 selectedColor:[UIColor darkGrayColor] 
 														  fontSize:14 
 															  bold:NO];
-		[noticeLabel setFrame:CGRectMake(10, 7, 300, 55)];
+		[noticeLabel setFrame:CGRectMake(20, 7, 280, 55)];
 		[noticeLabel setBackgroundColor:[UIColor clearColor]];
 		[noticeLabel setNumberOfLines:3];
-		[noticeLabel setText:@"Opțional puteți adăuga taxe, ele sunt aplicate la bază în ordinea lor din listă."];
+		[noticeLabel setText:@"Opțional puteți adăuga procente, ele sunt aplicate la bază în ordinea lor din listă."];
 		
 		[transparentView addSubview:noticeLabel];
 		

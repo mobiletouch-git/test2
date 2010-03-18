@@ -373,7 +373,7 @@
 	else {												// Latest valid banking date is up to date
 		if (userAction)
 			[UIFactory showOkAlert:[NSString stringWithFormat:@"Actualizarea nu este necesară "]
-							 title:@"Atenție!"];
+							 title:nil];
 	}
 	
 	

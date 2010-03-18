@@ -205,7 +205,7 @@
 	
 	
 	//initialize and place tableView
-	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
+	CGRect tableViewFrame = CGRectMake(0.0, kTopPadding, 320, 368-kTopPadding);
 	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
 	myTableView.delegate = self;
 	myTableView.dataSource = self;
@@ -215,26 +215,6 @@
 	[self.view addSubview:myTableView];
 	
 	NSString *todayString = [DateFormat businessStringFromDate:self.selectedDate];	
-/*	titleButton = [[UIButton alloc] initWithFrame:CGRectMake(60,10,160,30)];
-	titleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	titleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	[titleButton setTitle:todayString forState:UIControlStateNormal];	
-	[titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	[titleButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];	
-	[titleButton.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
-	
-	UIImage *newImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:8.0 topCapHeight:0.0];
-	[titleButton setBackgroundImage:newImage forState:UIControlStateNormal];
-	
-	UIImage *newPressedImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:8.0 topCapHeight:0.0];
-	[titleButton setBackgroundImage:newPressedImage forState:UIControlStateHighlighted];
-	[titleButton addTarget:self action:@selector (titleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-	// in case the parent view draws with a custom color or gradient, use a transparent color
-	titleButton.backgroundColor = [UIColor clearColor];
-	[titleButton setShowsTouchWhenHighlighted:YES];
-	
-	
-	[self.navigationItem setTitleView:titleButton];	*/
 	
 	titleSeg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:todayString]];
 	[titleSeg setFrame:CGRectMake(0, 0, 100, 30)];
@@ -250,11 +230,34 @@
 	if (self.selectedDate)
 		[datePicker setDate:self.selectedDate animated:YES];
 	[datePicker setHidden:YES];
-//	[datePicker setMaximumDate:[NSDate date]];
 	[datePicker setMaximumDate:selectedDate];
 
 	[self.view addSubview:datePicker];
 	
+#if defined(CONVERTOR)	
+	[self.view addSubview:[InfoValutarAPI displayCompanyLogo]];
+	[self.view addSubview:[AdWhirlView requestAdWhirlViewWithDelegate:self]];	
+#else
+	
+#endif		
+	
+}
+
+#pragma mark ARRollerDelegate required delegate method implementation
+- (NSString *)adWhirlApplicationKey
+{
+	return kAdWhirlApplicationKey;
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView
+{
+	NSLog(@"Did receive add");
+	[[self.view viewWithTag:111] removeFromSuperview];
+}
+
+- (void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo
+{
+	NSLog(@"Did fail add");	
 }
 
 -(void) addDefaultConverterValues
@@ -387,7 +390,8 @@
 	[self.navigationItem setRightBarButtonItem:nil];
 	[titleSeg setHidden:YES];
 	[datePicker setHidden:YES];
-	[myTableView reloadData];
+	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationRight];	
+	[myTableView reloadData];	
 }
 
 -(void) cancelAction
@@ -455,7 +459,8 @@
 	[titleSeg setSelectedSegmentIndex:-1];	
 	[titleSeg setHidden:NO];	
 	
-	[myTableView reloadData];
+	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];		
+	[myTableView reloadData];	
 }
 
 -(void) textEditEnded {

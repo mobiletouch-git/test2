@@ -27,7 +27,7 @@
 		[self addSubview:currencyFlagImageView];
 		
 		currencyShortNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
-		[currencyShortNameLabel setFrame:CGRectMake(50,12,240,20)];
+		[currencyShortNameLabel setFrame:CGRectMake(50,11,240,20)];
 		[currencyShortNameLabel setTextAlignment:UITextAlignmentLeft];	
 		[currencyShortNameLabel setBackgroundColor:[UIColor clearColor]];
 //		currencyShortNameLabel.adjustsFontSizeToFitWidth=YES;			

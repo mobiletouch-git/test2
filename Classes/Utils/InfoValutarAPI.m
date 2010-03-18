@@ -28,6 +28,14 @@ static InfoValutarAPI* INSTANCE;
 	return INSTANCE;
 }
 
++(UIImageView *) displayCompanyLogo
+{
+	UIImageView *companyLogo = [[[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,50)] autorelease];
+	[companyLogo setImage:[UIImage imageNamed:@"banner_offline.png"]];
+	[companyLogo setTag:111]; // company logo tag
+	return companyLogo;
+}
+
 +(NSString *) getStringFromDate: (NSDate *) theDate{
 	
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];

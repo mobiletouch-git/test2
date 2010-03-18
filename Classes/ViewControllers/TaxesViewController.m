@@ -11,6 +11,7 @@
 #import "AdditionFactorItem.h"
 #import "Constants.h"
 #import "AddNewTaxViewController.h"
+#import "InfoValutarAPI.h"
 
 @implementation TaxesViewController
 
@@ -31,11 +32,12 @@
 		
 		//set tabbaritem picture
 		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_4.png"];
-		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Taxe" image:buttonImage tag:0];
+		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Procente" image:buttonImage tag:0];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];
 		
-		self.title = @"Taxe";		
+		self.title = @"Procente";		
+		[self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 		
 		tableDataSource = [[NSMutableArray alloc] init];	
 		
@@ -80,7 +82,7 @@
 	
 	
 	//initialize and place tableView
-	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
+	CGRect tableViewFrame = CGRectMake(0.0, kTopPadding, 320, 368-kTopPadding);
 	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStyleGrouped];
 	myTableView.delegate = self;
 	myTableView.dataSource = self;
@@ -88,13 +90,38 @@
 	myTableView.scrollEnabled=YES;
 	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	[self.view addSubview:myTableView];
+
+#if defined(CONVERTOR)	
+	[self.view addSubview:[InfoValutarAPI displayCompanyLogo]];
+	[self.view addSubview:[AdWhirlView requestAdWhirlViewWithDelegate:self]];	
+#else
 	
+#endif	
+	
+}
+
+#pragma mark ARRollerDelegate required delegate method implementation
+- (NSString *)adWhirlApplicationKey
+{
+	return kAdWhirlApplicationKey;
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView
+{
+	NSLog(@"Did receive add");
+	[[self.view viewWithTag:111] removeFromSuperview];
+}
+
+- (void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo
+{
+	NSLog(@"Did fail add");	
 }
 
 -(void) editAction
 {
 	[myTableView setEditing:YES];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
+	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationRight];			
 	[myTableView reloadData];
 }
 
@@ -102,7 +129,8 @@
 {
 	[myTableView setEditing:NO];	
 	[self.navigationItem setLeftBarButtonItem:editButton];	
-	[myTableView reloadData];	
+	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];		
+	[myTableView reloadData];		
 }
 
 -(void) addDefaultTaxesValues

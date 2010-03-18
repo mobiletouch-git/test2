@@ -174,7 +174,6 @@
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		}
 
-
 	}
 	else {
 		if (isPushed)

@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CurrencyItem.h"
 #import "ConverterItem.h"
+#import "AdWhirlView.h"
+#import "AdWhirlDelegateProtocol.h"
 
-@interface ConverterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface ConverterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate> {
 	
 	UITableView *myTableView;
 	NSMutableArray *tableDataSource;

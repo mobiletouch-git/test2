@@ -196,7 +196,7 @@
 	
 	CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
 	
-	CGFloat availableHeight = applicationFrame.size.height - 216;	// Remove area covered by keyboard 216 || 80
+	CGFloat availableHeight = applicationFrame.size.height - 266;	// Remove area covered by keyboard 216 || 80
 	
 	CGFloat y = viewCenterY - availableHeight / 2.0;
 	if (y < 0) {
@@ -217,6 +217,7 @@
 	[[[appDelegate converterViewController] datePicker] setHidden:YES];
 	[[[appDelegate converterViewController] titleSeg] setSelectedSegmentIndex:-1];			
 	[[[appDelegate converterViewController] titleSeg] setEnabled:NO];		
+//	[[[appDelegate converterViewController] myTableView] setScrollEnabled:NO];
 	
 	[self scrollCellToCenterOfScreen:textField];
 	
@@ -275,6 +276,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 //	[[appDelegate converterViewController] textEditEnded];
+	[textField resignFirstResponder];	
 	 
 	NSDecimalNumber *nrFromString;
 	if (![textField.text length])
@@ -293,8 +295,6 @@
 	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
 	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];	
 
-	[textField resignFirstResponder];
-	
     return YES;
 }
 
@@ -349,7 +349,7 @@
 
 	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
 	
-	[converterValueTextField resignFirstResponder];
+//	[converterValueTextField resignFirstResponder];
 	[self textFieldShouldReturn:converterValueTextField];
 }
 
@@ -358,7 +358,6 @@
 	
 	[converterValueTextField setText:oldValue];
 	[converterValueTextField resignFirstResponder];
-	
 //	[self textFieldShouldReturn:converterValueTextField];
 }
 

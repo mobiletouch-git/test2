@@ -16,6 +16,9 @@
 #import "InfoValutarAPI.h"
 #import "HistoryViewController.h"
 
+#import "AdWhirlView.h"
+#import "AdWhirlDelegateProtocol.h"
+
 @implementation CurrencyViewController
 
 @synthesize tableDataSource, selectedDate;
@@ -139,13 +142,20 @@
 	[self.navigationItem setRightBarButtonItem:updateButton];
 	[self pageUpdate];		
 
+
+
+#if defined(CONVERTOR)	
+	[self.view addSubview:[InfoValutarAPI displayCompanyLogo]];
+	[self.view addSubview:[AdWhirlView requestAdWhirlViewWithDelegate:self]];	
+#else
+	
+#endif	
 	
 	transparentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
 	[transparentView setBackgroundColor:[UIColor clearColor]];	
-	
-	
+
+	CGRect tableViewFrame = CGRectMake(0.0, kTopPadding, 320, 368-kTopPadding);
 	//initialize and place tableView
-	CGRect tableViewFrame = CGRectMake(0.0, 0.0, 320, 368);
 	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
 	myTableView.delegate = self;
 	myTableView.dataSource = self;
@@ -156,27 +166,6 @@
 	
 	[self.view addSubview:[self getHeaderView]];	
 	
-	/*
-	titleButton = [[UIButton alloc] initWithFrame:CGRectMake(60,10,160,30)];
-	titleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	titleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	[titleButton setTitle:todayString forState:UIControlStateNormal];	
-	[titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[titleButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];	
-	[titleButton.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
-	
-	UIImage *newImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[titleButton setBackgroundImage:newImage forState:UIControlStateNormal];
-	
-	UIImage *newPressedImage = [[UIImage imageNamed:@"title_button.png"]  stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[titleButton setBackgroundImage:newPressedImage forState:UIControlStateHighlighted];
-	[titleButton addTarget:self action:@selector (titleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-	// in case the parent view draws with a custom color or gradient, use a transparent color
-	titleButton.backgroundColor = [UIColor redColor];
-	[titleButton setShowsTouchWhenHighlighted:YES];
-	
-*/
-	
 	titleSeg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:todayString]];
 	[titleSeg setFrame:CGRectMake(0, 0, 100, 30)];
 	[titleSeg addTarget:self action:@selector(titleButtonAction:) forControlEvents:UIControlEventValueChanged];
@@ -184,6 +173,25 @@
 
 	[self.navigationItem setTitleView:titleSeg];	
 }
+
+#pragma mark ARRollerDelegate required delegate method implementation
+- (NSString *)adWhirlApplicationKey
+{
+	return kAdWhirlApplicationKey;
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView
+{
+	NSLog(@"Did receive add");
+	[[self.view viewWithTag:111] removeFromSuperview];
+}
+
+- (void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo
+{
+	NSLog(@"Did fail add");	
+}
+
+
 
 -(void) updateAction
 {
@@ -415,7 +423,7 @@
 -(UIView *) getHeaderView
 {
 	UIImageView *headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header_transparent.png"]];
-	[headerView setFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
+	[headerView setFrame:CGRectMake(0.0, kTopPadding, 320.0, 22.0)];
 	
 	UILabel *l1 = [UIFactory newLabelWithPrimaryColor:[UIColor whiteColor]
 										selectedColor:[UIColor whiteColor] 

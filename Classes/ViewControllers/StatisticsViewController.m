@@ -46,6 +46,7 @@
 		[tempTabBarItem release];
 		
 		self.title = @"Evoluție";		
+        [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 		
 		NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"dateRangeDictionary"];
 		NSMutableDictionary *savedRanges = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -124,8 +125,6 @@
 	}
 
 	
-
-		
 	[graphView setStartDate: utcStartDate];
 	[graphView setEndDate:utcEndDate];	
 	[graphView setPlots:currenciesList];
@@ -142,10 +141,9 @@
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
  - (void)viewDidLoad {
 	 [super viewDidLoad];
-	 [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 	 
 	 //initialize and place tableView
-	 CGRect f1 = CGRectMake(0.0, 10.0, 320, 100);
+	 CGRect f1 = CGRectMake(0.0, 10.0+kTopPadding, 320, 100);
 	 dateRangeTableView = [[UITableView alloc] initWithFrame:f1 style:UITableViewStyleGrouped];
 	 dateRangeTableView.delegate = self;
 	 dateRangeTableView.dataSource = self;
@@ -154,7 +152,7 @@
 	 dateRangeTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	 [self.view addSubview:dateRangeTableView];
 	 
-	 CGRect f2 = CGRectMake(0.0, 115.0, 320, 252);
+	 CGRect f2 = CGRectMake(0.0, 115.0+kTopPadding, 320, 252-kTopPadding);
 	 currenciesTableView = [[UITableView alloc] initWithFrame:f2 style:UITableViewStyleGrouped];
 	 currenciesTableView.delegate = self;
 	 currenciesTableView.dataSource = self;
@@ -181,6 +179,83 @@
 												  target:self 
 												  action:@selector(editAction)];
 	 [self.navigationItem setLeftBarButtonItem:editButton];
+	 
+#if defined(CONVERTOR)	
+	 [editButton setEnabled:NO];
+	 [generateButton setEnabled:NO];
+	 [self.view addSubview:[self overlayView]];
+	 
+	 [self.view addSubview:[InfoValutarAPI displayCompanyLogo]];
+	 [self.view addSubview:[AdWhirlView requestAdWhirlViewWithDelegate:self]];
+	 
+#else
+
+#endif	
+}
+
+#pragma mark ARRollerDelegate required delegate method implementation
+- (NSString *)adWhirlApplicationKey
+{
+	return kAdWhirlApplicationKey;
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView
+{
+	NSLog(@"Did receive add");
+	[[self.view viewWithTag:111] removeFromSuperview];
+}
+
+- (void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo
+{
+	NSLog(@"Did fail add");	
+}
+
+-(UIView *) overlayView
+{
+	UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 370)];
+	[overlayView setBackgroundColor:[UIColor blackColor]];
+	[overlayView setAlpha:0.85];
+	[overlayView setTag:100];
+	
+	UILabel *noticeLabel = [UIFactory newLabelWithPrimaryColor:[UIColor whiteColor] 
+												 selectedColor:[UIColor whiteColor]  
+													  fontSize:16
+														  bold:NO];
+	[noticeLabel setText:@"Aceasta funcționalitate nu este disponibilă în aceasta versiune. Pentru a avea acces la funcționalitățile complete, vă recomandam aplicația InfoValutar."];
+	[noticeLabel setFrame:CGRectMake(10,75.0,300,100.0)];
+	[noticeLabel setNumberOfLines:0];
+	[noticeLabel setBackgroundColor:[UIColor clearColor]];
+	[noticeLabel setTextAlignment:UITextAlignmentCenter];
+
+	[overlayView addSubview:noticeLabel];
+	
+	UIButton *appleStoreButton = [UIFactory newButtonWithTitle:nil
+														target:self 
+													  selector:@selector (goToAppleStore:) 
+														 frame:CGRectMake(87, 185, 145, 50)
+														 image:[UIImage imageNamed:@"app-store.png"] 
+												  imagePressed:[UIImage imageNamed:@"app-store.png"] 
+												 darkTextColor:NO];
+	[overlayView addSubview:appleStoreButton];
+	
+	UILabel *noticeLabel2 = [UIFactory newLabelWithPrimaryColor:[UIColor whiteColor] 
+												 selectedColor:[UIColor whiteColor]  
+													  fontSize:16
+														  bold:NO];
+	[noticeLabel2 setText:@"Avantaje față de versiunea gratuită:\n- studierea graficului evoluției (până la 5 monede simultan)\n- este îmbunătățit cu prioritate\n- nu conține reclamă"];
+	[noticeLabel2 setFrame:CGRectMake(10,250,300,100.0)];
+	[noticeLabel2 setNumberOfLines:0];
+	[noticeLabel2 setBackgroundColor:[UIColor clearColor]];
+	[noticeLabel2 setTextAlignment:UITextAlignmentCenter];	
+	
+	[overlayView addSubview:noticeLabel2];
+	return [overlayView autorelease];
+}
+
+-(void) goToAppleStore: (id) sender
+{
+	NSLog (@"Go to apple Store");	
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/ro/app/info-valutar/id359343463?mt=8"]];	
 }
 
 -(void) editAction
@@ -188,7 +263,9 @@
 	[currenciesTableView setEditing:YES];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
 	[self.navigationItem setRightBarButtonItem:nil];
-	[currenciesTableView reloadData];
+
+//	[currenciesTableView reloadData];
+	[currenciesTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationRight];
 }
 
 -(void) doneAction
@@ -196,7 +273,8 @@
 	[currenciesTableView setEditing:NO];	
 	[self.navigationItem setLeftBarButtonItem:editButton];	
 	[self.navigationItem setRightBarButtonItem:generateButton];
-	[currenciesTableView reloadData];	
+//	[currenciesTableView reloadData];	
+	[currenciesTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 

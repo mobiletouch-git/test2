@@ -47,9 +47,16 @@
 #define kAdd @"Adaugă"
 #define kDelete @"Ștergeți"
 #define kUpdate @"Actualizează"
-#define kAddNewTax @"Adăugați taxă"
+#define kAddNewTax @"Adăugați procent"
 #define kStartDateTitle @"Data de Start"
 #define kStartDateNotice @"Completați data de start pentru raportul care urmează a fi generat"
 #define kEndDateTitle @"Data de Final"
 #define kEndDateNotice @"Completați data de final pentru raportul care urmează a fi generat"
+
+#define kAdWhirlApplicationKey @"96c35b3ea0af459caa2e8eefce81d075"
+#if defined(CONVERTOR)	
+	#define kTopPadding 50
+#else
+	#define kTopPadding 0
+#endif	
 

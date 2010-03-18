@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AdWhirlView.h"
+#import "AdWhirlDelegateProtocol.h"
 
 
-@interface StatisticsViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource>{
+@interface StatisticsViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate>{
 
 	UITableView *dateRangeTableView;
 	UITableView *currenciesTableView;
@@ -28,5 +30,6 @@
 
 -(void) addDefaultCurrencies;
 -(void) addNewCurrencyAction;
-
+-(UIView *) overlayView;
+-(void) goToAppleStore: (id) sender;
 @end

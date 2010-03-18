@@ -11,6 +11,7 @@
 #import "TaxesViewController.h"
 #import "StatisticsViewController.h"
 #import "InfoViewController.h"
+#import <CoreData/CoreData.h>
 
 @interface InfoValutarAppDelegate : NSObject <UIApplicationDelegate> {
 

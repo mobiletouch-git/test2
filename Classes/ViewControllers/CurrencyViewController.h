@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CurrencyItem.h"
+#import "AdWhirlView.h"
+#import "AdWhirlDelegateProtocol.h"
 
-@interface CurrencyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface CurrencyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate> {
 	
 	UITableView *myTableView;
 	NSMutableArray *previousReferenceDay;

@@ -347,7 +347,12 @@
 {
 	WebViewController *contactWeb = [[WebViewController alloc] init];
 	UINavigationController *webNavigation = [[UINavigationController alloc] initWithRootViewController:contactWeb];
-	[contactWeb setUrlVar:[NSURL URLWithString:@"http://www.mobiletouch.ro/feedback/26/"]];		
+#if defined(CONVERTOR)	
+	[contactWeb setUrlVar:[NSURL URLWithString:@"http://www.mobiletouch.ro/feedback/27/"]];			
+#else
+	[contactWeb setUrlVar:[NSURL URLWithString:@"http://www.mobiletouch.ro/feedback/26/"]];			
+#endif		
+
 	[self.navigationController presentModalViewController:webNavigation animated:YES];
 	[contactWeb release];
 	[webNavigation release];

@@ -28,11 +28,11 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // Initialization code
 		
-		converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(25,6,32,32)];
+		converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20,6,32,32)];
 		[self addSubview:converterFlagImageView];
 		
 		converterNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:16 bold:YES];
-		[converterNameLabel setFrame:CGRectMake(65,11,175,20)];
+		[converterNameLabel setFrame:CGRectMake(60,12,175,20)];
 		[converterNameLabel setTextAlignment:UITextAlignmentLeft];		
 		converterNameLabel.adjustsFontSizeToFitWidth=YES;	
 		[self addSubview:converterNameLabel];	
