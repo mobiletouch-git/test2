@@ -223,9 +223,8 @@
 
 -(void) pageUpdate
 {
-	
 	[tableDataSource removeAllObjects];
-	[previousReferenceDay removeAllObjects];
+	[previousReferenceDay removeAllObjects];	
 	
 	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:selectedDate];
 	
@@ -235,11 +234,13 @@
 			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
 							 title:@"Atenție!"];
 		
-		
+		[tableDataSource removeAllObjects];		
 		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
 		
 		NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
 		NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
+
+		[previousReferenceDay removeAllObjects];		
 		if (validBankingDate2)
 			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
 		else

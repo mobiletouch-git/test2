@@ -221,7 +221,16 @@
 	[tabBarController setSelectedIndex:selectedTabIndex];
 
 	int savedTimeStamp = [[NSUserDefaults standardUserDefaults] integerForKey:@"globalTimeStamp"];
-	[self setGlobalTimeStamp:savedTimeStamp];
+	if (savedTimeStamp)
+		[self setGlobalTimeStamp:savedTimeStamp];
+	else
+	{
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"UpdateSettings" ofType:@"plist"];
+		NSDictionary *source = [NSDictionary dictionaryWithContentsOfFile:path];
+		NSString *savedTmpStamp = [source valueForKey:@"timeStamp"];
+		[self setGlobalTimeStamp:[savedTmpStamp intValue]];
+	}
+	
 	
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
 	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];

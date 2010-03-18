@@ -218,6 +218,10 @@
 
 -(void) plusAction
 {
+	if (editedAdditionFactor)
+	{
+		[saveButton setEnabled:YES];
+	}
 	NSLog(@"Plus selected");
 	[plusSignButton removeFromSuperview];
 	[plusSignButton setBackgroundImage:[UIImage imageNamed:@"edit_add_pressed.png"]  forState:UIControlStateNormal];
@@ -233,6 +237,10 @@
 
 -(void) minusAction
 {
+	if (editedAdditionFactor)
+	{
+		[saveButton setEnabled:YES];
+	}
 	NSLog(@"Minus selected");	
 	[minusSignButton removeFromSuperview];
 	[minusSignButton setBackgroundImage:[UIImage imageNamed:@"edit_remove_pressed.png"]  forState:UIControlStateNormal];

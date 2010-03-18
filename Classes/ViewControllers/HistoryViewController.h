@@ -23,12 +23,13 @@
 	
 	UIPickerView *yearPicker;	
 	CurrencyItem *selectedCurrency;
-	UIActivityIndicatorView *activityView;
+
 }
 
 @property (nonatomic, retain) CurrencyItem *selectedCurrency;
 
 -(void) refreshDataSource;
 -(void) processBruteData: (NSArray *) dataArray;
+-(void) refreshTable;
 
 @end

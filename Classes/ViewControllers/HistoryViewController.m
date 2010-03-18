@@ -28,7 +28,7 @@
 	[cancelButton release];
 	[yearArray release];
 	[selectedCurrency release];
-	[activityView release];
+	
 	
     [super dealloc];
 }
@@ -104,12 +104,26 @@
 	
 	self.title = selectedCurrency.currencyName;
 	
-	activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.frame = CGRectMake(135,150.0,50.0,50.0);
-	activityView.hidesWhenStopped = YES;
-	[self.view addSubview:activityView];
 }
 
+
+-(void) addOverlay
+{
+	UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 430)];
+	[overlayView setBackgroundColor:[UIColor blackColor]];
+	[overlayView setAlpha:0.65];
+	[overlayView setTag:100];
+	
+	UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.frame = CGRectMake(135,150.0,50.0,50.0);
+	activityView.hidesWhenStopped = YES;
+	[activityView startAnimating];
+	
+	[overlayView addSubview:activityView];
+	[activityView release];
+	[self.view addSubview:overlayView];
+	[overlayView release];	
+}
 
 -(void) refreshDataSource
 {
@@ -206,9 +220,14 @@
 			[tableDataSource addObject:dictForMonth];
 	}
 	
-	[activityView stopAnimating];		
-	[myTableView reloadData];	
+	[[self.view viewWithTag:100] removeFromSuperview];
+	[self performSelectorOnMainThread:@selector (refreshTable) withObject:nil waitUntilDone:YES];
+}
 
+-(void) refreshTable
+{
+	[myTableView reloadData];	
+	[myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 
@@ -230,7 +249,7 @@
 	[yearButton setTitle:yearString];
 
 	//get new data.
-	[activityView startAnimating];
+	[self addOverlay];
 	[self performSelectorInBackground:(@selector(refreshDataSource)) withObject:nil];		
 }
 
@@ -267,7 +286,7 @@
 			[yearPicker selectRow:i inComponent:0 animated:NO];
 		}
 	}
-	[activityView startAnimating];	
+	[self addOverlay];
 	[self performSelectorInBackground:(@selector(refreshDataSource)) withObject:nil];
 }
 

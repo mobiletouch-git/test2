@@ -176,7 +176,7 @@
 	UIButton *closeButton = [UIFactory newButtonWithTitle:nil 
 												   target:self
 												 selector:@selector (dismissView)
-													frame:CGRectMake(445,20,25,26)
+													frame:CGRectMake(440,10,40,40)
 													image:[UIImage imageNamed:@"close.png"]
 											 imagePressed:[UIImage imageNamed:@"close_touch.png"]
 											darkTextColor:NO];
