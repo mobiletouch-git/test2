@@ -40,6 +40,7 @@
 	
 	NSInteger globalTimeStamp;
 	BOOL userAction, dataWasUpdated;
+	BOOL displayValidMode;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -65,6 +66,7 @@
 
 @property (nonatomic, assign) NSInteger globalTimeStamp;
 @property (nonatomic, assign) BOOL dataWasUpdated;
+@property (nonatomic, assign) BOOL displayValidMode;
 
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;

@@ -119,7 +119,7 @@
 	[[self.view viewWithTag:100] removeFromSuperview];	
 
 	self.graphView.dataSource = self;	
-	[self.graphView reloadData];
+//	[self.graphView reloadData];
 	
 	[pool drain];
 }
@@ -170,7 +170,6 @@
 	[self.view addSubview:overlayView];
 	[overlayView release];	
 	
-//	[self performSelectorOnMainThread:@selector(initializeLayout) withObject:nil waitUntilDone:YES];		
 	[self performSelectorInBackground:(@selector(initializeLayout)) withObject:nil];	
 	
 	UIButton *closeButton = [UIFactory newButtonWithTitle:nil 
@@ -287,8 +286,8 @@
 	
 	for (int j=0; j <[array count];j++)
 	{
-		NSNumber *nr = [array objectAtIndex:j];
-		NSLog(@"Value %f", [nr floatValue]);
+//		NSNumber *nr = [array objectAtIndex:j];
+//		NSLog(@"Value %f", [nr floatValue]);
 	}
 	
 	return array;

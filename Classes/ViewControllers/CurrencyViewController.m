@@ -59,6 +59,7 @@
 		
 		[self setSelectedDate:validBankingDate];	
 		
+	
 		float height = 216.0f; 
 		datePicker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0.0, 369.0-height, 320.0, height)];
 		datePicker.datePickerMode = UIDatePickerModeDate;
@@ -66,7 +67,7 @@
 		if (self.selectedDate)
 			[datePicker setDate:self.selectedDate animated:YES];
 		[datePicker setHidden:YES];
-		//	[datePicker setMaximumDate:[NSDate date]];
+		[datePicker setMinimumDate:[DateFormat dateFromNormalizedString:@"05-01-2009"]];
 		[datePicker setMaximumDate:selectedDate];
 		[self.view addSubview:datePicker];
 		
@@ -239,8 +240,8 @@
 	if (validBankingDate)
 	{
 		if (![validBankingDate isEqualToDate:[self selectedDate]])
-			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-							 title:@"Atenție!"];
+			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR valabil pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
+							 title:nil];
 		
 		[tableDataSource removeAllObjects];		
 		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
@@ -258,7 +259,7 @@
 		[myTableView reloadData];
 	}
 	else
-		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];
+			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];	
 }
 
 -(void) doneAction
@@ -285,8 +286,8 @@
 		if (validBankingDate)
 		{
 			if (![validBankingDate isEqualToDate:[self selectedDate]]) {
-				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat businessStringFromDate:validBankingDate]]
-								 title:@"Atenție!"];
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR valabil pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
+								 title:nil];
 				[self setSelectedDate:validBankingDate];
 				[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
 
@@ -304,7 +305,7 @@
 			[self organizeTableSourceWithPriorities];			
 		}
 		else
-			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
+			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];		
 
 	}
 	else if (myTableView.editing)
@@ -318,7 +319,6 @@
 		}
 		
 		NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
-		//write tabbar position
 		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:priorities];
 		[prefs setObject:data forKey:@"priorityList"];
 		[prefs synchronize];
@@ -334,6 +334,95 @@
 	[myTableView reloadData];	
 }
 
+-(void) setDefaultPriorities
+{
+	NSLog(@"Setting default priorities...");
+	NSMutableDictionary *priorities = [NSMutableDictionary dictionary];
+
+	int i=0;
+	CurrencyItem *cur = nil;
+	cur = [InfoValutarAPI findCurrencyNamed:@"GBP" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}
+	cur = [InfoValutarAPI findCurrencyNamed:@"EUR" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}
+	cur= [InfoValutarAPI findCurrencyNamed:@"USD" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}
+	cur = [InfoValutarAPI findCurrencyNamed:@"XAU" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}
+	cur = [InfoValutarAPI findCurrencyNamed:@"CHF" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}
+	cur = [InfoValutarAPI findCurrencyNamed:@"MDL" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}
+	cur = [InfoValutarAPI findCurrencyNamed:@"HUF" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}
+	cur = [InfoValutarAPI findCurrencyNamed:@"BGN" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}	
+	cur = [InfoValutarAPI findCurrencyNamed:@"CAD" inArray:tableDataSource];
+	if (cur)
+	{
+		[priorities setObject:cur forKey:[NSString stringWithFormat:@"%d", i++]];
+		cur=nil;
+	}	
+
+	NSMutableArray *remainingCurrencies = [NSMutableArray array];
+	
+	for (int k=0;k<[tableDataSource count];k++)
+	{
+		CurrencyItem *c = [tableDataSource objectAtIndex:k];
+		CurrencyItem *rez = [InfoValutarAPI findCurrencyNamed:c.currencyName inDictionary:priorities];
+		if (!rez)
+			[remainingCurrencies addObject:c];
+	}
+	
+	NSSortDescriptor *nameSorter = [[NSSortDescriptor alloc] initWithKey:@"currencyName" ascending:YES];
+	[remainingCurrencies sortUsingDescriptors:[NSArray arrayWithObject:nameSorter]];	
+	[nameSorter release];
+	
+	for (int k=0;k<[remainingCurrencies count];k++)
+	{
+		CurrencyItem *lc = [remainingCurrencies objectAtIndex:k];
+		[priorities setObject:lc forKey:[NSString stringWithFormat:@"%d", i++]];
+	}
+//	NSLog(@"Priorities %@", priorities);
+	
+	NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+	//write tabbar position
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:priorities];
+	[prefs setObject:data forKey:@"priorityList"];
+	[prefs synchronize];
+}
 
 -(void) organizeTableSourceWithPriorities
 {
@@ -344,6 +433,11 @@
 	NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"priorityList"];
 	NSMutableDictionary *priorities = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 
+	if (!priorities)
+	{
+		[self setDefaultPriorities];
+	}
+	
 	if (priorities)
 	{
 		NSMutableArray *organizedDay = [NSMutableArray array];

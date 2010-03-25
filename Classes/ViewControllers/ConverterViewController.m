@@ -96,11 +96,6 @@
 		//NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
 		if (validBankingDate)
 		{
-			/*
-			 if (![validBankingDate isEqualToDate:[self selectedDate]])
-			 [UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat DBformatDateFromDate:validBankingDate]]
-			 title:@"Atenție!"];
-			 */
 			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 			if ([selectedCurrencies count])
 			{
@@ -109,7 +104,7 @@
 			}
 		}
 		else
-			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
+			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];	
 
 		CurrencyItem *updatedCurrency = [InfoValutarAPI findCurrencyNamed:[referenceItem.currency currencyName] inArray:selectedReferenceDay];
 		if (updatedCurrency)
@@ -135,7 +130,7 @@
 	[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
 	
 	[datePicker setDate:self.selectedDate animated:NO];
-	
+	[datePicker setMinimumDate:[DateFormat dateFromNormalizedString:@"05-01-2009"]];
 	[datePicker setMaximumDate:selectedDate];
 
 	
@@ -149,7 +144,7 @@
 		}
 	}
 	else
-		[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
+		[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];	
 	
 	CurrencyItem *updatedCurrency = [InfoValutarAPI findCurrencyNamed:[referenceItem.currency currencyName] inArray:selectedReferenceDay];
 	if (updatedCurrency)
@@ -428,8 +423,8 @@
 		if (validBankingDate)
 		{
 			if (![validBankingDate isEqualToDate:[self selectedDate]]) {
-				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar valid corespondent zilei selectate este de pe data de %@", [DateFormat businessStringFromDate:validBankingDate]]
-								 title:@"Atenție!"];
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR valabil pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
+								 title:nil];
 				[self setSelectedDate:validBankingDate];
 				[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
 			}
@@ -446,7 +441,7 @@
 				[referenceItem setCurrency:updatedCurrency];			
 		}
 		else
-			[UIFactory showOkAlert:@"Nu exista informatii in baza de date pentru data selectata" title:@"Atenție!"];	
+			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];		
 	}
 	if (myTableView.editing)
 	{

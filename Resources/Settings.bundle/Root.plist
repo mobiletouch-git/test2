@@ -16,11 +16,31 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Automata</string>
+			<string>Automată</string>
 			<key>Key</key>
 			<string>sAutomaticUpdate</string>
 			<key>DefaultValue</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Titles</key>
+			<array>
+				<string>Cursul licitat</string>
+				<string>Cursul valabil</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>Cursul licitat</string>
+				<string>Cursul valabil</string>
+			</array>
+			<key>DefaultValue</key>
+			<string>Cursul licitat</string>
+			<key>Title</key>
+			<string>Aplicaţia afisează:</string>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Key</key>
+			<string>currencyModeKey</string>
 		</dict>
 	</array>
 </dict>

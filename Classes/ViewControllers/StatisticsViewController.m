@@ -181,13 +181,8 @@
 	 [self.navigationItem setLeftBarButtonItem:editButton];
 	 
 #if defined(CONVERTOR)	
-	 [editButton setEnabled:NO];
-	 [generateButton setEnabled:NO];
-	 [self.view addSubview:[self overlayView]];
-	 
 	 [self.view addSubview:[InfoValutarAPI displayCompanyLogo]];
 	 [self.view addSubview:[AdWhirlView requestAdWhirlViewWithDelegate:self]];
-	 
 #else
 
 #endif	

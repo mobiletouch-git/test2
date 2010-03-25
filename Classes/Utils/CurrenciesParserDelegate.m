@@ -186,13 +186,13 @@
 	}
 	
 	if ([appDelegate dataWasUpdated]) 
-		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi. "]
+		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR a fost actualizat."]
 						 title:@"Info Valutar"];
 	else {
 		NSDate *today = [NSDate date];
 		NSString *todayStr = [DateFormat businessStringFromDate:today];
-		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR pentru %@ nu a fost încă publicat.",todayStr]
-						 title:@"Atenție!"];
+		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR licitat în data de %@ nu a fost încă publicat.",todayStr]
+						 title:nil];
 	}
 	
 	[[appDelegate currencyViewController] updateCurrentDate];

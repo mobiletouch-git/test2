@@ -29,6 +29,7 @@
 @synthesize tabBarController;
 @synthesize currencyFullDictionary;
 @synthesize globalTimeStamp, dataWasUpdated;
+@synthesize displayValidMode;
 
 #pragma mark -
 #pragma mark Memory management
@@ -60,14 +61,8 @@
 
 - (void)initDefault{
 	
-	
-	
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-    NSDictionary *appDefaults = [NSDictionary
-								 
-								 dictionaryWithObject:@"YES" forKey:@"sAutomaticUpdate"];
-	
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"YES", @"Cursul licitat", nil] forKeys:[NSArray arrayWithObjects:@"sAutomaticUpdate", @"currencyModeKey", nil]];
 	
 	[defaults registerDefaults:appDefaults];
 	
@@ -91,7 +86,14 @@
 	id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"sAutomaticUpdate"];
 	if (!setting)
 		[self initDefault];
+	
 	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
+	NSString *settingsModeString = [[NSUserDefaults standardUserDefaults] stringForKey:@"currencyModeKey"];
+	if ([settingsModeString isEqualToString:@"Cursul licitat"])
+		[self setDisplayValidMode:NO];
+	else
+		[self setDisplayValidMode:YES];
+	
 	if (settingsUpdate) {
 		userAction = NO; 
 		[self checkForUpdates];
@@ -209,9 +211,9 @@
 	
 	//initiating the tabbar controller	
 	self.tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:	currencyNavigationController, 
+	tabBarController.viewControllers = [NSArray arrayWithObjects:	converterNavigationController,
+										currencyNavigationController, 
 										statisticsNavigationController,
-										converterNavigationController, 
 										taxesNavigationController,
 										infoNavigationController,
 										nil];
@@ -234,7 +236,6 @@
 	
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
 	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];
-	
 	if (fullList)
 		currencyFullDictionary = [fullList retain];
 	
@@ -343,23 +344,32 @@
 	//NSString *tomorrowDateStr = [DateFormat DBformatDateFromDate:tomorrowDate];
 	
 	BOOL mustUpdate = NO;
-
 	
 	if ([todayDateStr compare:validBankingDateStr]==1)  { // Latest valid banking date is older than today
 	
 		if (![yesterdayDate compare:validBankingDate]) { //Latest update is yesterdays
+			
 			if ([now compare:updateDate]==1) {	//It's past 11GMT
-				mustUpdate = YES;
+					mustUpdate = YES;
 			}
 			else  {								//Not 11GTM yes
-				if (userAction) { 
+
+				if (userAction)  { // manual update
 					NSDate *today = [NSDate date];
 					NSString *todayStr = [DateFormat businessStringFromDate:today];
-					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR pentru %@ nu a fost încă publicat.",todayStr]
-									 title:@"Atenție!"];
+					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR licitat în data de %@ nu a fost încă publicat.",todayStr]
+									 title:nil];
+
 				}
-				mustUpdate = NO;
+				mustUpdate = NO;	
 			}
+			
+			if ([InfoValutarAPI isWeekendInRomania])
+			{
+				mustUpdate = NO;
+				NSLog(@"Is weekend");				
+			}
+			
 		}
 		else {											//Latest update is older than yesterday
 			mustUpdate = YES;
@@ -372,16 +382,17 @@
 	
 	else {												// Latest valid banking date is up to date
 		if (userAction)
-			[UIFactory showOkAlert:[NSString stringWithFormat:@"Actualizarea nu este necesară "]
+			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]
 							 title:nil];
 	}
-	
 	
 	userAction = YES;
 
 	if (mustUpdate)
-	[[InfoValutarAPI sharedInstance] updateDatabaseWithTimeStamp:self.globalTimeStamp
-												inViewController:currencyViewController];
+	{
+		[[InfoValutarAPI sharedInstance] updateDatabaseWithTimeStamp:self.globalTimeStamp
+											inViewController:currencyViewController];
+	}
 	
 }
 

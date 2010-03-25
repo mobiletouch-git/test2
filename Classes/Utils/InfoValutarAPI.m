@@ -86,6 +86,54 @@ static InfoValutarAPI* INSTANCE;
 	return arrayToReturn;
 }
 
++(NSMutableArray *) getValidCurrenciesForDate: (NSDate *) specificDate
+{
+	
+	NSDate *previousBankingDay = [DateFormat getPreviousDayForDay:specificDate];	
+	NSString *formattedStringFromDay = [DateFormat normalizedStringFromDate:previousBankingDay];
+	
+	if ([formattedStringFromDay compare:@"2009-01-05"] == NSOrderedDescending)
+	{
+	NSMutableDictionary *substDictionary = [NSMutableDictionary dictionary];
+	[substDictionary setObject:previousBankingDay forKey:@"DATE"];
+	
+	NSManagedObjectModel *model = [appDelegate managedObjectModel];	 
+	NSFetchRequest *fetch = [model fetchRequestFromTemplateWithName:@"getCurrenciesForDate"
+											  substitutionVariables:substDictionary];
+	
+	
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"currencyName" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+	
+	[fetch setSortDescriptors:sortDescriptors];
+	
+	[sortDescriptor release];
+	[sortDescriptors release];
+	
+	NSMutableArray *mutableFetchResults = [[[appDelegate managedObjectContext] executeFetchRequest:fetch error:nil] mutableCopy];
+	NSMutableArray *arrayToReturn = [NSMutableArray array];
+	
+	for (int i=0;i<[mutableFetchResults count];i++)
+	{
+		CurrencyItem *curr = [[CurrencyItem alloc] init];
+		
+		Currency *managedObject = [mutableFetchResults objectAtIndex:i];
+		[curr setCurrencyName:[managedObject currencyName]];
+		[curr setCurrencyValue:[managedObject currencyValue]];
+		[curr setMultiplierValue:[managedObject currencyMultiplier]];
+		
+		[arrayToReturn addObject:curr];
+		[curr release];
+	}
+	
+	[mutableFetchResults release];
+	
+	return arrayToReturn;
+	}
+	return nil;
+	
+}
+
 +(NSMutableArray *) getDataForInterval: (NSDate *) startDate
 							   endDate:(NSDate *) endDate
 						  currencyName: (NSString *) currencyName
@@ -196,6 +244,40 @@ static InfoValutarAPI* INSTANCE;
 			return ct;
 	}
 	return nil;
+}
+
++(CurrencyItem *) findCurrencyNamed: (NSString *)currencyName inDictionary: (NSDictionary *) aDictionary
+{
+	CurrencyItem *ct = nil;
+
+	for (id key in aDictionary)
+	{
+		CurrencyItem *rez = [aDictionary valueForKey:key];
+		if ([rez.currencyName isEqualToString:currencyName])
+			ct=rez;
+	}
+	
+	return ct;
+}
+
++(BOOL) isWeekendInRomania {
+	
+	NSDate *todayDate= [NSDate date];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"];
+	[dateFormatter setLocale:roLocale];
+	
+	NSString *todayS = [dateFormatter stringFromDate:todayDate];
+	NSArray *listItems = [todayS componentsSeparatedByString:@", "];
+	
+	NSString *today = [listItems objectAtIndex:0];
+	NSLog(@"Today is %@", today);	
+	if ([today isEqualToString:@"sâmbătă"] || [today isEqualToString:@"duminică"])
+		return YES;
+
+	return NO;
 }
 
 +(NSDate *)getUTCFormateDateFromDate: (NSDate *) theDate

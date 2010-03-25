@@ -35,6 +35,7 @@
 -(UIView *) getHeaderView;
 -(void) pageUpdate;
 -(void) organizeTableSourceWithPriorities;
+-(void) setDefaultPriorities;
 -(void) updateCurrentDate;
 -(void) doneAction;
 
