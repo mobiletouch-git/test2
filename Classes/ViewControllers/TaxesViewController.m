@@ -21,6 +21,7 @@
 	
 	[editButton release];
 	[doneButton release];
+	[addButton release];
 	[tableDataSource release];
     [super dealloc];
 }
@@ -69,7 +70,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
+	doneButton = [[UIBarButtonItem alloc] initWithTitle:kOk
 												  style:UIBarButtonItemStyleDone
 												 target:self 
 												 action:@selector(doneAction)];
@@ -78,6 +79,12 @@
 												  style:UIBarButtonItemStyleBordered
 												 target:self 
 												 action:@selector(editAction)];
+	
+	addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+															  target:self
+															  action:@selector(addAction)];
+	[self.navigationItem setRightBarButtonItem:addButton];
+	
 	[self.navigationItem setLeftBarButtonItem:editButton];
 	
 	
@@ -98,6 +105,12 @@
 	
 #endif	
 	
+}
+
+-(void) addAction
+{
+	NSLog(@"Add new tax action");
+	[self addNewTaxAction];		
 }
 
 #pragma mark ARRollerDelegate required delegate method implementation
@@ -121,6 +134,7 @@
 {
 	[myTableView setEditing:YES];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
+	[self.navigationItem setRightBarButtonItem:nil];	
 	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationRight];			
 	[myTableView reloadData];
 }
@@ -129,6 +143,7 @@
 {
 	[myTableView setEditing:NO];	
 	[self.navigationItem setLeftBarButtonItem:editButton];	
+	[self.navigationItem setRightBarButtonItem:addButton];		
 	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];		
 	[myTableView reloadData];		
 }
@@ -185,9 +200,6 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (myTableView.editing)
-		return [tableDataSource count]+1;
-
 	return [tableDataSource count];
 }
 
@@ -200,27 +212,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	
-	if (indexPath.row==0 && tableView.editing)
-	{
-		static NSString *AddCellIdentifier = @"AddCell";
-		
-		UITableViewCell *addcell = [tableView dequeueReusableCellWithIdentifier:AddCellIdentifier];
-		if (addcell == nil) {
-			addcell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AddCellIdentifier] autorelease];
-		}	
-		
-		// Set up the cell...
-		
-		[addcell.textLabel setText:kAddNewTax];
-		[addcell.textLabel setTextColor:[UIColor darkGrayColor]];
-		addcell.textLabel.textAlignment = UITextAlignmentLeft;
-		[addcell setAccessoryType:UITableViewCellAccessoryNone];			
-		addcell.selectionStyle = UITableViewCellSelectionStyleBlue;
-		[addcell.textLabel setFont:[UIFont boldSystemFontOfSize:18]];
-		return addcell;
-		
-	}
-	
 	static NSString *CellIdentifier = @"Cell";
     
     TaxTableViewCell *cell = (TaxTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -229,16 +220,9 @@
     }
 	
 	AdditionFactorItem *addF;
-	if (tableView.editing)
-	{
-		addF = [tableDataSource objectAtIndex:indexPath.row-1];
-		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];				
-	}
-	else
-	{
-		addF = [tableDataSource objectAtIndex:indexPath.row];
-		[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];		
-	}
+	addF = [tableDataSource objectAtIndex:indexPath.row];
+	[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];		
+
 	[cell setAdditionFactor:addF enabled:NO];
 	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	[cell setEditing:myTableView.editing];
@@ -250,22 +234,14 @@
 
 	if (tableView.editing)
 	{
-		if (indexPath.row==0)
-			return UITableViewCellEditingStyleInsert;
-		else
-			return UITableViewCellEditingStyleDelete;
+		return UITableViewCellEditingStyleDelete;
 	}		
 	return UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSLog(@"Selected");
-	if (indexPath.row==0 && tableView.editing)
-	{
-		NSLog(@"Add new tax action");
-		[self addNewTaxAction];		
-	}
-	else if (!tableView.editing)
+	if (!tableView.editing)
 	{
 		AdditionFactorItem *factor = [tableDataSource objectAtIndex:indexPath.row];
 		[self editExistingTaxAction:factor];
@@ -280,16 +256,10 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (editingStyle == UITableViewCellEditingStyleInsert)
-	{
-		NSLog(@"Add new tax action");		
-		[self addNewTaxAction];
-	}
-	
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		NSLog(@"Delete the cell");
 		// Animate the deletion from the table.
-		[tableDataSource removeObjectAtIndex:indexPath.row-1];	
+		[tableDataSource removeObjectAtIndex:indexPath.row];	
 	}
 	[myTableView reloadData];
 }
@@ -305,8 +275,6 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (tableView.editing)
 	{
-		if (indexPath.row==0)
-			return NO;
 		return YES;
 	}
 	return NO;
@@ -320,18 +288,14 @@
 	targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath 
 	   toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
-	
-	if (proposedDestinationIndexPath.section==0 && proposedDestinationIndexPath.row==0) // if user wants to move to first row in table, return next row.
-		return [NSIndexPath indexPathForRow:1 inSection:0];
-	
 	return proposedDestinationIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
 		
-	AdditionFactorItem *movedObject = [[[self tableDataSource] objectAtIndex:sourceIndexPath.row-1] retain];
-	[[self tableDataSource] removeObjectAtIndex:sourceIndexPath.row-1];
-	[[self tableDataSource] insertObject: movedObject atIndex: destinationIndexPath.row-1];
+	AdditionFactorItem *movedObject = [[[self tableDataSource] objectAtIndex:sourceIndexPath.row] retain];
+	[[self tableDataSource] removeObjectAtIndex:sourceIndexPath.row];
+	[[self tableDataSource] insertObject: movedObject atIndex: destinationIndexPath.row];
 	[movedObject release];
 	movedObject=nil;
 }

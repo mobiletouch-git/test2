@@ -68,6 +68,8 @@
 		7D6865CE112AAA24003B00B7 /* edit_remove_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D6865CC112AAA24003B00B7 /* edit_remove_pressed.png */; };
 		7D686B10112AD7FB003B00B7 /* checkmarkYES.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D686B0F112AD7FB003B00B7 /* checkmarkYES.png */; };
 		7D686BB4112ADC36003B00B7 /* LightTaxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D686BB3112ADC36003B00B7 /* LightTaxTableViewCell.m */; };
+		7D7498B8115BA7860041D39F /* adPressedMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D7498B7115BA7860041D39F /* adPressedMask.png */; };
+		7D8411A8115C99F500A46827 /* adPressedMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D7498B7115BA7860041D39F /* adPressedMask.png */; };
 		7D85F25C113D2EE800BDE64B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D85F25B113D2EE800BDE64B /* Settings.bundle */; };
 		7D91EE481152349300046751 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D85F25B113D2EE800BDE64B /* Settings.bundle */; };
 		7D91EE491152349E00046751 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
@@ -354,6 +356,7 @@
 		7D686B0F112AD7FB003B00B7 /* checkmarkYES.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkmarkYES.png; path = Resources/checkmarkYES.png; sourceTree = "<group>"; };
 		7D686BB2112ADC36003B00B7 /* LightTaxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightTaxTableViewCell.h; path = "Classes/Custom Objects/LightTaxTableViewCell.h"; sourceTree = "<group>"; };
 		7D686BB3112ADC36003B00B7 /* LightTaxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LightTaxTableViewCell.m; path = "Classes/Custom Objects/LightTaxTableViewCell.m"; sourceTree = "<group>"; };
+		7D7498B7115BA7860041D39F /* adPressedMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = adPressedMask.png; path = Resources/adPressedMask.png; sourceTree = "<group>"; };
 		7D85F25B113D2EE800BDE64B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
 		7D91EE061152311B00046751 /* ConvertorValutar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConvertorValutar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D91EE081152311B00046751 /* ConvertorValutar-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ConvertorValutar-Info.plist"; sourceTree = "<group>"; };
@@ -577,6 +580,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7D7498B7115BA7860041D39F /* adPressedMask.png */,
 				7D91F56E115265B000046751 /* convertor.png */,
 				7D91F1B611524FE900046751 /* banner_offline.png */,
 				7D91F06F115240B500046751 /* app-store.png */,
@@ -1045,6 +1049,7 @@
 				7D91F1B711524FE900046751 /* banner_offline.png in Resources */,
 				7D91F1F91152505300046751 /* AdWhirlWebBrowser.xib in Resources */,
 				7D91F56F115265B000046751 /* convertor.png in Resources */,
+				7D7498B8115BA7860041D39F /* adPressedMask.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,6 +1057,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D8411A8115C99F500A46827 /* adPressedMask.png in Resources */,
 				7D91F570115265C500046751 /* convertor.png in Resources */,
 				7D91F0821152438C00046751 /* app-store.png in Resources */,
 				7D91F1FD1152507500046751 /* banner_offline.png in Resources */,

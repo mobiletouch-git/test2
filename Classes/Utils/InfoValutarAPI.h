@@ -17,8 +17,8 @@
 + (InfoValutarAPI*) sharedInstance;
 +(UIImageView *) displayCompanyLogo;
 +(NSString *) getStringFromDate: (NSDate *) theDate;
-+(NSMutableArray *) getCurrenciesForDate: (NSDate *) specificDate;
 
++(NSMutableArray *) getCurrenciesForDate: (NSDate *) specificDate;
 +(NSMutableArray *) getValidCurrenciesForDate: (NSDate *) specificDate;
 
 

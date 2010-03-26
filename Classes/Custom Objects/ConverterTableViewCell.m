@@ -348,14 +348,16 @@
 - (void)doneAction {
 
 	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
-	
 //	[converterValueTextField resignFirstResponder];
 	[self textFieldShouldReturn:converterValueTextField];
 }
 
 - (void)cancelAction {
-	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
 	
+	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
+	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];		
+	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
+	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];
 	[converterValueTextField setText:oldValue];
 	[converterValueTextField resignFirstResponder];
 //	[self textFieldShouldReturn:converterValueTextField];

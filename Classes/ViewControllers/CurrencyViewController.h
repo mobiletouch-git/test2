@@ -19,6 +19,7 @@
 	UIView *transparentView;	
 	
 	UIBarButtonItem *doneButton;
+	UIBarButtonItem *saveButton;	
 	UIBarButtonItem *cancelButton;
 	UIBarButtonItem *editButton;
 	UIBarButtonItem *updateButton;

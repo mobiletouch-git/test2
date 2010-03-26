@@ -78,9 +78,6 @@
 //	[self populate];
 	
 	[self initializeDatabase];
-	[self initializeLayout];
-	
-	[window addSubview:tabBarController.view];	
 	
 	userAction = YES;
 	id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"sAutomaticUpdate"];
@@ -98,6 +95,11 @@
 		userAction = NO; 
 		[self checkForUpdates];
 	}
+	
+
+	[self initializeLayout];
+	[window addSubview:tabBarController.view];	
+
 	[window makeKeyAndVisible];
 
 }

@@ -14,7 +14,7 @@
 #import "AsyncronousResponse.h"
 #import "CurrenciesParserDelegate.h"
 #import "CurrencyViewController.h"
-
+#import "DateFormat.h"
 static InfoValutarAPI* INSTANCE;
 
 @implementation InfoValutarAPI
@@ -89,47 +89,50 @@ static InfoValutarAPI* INSTANCE;
 +(NSMutableArray *) getValidCurrenciesForDate: (NSDate *) specificDate
 {
 	
-	NSDate *previousBankingDay = [DateFormat getPreviousDayForDay:specificDate];	
-	NSString *formattedStringFromDay = [DateFormat normalizedStringFromDate:previousBankingDay];
+	NSDate *previousBankingDay = [DateFormat getPreviousDayForDay:specificDate];
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:previousBankingDay];	
+	
+	NSString *formattedStringFromDay = [DateFormat DBformatDateFromDate:validBankingDate];
 	
 	if ([formattedStringFromDay compare:@"2009-01-05"] == NSOrderedDescending)
 	{
-	NSMutableDictionary *substDictionary = [NSMutableDictionary dictionary];
-	[substDictionary setObject:previousBankingDay forKey:@"DATE"];
-	
-	NSManagedObjectModel *model = [appDelegate managedObjectModel];	 
-	NSFetchRequest *fetch = [model fetchRequestFromTemplateWithName:@"getCurrenciesForDate"
-											  substitutionVariables:substDictionary];
-	
-	
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"currencyName" ascending:YES];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-	
-	[fetch setSortDescriptors:sortDescriptors];
-	
-	[sortDescriptor release];
-	[sortDescriptors release];
-	
-	NSMutableArray *mutableFetchResults = [[[appDelegate managedObjectContext] executeFetchRequest:fetch error:nil] mutableCopy];
-	NSMutableArray *arrayToReturn = [NSMutableArray array];
-	
-	for (int i=0;i<[mutableFetchResults count];i++)
-	{
-		CurrencyItem *curr = [[CurrencyItem alloc] init];
+		NSMutableDictionary *substDictionary = [NSMutableDictionary dictionary];
+		[substDictionary setObject:validBankingDate forKey:@"DATE"];
 		
-		Currency *managedObject = [mutableFetchResults objectAtIndex:i];
-		[curr setCurrencyName:[managedObject currencyName]];
-		[curr setCurrencyValue:[managedObject currencyValue]];
-		[curr setMultiplierValue:[managedObject currencyMultiplier]];
+		NSManagedObjectModel *model = [appDelegate managedObjectModel];	 
+		NSFetchRequest *fetch = [model fetchRequestFromTemplateWithName:@"getCurrenciesForDate"
+												  substitutionVariables:substDictionary];
 		
-		[arrayToReturn addObject:curr];
-		[curr release];
+		
+		NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"currencyName" ascending:YES];
+		NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+		
+		[fetch setSortDescriptors:sortDescriptors];
+		
+		[sortDescriptor release];
+		[sortDescriptors release];
+		
+		NSMutableArray *mutableFetchResults = [[[appDelegate managedObjectContext] executeFetchRequest:fetch error:nil] mutableCopy];
+		NSMutableArray *arrayToReturn = [NSMutableArray array];
+		
+		for (int i=0;i<[mutableFetchResults count];i++)
+		{
+			CurrencyItem *curr = [[CurrencyItem alloc] init];
+			
+			Currency *managedObject = [mutableFetchResults objectAtIndex:i];
+			[curr setCurrencyName:[managedObject currencyName]];
+			[curr setCurrencyValue:[managedObject currencyValue]];
+			[curr setMultiplierValue:[managedObject currencyMultiplier]];
+			
+			[arrayToReturn addObject:curr];
+			[curr release];
+		}
+		
+		[mutableFetchResults release];
+		
+		return arrayToReturn;
 	}
 	
-	[mutableFetchResults release];
-	
-	return arrayToReturn;
-	}
 	return nil;
 	
 }
@@ -167,7 +170,6 @@ static InfoValutarAPI* INSTANCE;
 
 +(NSDate *) getValidBankingDayForDay: (NSDate *) someDate
 {
-	
 	NSDate *testingDate = nil;
 	
 	NSMutableDictionary *substDictionary = [NSMutableDictionary dictionary];

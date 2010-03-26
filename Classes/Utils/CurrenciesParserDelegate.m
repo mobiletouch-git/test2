@@ -59,6 +59,7 @@
 		}
 */
 		NSString *attribute1 = [attributeDict valueForKey:@"timestamp"];
+		NSLog([attribute1 description]);
 		if (attribute1)
 		{
 			NSDate *normalizedDate = [NSDate dateWithTimeIntervalSince1970:[attribute1 intValue]];

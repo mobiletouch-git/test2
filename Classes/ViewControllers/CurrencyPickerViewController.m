@@ -48,9 +48,13 @@
 	{
 		CurrencyItem *c1 = [[CurrencyItem alloc] init];
 		[c1 setCurrencyName:@"RON"];
-		[tableDataSource insertObject:c1 atIndex:0];
+		[tableDataSource addObject:c1];
 		[c1 release];
 	}
+	
+	NSSortDescriptor *nameSorter = [[NSSortDescriptor alloc] initWithKey:@"currencyName" ascending:YES];
+	[tableDataSource sortUsingDescriptors:[NSArray arrayWithObject:nameSorter]];	
+	[nameSorter release];
 	
 	cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
 													style:UIBarButtonItemStyleBordered

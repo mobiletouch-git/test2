@@ -18,6 +18,7 @@
 	
 	UIBarButtonItem *editButton;
 	UIBarButtonItem *doneButton;
+	UIBarButtonItem *addButton;	
 }
 @property (nonatomic, retain)	NSMutableArray *tableDataSource;	
 

@@ -143,7 +143,7 @@
 	 [super viewDidLoad];
 	 
 	 //initialize and place tableView
-	 CGRect f1 = CGRectMake(0.0, 10.0+kTopPadding, 320, 100);
+	 CGRect f1 = CGRectMake(0.0, kTopPadding-10, 320, 135);
 	 dateRangeTableView = [[UITableView alloc] initWithFrame:f1 style:UITableViewStyleGrouped];
 	 dateRangeTableView.delegate = self;
 	 dateRangeTableView.dataSource = self;
@@ -152,7 +152,7 @@
 	 dateRangeTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	 [self.view addSubview:dateRangeTableView];
 	 
-	 CGRect f2 = CGRectMake(0.0, 115.0+kTopPadding, 320, 252-kTopPadding);
+	 CGRect f2 = CGRectMake(0.0, 125.0+kTopPadding, 320, 232-kTopPadding);
 	 currenciesTableView = [[UITableView alloc] initWithFrame:f2 style:UITableViewStyleGrouped];
 	 currenciesTableView.delegate = self;
 	 currenciesTableView.dataSource = self;
@@ -344,6 +344,15 @@
 	return 44;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	if (tableView == dateRangeTableView)
+		return @"Perioada";
+	else	if (tableView == currenciesTableView)
+		return @"Pentru";
+	return nil;
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -440,7 +449,8 @@
 				[cell enterEditMode:tableView.editing];
 			}
 			
-			[cell setAccessoryType:UITableViewCellAccessoryNone];		
+			[cell setAccessoryType:UITableViewCellAccessoryNone];	
+			[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 			return cell;
 		}
 	}

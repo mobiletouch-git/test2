@@ -102,10 +102,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	doneButton = [[UIBarButtonItem alloc] initWithTitle:kSave
+	saveButton = [[UIBarButtonItem alloc] initWithTitle:kSave
 												  style:UIBarButtonItemStyleDone
 												 target:self 
-												 action:@selector(doneAction)];
+												 action:@selector(saveAction)];
+	doneButton = [[UIBarButtonItem alloc] initWithTitle:kOk
+												  style:UIBarButtonItemStyleDone
+												 target:self 
+												 action:@selector(doneAction)];	
 	cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
 													style:UIBarButtonItemStyleBordered
 												   target:self
@@ -224,10 +228,12 @@
 
 -(void) titleButtonAction:(id) sender
 {
-	[self.navigationItem setLeftBarButtonItem:cancelButton];
-	[self.navigationItem setRightBarButtonItem:doneButton];
-	[datePicker setHidden:NO];		
-	[titleSeg setSelectedSegmentIndex:-1];
+	if ([titleSeg selectedSegmentIndex]>-1)
+	{
+		[self.navigationItem setLeftBarButtonItem:cancelButton];
+		[self.navigationItem setRightBarButtonItem:doneButton];
+		[datePicker setHidden:NO];		
+	}
 }
 
 -(void) pageUpdate
@@ -239,21 +245,38 @@
 	
 	if (validBankingDate)
 	{
-		if (![validBankingDate isEqualToDate:[self selectedDate]])
-			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR valabil pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
-							 title:nil];
-		
 		[tableDataSource removeAllObjects];		
-		[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
 		
-		NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
+		if ([appDelegate displayValidMode])
+			[tableDataSource addObjectsFromArray:[InfoValutarAPI getValidCurrenciesForDate:selectedDate]];
+		else
+		{
+			/*
+			if (![validBankingDate isEqualToDate:[self selectedDate]])
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR licitat pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
+								 title:nil];
+			*/
+			[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
+		}
+		
+		NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:selectedDate];
 		NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
 
 		[previousReferenceDay removeAllObjects];		
 		if (validBankingDate2)
-			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
+		{
+			if ([appDelegate displayValidMode])
+				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getValidCurrenciesForDate:validBankingDate2]];
+			else
+				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
+		}
 		else
-			[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
+		{
+			if ([appDelegate displayValidMode])
+				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getValidCurrenciesForDate:validBankingDate]];
+			else
+				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
+		}
 		
 		[self organizeTableSourceWithPriorities];
 		[myTableView reloadData];
@@ -262,53 +285,9 @@
 			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];	
 }
 
--(void) doneAction
+-(void) saveAction
 {
-	if (!datePicker.hidden)
-	{
-		NSDate *selDate = [DateFormat normalizeDateFromDate:[datePicker date]];
-		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:selDate];
-		[self setSelectedDate:utcDate];
-	//	[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
-		[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
-		
-		[self.navigationItem setLeftBarButtonItem:editButton];
-		[self.navigationItem setRightBarButtonItem:updateButton];
-		[datePicker setHidden:YES];		
-
-		
-		// =========== table Data Source =========== //
-		[tableDataSource removeAllObjects];
-		[previousReferenceDay removeAllObjects];
-		
-		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
-		
-		if (validBankingDate)
-		{
-			if (![validBankingDate isEqualToDate:[self selectedDate]]) {
-				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR valabil pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
-								 title:nil];
-				[self setSelectedDate:validBankingDate];
-				[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
-
-
-			}
-			[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
-			
-			NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:validBankingDate];
-			NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
-			if (validBankingDate2)
-				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
-			else
-				[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
-			
-			[self organizeTableSourceWithPriorities];			
-		}
-		else
-			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];		
-
-	}
-	else if (myTableView.editing)
+	if (myTableView.editing)
 	{
 		
 		NSMutableDictionary *priorities = [NSMutableDictionary dictionary];
@@ -330,6 +309,75 @@
 		
 		[self.navigationItem setRightBarButtonItem:updateButton];
 	}	
+	[titleSeg setSelectedSegmentIndex:-1];
+	[titleSeg setHidden:NO];
+}
+
+
+-(void) doneAction
+{
+	if (!datePicker.hidden)
+	{
+		NSDate *selDate = [DateFormat normalizeDateFromDate:[datePicker date]];
+		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:selDate];
+		[self setSelectedDate:utcDate];
+		[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
+		
+		[self.navigationItem setLeftBarButtonItem:editButton];
+		[self.navigationItem setRightBarButtonItem:updateButton];
+		[datePicker setHidden:YES];		
+
+		
+		// =========== table Data Source =========== //
+		[tableDataSource removeAllObjects];
+		[previousReferenceDay removeAllObjects];
+		
+		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
+		
+		if (validBankingDate)
+		{
+			if ([appDelegate displayValidMode])
+				[tableDataSource addObjectsFromArray:[InfoValutarAPI getValidCurrenciesForDate:selectedDate]];
+			else
+			{
+				/*
+				if (![validBankingDate isEqualToDate:[self selectedDate]]) {
+					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR licitat pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
+									 title:nil];
+				 */
+					[self setSelectedDate:validBankingDate];
+					[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
+				}				
+				[tableDataSource addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];
+			}
+			
+			NSDate *prevValidBankingDate = [DateFormat getPreviousDayForDay:selectedDate];
+			NSDate *validBankingDate2 = [InfoValutarAPI getValidBankingDayForDay:prevValidBankingDate];
+			if (validBankingDate2)
+			{
+				if ([appDelegate displayValidMode])
+				{
+					[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getValidCurrenciesForDate:validBankingDate2]];	
+				}
+				else
+					[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate2]];	
+			}
+			else
+			{
+				if ([appDelegate displayValidMode])
+					[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getValidCurrenciesForDate:validBankingDate]];	
+				else	
+					[previousReferenceDay addObjectsFromArray:[InfoValutarAPI getCurrenciesForDate:validBankingDate]];	
+			}
+			
+			[self organizeTableSourceWithPriorities];			
+		}
+		else
+			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];		
+
+
+
+	[titleSeg setSelectedSegmentIndex:-1];
 	[titleSeg setHidden:NO];	
 	[myTableView reloadData];	
 }
@@ -499,6 +547,8 @@
 	[self.navigationItem setRightBarButtonItem:updateButton];
 	[datePicker setHidden:YES];	
 	}
+	
+	[titleSeg setSelectedSegmentIndex:-1];	
 	[titleSeg setHidden:NO];	
 }
 
@@ -510,7 +560,7 @@
 	[self.navigationItem setRightBarButtonItem:nil];
 	
 	[myTableView reloadData];
-	[self.navigationItem setLeftBarButtonItem:doneButton];
+	[self.navigationItem setLeftBarButtonItem:saveButton];
 }
 
 

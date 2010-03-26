@@ -49,9 +49,9 @@
 #define kUpdate @"Actualizează"
 #define kAddNewTax @"Adăugați procent"
 #define kStartDateTitle @"Data de Start"
-#define kStartDateNotice @"Completați data de start pentru raportul care urmează a fi generat"
+#define kStartDateNotice @"Alegeți data de start pentru graficul care urmează a fi generat."
 #define kEndDateTitle @"Data de Final"
-#define kEndDateNotice @"Completați data de final pentru raportul care urmează a fi generat"
+#define kEndDateNotice @"Alegeți data de final pentru graficul care urmează a fi generat."
 
 #define kAdWhirlApplicationKey @"96c35b3ea0af459caa2e8eefce81d075"
 #if defined(CONVERTOR)	

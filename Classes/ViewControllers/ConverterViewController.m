@@ -96,7 +96,12 @@
 		//NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
 		if (validBankingDate)
 		{
-			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+			NSMutableArray *selectedCurrencies;
+			if ([appDelegate displayValidMode])
+				selectedCurrencies = [InfoValutarAPI getValidCurrenciesForDate:validBankingDate];
+			else
+				selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+			
 			if ([selectedCurrencies count])
 			{
 				[selectedReferenceDay removeAllObjects];
@@ -136,7 +141,11 @@
 	
 	if (validBankingDate)
 	{
-		NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+		NSMutableArray *selectedCurrencies;
+		if ([appDelegate displayValidMode])		
+			selectedCurrencies = [InfoValutarAPI getValidCurrenciesForDate:validBankingDate];			
+		else
+			selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 		if ([selectedCurrencies count])
 		{
 			[selectedReferenceDay removeAllObjects];			
@@ -422,14 +431,19 @@
 		NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
 		if (validBankingDate)
 		{
+			/*
 			if (![validBankingDate isEqualToDate:[self selectedDate]]) {
-				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR valabil pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
+				[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul valutar BNR licitat pentru %@ a fost stabilit în data de %@", [DateFormat businessStringFromDate:[self selectedDate]], [DateFormat businessStringFromDate:validBankingDate]]
 								 title:nil];
+			 */
 				[self setSelectedDate:validBankingDate];
 				[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
-			}
-			
-			NSMutableArray *selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+
+			NSMutableArray *selectedCurrencies;
+			if ([appDelegate displayValidMode])
+				selectedCurrencies = [InfoValutarAPI getValidCurrenciesForDate:validBankingDate];				
+			else
+				selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
 			if ([selectedCurrencies count])
 			{
 				[selectedReferenceDay removeAllObjects];				
