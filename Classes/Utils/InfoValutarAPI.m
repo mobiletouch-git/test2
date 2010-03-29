@@ -262,7 +262,7 @@ static InfoValutarAPI* INSTANCE;
 	return ct;
 }
 
-+(BOOL) isWeekendInRomania {
++(BOOL) isSaturdayInRomania {
 	
 	NSDate *todayDate= [NSDate date];
 	
@@ -276,11 +276,53 @@ static InfoValutarAPI* INSTANCE;
 	
 	NSString *today = [listItems objectAtIndex:0];
 	NSLog(@"Today is %@", today);	
-	if ([today isEqualToString:@"sâmbătă"] || [today isEqualToString:@"duminică"])
+	if ([today isEqualToString:@"sâmbătă"])
 		return YES;
 
 	return NO;
 }
+
++(BOOL) isSundayInRomania {
+	
+	NSDate *todayDate= [NSDate date];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"];
+	[dateFormatter setLocale:roLocale];
+	
+	NSString *todayS = [dateFormatter stringFromDate:todayDate];
+	NSArray *listItems = [todayS componentsSeparatedByString:@", "];
+	
+	NSString *today = [listItems objectAtIndex:0];
+	NSLog(@"Today is %@", today);	
+	if ([today isEqualToString:@"duminică"])
+		return YES;
+	
+	return NO;
+	
+}
+
++(BOOL) isMondayInRomania {
+	
+	NSDate *todayDate= [NSDate date];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"];
+	[dateFormatter setLocale:roLocale];
+	
+	NSString *todayS = [dateFormatter stringFromDate:todayDate];
+	NSArray *listItems = [todayS componentsSeparatedByString:@", "];
+	
+	NSString *today = [listItems objectAtIndex:0];
+	NSLog(@"Today is %@", today);	
+	if ([today isEqualToString:@"luni"])
+		return YES;
+	
+	return NO;
+}
+
 
 +(NSDate *)getUTCFormateDateFromDate: (NSDate *) theDate
 {

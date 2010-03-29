@@ -70,6 +70,7 @@
 
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;
+-(void) readFromDefaults;
 -(void) initializeLayout;
 -(void) checkForUpdates;
 -(void) populate;

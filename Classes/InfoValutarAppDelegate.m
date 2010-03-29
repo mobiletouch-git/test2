@@ -77,8 +77,9 @@
 
 //	[self populate];
 	
+
 	[self initializeDatabase];
-	
+	[self readFromDefaults];
 	userAction = YES;
 	id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"sAutomaticUpdate"];
 	if (!setting)
@@ -196,6 +197,27 @@
 	
 }
 
+-(void) readFromDefaults
+{
+	int savedTimeStamp = [[NSUserDefaults standardUserDefaults] integerForKey:@"globalTimeStamp"];
+	if (savedTimeStamp)
+		[self setGlobalTimeStamp:savedTimeStamp];
+	else
+	{
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"UpdateSettings" ofType:@"plist"];
+		NSDictionary *source = [NSDictionary dictionaryWithContentsOfFile:path];
+		NSString *savedTmpStamp = [source valueForKey:@"timeStamp"];
+		[self setGlobalTimeStamp:[savedTmpStamp intValue]];
+	}
+	
+	
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
+	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];
+	if (fullList)
+		currencyFullDictionary = [fullList retain];
+	
+}
+
 -(void) initializeLayout
 {
 	currencyViewController = [[CurrencyViewController alloc] init];
@@ -223,23 +245,6 @@
 	//read tabbar Index from NSUserDefauls	
 	int selectedTabIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedTabIndex"];
 	[tabBarController setSelectedIndex:selectedTabIndex];
-
-	int savedTimeStamp = [[NSUserDefaults standardUserDefaults] integerForKey:@"globalTimeStamp"];
-	if (savedTimeStamp)
-		[self setGlobalTimeStamp:savedTimeStamp];
-	else
-	{
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"UpdateSettings" ofType:@"plist"];
-		NSDictionary *source = [NSDictionary dictionaryWithContentsOfFile:path];
-		NSString *savedTmpStamp = [source valueForKey:@"timeStamp"];
-		[self setGlobalTimeStamp:[savedTmpStamp intValue]];
-	}
-	
-	
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"CurrencyNames" ofType:@"plist"];
-	NSDictionary *fullList = [NSDictionary dictionaryWithContentsOfFile:path];
-	if (fullList)
-		currencyFullDictionary = [fullList retain];
 	
 }
 
@@ -340,7 +345,7 @@
 
 	NSDate *updateDate = [InfoValutarAPI getUpdateDateForDate:utcDate];
 	
-	NSDate *yesterdayDate = [nTodayDate addTimeInterval:-86400];
+	NSDate *yesterdayDate = [DateFormat getPreviousDayForDay:nTodayDate]; 
 	yesterdayDate = [InfoValutarAPI getUTCFormateDateFromDate:yesterdayDate];
 	
 	//NSString *tomorrowDateStr = [DateFormat DBformatDateFromDate:tomorrowDate];
@@ -348,8 +353,8 @@
 	BOOL mustUpdate = NO;
 	
 	if ([todayDateStr compare:validBankingDateStr]==1)  { // Latest valid banking date is older than today
-	
-		if (![yesterdayDate compare:validBankingDate]) { //Latest update is yesterdays
+		
+		if (![yesterdayDate compare:validBankingDate] || [InfoValutarAPI isMondayInRomania] || [InfoValutarAPI isSaturdayInRomania] || [InfoValutarAPI isSundayInRomania]) { //Latest update is yesterdays
 			
 			if ([now compare:updateDate]==1) {	//It's past 11GMT
 					mustUpdate = YES;
@@ -361,27 +366,52 @@
 					NSString *todayStr = [DateFormat businessStringFromDate:today];
 					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR licitat în data de %@ nu a fost încă publicat.",todayStr]
 									 title:nil];
-
 				}
 				mustUpdate = NO;	
+				
+				if ([InfoValutarAPI isMondayInRomania])
+				{
+					NSDate *fridayDate = [DateFormat getDayBeforeDate:utcDate 
+														  howManyDays:3];
+					NSDate *fridayUTCDate = [InfoValutarAPI getUTCFormateDateFromDate:fridayDate];				
+					if (![fridayUTCDate compare:validBankingDate]) // is monday and we have the friday currency
+						mustUpdate = NO;
+					else
+						mustUpdate =YES;
+				}				
 			}
 			
-			if ([InfoValutarAPI isWeekendInRomania])
+			if ([InfoValutarAPI isSaturdayInRomania])
 			{
-				mustUpdate = NO;
-				NSLog(@"Is weekend");				
+				NSDate *fridayDate = [DateFormat getDayBeforeDate:utcDate 
+													  howManyDays:1];
+				NSDate *fridayUTCDate = [InfoValutarAPI getUTCFormateDateFromDate:fridayDate];				
+				if (![fridayUTCDate compare:validBankingDate]) // is saturday and we have the friday currency
+					mustUpdate = NO;
+				else
+					mustUpdate =YES;
+				
+			}
+		
+			if ([InfoValutarAPI isSundayInRomania])
+			{
+				NSDate *fridayDate = [DateFormat getDayBeforeDate:utcDate 
+													  howManyDays:2];
+				NSDate *fridayUTCDate = [InfoValutarAPI getUTCFormateDateFromDate:fridayDate];				
+				if (![fridayUTCDate compare:validBankingDate]) // is saturday and we have the friday currency
+					mustUpdate = NO;
+				else
+					mustUpdate =YES;
+				
 			}
 			
 		}
-		else {											//Latest update is older than yesterday
+		else {		//Latest update is older than yesterday
 			mustUpdate = YES;
-
 		}
 
 		
 	}
-	
-	
 	else {												// Latest valid banking date is up to date
 		if (userAction)
 			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]

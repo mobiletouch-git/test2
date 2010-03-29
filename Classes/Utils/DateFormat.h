@@ -50,6 +50,8 @@
 
 +(NSDate *) getNextDayForDay: (NSDate *) date;
 +(NSDate *) getPreviousDayForDay: (NSDate *) date;
++(NSDate *) getDayBeforeDate: (NSDate *) date
+				 howManyDays: (NSInteger) daysBefore;
 
 +(NSMutableDictionary *) getDaysForInterval: (NSDate *) intervalStartDate
 								endInterval: (NSDate *) intervalEndDate;

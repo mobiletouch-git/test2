@@ -1390,8 +1390,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = CONVERTOR;
@@ -1405,8 +1405,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = ConvertorValutar;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "A3D38D20-CA18-4DD0-B81B-E5AAB3FEF80B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3D38D20-CA18-4DD0-B81B-E5AAB3FEF80B";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Distribution;
@@ -1437,7 +1437,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1.2;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};

@@ -42,7 +42,7 @@
 
 	self.title = @"Alegeți";
 	
-	tableDataSource = [[NSMutableArray alloc]	initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
+	tableDataSource = [[NSMutableArray alloc] initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
 	
 	if (![parent isKindOfClass:[StatisticsViewController class]])
 	{

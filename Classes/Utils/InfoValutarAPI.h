@@ -30,7 +30,9 @@
 +(CurrencyItem *) getCurrencyForPriority: (NSInteger) priority inDictionary: (NSDictionary *) aDictionary;
 +(NSDate *)getUTCFormateDateFromDate: (NSDate *) theDate;
 +(NSDate *)getUpdateDateForDate: (NSDate *) theDate;
-+(BOOL) isWeekendInRomania;
++(BOOL) isSaturdayInRomania;
++(BOOL) isSundayInRomania;
++(BOOL) isMondayInRomania;
 +(NSDate *) getExtremityDateForCurrencyNamed: (NSString *)currencyName
 									   first: (BOOL) yesOrNo;
 

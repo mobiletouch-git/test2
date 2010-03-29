@@ -14,7 +14,6 @@
 - (void)dealloc {
 	
 	[taxSignImageView release];
-	[checkMarkView release];
     [super dealloc];
 }
 
@@ -25,7 +24,7 @@
 
 		
 		taxLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:16 bold:YES];
-		[taxLabel setFrame:CGRectMake(40,7,120,30)];
+		[taxLabel setFrame:CGRectMake(20,7,120,30)];
 		[taxLabel setTextAlignment:UITextAlignmentLeft];		
 		taxLabel.adjustsFontSizeToFitWidth=YES;			
 		[taxLabel setBackgroundColor:[UIColor clearColor]];
@@ -33,11 +32,6 @@
 		
 		taxSignImageView = [[UIImageView alloc] initWithFrame:CGRectMake(170,9,26,26)];
 		[self addSubview:taxSignImageView];
-		
-		checkMarkView = [[UIImageView alloc] initWithFrame:CGRectMake(16,15,16,16)];
-		[checkMarkView setImage:[UIImage imageNamed:@"checkmarkYES.png"]];
-		[checkMarkView setHidden:YES];		
-		[self addSubview:checkMarkView];		
 		
 		percentLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:18 bold:NO];
 		[percentLabel setFrame:CGRectMake(205,7,75,30)];
@@ -63,18 +57,10 @@
 	else
 		[self setBackgroundColor:[UIColor grayColor]];
 }
--(void) setChecked: (BOOL) yesOrNo
-{
-	if (yesOrNo)
-		[checkMarkView setHidden:NO];
-	else
-		[checkMarkView setHidden:YES];
-}
 
 -(void) setAdditionFactor: (AdditionFactorItem *) aFactor
 				  enabled: (BOOL) yesOrNo
 {
-	
 	[taxLabel setText:aFactor.factorName?aFactor.factorName:@""];
 	
 	if (aFactor.factorSign>0)	

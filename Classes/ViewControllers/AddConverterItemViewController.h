@@ -29,6 +29,5 @@
 @property (nonatomic, retain)	NSMutableArray *additionList;
 
 -(void) refresh;
--(void) rearangePriorities;
 
 @end

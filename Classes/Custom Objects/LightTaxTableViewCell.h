@@ -15,12 +15,10 @@
 	UILabel *taxLabel;
 	UIImageView *taxSignImageView;
 	UILabel *percentLabel;
-	UIImageView *checkMarkView;
 	
 }
 
 -(void) setAdditionFactor: (AdditionFactorItem *) aFactor
 				  enabled: (BOOL) yesOrNo;
--(void) setChecked: (BOOL) yesOrNo;
 -(void) setActive: (BOOL) yesOrNo;
 @end

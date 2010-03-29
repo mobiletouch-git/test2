@@ -11,6 +11,7 @@
 #import "UIFactory.h"
 #import "DateFormat.h"
 #import "Constants.h"
+#import "InfoValutarAPI.h"
 
 @implementation DatePickerViewController
 
@@ -112,7 +113,11 @@
 	datePicker.datePickerMode = UIDatePickerModeDate;
 	[datePicker setUserInteractionEnabled:YES];	
 	NSDate *dateToSelect = stringForTextFieldValue? [DateFormat dateFromNormalizedString:stringForTextFieldValue]:nil;
-	NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+	
+	NSDate *nTodayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
+	NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:nTodayDate];
+	NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:utcDate];
+	
 	if (dateToSelect)
 		[datePicker setDate:dateToSelect animated:NO];
 
@@ -122,17 +127,18 @@
 	NSString *eDate = [dict valueForKey:@"endDate"];
 	
 	[datePicker setMinimumDate:[DateFormat dateFromNormalizedString:@"05-01-2009"]];
-	[datePicker setMaximumDate:todayDate];
+	[datePicker setMaximumDate:validBankingDate];
 	
 	if ([editingValue isEqualToString:@"startDate"])
+	{
 		if (eDate)
 		{
 			NSDate *maxDate = [DateFormat dateFromNormalizedString:eDate];
 			[datePicker setMaximumDate:maxDate];
 			if (!dateToSelect)
 			{
-				if (!([todayDate compare:maxDate] == NSOrderedDescending))
-					[datePicker setDate:todayDate animated:NO];
+				if (!([validBankingDate compare:maxDate] == NSOrderedDescending))
+					[datePicker setDate:validBankingDate animated:NO];
 				else
 					[datePicker setDate:maxDate animated:NO];				
 			}
@@ -142,16 +148,21 @@
 					[datePicker setDate:maxDate animated:NO];						
 			}
 		}
+		else
+			[datePicker setDate:validBankingDate animated:NO];
+		
+	}	
 	
 	if ([editingValue isEqualToString:@"endDate"])
+	{
 		if (sDate)
 		{
 			NSDate *minDate = [DateFormat dateFromNormalizedString:sDate];
 			[datePicker setMinimumDate:minDate];
 			if (!dateToSelect)
 			{
-			if (!([todayDate compare:minDate] == NSOrderedAscending))
-				[datePicker setDate:todayDate animated:NO];
+			if (!([validBankingDate compare:minDate] == NSOrderedAscending))
+				[datePicker setDate:validBankingDate animated:NO];
 			else
 				[datePicker setDate:minDate animated:NO];
 			}
@@ -160,9 +171,10 @@
 				if (([dateToSelect compare:minDate] == NSOrderedAscending) || ([dateToSelect compare:minDate] == NSOrderedSame))				
 					[datePicker setDate:minDate animated:NO];						
 			}
-			
-
 		}
+		else
+			[datePicker setDate:validBankingDate animated:NO];
+	}
 	
 	[datePicker addTarget:self action:@selector(updateTextFieldWithDate) forControlEvents:UIControlEventValueChanged];	
 	[self.view addSubview:datePicker];

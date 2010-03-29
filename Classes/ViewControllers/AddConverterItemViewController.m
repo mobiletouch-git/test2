@@ -133,8 +133,7 @@
 	myTableView.scrollEnabled=YES;
 	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	[self.view addSubview:myTableView];
-	[myTableView setEditing:YES];
-	
+ 	
 	taxesArray = [[NSMutableArray alloc] init];
 	NSMutableArray *originalArray = [[appDelegate taxesViewController] tableDataSource];
 	
@@ -187,7 +186,7 @@
 		[noticeLabel setFrame:CGRectMake(20, 7, 280, 55)];
 		[noticeLabel setBackgroundColor:[UIColor clearColor]];
 		[noticeLabel setNumberOfLines:3];
-		[noticeLabel setText:@"Opțional puteți adăuga procente, ele sunt aplicate la bază în ordinea lor din listă."];
+		[noticeLabel setText:@"Opțional puteți adăuga procente, ele sunt aplicate la suma calculată anterior, în ordinea selectării lor din listă."];
 		
 		[transparentView addSubview:noticeLabel];
 		
@@ -255,12 +254,12 @@
 		
 		if (addF.checked)
 		{
-			[cell setChecked:YES];
+			[cell setAccessoryType:UITableViewCellAccessoryCheckmark];
 			[cell setActive:YES];	
 		}
 		else
 		{
-			[cell setChecked:NO];
+			[cell setAccessoryType:UITableViewCellAccessoryNone];			
 			[cell setActive:NO];	
 		}
 		
@@ -298,7 +297,7 @@
 					[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 					[tableView reloadData];
 						
-					[self rearangePriorities];					
+					[oneRowTableView reloadData];					
 					return;
 				}
 				
@@ -311,56 +310,12 @@
 						[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];						
 						[tableView reloadData];
 
-						[self rearangePriorities];						
+						[oneRowTableView reloadData];						
 						return;
 					}
 				}
 			}
 		}
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-	return UITableViewCellEditingStyleNone;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
-	return NO;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-
-	AdditionFactorItem *movedObject = [[taxesArray objectAtIndex:sourceIndexPath.row] retain];
-	[taxesArray removeObjectAtIndex:sourceIndexPath.row];
-	[taxesArray insertObject: movedObject atIndex: destinationIndexPath.row];
-	[movedObject release];
-	movedObject=nil;
-
-	[NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(rearangePriorities) userInfo:nil repeats:NO];
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (tableView == oneRowTableView)
-		return NO;
-	else if (tableView == myTableView)
-		return YES;
-	return NO;
-	
-}
-
-
--(void) rearangePriorities
-{
-
-	NSMutableArray *arangedList = [NSMutableArray array];
-	for (int i=0;i<[taxesArray count];i++)
-	{
-		AdditionFactorItem *addF = [taxesArray objectAtIndex:i];	
-		if (addF.checked)
-			[arangedList addObject:addF];
-	}
-	[self setAdditionList:arangedList];
-
-	[oneRowTableView reloadData];
 }
 
 /*

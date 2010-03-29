@@ -311,6 +311,7 @@
 	}	
 	[titleSeg setSelectedSegmentIndex:-1];
 	[titleSeg setHidden:NO];
+	[myTableView reloadData];
 }
 
 
@@ -372,8 +373,9 @@
 			
 			[self organizeTableSourceWithPriorities];			
 		}
-		else
-			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];		
+	/*	else
+			[UIFactory showOkAlert:@"Aplicaţia conţine informaţii începând cu 05/01/2009." title:nil];	
+	 */
 
 
 

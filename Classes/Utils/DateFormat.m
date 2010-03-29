@@ -269,6 +269,18 @@
 	return newDate;
 }
 
++(NSDate *) getDayBeforeDate: (NSDate *) date
+				 howManyDays: (NSInteger) daysBefore
+{
+	NSDateComponents *comps = [[NSDateComponents alloc] init];
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];	
+	[comps setDay:-daysBefore];
+	NSDate *newDate = [gregorian dateByAddingComponents:comps toDate:date options:0];
+	[comps release];
+	[gregorian release];
+	return newDate;
+}
+
 +(NSMutableDictionary *) getDaysForInterval: (NSDate *) intervalStartDate
 								endInterval: (NSDate *) intervalEndDate{
 	
