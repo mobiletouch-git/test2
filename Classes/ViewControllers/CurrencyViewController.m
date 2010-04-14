@@ -122,7 +122,6 @@
 	[self.navigationItem setLeftBarButtonItem:editButton];
 
 
-//	NSString *todayString = [DateFormat DBformatDateFromDate:self.selectedDate];	
 	NSString *todayString = [DateFormat businessStringFromDate:self.selectedDate];	
 
 	

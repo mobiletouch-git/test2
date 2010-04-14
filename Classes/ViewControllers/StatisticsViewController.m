@@ -15,6 +15,7 @@
 #import "CurrencyPickerViewController.h" 
 #import "DateFormat.h"
 #import "InfoValutarAPI.h"
+#import "AdWhirlView.h"
 
 @implementation StatisticsViewController
 

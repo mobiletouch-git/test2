@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AdWhirlView.h"
 #import "AdWhirlDelegateProtocol.h"
 
 

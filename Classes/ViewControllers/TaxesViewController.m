@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "AddNewTaxViewController.h"
 #import "InfoValutarAPI.h"
+#import "AdWhirlView.h"
 
 @implementation TaxesViewController
 

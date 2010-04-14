@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "AdditionFactorItem.h"
-#import "AdWhirlView.h"
 #import "AdWhirlDelegateProtocol.h"
 
 @interface TaxesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate>{

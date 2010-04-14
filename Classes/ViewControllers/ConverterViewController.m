@@ -16,6 +16,7 @@
 #import "ConverterTableViewCell.h"
 #import "CurrencyPickerViewController.h"
 #import "AdditionFactorItem.h"
+#import "AdWhirlView.h"
 
 @implementation ConverterViewController
 
