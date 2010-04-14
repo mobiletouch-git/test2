@@ -348,8 +348,6 @@
 	NSDate *yesterdayDate = [DateFormat getPreviousDayForDay:nTodayDate]; 
 	yesterdayDate = [InfoValutarAPI getUTCFormateDateFromDate:yesterdayDate];
 	
-	//NSString *tomorrowDateStr = [DateFormat DBformatDateFromDate:tomorrowDate];
-	
 	BOOL mustUpdate = NO;
 	
 	if ([todayDateStr compare:validBankingDateStr]==1)  { // Latest valid banking date is older than today
@@ -387,7 +385,11 @@
 													  howManyDays:1];
 				NSDate *fridayUTCDate = [InfoValutarAPI getUTCFormateDateFromDate:fridayDate];				
 				if (![fridayUTCDate compare:validBankingDate]) // is saturday and we have the friday currency
+				{
 					mustUpdate = NO;
+					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]
+									 title:nil];					
+				}
 				else
 					mustUpdate =YES;
 				
@@ -399,7 +401,11 @@
 													  howManyDays:2];
 				NSDate *fridayUTCDate = [InfoValutarAPI getUTCFormateDateFromDate:fridayDate];				
 				if (![fridayUTCDate compare:validBankingDate]) // is saturday and we have the friday currency
+				{
 					mustUpdate = NO;
+					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]
+									 title:nil];					
+				}
 				else
 					mustUpdate =YES;
 				

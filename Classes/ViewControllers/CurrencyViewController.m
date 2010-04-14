@@ -15,9 +15,8 @@
 #import "Constants.h"
 #import "InfoValutarAPI.h"
 #import "HistoryViewController.h"
-
 #import "AdWhirlView.h"
-#import "AdWhirlDelegateProtocol.h"
+
 
 @implementation CurrencyViewController
 

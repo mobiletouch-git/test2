@@ -360,6 +360,24 @@ static InfoValutarAPI* INSTANCE;
 
 +(NSDate *)getUpdateDateForDate: (NSDate *) theDate
 {
+	NSDate *todayGMT = [self getUTCFormateDateFromDate:theDate];
+	NSLog(@"Today GMT %@", todayGMT);
+	NSArray *dateComponents = [[todayGMT description] componentsSeparatedByCharactersInSet:  [NSCharacterSet characterSetWithCharactersInString:@" "]];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+	NSTimeZone *timeZoneRO = [NSTimeZone timeZoneWithName:@"Europe/Bucharest"];	
+	[dateFormatter setTimeZone:timeZoneRO];
+	
+	//	NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
+	
+	NSDate *updateDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ 13:00:00", [dateComponents objectAtIndex:0]]];
+	
+	NSLog(@"Update date GMT %@", updateDate);
+	
+	return updateDate;
+	
+	/*
 	NSString *dateString = [NSString stringWithFormat:@"%@", theDate];
 	
 	NSRange yearRange = {0, 4};		
@@ -389,7 +407,7 @@ static InfoValutarAPI* INSTANCE;
 	[gregorian release];
 	
 	return date;
-	
+	*/
 }
 
 - (void) updateDatabaseWithTimeStamp: (NSInteger) timeStmp

@@ -190,10 +190,28 @@
 		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR a fost actualizat."]
 						 title:@"Convertor Valutar"];
 	else {
-		NSDate *today = [NSDate date];
-		NSString *todayStr = [DateFormat businessStringFromDate:today];
-		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR licitat în data de %@ nu a fost încă publicat.",todayStr]
+		NSDate *dateForUpdate = [DateFormat normalizeDateFromDate:[NSDate date]];
+		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:dateForUpdate];		
+
+		if ([InfoValutarAPI isSaturdayInRomania])
+		{
+			NSDate *fridayDate = [DateFormat getDayBeforeDate:utcDate 
+												  howManyDays:1];
+			dateForUpdate = [InfoValutarAPI getUTCFormateDateFromDate:fridayDate];				
+		}
+		
+		else if ([InfoValutarAPI isSundayInRomania])
+		{
+			NSDate *fridayDate = [DateFormat getDayBeforeDate:utcDate 
+												  howManyDays:2];
+			dateForUpdate = [InfoValutarAPI getUTCFormateDateFromDate:fridayDate];				
+		}
+		
+		NSString *dateToShowString = [DateFormat businessStringFromDate:dateForUpdate];
+		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR licitat în data de %@ nu a fost încă publicat.", dateToShowString]
 						 title:nil];
+		
+		
 	}
 	
 	[[appDelegate currencyViewController] updateCurrentDate];

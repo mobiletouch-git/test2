@@ -153,7 +153,7 @@
 	 dateRangeTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	 [self.view addSubview:dateRangeTableView];
 	 
-	 CGRect f2 = CGRectMake(0.0, 130.0+kTopPadding, 320, 229-kTopPadding);
+	 CGRect f2 = CGRectMake(0.0, 125.0+kTopPadding, 320, 243-kTopPadding);
 	 currenciesTableView = [[UITableView alloc] initWithFrame:f2 style:UITableViewStyleGrouped];
 	 currenciesTableView.delegate = self;
 	 currenciesTableView.dataSource = self;

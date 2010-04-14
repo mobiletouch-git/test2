@@ -58,30 +58,6 @@
 		7D41712011131435002A0D0C /* XDR.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D41710111131435002A0D0C /* XDR.png */; };
 		7D41712111131435002A0D0C /* ZAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D41710211131435002A0D0C /* ZAR.png */; };
 		7D41714411131595002A0D0C /* InfoValutar.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7D41714311131595002A0D0C /* InfoValutar.sqlite */; };
-		7D57B9F31175BCD3001C7CB9 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57B9F21175BCD3001C7CB9 /* CDataScanner.m */; };
-		7D57B9FC1175BCEB001C7CB9 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57B9F51175BCEB001C7CB9 /* CDataScanner_Extensions.m */; };
-		7D57B9FD1175BCEB001C7CB9 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57B9F71175BCEB001C7CB9 /* NSCharacterSet_Extensions.m */; };
-		7D57B9FE1175BCEB001C7CB9 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57B9F91175BCEB001C7CB9 /* NSDictionary_JSONExtensions.m */; };
-		7D57B9FF1175BCEB001C7CB9 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57B9FB1175BCEB001C7CB9 /* NSScanner_Extensions.m */; };
-		7D57BA0A1175BCF6001C7CB9 /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA011175BCF6001C7CB9 /* CJSONDataSerializer.m */; };
-		7D57BA0B1175BCF6001C7CB9 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA031175BCF6001C7CB9 /* CJSONDeserializer.m */; };
-		7D57BA0C1175BCF6001C7CB9 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA051175BCF6001C7CB9 /* CJSONScanner.m */; };
-		7D57BA0D1175BCF6001C7CB9 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA071175BCF6001C7CB9 /* CJSONSerializer.m */; };
-		7D57BA0E1175BCF6001C7CB9 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA091175BCF6001C7CB9 /* CSerializedJSONData.m */; };
-		7D57BA571175BE3B001C7CB9 /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA3F1175BE3B001C7CB9 /* AdWhirlAdapterCustom.m */; };
-		7D57BA581175BE3B001C7CB9 /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA411175BE3B001C7CB9 /* AdWhirlAdapterGeneric.m */; };
-		7D57BA591175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA431175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter+Helpers.m */; };
-		7D57BA5A1175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA441175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter.m */; };
-		7D57BA5B1175BE3B001C7CB9 /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA461175BE3B001C7CB9 /* AdWhirlAdNetworkConfig.m */; };
-		7D57BA5C1175BE3B001C7CB9 /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA481175BE3B001C7CB9 /* AdWhirlAdNetworkRegistry.m */; };
-		7D57BA5D1175BE3B001C7CB9 /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA4A1175BE3B001C7CB9 /* AdWhirlConfig.m */; };
-		7D57BA5E1175BE3B001C7CB9 /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA4C1175BE3B001C7CB9 /* AdWhirlCustomAdView.m */; };
-		7D57BA5F1175BE3B001C7CB9 /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA4E1175BE3B001C7CB9 /* AdWhirlError.m */; };
-		7D57BA601175BE3B001C7CB9 /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA501175BE3B001C7CB9 /* AdWhirlLog.m */; };
-		7D57BA611175BE3B001C7CB9 /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA521175BE3B001C7CB9 /* AdWhirlView.m */; };
-		7D57BA621175BE3B001C7CB9 /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D57BA531175BE3B001C7CB9 /* AdWhirlWebBrowser.xib */; };
-		7D57BA631175BE3B001C7CB9 /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA551175BE3B001C7CB9 /* AdWhirlWebBrowserController.m */; };
-		7D57BA641175BE3B001C7CB9 /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D57BA561175BE3B001C7CB9 /* ARRollerView.m */; };
 		7D5D929B1137D0400087B8D2 /* S7GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5D92991137D0400087B8D2 /* S7GraphView.m */; };
 		7D685FAC112A7E7F003B00B7 /* TaxesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D685FAB112A7E7F003B00B7 /* TaxesViewController.m */; };
 		7D685FAF112A7FC8003B00B7 /* edit_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D685FAD112A7FC8003B00B7 /* edit_add.png */; };
@@ -257,14 +233,54 @@
 		7DD55CF91144E70000E86354 /* Iconita.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD55CF81144E70000E86354 /* Iconita.png */; };
 		7DD562F4114515D500E86354 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD562F3114515D500E86354 /* HistoryViewController.m */; };
 		7DD565CD11453CB900E86354 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD565CC11453CB900E86354 /* HistoryTableViewCell.m */; };
-		7DEFE5911175C13E001BDC82 /* AdWhirlAdapterAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE5811175C13E001BDC82 /* AdWhirlAdapterAdMob.m */; };
-		7DEFE5921175C13E001BDC82 /* AdWhirlAdapterGoogleAdSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE5831175C13E001BDC82 /* AdWhirlAdapterGoogleAdSense.m */; };
-		7DEFE5931175C13E001BDC82 /* AdWhirlAdapterInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE5851175C13E001BDC82 /* AdWhirlAdapterInMobi.m */; };
-		7DEFE5941175C13E001BDC82 /* AdWhirlAdapterJumpTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE5871175C13E001BDC82 /* AdWhirlAdapterJumpTap.m */; };
-		7DEFE5951175C13E001BDC82 /* AdWhirlAdapterMdotM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE5891175C13E001BDC82 /* AdWhirlAdapterMdotM.m */; };
-		7DEFE5961175C13E001BDC82 /* AdWhirlAdapterMillennial.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE58B1175C13E001BDC82 /* AdWhirlAdapterMillennial.m */; };
-		7DEFE5971175C13E001BDC82 /* AdWhirlAdapterQuattro.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE58D1175C13E001BDC82 /* AdWhirlAdapterQuattro.m */; };
-		7DEFE5981175C13E001BDC82 /* AdWhirlAdapterVideoEgg.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEFE58F1175C13E001BDC82 /* AdWhirlAdapterVideoEgg.m */; };
+		7DEA5D9C1175C87300F02D3B /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D841175C87300F02D3B /* AdWhirlAdapterCustom.m */; };
+		7DEA5D9D1175C87300F02D3B /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D861175C87300F02D3B /* AdWhirlAdapterGeneric.m */; };
+		7DEA5D9E1175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D881175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m */; };
+		7DEA5D9F1175C87300F02D3B /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D891175C87300F02D3B /* AdWhirlAdNetworkAdapter.m */; };
+		7DEA5DA01175C87300F02D3B /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D8B1175C87300F02D3B /* AdWhirlAdNetworkConfig.m */; };
+		7DEA5DA11175C87300F02D3B /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D8D1175C87300F02D3B /* AdWhirlAdNetworkRegistry.m */; };
+		7DEA5DA21175C87300F02D3B /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D8F1175C87300F02D3B /* AdWhirlConfig.m */; };
+		7DEA5DA31175C87300F02D3B /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D911175C87300F02D3B /* AdWhirlCustomAdView.m */; };
+		7DEA5DA41175C87300F02D3B /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D931175C87300F02D3B /* AdWhirlError.m */; };
+		7DEA5DA51175C87300F02D3B /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D951175C87300F02D3B /* AdWhirlLog.m */; };
+		7DEA5DA61175C87300F02D3B /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D971175C87300F02D3B /* AdWhirlView.m */; };
+		7DEA5DA71175C87300F02D3B /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA5D981175C87300F02D3B /* AdWhirlWebBrowser.xib */; };
+		7DEA5DA81175C87300F02D3B /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D9A1175C87300F02D3B /* AdWhirlWebBrowserController.m */; };
+		7DEA5DA91175C87300F02D3B /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D9B1175C87300F02D3B /* ARRollerView.m */; };
+		7DEA5DAA1175C87300F02D3B /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D841175C87300F02D3B /* AdWhirlAdapterCustom.m */; };
+		7DEA5DAB1175C87300F02D3B /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D861175C87300F02D3B /* AdWhirlAdapterGeneric.m */; };
+		7DEA5DAC1175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D881175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m */; };
+		7DEA5DAD1175C87300F02D3B /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D891175C87300F02D3B /* AdWhirlAdNetworkAdapter.m */; };
+		7DEA5DAE1175C87300F02D3B /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D8B1175C87300F02D3B /* AdWhirlAdNetworkConfig.m */; };
+		7DEA5DAF1175C87300F02D3B /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D8D1175C87300F02D3B /* AdWhirlAdNetworkRegistry.m */; };
+		7DEA5DB01175C87300F02D3B /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D8F1175C87300F02D3B /* AdWhirlConfig.m */; };
+		7DEA5DB11175C87300F02D3B /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D911175C87300F02D3B /* AdWhirlCustomAdView.m */; };
+		7DEA5DB21175C87300F02D3B /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D931175C87300F02D3B /* AdWhirlError.m */; };
+		7DEA5DB31175C87300F02D3B /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D951175C87300F02D3B /* AdWhirlLog.m */; };
+		7DEA5DB41175C87300F02D3B /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D971175C87300F02D3B /* AdWhirlView.m */; };
+		7DEA5DB51175C87300F02D3B /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA5D981175C87300F02D3B /* AdWhirlWebBrowser.xib */; };
+		7DEA5DB61175C87300F02D3B /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D9A1175C87300F02D3B /* AdWhirlWebBrowserController.m */; };
+		7DEA5DB71175C87300F02D3B /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5D9B1175C87300F02D3B /* ARRollerView.m */; };
+		7DEA5DBC1175C8B700F02D3B /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DBB1175C8B700F02D3B /* CDataScanner.m */; };
+		7DEA5DBD1175C8B700F02D3B /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DBB1175C8B700F02D3B /* CDataScanner.m */; };
+		7DEA5DC61175C8C700F02D3B /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DBF1175C8C700F02D3B /* CDataScanner_Extensions.m */; };
+		7DEA5DC71175C8C700F02D3B /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DC11175C8C700F02D3B /* NSCharacterSet_Extensions.m */; };
+		7DEA5DC81175C8C700F02D3B /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DC31175C8C700F02D3B /* NSDictionary_JSONExtensions.m */; };
+		7DEA5DC91175C8C700F02D3B /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DC51175C8C700F02D3B /* NSScanner_Extensions.m */; };
+		7DEA5DCA1175C8C700F02D3B /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DBF1175C8C700F02D3B /* CDataScanner_Extensions.m */; };
+		7DEA5DCB1175C8C700F02D3B /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DC11175C8C700F02D3B /* NSCharacterSet_Extensions.m */; };
+		7DEA5DCC1175C8C700F02D3B /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DC31175C8C700F02D3B /* NSDictionary_JSONExtensions.m */; };
+		7DEA5DCD1175C8C700F02D3B /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DC51175C8C700F02D3B /* NSScanner_Extensions.m */; };
+		7DEA5DD81175C8D700F02D3B /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DCF1175C8D700F02D3B /* CJSONDataSerializer.m */; };
+		7DEA5DD91175C8D700F02D3B /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD11175C8D700F02D3B /* CJSONDeserializer.m */; };
+		7DEA5DDA1175C8D700F02D3B /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD31175C8D700F02D3B /* CJSONScanner.m */; };
+		7DEA5DDB1175C8D700F02D3B /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD51175C8D700F02D3B /* CJSONSerializer.m */; };
+		7DEA5DDC1175C8D700F02D3B /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD71175C8D700F02D3B /* CSerializedJSONData.m */; };
+		7DEA5DDD1175C8D700F02D3B /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DCF1175C8D700F02D3B /* CJSONDataSerializer.m */; };
+		7DEA5DDE1175C8D700F02D3B /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD11175C8D700F02D3B /* CJSONDeserializer.m */; };
+		7DEA5DDF1175C8D700F02D3B /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD31175C8D700F02D3B /* CJSONScanner.m */; };
+		7DEA5DE01175C8D700F02D3B /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD51175C8D700F02D3B /* CJSONSerializer.m */; };
+		7DEA5DE11175C8D700F02D3B /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA5DD71175C8D700F02D3B /* CSerializedJSONData.m */; };
 		7DF23331114905D700915118 /* UpdateSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DF23330114905D700915118 /* UpdateSettings.plist */; };
 		7DF235CD11490EF300915118 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF235CB11490EF300915118 /* close.png */; };
 		7DF235CE11490EF300915118 /* close_touch.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF235CC11490EF300915118 /* close_touch.png */; };
@@ -329,55 +345,6 @@
 		7D41710111131435002A0D0C /* XDR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = XDR.png; path = Resources/Flags/XDR.png; sourceTree = "<group>"; };
 		7D41710211131435002A0D0C /* ZAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZAR.png; path = Resources/Flags/ZAR.png; sourceTree = "<group>"; };
 		7D41714311131595002A0D0C /* InfoValutar.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = InfoValutar.sqlite; path = Resources/InfoValutar.sqlite; sourceTree = "<group>"; };
-		7D57B9F11175BCD3001C7CB9 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDataScanner.h; path = TouchJSON/CDataScanner.h; sourceTree = "<group>"; };
-		7D57B9F21175BCD3001C7CB9 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDataScanner.m; path = TouchJSON/CDataScanner.m; sourceTree = "<group>"; };
-		7D57B9F41175BCEB001C7CB9 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDataScanner_Extensions.h; path = TouchJSON/Extensions/CDataScanner_Extensions.h; sourceTree = "<group>"; };
-		7D57B9F51175BCEB001C7CB9 /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDataScanner_Extensions.m; path = TouchJSON/Extensions/CDataScanner_Extensions.m; sourceTree = "<group>"; };
-		7D57B9F61175BCEB001C7CB9 /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSCharacterSet_Extensions.h; path = TouchJSON/Extensions/NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
-		7D57B9F71175BCEB001C7CB9 /* NSCharacterSet_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCharacterSet_Extensions.m; path = TouchJSON/Extensions/NSCharacterSet_Extensions.m; sourceTree = "<group>"; };
-		7D57B9F81175BCEB001C7CB9 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDictionary_JSONExtensions.h; path = TouchJSON/Extensions/NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
-		7D57B9F91175BCEB001C7CB9 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDictionary_JSONExtensions.m; path = TouchJSON/Extensions/NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
-		7D57B9FA1175BCEB001C7CB9 /* NSScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSScanner_Extensions.h; path = TouchJSON/Extensions/NSScanner_Extensions.h; sourceTree = "<group>"; };
-		7D57B9FB1175BCEB001C7CB9 /* NSScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSScanner_Extensions.m; path = TouchJSON/Extensions/NSScanner_Extensions.m; sourceTree = "<group>"; };
-		7D57BA001175BCF6001C7CB9 /* CJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONDataSerializer.h; path = TouchJSON/JSON/CJSONDataSerializer.h; sourceTree = "<group>"; };
-		7D57BA011175BCF6001C7CB9 /* CJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONDataSerializer.m; path = TouchJSON/JSON/CJSONDataSerializer.m; sourceTree = "<group>"; };
-		7D57BA021175BCF6001C7CB9 /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONDeserializer.h; path = TouchJSON/JSON/CJSONDeserializer.h; sourceTree = "<group>"; };
-		7D57BA031175BCF6001C7CB9 /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONDeserializer.m; path = TouchJSON/JSON/CJSONDeserializer.m; sourceTree = "<group>"; };
-		7D57BA041175BCF6001C7CB9 /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONScanner.h; path = TouchJSON/JSON/CJSONScanner.h; sourceTree = "<group>"; };
-		7D57BA051175BCF6001C7CB9 /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONScanner.m; path = TouchJSON/JSON/CJSONScanner.m; sourceTree = "<group>"; };
-		7D57BA061175BCF6001C7CB9 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONSerializer.h; path = TouchJSON/JSON/CJSONSerializer.h; sourceTree = "<group>"; };
-		7D57BA071175BCF6001C7CB9 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONSerializer.m; path = TouchJSON/JSON/CJSONSerializer.m; sourceTree = "<group>"; };
-		7D57BA081175BCF6001C7CB9 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSerializedJSONData.h; path = TouchJSON/JSON/CSerializedJSONData.h; sourceTree = "<group>"; };
-		7D57BA091175BCF6001C7CB9 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSerializedJSONData.m; path = TouchJSON/JSON/CSerializedJSONData.m; sourceTree = "<group>"; };
-		7D57BA3A1175BE22001C7CB9 /* AdWhirlDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlDelegateProtocol.h; path = AdWhirl/AdWhirlDelegateProtocol.h; sourceTree = "<group>"; };
-		7D57BA3B1175BE22001C7CB9 /* AdWhirlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlView.h; path = AdWhirl/AdWhirlView.h; sourceTree = "<group>"; };
-		7D57BA3C1175BE2F001C7CB9 /* ARRollerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARRollerProtocol.h; path = AdWhirl/legacy/ARRollerProtocol.h; sourceTree = "<group>"; };
-		7D57BA3D1175BE2F001C7CB9 /* ARRollerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARRollerView.h; path = AdWhirl/legacy/ARRollerView.h; sourceTree = "<group>"; };
-		7D57BA3E1175BE3B001C7CB9 /* AdWhirlAdapterCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterCustom.h; path = AdWhirl/internal/AdWhirlAdapterCustom.h; sourceTree = "<group>"; };
-		7D57BA3F1175BE3B001C7CB9 /* AdWhirlAdapterCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterCustom.m; path = AdWhirl/internal/AdWhirlAdapterCustom.m; sourceTree = "<group>"; };
-		7D57BA401175BE3B001C7CB9 /* AdWhirlAdapterGeneric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterGeneric.h; path = AdWhirl/internal/AdWhirlAdapterGeneric.h; sourceTree = "<group>"; };
-		7D57BA411175BE3B001C7CB9 /* AdWhirlAdapterGeneric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterGeneric.m; path = AdWhirl/internal/AdWhirlAdapterGeneric.m; sourceTree = "<group>"; };
-		7D57BA421175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AdWhirlAdNetworkAdapter+Helpers.h"; path = "AdWhirl/internal/AdWhirlAdNetworkAdapter+Helpers.h"; sourceTree = "<group>"; };
-		7D57BA431175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AdWhirlAdNetworkAdapter+Helpers.m"; path = "AdWhirl/internal/AdWhirlAdNetworkAdapter+Helpers.m"; sourceTree = "<group>"; };
-		7D57BA441175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdNetworkAdapter.m; path = AdWhirl/internal/AdWhirlAdNetworkAdapter.m; sourceTree = "<group>"; };
-		7D57BA451175BE3B001C7CB9 /* AdWhirlAdNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdNetworkConfig.h; path = AdWhirl/internal/AdWhirlAdNetworkConfig.h; sourceTree = "<group>"; };
-		7D57BA461175BE3B001C7CB9 /* AdWhirlAdNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdNetworkConfig.m; path = AdWhirl/internal/AdWhirlAdNetworkConfig.m; sourceTree = "<group>"; };
-		7D57BA471175BE3B001C7CB9 /* AdWhirlAdNetworkRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdNetworkRegistry.h; path = AdWhirl/internal/AdWhirlAdNetworkRegistry.h; sourceTree = "<group>"; };
-		7D57BA481175BE3B001C7CB9 /* AdWhirlAdNetworkRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdNetworkRegistry.m; path = AdWhirl/internal/AdWhirlAdNetworkRegistry.m; sourceTree = "<group>"; };
-		7D57BA491175BE3B001C7CB9 /* AdWhirlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlConfig.h; path = AdWhirl/internal/AdWhirlConfig.h; sourceTree = "<group>"; };
-		7D57BA4A1175BE3B001C7CB9 /* AdWhirlConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlConfig.m; path = AdWhirl/internal/AdWhirlConfig.m; sourceTree = "<group>"; };
-		7D57BA4B1175BE3B001C7CB9 /* AdWhirlCustomAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlCustomAdView.h; path = AdWhirl/internal/AdWhirlCustomAdView.h; sourceTree = "<group>"; };
-		7D57BA4C1175BE3B001C7CB9 /* AdWhirlCustomAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlCustomAdView.m; path = AdWhirl/internal/AdWhirlCustomAdView.m; sourceTree = "<group>"; };
-		7D57BA4D1175BE3B001C7CB9 /* AdWhirlError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlError.h; path = AdWhirl/internal/AdWhirlError.h; sourceTree = "<group>"; };
-		7D57BA4E1175BE3B001C7CB9 /* AdWhirlError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlError.m; path = AdWhirl/internal/AdWhirlError.m; sourceTree = "<group>"; };
-		7D57BA4F1175BE3B001C7CB9 /* AdWhirlLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlLog.h; path = AdWhirl/internal/AdWhirlLog.h; sourceTree = "<group>"; };
-		7D57BA501175BE3B001C7CB9 /* AdWhirlLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlLog.m; path = AdWhirl/internal/AdWhirlLog.m; sourceTree = "<group>"; };
-		7D57BA511175BE3B001C7CB9 /* AdWhirlView+.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AdWhirlView+.h"; path = "AdWhirl/internal/AdWhirlView+.h"; sourceTree = "<group>"; };
-		7D57BA521175BE3B001C7CB9 /* AdWhirlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlView.m; path = AdWhirl/internal/AdWhirlView.m; sourceTree = "<group>"; };
-		7D57BA531175BE3B001C7CB9 /* AdWhirlWebBrowser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AdWhirlWebBrowser.xib; path = AdWhirl/internal/AdWhirlWebBrowser.xib; sourceTree = "<group>"; };
-		7D57BA541175BE3B001C7CB9 /* AdWhirlWebBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlWebBrowserController.h; path = AdWhirl/internal/AdWhirlWebBrowserController.h; sourceTree = "<group>"; };
-		7D57BA551175BE3B001C7CB9 /* AdWhirlWebBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlWebBrowserController.m; path = AdWhirl/internal/AdWhirlWebBrowserController.m; sourceTree = "<group>"; };
-		7D57BA561175BE3B001C7CB9 /* ARRollerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARRollerView.m; path = AdWhirl/internal/ARRollerView.m; sourceTree = "<group>"; };
 		7D5D92981137D0400087B8D2 /* S7GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S7GraphView.h; path = Classes/Utils/S7GraphView.h; sourceTree = "<group>"; };
 		7D5D92991137D0400087B8D2 /* S7GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = S7GraphView.m; path = Classes/Utils/S7GraphView.m; sourceTree = "<group>"; };
 		7D5D929A1137D0400087B8D2 /* S7Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = S7Macros.h; path = Classes/Utils/S7Macros.h; sourceTree = "<group>"; };
@@ -469,23 +436,56 @@
 		7DD562F3114515D500E86354 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryViewController.m; path = Classes/ViewControllers/HistoryViewController.m; sourceTree = "<group>"; };
 		7DD565CB11453CB900E86354 /* HistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryTableViewCell.h; path = "Classes/Custom Objects/HistoryTableViewCell.h"; sourceTree = "<group>"; };
 		7DD565CC11453CB900E86354 /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryTableViewCell.m; path = "Classes/Custom Objects/HistoryTableViewCell.m"; sourceTree = "<group>"; };
-		7DEFE5801175C13E001BDC82 /* AdWhirlAdapterAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterAdMob.h; path = AdWhirl/adapters/AdWhirlAdapterAdMob.h; sourceTree = "<group>"; };
-		7DEFE5811175C13E001BDC82 /* AdWhirlAdapterAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterAdMob.m; path = AdWhirl/adapters/AdWhirlAdapterAdMob.m; sourceTree = "<group>"; };
-		7DEFE5821175C13E001BDC82 /* AdWhirlAdapterGoogleAdSense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterGoogleAdSense.h; path = AdWhirl/adapters/AdWhirlAdapterGoogleAdSense.h; sourceTree = "<group>"; };
-		7DEFE5831175C13E001BDC82 /* AdWhirlAdapterGoogleAdSense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterGoogleAdSense.m; path = AdWhirl/adapters/AdWhirlAdapterGoogleAdSense.m; sourceTree = "<group>"; };
-		7DEFE5841175C13E001BDC82 /* AdWhirlAdapterInMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterInMobi.h; path = AdWhirl/adapters/AdWhirlAdapterInMobi.h; sourceTree = "<group>"; };
-		7DEFE5851175C13E001BDC82 /* AdWhirlAdapterInMobi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterInMobi.m; path = AdWhirl/adapters/AdWhirlAdapterInMobi.m; sourceTree = "<group>"; };
-		7DEFE5861175C13E001BDC82 /* AdWhirlAdapterJumpTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterJumpTap.h; path = AdWhirl/adapters/AdWhirlAdapterJumpTap.h; sourceTree = "<group>"; };
-		7DEFE5871175C13E001BDC82 /* AdWhirlAdapterJumpTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterJumpTap.m; path = AdWhirl/adapters/AdWhirlAdapterJumpTap.m; sourceTree = "<group>"; };
-		7DEFE5881175C13E001BDC82 /* AdWhirlAdapterMdotM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterMdotM.h; path = AdWhirl/adapters/AdWhirlAdapterMdotM.h; sourceTree = "<group>"; };
-		7DEFE5891175C13E001BDC82 /* AdWhirlAdapterMdotM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterMdotM.m; path = AdWhirl/adapters/AdWhirlAdapterMdotM.m; sourceTree = "<group>"; };
-		7DEFE58A1175C13E001BDC82 /* AdWhirlAdapterMillennial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterMillennial.h; path = AdWhirl/adapters/AdWhirlAdapterMillennial.h; sourceTree = "<group>"; };
-		7DEFE58B1175C13E001BDC82 /* AdWhirlAdapterMillennial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterMillennial.m; path = AdWhirl/adapters/AdWhirlAdapterMillennial.m; sourceTree = "<group>"; };
-		7DEFE58C1175C13E001BDC82 /* AdWhirlAdapterQuattro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterQuattro.h; path = AdWhirl/adapters/AdWhirlAdapterQuattro.h; sourceTree = "<group>"; };
-		7DEFE58D1175C13E001BDC82 /* AdWhirlAdapterQuattro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterQuattro.m; path = AdWhirl/adapters/AdWhirlAdapterQuattro.m; sourceTree = "<group>"; };
-		7DEFE58E1175C13E001BDC82 /* AdWhirlAdapterVideoEgg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterVideoEgg.h; path = AdWhirl/adapters/AdWhirlAdapterVideoEgg.h; sourceTree = "<group>"; };
-		7DEFE58F1175C13E001BDC82 /* AdWhirlAdapterVideoEgg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterVideoEgg.m; path = AdWhirl/adapters/AdWhirlAdapterVideoEgg.m; sourceTree = "<group>"; };
-		7DEFE5901175C13E001BDC82 /* AdWhirlAdNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdNetworkAdapter.h; path = AdWhirl/adapters/AdWhirlAdNetworkAdapter.h; sourceTree = "<group>"; };
+		7DEA5D7F1175C84800F02D3B /* AdWhirlDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlDelegateProtocol.h; path = AdWhirl/AdWhirlDelegateProtocol.h; sourceTree = "<group>"; };
+		7DEA5D801175C84800F02D3B /* AdWhirlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlView.h; path = AdWhirl/AdWhirlView.h; sourceTree = "<group>"; };
+		7DEA5D811175C86000F02D3B /* ARRollerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARRollerProtocol.h; path = AdWhirl/legacy/ARRollerProtocol.h; sourceTree = "<group>"; };
+		7DEA5D821175C86000F02D3B /* ARRollerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARRollerView.h; path = AdWhirl/legacy/ARRollerView.h; sourceTree = "<group>"; };
+		7DEA5D831175C87300F02D3B /* AdWhirlAdapterCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterCustom.h; path = AdWhirl/internal/AdWhirlAdapterCustom.h; sourceTree = "<group>"; };
+		7DEA5D841175C87300F02D3B /* AdWhirlAdapterCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterCustom.m; path = AdWhirl/internal/AdWhirlAdapterCustom.m; sourceTree = "<group>"; };
+		7DEA5D851175C87300F02D3B /* AdWhirlAdapterGeneric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdapterGeneric.h; path = AdWhirl/internal/AdWhirlAdapterGeneric.h; sourceTree = "<group>"; };
+		7DEA5D861175C87300F02D3B /* AdWhirlAdapterGeneric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdapterGeneric.m; path = AdWhirl/internal/AdWhirlAdapterGeneric.m; sourceTree = "<group>"; };
+		7DEA5D871175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AdWhirlAdNetworkAdapter+Helpers.h"; path = "AdWhirl/internal/AdWhirlAdNetworkAdapter+Helpers.h"; sourceTree = "<group>"; };
+		7DEA5D881175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AdWhirlAdNetworkAdapter+Helpers.m"; path = "AdWhirl/internal/AdWhirlAdNetworkAdapter+Helpers.m"; sourceTree = "<group>"; };
+		7DEA5D891175C87300F02D3B /* AdWhirlAdNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdNetworkAdapter.m; path = AdWhirl/internal/AdWhirlAdNetworkAdapter.m; sourceTree = "<group>"; };
+		7DEA5D8A1175C87300F02D3B /* AdWhirlAdNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdNetworkConfig.h; path = AdWhirl/internal/AdWhirlAdNetworkConfig.h; sourceTree = "<group>"; };
+		7DEA5D8B1175C87300F02D3B /* AdWhirlAdNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdNetworkConfig.m; path = AdWhirl/internal/AdWhirlAdNetworkConfig.m; sourceTree = "<group>"; };
+		7DEA5D8C1175C87300F02D3B /* AdWhirlAdNetworkRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdNetworkRegistry.h; path = AdWhirl/internal/AdWhirlAdNetworkRegistry.h; sourceTree = "<group>"; };
+		7DEA5D8D1175C87300F02D3B /* AdWhirlAdNetworkRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlAdNetworkRegistry.m; path = AdWhirl/internal/AdWhirlAdNetworkRegistry.m; sourceTree = "<group>"; };
+		7DEA5D8E1175C87300F02D3B /* AdWhirlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlConfig.h; path = AdWhirl/internal/AdWhirlConfig.h; sourceTree = "<group>"; };
+		7DEA5D8F1175C87300F02D3B /* AdWhirlConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlConfig.m; path = AdWhirl/internal/AdWhirlConfig.m; sourceTree = "<group>"; };
+		7DEA5D901175C87300F02D3B /* AdWhirlCustomAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlCustomAdView.h; path = AdWhirl/internal/AdWhirlCustomAdView.h; sourceTree = "<group>"; };
+		7DEA5D911175C87300F02D3B /* AdWhirlCustomAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlCustomAdView.m; path = AdWhirl/internal/AdWhirlCustomAdView.m; sourceTree = "<group>"; };
+		7DEA5D921175C87300F02D3B /* AdWhirlError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlError.h; path = AdWhirl/internal/AdWhirlError.h; sourceTree = "<group>"; };
+		7DEA5D931175C87300F02D3B /* AdWhirlError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlError.m; path = AdWhirl/internal/AdWhirlError.m; sourceTree = "<group>"; };
+		7DEA5D941175C87300F02D3B /* AdWhirlLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlLog.h; path = AdWhirl/internal/AdWhirlLog.h; sourceTree = "<group>"; };
+		7DEA5D951175C87300F02D3B /* AdWhirlLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlLog.m; path = AdWhirl/internal/AdWhirlLog.m; sourceTree = "<group>"; };
+		7DEA5D961175C87300F02D3B /* AdWhirlView+.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AdWhirlView+.h"; path = "AdWhirl/internal/AdWhirlView+.h"; sourceTree = "<group>"; };
+		7DEA5D971175C87300F02D3B /* AdWhirlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlView.m; path = AdWhirl/internal/AdWhirlView.m; sourceTree = "<group>"; };
+		7DEA5D981175C87300F02D3B /* AdWhirlWebBrowser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AdWhirlWebBrowser.xib; path = AdWhirl/internal/AdWhirlWebBrowser.xib; sourceTree = "<group>"; };
+		7DEA5D991175C87300F02D3B /* AdWhirlWebBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlWebBrowserController.h; path = AdWhirl/internal/AdWhirlWebBrowserController.h; sourceTree = "<group>"; };
+		7DEA5D9A1175C87300F02D3B /* AdWhirlWebBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdWhirlWebBrowserController.m; path = AdWhirl/internal/AdWhirlWebBrowserController.m; sourceTree = "<group>"; };
+		7DEA5D9B1175C87300F02D3B /* ARRollerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARRollerView.m; path = AdWhirl/internal/ARRollerView.m; sourceTree = "<group>"; };
+		7DEA5DB81175C88600F02D3B /* AdWhirlAdNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdWhirlAdNetworkAdapter.h; path = AdWhirl/adapters/AdWhirlAdNetworkAdapter.h; sourceTree = "<group>"; };
+		7DEA5DBA1175C8B700F02D3B /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDataScanner.h; path = TouchJSON/CDataScanner.h; sourceTree = "<group>"; };
+		7DEA5DBB1175C8B700F02D3B /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDataScanner.m; path = TouchJSON/CDataScanner.m; sourceTree = "<group>"; };
+		7DEA5DBE1175C8C700F02D3B /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDataScanner_Extensions.h; path = TouchJSON/Extensions/CDataScanner_Extensions.h; sourceTree = "<group>"; };
+		7DEA5DBF1175C8C700F02D3B /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDataScanner_Extensions.m; path = TouchJSON/Extensions/CDataScanner_Extensions.m; sourceTree = "<group>"; };
+		7DEA5DC01175C8C700F02D3B /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSCharacterSet_Extensions.h; path = TouchJSON/Extensions/NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
+		7DEA5DC11175C8C700F02D3B /* NSCharacterSet_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCharacterSet_Extensions.m; path = TouchJSON/Extensions/NSCharacterSet_Extensions.m; sourceTree = "<group>"; };
+		7DEA5DC21175C8C700F02D3B /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDictionary_JSONExtensions.h; path = TouchJSON/Extensions/NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
+		7DEA5DC31175C8C700F02D3B /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDictionary_JSONExtensions.m; path = TouchJSON/Extensions/NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		7DEA5DC41175C8C700F02D3B /* NSScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSScanner_Extensions.h; path = TouchJSON/Extensions/NSScanner_Extensions.h; sourceTree = "<group>"; };
+		7DEA5DC51175C8C700F02D3B /* NSScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSScanner_Extensions.m; path = TouchJSON/Extensions/NSScanner_Extensions.m; sourceTree = "<group>"; };
+		7DEA5DCE1175C8D700F02D3B /* CJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONDataSerializer.h; path = TouchJSON/JSON/CJSONDataSerializer.h; sourceTree = "<group>"; };
+		7DEA5DCF1175C8D700F02D3B /* CJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONDataSerializer.m; path = TouchJSON/JSON/CJSONDataSerializer.m; sourceTree = "<group>"; };
+		7DEA5DD01175C8D700F02D3B /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONDeserializer.h; path = TouchJSON/JSON/CJSONDeserializer.h; sourceTree = "<group>"; };
+		7DEA5DD11175C8D700F02D3B /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONDeserializer.m; path = TouchJSON/JSON/CJSONDeserializer.m; sourceTree = "<group>"; };
+		7DEA5DD21175C8D700F02D3B /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONScanner.h; path = TouchJSON/JSON/CJSONScanner.h; sourceTree = "<group>"; };
+		7DEA5DD31175C8D700F02D3B /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONScanner.m; path = TouchJSON/JSON/CJSONScanner.m; sourceTree = "<group>"; };
+		7DEA5DD41175C8D700F02D3B /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJSONSerializer.h; path = TouchJSON/JSON/CJSONSerializer.h; sourceTree = "<group>"; };
+		7DEA5DD51175C8D700F02D3B /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CJSONSerializer.m; path = TouchJSON/JSON/CJSONSerializer.m; sourceTree = "<group>"; };
+		7DEA5DD61175C8D700F02D3B /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSerializedJSONData.h; path = TouchJSON/JSON/CSerializedJSONData.h; sourceTree = "<group>"; };
+		7DEA5DD71175C8D700F02D3B /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSerializedJSONData.m; path = TouchJSON/JSON/CSerializedJSONData.m; sourceTree = "<group>"; };
 		7DF23330114905D700915118 /* UpdateSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UpdateSettings.plist; path = Resources/UpdateSettings.plist; sourceTree = "<group>"; };
 		7DF235CB11490EF300915118 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = Resources/close.png; sourceTree = "<group>"; };
 		7DF235CC11490EF300915118 /* close_touch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_touch.png; path = Resources/close_touch.png; sourceTree = "<group>"; };
@@ -751,8 +751,8 @@
 		7D91F15411524B3D00046751 /* AdWhirl */ = {
 			isa = PBXGroup;
 			children = (
-				7D57BA3A1175BE22001C7CB9 /* AdWhirlDelegateProtocol.h */,
-				7D57BA3B1175BE22001C7CB9 /* AdWhirlView.h */,
+				7DEA5D7F1175C84800F02D3B /* AdWhirlDelegateProtocol.h */,
+				7DEA5D801175C84800F02D3B /* AdWhirlView.h */,
 				7D91F1D21152502E00046751 /* Legacy */,
 				7D91F1D11152502900046751 /* Internal */,
 				7D91F1B81152502000046751 /* Adapters */,
@@ -763,23 +763,7 @@
 		7D91F1B81152502000046751 /* Adapters */ = {
 			isa = PBXGroup;
 			children = (
-				7DEFE5801175C13E001BDC82 /* AdWhirlAdapterAdMob.h */,
-				7DEFE5811175C13E001BDC82 /* AdWhirlAdapterAdMob.m */,
-				7DEFE5821175C13E001BDC82 /* AdWhirlAdapterGoogleAdSense.h */,
-				7DEFE5831175C13E001BDC82 /* AdWhirlAdapterGoogleAdSense.m */,
-				7DEFE5841175C13E001BDC82 /* AdWhirlAdapterInMobi.h */,
-				7DEFE5851175C13E001BDC82 /* AdWhirlAdapterInMobi.m */,
-				7DEFE5861175C13E001BDC82 /* AdWhirlAdapterJumpTap.h */,
-				7DEFE5871175C13E001BDC82 /* AdWhirlAdapterJumpTap.m */,
-				7DEFE5881175C13E001BDC82 /* AdWhirlAdapterMdotM.h */,
-				7DEFE5891175C13E001BDC82 /* AdWhirlAdapterMdotM.m */,
-				7DEFE58A1175C13E001BDC82 /* AdWhirlAdapterMillennial.h */,
-				7DEFE58B1175C13E001BDC82 /* AdWhirlAdapterMillennial.m */,
-				7DEFE58C1175C13E001BDC82 /* AdWhirlAdapterQuattro.h */,
-				7DEFE58D1175C13E001BDC82 /* AdWhirlAdapterQuattro.m */,
-				7DEFE58E1175C13E001BDC82 /* AdWhirlAdapterVideoEgg.h */,
-				7DEFE58F1175C13E001BDC82 /* AdWhirlAdapterVideoEgg.m */,
-				7DEFE5901175C13E001BDC82 /* AdWhirlAdNetworkAdapter.h */,
+				7DEA5DB81175C88600F02D3B /* AdWhirlAdNetworkAdapter.h */,
 			);
 			name = Adapters;
 			sourceTree = "<group>";
@@ -787,31 +771,31 @@
 		7D91F1D11152502900046751 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				7D57BA3E1175BE3B001C7CB9 /* AdWhirlAdapterCustom.h */,
-				7D57BA3F1175BE3B001C7CB9 /* AdWhirlAdapterCustom.m */,
-				7D57BA401175BE3B001C7CB9 /* AdWhirlAdapterGeneric.h */,
-				7D57BA411175BE3B001C7CB9 /* AdWhirlAdapterGeneric.m */,
-				7D57BA421175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter+Helpers.h */,
-				7D57BA431175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter+Helpers.m */,
-				7D57BA441175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter.m */,
-				7D57BA451175BE3B001C7CB9 /* AdWhirlAdNetworkConfig.h */,
-				7D57BA461175BE3B001C7CB9 /* AdWhirlAdNetworkConfig.m */,
-				7D57BA471175BE3B001C7CB9 /* AdWhirlAdNetworkRegistry.h */,
-				7D57BA481175BE3B001C7CB9 /* AdWhirlAdNetworkRegistry.m */,
-				7D57BA491175BE3B001C7CB9 /* AdWhirlConfig.h */,
-				7D57BA4A1175BE3B001C7CB9 /* AdWhirlConfig.m */,
-				7D57BA4B1175BE3B001C7CB9 /* AdWhirlCustomAdView.h */,
-				7D57BA4C1175BE3B001C7CB9 /* AdWhirlCustomAdView.m */,
-				7D57BA4D1175BE3B001C7CB9 /* AdWhirlError.h */,
-				7D57BA4E1175BE3B001C7CB9 /* AdWhirlError.m */,
-				7D57BA4F1175BE3B001C7CB9 /* AdWhirlLog.h */,
-				7D57BA501175BE3B001C7CB9 /* AdWhirlLog.m */,
-				7D57BA511175BE3B001C7CB9 /* AdWhirlView+.h */,
-				7D57BA521175BE3B001C7CB9 /* AdWhirlView.m */,
-				7D57BA531175BE3B001C7CB9 /* AdWhirlWebBrowser.xib */,
-				7D57BA541175BE3B001C7CB9 /* AdWhirlWebBrowserController.h */,
-				7D57BA551175BE3B001C7CB9 /* AdWhirlWebBrowserController.m */,
-				7D57BA561175BE3B001C7CB9 /* ARRollerView.m */,
+				7DEA5D831175C87300F02D3B /* AdWhirlAdapterCustom.h */,
+				7DEA5D841175C87300F02D3B /* AdWhirlAdapterCustom.m */,
+				7DEA5D851175C87300F02D3B /* AdWhirlAdapterGeneric.h */,
+				7DEA5D861175C87300F02D3B /* AdWhirlAdapterGeneric.m */,
+				7DEA5D871175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.h */,
+				7DEA5D881175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m */,
+				7DEA5D891175C87300F02D3B /* AdWhirlAdNetworkAdapter.m */,
+				7DEA5D8A1175C87300F02D3B /* AdWhirlAdNetworkConfig.h */,
+				7DEA5D8B1175C87300F02D3B /* AdWhirlAdNetworkConfig.m */,
+				7DEA5D8C1175C87300F02D3B /* AdWhirlAdNetworkRegistry.h */,
+				7DEA5D8D1175C87300F02D3B /* AdWhirlAdNetworkRegistry.m */,
+				7DEA5D8E1175C87300F02D3B /* AdWhirlConfig.h */,
+				7DEA5D8F1175C87300F02D3B /* AdWhirlConfig.m */,
+				7DEA5D901175C87300F02D3B /* AdWhirlCustomAdView.h */,
+				7DEA5D911175C87300F02D3B /* AdWhirlCustomAdView.m */,
+				7DEA5D921175C87300F02D3B /* AdWhirlError.h */,
+				7DEA5D931175C87300F02D3B /* AdWhirlError.m */,
+				7DEA5D941175C87300F02D3B /* AdWhirlLog.h */,
+				7DEA5D951175C87300F02D3B /* AdWhirlLog.m */,
+				7DEA5D961175C87300F02D3B /* AdWhirlView+.h */,
+				7DEA5D971175C87300F02D3B /* AdWhirlView.m */,
+				7DEA5D981175C87300F02D3B /* AdWhirlWebBrowser.xib */,
+				7DEA5D991175C87300F02D3B /* AdWhirlWebBrowserController.h */,
+				7DEA5D9A1175C87300F02D3B /* AdWhirlWebBrowserController.m */,
+				7DEA5D9B1175C87300F02D3B /* ARRollerView.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -819,8 +803,8 @@
 		7D91F1D21152502E00046751 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
-				7D57BA3C1175BE2F001C7CB9 /* ARRollerProtocol.h */,
-				7D57BA3D1175BE2F001C7CB9 /* ARRollerView.h */,
+				7DEA5D811175C86000F02D3B /* ARRollerProtocol.h */,
+				7DEA5D821175C86000F02D3B /* ARRollerView.h */,
 			);
 			name = Legacy;
 			sourceTree = "<group>";
@@ -828,8 +812,8 @@
 		7D91F243115251C600046751 /* TouchJSON */ = {
 			isa = PBXGroup;
 			children = (
-				7D57B9F11175BCD3001C7CB9 /* CDataScanner.h */,
-				7D57B9F21175BCD3001C7CB9 /* CDataScanner.m */,
+				7DEA5DBA1175C8B700F02D3B /* CDataScanner.h */,
+				7DEA5DBB1175C8B700F02D3B /* CDataScanner.m */,
 				7D91F249115251E700046751 /* Extensions */,
 				7D91F248115251DB00046751 /* JSON */,
 			);
@@ -839,16 +823,16 @@
 		7D91F248115251DB00046751 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				7D57BA001175BCF6001C7CB9 /* CJSONDataSerializer.h */,
-				7D57BA011175BCF6001C7CB9 /* CJSONDataSerializer.m */,
-				7D57BA021175BCF6001C7CB9 /* CJSONDeserializer.h */,
-				7D57BA031175BCF6001C7CB9 /* CJSONDeserializer.m */,
-				7D57BA041175BCF6001C7CB9 /* CJSONScanner.h */,
-				7D57BA051175BCF6001C7CB9 /* CJSONScanner.m */,
-				7D57BA061175BCF6001C7CB9 /* CJSONSerializer.h */,
-				7D57BA071175BCF6001C7CB9 /* CJSONSerializer.m */,
-				7D57BA081175BCF6001C7CB9 /* CSerializedJSONData.h */,
-				7D57BA091175BCF6001C7CB9 /* CSerializedJSONData.m */,
+				7DEA5DCE1175C8D700F02D3B /* CJSONDataSerializer.h */,
+				7DEA5DCF1175C8D700F02D3B /* CJSONDataSerializer.m */,
+				7DEA5DD01175C8D700F02D3B /* CJSONDeserializer.h */,
+				7DEA5DD11175C8D700F02D3B /* CJSONDeserializer.m */,
+				7DEA5DD21175C8D700F02D3B /* CJSONScanner.h */,
+				7DEA5DD31175C8D700F02D3B /* CJSONScanner.m */,
+				7DEA5DD41175C8D700F02D3B /* CJSONSerializer.h */,
+				7DEA5DD51175C8D700F02D3B /* CJSONSerializer.m */,
+				7DEA5DD61175C8D700F02D3B /* CSerializedJSONData.h */,
+				7DEA5DD71175C8D700F02D3B /* CSerializedJSONData.m */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -856,14 +840,14 @@
 		7D91F249115251E700046751 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				7D57B9F41175BCEB001C7CB9 /* CDataScanner_Extensions.h */,
-				7D57B9F51175BCEB001C7CB9 /* CDataScanner_Extensions.m */,
-				7D57B9F61175BCEB001C7CB9 /* NSCharacterSet_Extensions.h */,
-				7D57B9F71175BCEB001C7CB9 /* NSCharacterSet_Extensions.m */,
-				7D57B9F81175BCEB001C7CB9 /* NSDictionary_JSONExtensions.h */,
-				7D57B9F91175BCEB001C7CB9 /* NSDictionary_JSONExtensions.m */,
-				7D57B9FA1175BCEB001C7CB9 /* NSScanner_Extensions.h */,
-				7D57B9FB1175BCEB001C7CB9 /* NSScanner_Extensions.m */,
+				7DEA5DBE1175C8C700F02D3B /* CDataScanner_Extensions.h */,
+				7DEA5DBF1175C8C700F02D3B /* CDataScanner_Extensions.m */,
+				7DEA5DC01175C8C700F02D3B /* NSCharacterSet_Extensions.h */,
+				7DEA5DC11175C8C700F02D3B /* NSCharacterSet_Extensions.m */,
+				7DEA5DC21175C8C700F02D3B /* NSDictionary_JSONExtensions.h */,
+				7DEA5DC31175C8C700F02D3B /* NSDictionary_JSONExtensions.m */,
+				7DEA5DC41175C8C700F02D3B /* NSScanner_Extensions.h */,
+				7DEA5DC51175C8C700F02D3B /* NSScanner_Extensions.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1078,7 +1062,7 @@
 				7D91F1B711524FE900046751 /* banner_offline.png in Resources */,
 				7D91F56F115265B000046751 /* convertor.png in Resources */,
 				7D7498B8115BA7860041D39F /* adPressedMask.png in Resources */,
-				7D57BA621175BE3B001C7CB9 /* AdWhirlWebBrowser.xib in Resources */,
+				7DEA5DA71175C87300F02D3B /* AdWhirlWebBrowser.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1153,6 +1137,7 @@
 				7D91EE791152349E00046751 /* blueButton.png in Resources */,
 				7D91EE7A1152349E00046751 /* whiteButton.png in Resources */,
 				7D91EE481152349300046751 /* Settings.bundle in Resources */,
+				7DEA5DB51175C87300F02D3B /* AdWhirlWebBrowser.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1197,37 +1182,29 @@
 				3EC48D1B114FE42C0014BE41 /* TermsViewController.m in Sources */,
 				7DD562F4114515D500E86354 /* HistoryViewController.m in Sources */,
 				7DD565CD11453CB900E86354 /* HistoryTableViewCell.m in Sources */,
-				7D57B9F31175BCD3001C7CB9 /* CDataScanner.m in Sources */,
-				7D57B9FC1175BCEB001C7CB9 /* CDataScanner_Extensions.m in Sources */,
-				7D57B9FD1175BCEB001C7CB9 /* NSCharacterSet_Extensions.m in Sources */,
-				7D57B9FE1175BCEB001C7CB9 /* NSDictionary_JSONExtensions.m in Sources */,
-				7D57B9FF1175BCEB001C7CB9 /* NSScanner_Extensions.m in Sources */,
-				7D57BA0A1175BCF6001C7CB9 /* CJSONDataSerializer.m in Sources */,
-				7D57BA0B1175BCF6001C7CB9 /* CJSONDeserializer.m in Sources */,
-				7D57BA0C1175BCF6001C7CB9 /* CJSONScanner.m in Sources */,
-				7D57BA0D1175BCF6001C7CB9 /* CJSONSerializer.m in Sources */,
-				7D57BA0E1175BCF6001C7CB9 /* CSerializedJSONData.m in Sources */,
-				7D57BA571175BE3B001C7CB9 /* AdWhirlAdapterCustom.m in Sources */,
-				7D57BA581175BE3B001C7CB9 /* AdWhirlAdapterGeneric.m in Sources */,
-				7D57BA591175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */,
-				7D57BA5A1175BE3B001C7CB9 /* AdWhirlAdNetworkAdapter.m in Sources */,
-				7D57BA5B1175BE3B001C7CB9 /* AdWhirlAdNetworkConfig.m in Sources */,
-				7D57BA5C1175BE3B001C7CB9 /* AdWhirlAdNetworkRegistry.m in Sources */,
-				7D57BA5D1175BE3B001C7CB9 /* AdWhirlConfig.m in Sources */,
-				7D57BA5E1175BE3B001C7CB9 /* AdWhirlCustomAdView.m in Sources */,
-				7D57BA5F1175BE3B001C7CB9 /* AdWhirlError.m in Sources */,
-				7D57BA601175BE3B001C7CB9 /* AdWhirlLog.m in Sources */,
-				7D57BA611175BE3B001C7CB9 /* AdWhirlView.m in Sources */,
-				7D57BA631175BE3B001C7CB9 /* AdWhirlWebBrowserController.m in Sources */,
-				7D57BA641175BE3B001C7CB9 /* ARRollerView.m in Sources */,
-				7DEFE5911175C13E001BDC82 /* AdWhirlAdapterAdMob.m in Sources */,
-				7DEFE5921175C13E001BDC82 /* AdWhirlAdapterGoogleAdSense.m in Sources */,
-				7DEFE5931175C13E001BDC82 /* AdWhirlAdapterInMobi.m in Sources */,
-				7DEFE5941175C13E001BDC82 /* AdWhirlAdapterJumpTap.m in Sources */,
-				7DEFE5951175C13E001BDC82 /* AdWhirlAdapterMdotM.m in Sources */,
-				7DEFE5961175C13E001BDC82 /* AdWhirlAdapterMillennial.m in Sources */,
-				7DEFE5971175C13E001BDC82 /* AdWhirlAdapterQuattro.m in Sources */,
-				7DEFE5981175C13E001BDC82 /* AdWhirlAdapterVideoEgg.m in Sources */,
+				7DEA5D9C1175C87300F02D3B /* AdWhirlAdapterCustom.m in Sources */,
+				7DEA5D9D1175C87300F02D3B /* AdWhirlAdapterGeneric.m in Sources */,
+				7DEA5D9E1175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */,
+				7DEA5D9F1175C87300F02D3B /* AdWhirlAdNetworkAdapter.m in Sources */,
+				7DEA5DA01175C87300F02D3B /* AdWhirlAdNetworkConfig.m in Sources */,
+				7DEA5DA11175C87300F02D3B /* AdWhirlAdNetworkRegistry.m in Sources */,
+				7DEA5DA21175C87300F02D3B /* AdWhirlConfig.m in Sources */,
+				7DEA5DA31175C87300F02D3B /* AdWhirlCustomAdView.m in Sources */,
+				7DEA5DA41175C87300F02D3B /* AdWhirlError.m in Sources */,
+				7DEA5DA51175C87300F02D3B /* AdWhirlLog.m in Sources */,
+				7DEA5DA61175C87300F02D3B /* AdWhirlView.m in Sources */,
+				7DEA5DA81175C87300F02D3B /* AdWhirlWebBrowserController.m in Sources */,
+				7DEA5DA91175C87300F02D3B /* ARRollerView.m in Sources */,
+				7DEA5DBC1175C8B700F02D3B /* CDataScanner.m in Sources */,
+				7DEA5DC61175C8C700F02D3B /* CDataScanner_Extensions.m in Sources */,
+				7DEA5DC71175C8C700F02D3B /* NSCharacterSet_Extensions.m in Sources */,
+				7DEA5DC81175C8C700F02D3B /* NSDictionary_JSONExtensions.m in Sources */,
+				7DEA5DC91175C8C700F02D3B /* NSScanner_Extensions.m in Sources */,
+				7DEA5DD81175C8D700F02D3B /* CJSONDataSerializer.m in Sources */,
+				7DEA5DD91175C8D700F02D3B /* CJSONDeserializer.m in Sources */,
+				7DEA5DDA1175C8D700F02D3B /* CJSONScanner.m in Sources */,
+				7DEA5DDB1175C8D700F02D3B /* CJSONSerializer.m in Sources */,
+				7DEA5DDC1175C8D700F02D3B /* CSerializedJSONData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1269,6 +1246,29 @@
 				7D91F2BE1152545900046751 /* TermsViewController.m in Sources */,
 				7D91F2BF1152545900046751 /* HistoryViewController.m in Sources */,
 				7D91F2C01152545900046751 /* HistoryTableViewCell.m in Sources */,
+				7DEA5DAA1175C87300F02D3B /* AdWhirlAdapterCustom.m in Sources */,
+				7DEA5DAB1175C87300F02D3B /* AdWhirlAdapterGeneric.m in Sources */,
+				7DEA5DAC1175C87300F02D3B /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */,
+				7DEA5DAD1175C87300F02D3B /* AdWhirlAdNetworkAdapter.m in Sources */,
+				7DEA5DAE1175C87300F02D3B /* AdWhirlAdNetworkConfig.m in Sources */,
+				7DEA5DAF1175C87300F02D3B /* AdWhirlAdNetworkRegistry.m in Sources */,
+				7DEA5DB01175C87300F02D3B /* AdWhirlConfig.m in Sources */,
+				7DEA5DB11175C87300F02D3B /* AdWhirlCustomAdView.m in Sources */,
+				7DEA5DB21175C87300F02D3B /* AdWhirlError.m in Sources */,
+				7DEA5DB31175C87300F02D3B /* AdWhirlLog.m in Sources */,
+				7DEA5DB41175C87300F02D3B /* AdWhirlView.m in Sources */,
+				7DEA5DB61175C87300F02D3B /* AdWhirlWebBrowserController.m in Sources */,
+				7DEA5DB71175C87300F02D3B /* ARRollerView.m in Sources */,
+				7DEA5DBD1175C8B700F02D3B /* CDataScanner.m in Sources */,
+				7DEA5DCA1175C8C700F02D3B /* CDataScanner_Extensions.m in Sources */,
+				7DEA5DCB1175C8C700F02D3B /* NSCharacterSet_Extensions.m in Sources */,
+				7DEA5DCC1175C8C700F02D3B /* NSDictionary_JSONExtensions.m in Sources */,
+				7DEA5DCD1175C8C700F02D3B /* NSScanner_Extensions.m in Sources */,
+				7DEA5DDD1175C8D700F02D3B /* CJSONDataSerializer.m in Sources */,
+				7DEA5DDE1175C8D700F02D3B /* CJSONDeserializer.m in Sources */,
+				7DEA5DDF1175C8D700F02D3B /* CJSONScanner.m in Sources */,
+				7DEA5DE01175C8D700F02D3B /* CJSONSerializer.m in Sources */,
+				7DEA5DE11175C8D700F02D3B /* CSerializedJSONData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1279,7 +1279,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1291,7 +1292,8 @@
 				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "F6E4B967-453C-43EA-9056-C87AC1F1EAF3";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};

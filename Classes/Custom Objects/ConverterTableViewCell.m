@@ -42,10 +42,17 @@
 		[self addSubview:converterFlagImageView];
 		
 		converterNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
-		[converterNameLabel setFrame:CGRectMake(48,11,175,23)];
+		[converterNameLabel setFrame:CGRectMake(48,11,42,23)];
 		[converterNameLabel setTextAlignment:UITextAlignmentLeft];		
 		converterNameLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:converterNameLabel];	
+		
+		multiplierLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:12 bold:YES];
+		[multiplierLabel setFrame:CGRectMake(92,15,30,20)];
+		[multiplierLabel setFont:[UIFont systemFontOfSize:12]];
+		[multiplierLabel setTextColor:[UIColor lightGrayColor]];
+		multiplierLabel.adjustsFontSizeToFitWidth=YES;			
+		[self addSubview:multiplierLabel];		
 		
 		converterAdditionLabel = [UIFactory newLabelWithPrimaryColor:[UIColor grayColor] selectedColor:[UIColor whiteColor] fontSize:12 bold:YES];
 		[converterAdditionLabel setBackgroundColor:[UIColor clearColor]];
@@ -109,7 +116,12 @@
 	{
 		NSString *imageName = [NSString stringWithFormat:@"%@.png", [ci currencyName]];
 		UIImage *flagImage = [UIImage imageNamed:imageName];
-		[converterFlagImageView setImage:flagImage?flagImage:nil];		
+		[converterFlagImageView setImage:flagImage?flagImage:nil];	
+	
+		if ([ci.multiplierValue intValue])
+			[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [ci.multiplierValue intValue]]];
+		else
+			[multiplierLabel setText:@""];		
 	}
 	
 	NSString *labelString = [NSString stringWithString: [ci currencyName]];
@@ -153,14 +165,16 @@
 	if (yesOrNo)
 	{
 		[converterFlagImageView setFrame:CGRectMake(10+k,6,32,32)];
-		[converterNameLabel setFrame:CGRectMake(48+k,11,175,23)];
+		[multiplierLabel setFrame:CGRectMake(92+k,13,30,20)];		
+		[converterNameLabel setFrame:CGRectMake(48+k,11,42,23)];
 		[converterAdditionLabel setFrame:CGRectMake(8+k,40,304,15)];					
 		[converterValueTextField setHidden:YES]; 
 	}
 	else
 	{
 		[converterFlagImageView setFrame:CGRectMake(10,6,32,32)];
-		[converterNameLabel setFrame:CGRectMake(48,11,175,23)];
+		[multiplierLabel setFrame:CGRectMake(92,13,30,20)];		
+		[converterNameLabel setFrame:CGRectMake(48,11,42,23)];
 		[converterAdditionLabel setFrame:CGRectMake(8,40,304,15)];	
 		[converterValueTextField setHidden:NO]; 
 	}

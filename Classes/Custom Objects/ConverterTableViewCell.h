@@ -14,6 +14,7 @@
 	ConverterItem *converter;
 	UIImageView *converterFlagImageView;
 	UILabel *converterNameLabel;
+	UILabel *multiplierLabel;		
 	UILabel *converterAdditionLabel;	
 	UITextField *converterValueTextField;	
 	
