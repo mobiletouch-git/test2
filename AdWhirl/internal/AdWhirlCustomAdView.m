@@ -69,8 +69,7 @@
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = self.bounds;
-//    button.showsTouchWhenHighlighted = YES;
-	[button setImage:[UIImage imageNamed:@"adPressedMask.png"] forState:UIControlStateHighlighted];	  
+    button.showsTouchWhenHighlighted = YES;
     [button addTarget:self action:@selector(buttonTapUp:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
   }
@@ -142,8 +141,9 @@
     
   } // text ad
   else if (adType == AWCustomAdTypeBanner) {
-    // draw image
-    [image drawAtPoint:CGPointZero];
+    // draw image, place image in center of frame
+    [image drawAtPoint:CGPointMake((self.frame.size.width-image.size.width)/2,
+                                   (self.frame.size.height-image.size.height)/2)];
   } // banner ad
 }
 

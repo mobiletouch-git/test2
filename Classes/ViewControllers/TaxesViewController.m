@@ -125,6 +125,19 @@
 	[[self.view viewWithTag:111] removeFromSuperview];
 }
 
+- (void)adWhirlDidReceiveConfig:(AdWhirlView *)adWhirlView {
+	NSLog(@"Received config");
+}
+
+- (UIViewController *)viewControllerForPresentingModalView {
+	
+	return self.navigationController;
+}
+
+- (NSURL *)adWhirlConfigURL {
+	return [NSURL URLWithString:kSampleConfigURL];
+}
+
 - (void)adWhirlDidFailToReceiveAd:(AdWhirlView *)adWhirlView usingBackup:(BOOL)yesOrNo
 {
 	NSLog(@"Did fail add");	

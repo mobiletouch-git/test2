@@ -46,11 +46,17 @@ NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
 @synthesize config;
 @synthesize prioritizedAdNetworks;
 @synthesize currAdapter;
+@synthesize lastAdapter;
 @synthesize lastRequestTime;
 @synthesize refreshTimer;
 @synthesize lastError;
+@synthesize showingModalView;
 
 + (AdWhirlView *)requestAdWhirlViewWithDelegate:(id<AdWhirlDelegate>)delegate {
+  if (![delegate respondsToSelector:@selector(viewControllerForPresentingModalView)]) {
+    [NSException raise:@"AdWhirlIncompleteDelegateException"
+                format:@"AdWhirlDelegate must implement viewControllerForPresentingModalView"];
+  }
   return [[[AdWhirlView alloc] initWithDelegate:delegate] autorelease];
 }
 
@@ -68,6 +74,8 @@ static id<AdWhirlDelegate> classAdWhirlDelegateForConfig = nil;
     delegate = d;
     self.backgroundColor = [UIColor clearColor];
     self.clipsToBounds = YES; // to prevent ugly artifacts if ad network banners are bigger than the default frame
+    showingModalView = NO;
+    appInactive = NO;
 
     AdWhirlConfig *cfg = [AdWhirlConfig fetchConfig:[delegate adWhirlApplicationKey] delegate:self];
     self.config = cfg;
@@ -83,6 +91,18 @@ static id<AdWhirlDelegate> classAdWhirlDelegateForConfig = nil;
                       object:nil];
   }
   return self;
+}
+
+- (void)setDelegate:(id <AdWhirlDelegate>)theDelegate {
+  [self willChangeValueForKey:@"delegate"];
+  delegate = theDelegate;
+  if (self.currAdapter) {
+    self.currAdapter.adWhirlDelegate = theDelegate;
+  }
+  if (self.lastAdapter) {
+    self.lastAdapter.adWhirlDelegate = theDelegate;
+  }
+  [self didChangeValueForKey:@"delegate"];
 }
 
 - (void)prepAdNetworks {
@@ -187,6 +207,7 @@ static BOOL randSeeded = NO;
                                                            view:self
                                                          config:config
                                                   networkConfig:nextAdNetwork];
+  self.lastAdapter = self.currAdapter;
   self.currAdapter = adapter;
   [adapter release];
   
@@ -261,7 +282,7 @@ static BOOL randSeeded = NO;
 
 - (void)requestFreshAdTimer {
   self.refreshTimer = nil;
-  if (ignoreAutoRefreshTimer) {
+  if (![self canRefresh]) {
     // don't make ad request, but schedule the next one
     [self scheduleNextAdRefresh];
   }
@@ -433,7 +454,9 @@ static BOOL randSeeded = NO;
 - (void)newAdAnimationDidStopWithAnimationID:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
   UIView *adViewToRemove = (UIView *)context;
   [adViewToRemove removeFromSuperview];
-  [adViewToRemove release];
+  [adViewToRemove release]; // was retained before beginAnimations
+  lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
+  self.lastAdapter = nil;
 }
 
 - (void)adapter:(AdWhirlAdNetworkAdapter *)adapter didReceiveAdView:(UIView *)view {
@@ -523,6 +546,10 @@ static BOOL randSeeded = NO;
   [self metricPing:baseURL nid:nid netType:type];
 }
 
+- (BOOL)canRefresh {
+  return !ignoreAutoRefreshTimer && !appInactive && !showingModalView;
+}
+
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   delegate = nil;
@@ -531,8 +558,10 @@ static BOOL randSeeded = NO;
   [prioritizedAdNetworks release], prioritizedAdNetworks = nil;
   totalPercent = 0;
   requesting = NO;
-  currAdapter.adWhirlView = nil;
+  currAdapter.adWhirlDelegate = nil, currAdapter.adWhirlView = nil;
   [currAdapter release], currAdapter = nil;
+  lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
+  [lastAdapter release], lastAdapter = nil;
   [lastRequestTime release], lastRequestTime = nil;
   [refreshTimer release], refreshTimer = nil;
   [lastError release], lastError = nil;
@@ -554,7 +583,7 @@ static BOOL randSeeded = NO;
   if (itsInside && currAdapter != nil && lastNotifyAdapter != currAdapter
       && [self _isEventATouch30:event]
       && [currAdapter shouldSendExMetric]) {
-    [self ignoreAutoRefreshTimer]; // prevent reload
+    self.showingModalView = YES; // prevent reload
     lastNotifyAdapter = currAdapter;
     [self notifyExClick:currAdapter.networkConfig.nid netType:currAdapter.networkConfig.networkType];
   }
@@ -643,12 +672,12 @@ static BOOL randSeeded = NO;
 
 - (void)resignActive:(NSNotification *)notification {
   AWLogDebug(@"App become inactive, AdWhirlView will stop requesting ads");
-  [self ignoreAutoRefreshTimer];
+  appInactive = YES;
 }
 
 - (void)becomeActive:(NSNotification *)notification {
   AWLogDebug(@"App become active, AdWhirlView will resume requesting ads");
-  [self doNotIgnoreAutoRefreshTimer];
+  appInactive = NO;
 }
 
 

@@ -30,13 +30,16 @@
 - (void)scheduleNextAdRefresh;
 - (void)notifyExImpression:(NSString *)nid netType:(AdWhirlAdNetworkType)type;
 - (void)notifyExClick:(NSString *)nid netType:(AdWhirlAdNetworkType)type;
+- (BOOL)canRefresh;
 - (void)resignActive:(NSNotification *)notification;
 - (void)becomeActive:(NSNotification *)notification;
 
 @property (retain) AdWhirlConfig *config;
 @property (retain) NSMutableArray *prioritizedAdNetworks;
 @property (nonatomic,retain) AdWhirlAdNetworkAdapter *currAdapter;
+@property (nonatomic,retain) AdWhirlAdNetworkAdapter *lastAdapter;
 @property (nonatomic,retain) NSDate *lastRequestTime;
 @property (nonatomic,retain) NSTimer *refreshTimer;
+@property (nonatomic) BOOL showingModalView;
 
 @end

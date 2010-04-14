@@ -22,7 +22,7 @@
 #import "AdWhirlDelegateProtocol.h"
 #import "AdWhirlConfig.h"
 
-#define kAdWhirlAppVer 213
+#define kAdWhirlAppVer 223
 
 #define kAdWhirlViewWidth 320
 #define kAdWhirlViewHeight 50
@@ -46,9 +46,12 @@
   
   BOOL ignoreAutoRefreshTimer;
   BOOL ignoreNewAdRequests;
+  BOOL appInactive;
+  BOOL showingModalView;
   
   BOOL requesting;
   AdWhirlAdNetworkAdapter *currAdapter;
+  AdWhirlAdNetworkAdapter *lastAdapter;
   NSDate *lastRequestTime;
   
   NSTimer *refreshTimer;
