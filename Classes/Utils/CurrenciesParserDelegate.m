@@ -188,7 +188,7 @@
 	
 	if ([appDelegate dataWasUpdated]) 
 		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR a fost actualizat."]
-						 title:@"Info Valutar"];
+						 title:@"Convertor Valutar"];
 	else {
 		NSDate *today = [NSDate date];
 		NSString *todayStr = [DateFormat businessStringFromDate:today];

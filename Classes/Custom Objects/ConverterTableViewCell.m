@@ -268,8 +268,9 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-	if (![[appDelegate converterViewController] textChanged])
+/*	if (![[appDelegate converterViewController] textChanged])
 		[self cancelAction];
+ */
 }
 
 
@@ -348,7 +349,6 @@
 - (void)doneAction {
 
 	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
-//	[converterValueTextField resignFirstResponder];
 	[self textFieldShouldReturn:converterValueTextField];
 }
 
