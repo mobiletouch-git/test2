@@ -69,7 +69,8 @@
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = self.bounds;
-    button.showsTouchWhenHighlighted = YES;
+ 	[button setImage:[UIImage imageNamed:@"adPressedMask.png"] forState:UIControlStateHighlighted];	   	  
+//    button.showsTouchWhenHighlighted = YES;
     [button addTarget:self action:@selector(buttonTapUp:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
   }

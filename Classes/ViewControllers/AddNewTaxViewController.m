@@ -220,7 +220,9 @@
 {
 	if (editedAdditionFactor)
 	{
-		[saveButton setEnabled:YES];
+		if ([taxNameTextField.text length])
+			[saveButton setEnabled:YES];
+			
 	}
 	NSLog(@"Plus selected");
 	[plusSignButton removeFromSuperview];
@@ -239,7 +241,8 @@
 {
 	if (editedAdditionFactor)
 	{
-		[saveButton setEnabled:YES];
+		if ([taxNameTextField.text length])		
+			[saveButton setEnabled:YES];
 	}
 	NSLog(@"Minus selected");	
 	[minusSignButton removeFromSuperview];

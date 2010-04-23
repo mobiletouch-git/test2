@@ -282,9 +282,11 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-/*	if (![[appDelegate converterViewController] textChanged])
-		[self cancelAction];
- */
+	if (![[appDelegate converterViewController] textChanged])
+	{
+		[converterValueTextField setText:oldValue];
+	}
+
 }
 
 

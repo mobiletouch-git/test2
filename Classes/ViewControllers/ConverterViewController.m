@@ -289,9 +289,11 @@
 	
 	ConverterItem *co1 = [[ConverterItem alloc] init];
 	[co1 setCurrency:c1];
+	[co1 setConverterValue:[NSDecimalNumber decimalNumberWithString:@"0"]];
 	[c1 release];
 	
 	[tableDataSource addObject:co1];
+	[self setReferenceItem:co1];	
 	[co1 release];
 	/* ======= RON ======= */
 	
@@ -303,7 +305,7 @@
 	
 	ConverterItem *co2 = [[ConverterItem alloc] init];
 	[co2 setCurrency:c2];
-	
+	[co2 setConverterValue:[NSDecimalNumber decimalNumberWithString:@"0"]];	
 	NSMutableArray *factors = [NSMutableArray array];
 	
 	AdditionFactorItem *af = [[AdditionFactorItem alloc] init];
@@ -319,46 +321,13 @@
 	[co2 release];
 	/* ======= RON +19 % ======= */		
 
-	
-	/* ======= RON +19 % + 3% ======= */	
-/*	
-	CurrencyItem *c3 = [[CurrencyItem alloc] init];
-	[c3 setCurrencyName:@"RON"];
-	NSDecimalNumber *c3Value = [NSDecimalNumber decimalNumberWithString:@"1"];		
-	[c3 setCurrencyValue:c3Value];	
-	
-	ConverterItem *co3 = [[ConverterItem alloc] init];
-	[co3 setCurrency:c3];
-	
-	NSMutableArray *factorss = [NSMutableArray array];
-	
-	AdditionFactorItem *af1 = [[AdditionFactorItem alloc] init];
-	[af1 setFactorSign:1];
-	[af1 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"19"]];	
-	[factorss addObject:af1];
-	[af1 release];
-	
-	AdditionFactorItem *af2 = [[AdditionFactorItem alloc] init];
-	[af2 setFactorSign:1];
-	[af2 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"3"]];	
-	[factorss addObject:af2];
-	[af2 release];
-	
-	[co3 setAdditionFactors:factorss];
-	
-	[c3 release];
-	
-	[tableDataSource addObject:co3];
-	[co3 release];
-*/	
-	/* ======= RON +19 % + 3% ======= */		
-	
 	/* ======= EUR  ======= */	
 	CurrencyItem *c4 = [[CurrencyItem alloc] init];
 	[c4 setCurrencyName:@"EUR"];
 	
 	ConverterItem *co4 = [[ConverterItem alloc] init];
 	[co4 setCurrency:c4];
+	[co4 setConverterValue:[NSDecimalNumber decimalNumberWithString:@"0"]];	
 	[c4 release];
 	
 	[tableDataSource addObject:co4];
@@ -371,12 +340,12 @@
 	
 	ConverterItem *co5 = [[ConverterItem alloc] init];
 	[co5 setCurrency:c5];
+	[co5 setConverterValue:[NSDecimalNumber decimalNumberWithString:@"0"]];		
 	[c5 release];
 	
 	[tableDataSource addObject:co5];
 	[co5 release];
 	/* ======= EUR  ======= */		
-	
 }
 
 -(void) addAction

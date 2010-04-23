@@ -76,7 +76,6 @@
     // Override point for customization after app launch    
 
 //	[self populate];
-	
 
 	[self initializeDatabase];
 	[self readFromDefaults];
