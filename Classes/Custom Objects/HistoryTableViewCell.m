@@ -60,6 +60,15 @@
 				   sign: (NSString *) theSign;	
 
 {
+	NSLocale *roLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	
+	NSNumberFormatter* currencyFormatter = [[NSNumberFormatter alloc] init];
+	[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[currencyFormatter setMinimumFractionDigits:4];
+	[currencyFormatter setMaximumFractionDigits:4];
+	[currencyFormatter setLocale: roLocale];
+	
 	if (currencyDate)
 		[dateLabel setText:[DateFormat DBformatDateFromDate: currencyDate]];
 	
@@ -68,11 +77,12 @@
 	else
 		[multiplierLabel setText:@""];
 	
-	[currencyValueLabel setText:[NSString stringWithFormat:@"%.4f", [theValue doubleValue]]];
+	[currencyValueLabel setText:[currencyFormatter stringFromNumber: theValue]];
 	
 	if (theChange)
 	{
-		NSString *changeString = [NSString stringWithFormat:@"%.4f", [theChange doubleValue]];
+		//NSString *changeString = [NSString stringWithFormat:@"%.4f", [theChange doubleValue]];
+		NSString* changeString = [currencyFormatter stringFromNumber: theChange];
 		[changeLabel setText:changeString];
 		
 		// verde: #0C9D00
@@ -94,6 +104,7 @@
 		}
 		
 	}
+	[currencyFormatter release];
 }
 
 - (void)dealloc {

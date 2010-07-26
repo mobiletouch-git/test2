@@ -10,8 +10,9 @@
 #import "CurrencyItem.h"
 #import "ConverterItem.h"
 #import "AdWhirlDelegateProtocol.h"
+#import "AddNewTaxViewController.h"
 
-@interface ConverterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate> {
+@interface ConverterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate>{
 	
 	UITableView *myTableView;
 	NSMutableArray *tableDataSource;
@@ -34,6 +35,8 @@
 	
 	NSDecimalNumber *referenceConverterValue;
 	
+	BOOL converterHasBeenUpdated;
+
 }
 @property (nonatomic, retain)	UIBarButtonItem *editButton;
 @property (nonatomic, retain)	UIBarButtonItem *addButton;	
@@ -50,6 +53,7 @@
 @property (nonatomic, retain)	NSMutableArray *selectedReferenceDay;
 @property (nonatomic, retain)	NSDate *selectedDate;
 @property (nonatomic, retain)	ConverterItem *referenceItem;
+@property (nonatomic, assign) BOOL converterHasBeenUpdated;
 
 -(void) addDefaultConverterValues;
 -(void) textEditEnded;

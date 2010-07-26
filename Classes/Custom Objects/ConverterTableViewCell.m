@@ -88,11 +88,14 @@
 													   target:self
 													   action:@selector(cancelAction)];
 		
+		NSLocale *roLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+		
 		currencyFormatter = [[NSNumberFormatter alloc] init];
 		[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 		[currencyFormatter setMinimumFractionDigits:2];
 		[currencyFormatter setMaximumFractionDigits:2];
+		[currencyFormatter setLocale: roLocale];
 		
 		selectionFormatter = [[NSNumberFormatter alloc] init];
 		[selectionFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -100,7 +103,7 @@
 		[selectionFormatter setMinimumFractionDigits:2];
 		[selectionFormatter setMaximumFractionDigits:2];
 		[selectionFormatter setRoundingMode:NSNumberFormatterRoundDown];
-		
+		[selectionFormatter setLocale: roLocale];
 		
     }
     return self;
@@ -132,12 +135,14 @@
 	{
 		AdditionFactorItem *af = [aConverter.additionFactors objectAtIndex:i];
 		if (af.factorSign>0)
-			additionString = [additionString stringByAppendingFormat:@" + %.2f%%", [af.factorValue doubleValue]];
+			additionString = [additionString stringByAppendingFormat:@" + %@",[currencyFormatter stringFromNumber:af.factorValue]];
+			//additionString = [additionString stringByAppendingFormat:@" + %.2f%%", [af.factorValue doubleValue]];
 		if (af.factorSign<0)
-			additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
+			additionString = [additionString stringByAppendingFormat:@" - %@",[currencyFormatter stringFromNumber:af.factorValue]];
+			//additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
 	}
 	
-	
+		
 	[converterAdditionLabel setHidden:NO];		
 	[converterAdditionLabel setText:additionString];
 
@@ -221,13 +226,15 @@
 
 #pragma mark UITextFieldDelegate
 
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+
 	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:cancelButton];
 	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:doneButton];
 	
 	[self setOldValue:textField.text];
-	[textField setText:@"0.00"];
+	[textField setText:@"0,00"];
 	[[[appDelegate converterViewController] datePicker] setHidden:YES];
 	[[[appDelegate converterViewController] titleSeg] setSelectedSegmentIndex:-1];			
 	[[[appDelegate converterViewController] titleSeg] setEnabled:NO];		
@@ -320,7 +327,6 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-			
 	int currencyScale = 2;
 	
 	NSLog(@"%d",currencyScale);

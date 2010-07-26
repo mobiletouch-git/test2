@@ -20,6 +20,7 @@
 
 @synthesize selectedCurrency, additionList;
 
+
 - (void)dealloc {
 	
 	[oneRowTableView release];

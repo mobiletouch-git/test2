@@ -86,7 +86,7 @@
 		connectionVar = nil;
 		[self stopSpinning];
 		
-		[UIFactory showOkAlert:@"Vă rugăm verificați conexiunea la Internet și reveniți mai târziu." title:@"Date indisponibile"];	
+		[UIFactory showOkAlert:@"Vă rugăm verificați conexiunea la Internet și reveniți mai târziu." title:nil];	
 		
 	}
 
@@ -121,7 +121,7 @@
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	NSLog([[NSString stringWithFormat:@"%@ - %@",[error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]] description]);
 	
-	[UIFactory showOkAlert:@"Vă rugăm verificați conexiunea la Internet și reveniți mai târziu." title:@"Date indisponibile"];	
+	[UIFactory showOkAlert:@"Vă rugăm verificați conexiunea la Internet și reveniți mai târziu." title:nil];	
 	
 	count=0;
 	
@@ -193,20 +193,20 @@ if (parserDelegate)
 -(void) startSpinning
 {	
 	[updateAlert show];
-	[[appDelegate window] addSubview:updateAlert];
-	[(UIActivityIndicatorView *)([[appDelegate window] viewWithTag:33]) startAnimating];	
+//	[[appDelegate window] addSubview:updateAlert];
+//	[(UIActivityIndicatorView *)([[appDelegate window] viewWithTag:33]) startAnimating];	
 	
-
+	[activityView startAnimating];
 }
 
 -(void) stopSpinning
 {
-
-	[(UIActivityIndicatorView *)([[appDelegate window] viewWithTag:33]) stopAnimating];	
+	[activityView stopAnimating];
+//	[(UIActivityIndicatorView *)([[appDelegate window] viewWithTag:33]) stopAnimating];	
 //	[[[appDelegate window] viewWithTag:33] removeFromSuperview];
 	[updateAlert dismissWithClickedButtonIndex:0 animated:YES];
 
-	[[[appDelegate window] viewWithTag:44] removeFromSuperview];			
+//	[[[appDelegate window] viewWithTag:44] removeFromSuperview];			
 	
 
 

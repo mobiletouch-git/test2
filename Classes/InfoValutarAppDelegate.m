@@ -148,11 +148,13 @@
 	ConverterItem *item = [[self converterViewController] referenceItem];
 	NSData *converterReferenceData = [NSKeyedArchiver archivedDataWithRootObject: item];
 	[prefs setObject:converterReferenceData forKey:@"converterReferenceItem"];
+	[prefs setBool:[converterViewController converterHasBeenUpdated] forKey:@"converterUpdated"];
 	
 	NSMutableArray *taxesList = [taxesViewController tableDataSource];
 	NSData *taxesListData = [NSKeyedArchiver archivedDataWithRootObject:taxesList];
 	[prefs setObject:taxesListData forKey:@"taxesList"];
-		
+	[prefs setBool:[taxesViewController taxesHaveBeenUpdated] forKey:@"taxesUpdated"];
+	
 	NSMutableDictionary *dateRangeDictionary = [statisticsViewController dateRangeDictionary];
 	NSData *dateRangeDictionaryData = [NSKeyedArchiver archivedDataWithRootObject:dateRangeDictionary];
 	[prefs setObject:dateRangeDictionaryData forKey:@"dateRangeDictionary"];

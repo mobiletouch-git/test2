@@ -23,8 +23,11 @@
 @synthesize editButton, addButton, titleSeg, textChanged, referenceConverterValue;
 @synthesize myTableView, tableDataSource, selectedDate, referenceItem, selectedReferenceDay;
 @synthesize datePicker;
+@synthesize converterHasBeenUpdated;
 
 - (void)dealloc {
+	
+	[[NSNotificationCenter defaultCenter]removeObserver:self name:@"taxChanged" object:nil];
 	
 	[editButton release];
 	[addButton release];
@@ -44,12 +47,83 @@
     [super dealloc];
 }
 
+-(void)populateTableSource
+{
+	NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterList"];
+	NSMutableArray *savedList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	converterHasBeenUpdated = [[NSUserDefaults standardUserDefaults]boolForKey:@"converterUpdated"];
+	
+	if([savedList count] == 0)
+	{//there are no values stored in NSUserDefaults load default values
+		[self addDefaultConverterValues];
+		converterHasBeenUpdated = YES;
+	}
+	else //There are values stored in NSUserDefaults
+	{
+		if(converterHasBeenUpdated == NO)
+		{
+			//loop through all items of the list and select those that have addition factors
+			for(int i=0;i<[savedList count];i++)
+			{
+				if( ((ConverterItem*)[savedList objectAtIndex:i]).additionFactors != nil)
+				{
+					//get a list of the addition factors
+					NSMutableArray* additionArray = ((ConverterItem*)[savedList objectAtIndex:i]).additionFactors;
+					//search for addition factors named TVA
+					for(int j=0;j<[additionArray count];j++)
+					{
+						if( [((AdditionFactorItem*)[additionArray objectAtIndex:j]).factorName isEqualToString:@"TVA"] == YES || ((AdditionFactorItem*)[additionArray objectAtIndex:j]).factorName == nil )
+						{
+							//if found, the TVA addition factor value is changed and then reassigned to the ConverterItem
+							((AdditionFactorItem*)[additionArray objectAtIndex:j]).factorValue = [NSDecimalNumber decimalNumberWithString:@"24"];
+							[(ConverterItem*)[savedList objectAtIndex:i] setAdditionFactors:additionArray];
+						}
+					}
+				}
+				converterHasBeenUpdated = YES;
+			}
+		}
+		//The value for TVA is now correct and can be saved in tableDataSource
+		[tableDataSource addObjectsFromArray:savedList];
+	}
+	
+}
+
+
+-(void)taxHasChanged:(NSNotification *)notification 
+{
+	NSLog(@"Converter has detected that the tax has changed");
+	NSArray *array = [notification object];
+	AdditionFactorItem* oldFa = [array objectAtIndex:0];
+	AdditionFactorItem* newFa = [array objectAtIndex:1];
+	NSLog(@"old: %@, %@ **** new: %@, %@",oldFa.factorName, oldFa.factorValue, newFa.factorName, newFa.factorValue);
+
+	for(int i=0;i<[tableDataSource count];i++)
+	{
+		if( ((ConverterItem*)[tableDataSource objectAtIndex:i]).additionFactors != nil )
+		{
+			NSLog(@"Old Converter Item: %@",((ConverterItem*)[tableDataSource objectAtIndex:i]).additionFactors);
+			NSMutableArray* addFactors = ((ConverterItem*)[tableDataSource objectAtIndex:i]).additionFactors;
+			for(int j=0;j<[addFactors count];j++)
+			{
+				if( [((AdditionFactorItem*)[addFactors objectAtIndex:j]).factorName isEqualToString:oldFa.factorName] == YES 
+				   || ((AdditionFactorItem*)[addFactors objectAtIndex:j]).factorName == nil)
+				{
+					[addFactors replaceObjectAtIndex:j withObject:newFa];
+					((ConverterItem*)[tableDataSource objectAtIndex:i]).additionFactors = addFactors;
+				}
+			}
+			NSLog(@"New Converter Item: %@",((ConverterItem*)[tableDataSource objectAtIndex:i]).additionFactors);
+		}
+	}
+	[myTableView reloadData];
+}
 
 - (id)init
 {
     if ((self = [super init])) {
 		//init code
-		
+	
 		//set tabbaritem picture
 		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_2.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Convertor" image:buttonImage tag:-1];
@@ -79,14 +153,14 @@
 		tableDataSource = [[NSMutableArray alloc] init];	
 		selectedReferenceDay = [[NSMutableArray alloc] init];	
 		
-		
-		NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterList"];
-		NSMutableArray *savedList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		/*
 		if ([savedList count])
 			[tableDataSource addObjectsFromArray:savedList];
 		else
 			[self addDefaultConverterValues];
+		*/
 		
+		[self populateTableSource];
 		
 		NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterReferenceItem"];
 		ConverterItem *storedReferenceItem = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
@@ -115,7 +189,12 @@
 		CurrencyItem *updatedCurrency = [InfoValutarAPI findCurrencyNamed:[referenceItem.currency currencyName] inArray:selectedReferenceDay];
 		if (updatedCurrency)
 			[referenceItem setCurrency:updatedCurrency];
-
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(taxHasChanged:) 
+													 name:@"taxChanged" 
+												   object:nil];
+		 
 		
 	}
     return self;
@@ -139,7 +218,6 @@
 	[datePicker setMinimumDate:[DateFormat dateFromNormalizedString:@"05-01-2009"]];
 	[datePicker setMaximumDate:selectedDate];
 
-	
 	if (validBankingDate)
 	{
 		NSMutableArray *selectedCurrencies;
@@ -184,11 +262,12 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+
 	doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
 												  style:UIBarButtonItemStyleDone
 												 target:self 
 												 action:@selector(doneAction)];
+	
 	cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
 													style:UIBarButtonItemStyleBordered
 												   target:self
@@ -297,7 +376,7 @@
 	[co1 release];
 	/* ======= RON ======= */
 	
-	/* ======= RON +19 % ======= */	
+	/* ======= RON +24 % ======= */	
 	CurrencyItem *c2 = [[CurrencyItem alloc] init];
 	[c2 setCurrencyName:@"RON"];
 	NSDecimalNumber *c2Value = [NSDecimalNumber decimalNumberWithString:@"1"];	
@@ -309,8 +388,9 @@
 	NSMutableArray *factors = [NSMutableArray array];
 	
 	AdditionFactorItem *af = [[AdditionFactorItem alloc] init];
+	[af setFactorName:@"TVA"];
 	[af setFactorSign:1];
-	[af setFactorValue:[NSDecimalNumber decimalNumberWithString:@"19"]];	
+	[af setFactorValue:[NSDecimalNumber decimalNumberWithString:@"24"]];	
 	[factors addObject:af];
 	[af release];
 	
@@ -319,7 +399,7 @@
 	
 	[tableDataSource addObject:co2];
 	[co2 release];
-	/* ======= RON +19 % ======= */		
+	/* ======= RON +24 % ======= */		
 
 	/* ======= EUR  ======= */	
 	CurrencyItem *c4 = [[CurrencyItem alloc] init];
@@ -481,7 +561,6 @@
  return (interfaceOrientation == UIInterfaceOrientationPortrait);
  }
  */
-
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -519,7 +598,6 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
 	static NSString *CellIdentifier = @"Cell";
     
     ConverterTableViewCell *cell = (ConverterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];

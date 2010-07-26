@@ -174,7 +174,7 @@
 			[self.navigationController popViewControllerAnimated:YES];			
 		}
 		else {
-			[UIFactory showOkAlert:@"Moneda selectată se află deja în listă" title:@"Atenție"];
+			[UIFactory showOkAlert:@"Moneda selectată se află deja în listă" title:nil];
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		}
 

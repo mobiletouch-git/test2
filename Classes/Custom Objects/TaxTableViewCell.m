@@ -84,6 +84,16 @@
 				  enabled: (BOOL) yesOrNo
 {
 
+	NSLocale *roLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	
+	NSNumberFormatter* currencyFormatter = [[NSNumberFormatter alloc] init];
+	[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[currencyFormatter setMinimumFractionDigits:2];
+	[currencyFormatter setMaximumFractionDigits:2];
+	[currencyFormatter setLocale: roLocale];
+
+	
 	[self setCellEnabled:yesOrNo];
 
 	if ([aFactor.factorName length])
@@ -97,13 +107,16 @@
 		[taxLabel setText:@"Nume"];
 	}
 	
+	
 	if (aFactor.factorSign>0)	
 		[taxSignImageView setImage:[UIImage imageNamed:@"edit_add.png"]];
 	if (aFactor.factorSign<0)	
 		[taxSignImageView setImage:[UIImage imageNamed:@"edit_remove.png"]];
 	
 	if (aFactor.factorValue)
-		[percentLabel setText:[NSString stringWithFormat:@"%.2f%%", [aFactor.factorValue doubleValue]]];
+		[percentLabel setText:[currencyFormatter stringFromNumber:aFactor.factorValue]];
+	
+	[currencyFormatter release];
 	
 }
 

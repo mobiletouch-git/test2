@@ -11,15 +11,18 @@
 #import "AdWhirlDelegateProtocol.h"
 
 @interface TaxesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate>{
-
+	
 	UITableView *myTableView;
 	NSMutableArray *tableDataSource;	
 	
 	UIBarButtonItem *editButton;
 	UIBarButtonItem *doneButton;
 	UIBarButtonItem *addButton;	
+	
+	BOOL taxesHaveBeenUpdated;
 }
 @property (nonatomic, retain)	NSMutableArray *tableDataSource;	
+@property (nonatomic, assign) BOOL taxesHaveBeenUpdated;
 
 -(void) addDefaultTaxesValues;
 -(void) refresh;

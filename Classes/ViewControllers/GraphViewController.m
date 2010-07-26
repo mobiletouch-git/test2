@@ -73,11 +73,12 @@
 		NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
 		NSLog(@"Date for entry %@", dateForEntry);
 	}
-*/	
+*/	NSLocale *romaniaLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
 	NSNumberFormatter *ynumberFormatter = [NSNumberFormatter new];
 	[ynumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[ynumberFormatter setMinimumFractionDigits:2];
 	[ynumberFormatter setMaximumFractionDigits:2];
+	[ynumberFormatter setLocale:romaniaLocale];
 	
 	self.graphView.yValuesFormatter = ynumberFormatter;
 	

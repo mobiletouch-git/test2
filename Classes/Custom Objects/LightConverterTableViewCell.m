@@ -61,6 +61,16 @@
 	
 	CurrencyItem *ci = [aConverter currency];
 	
+	NSLocale *roLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	
+	NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+	[formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[formatter setMinimumFractionDigits:2];
+	[formatter setMaximumFractionDigits:2];
+	[formatter setLocale: roLocale];
+	
+	
 	if (ci)
 	{
 		NSString *imageName = [NSString stringWithFormat:@"%@.png", [ci currencyName]];
@@ -76,9 +86,11 @@
 	{
 		AdditionFactorItem *af = [aConverter.additionFactors objectAtIndex:i];
 		if (af.factorSign>0)
-			additionString = [additionString stringByAppendingFormat:@" + %.2f%%", [af.factorValue doubleValue]];
+			additionString = [additionString stringByAppendingFormat:@" + %@",[formatter stringFromNumber:af.factorValue]];
+			//additionString = [additionString stringByAppendingFormat:@" + %.2f%%", [af.factorValue doubleValue]];
 		if (af.factorSign<0)
-			additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
+			additionString = [additionString stringByAppendingFormat:@" - %@",[formatter stringFromNumber:af.factorValue]];
+			//additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
 	}
 	
 	if ([additionString length])
@@ -90,7 +102,7 @@
 	{
 		[converterAdditionLabel setHidden:YES];
 	}
-	
+	[formatter release];
 }
 
 

@@ -61,6 +61,15 @@
 -(void) setAdditionFactor: (AdditionFactorItem *) aFactor
 				  enabled: (BOOL) yesOrNo
 {
+	NSLocale *roLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	
+	NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+	[formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[formatter setMinimumFractionDigits:2];
+	[formatter setMaximumFractionDigits:2];
+	[formatter setLocale: roLocale];
+	
 	[taxLabel setText:aFactor.factorName?aFactor.factorName:@""];
 	
 	if (aFactor.factorSign>0)	
@@ -69,7 +78,10 @@
 		[taxSignImageView setImage:[UIImage imageNamed:@"edit_remove.png"]];
 	
 	if (aFactor.factorValue)
-		[percentLabel setText:[NSString stringWithFormat:@"%.2f%%", [aFactor.factorValue doubleValue]]];
+		[percentLabel setText:[formatter stringFromNumber:aFactor.factorValue]];
+	
+	[formatter release];
+	//	[percentLabel setText:[NSString stringWithFormat:@"%.2f%%", [aFactor.factorValue doubleValue]]];
 	
 }
 

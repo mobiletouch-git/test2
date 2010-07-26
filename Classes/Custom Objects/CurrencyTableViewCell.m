@@ -72,6 +72,15 @@
 					  change: (NSDecimalNumber *) theChange
 						sign: (NSString *) theSign
 {
+	NSLocale *roLocale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	
+	NSNumberFormatter* currencyFormatter = [[NSNumberFormatter alloc] init];
+	[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[currencyFormatter setMinimumFractionDigits:4];
+	[currencyFormatter setMaximumFractionDigits:4];
+	[currencyFormatter setLocale: roLocale];
+	
 	
 	if (imageName)
 		[currencyFlagImageView setImage:[UIImage imageNamed:imageName]];
@@ -81,20 +90,20 @@
 	else
 		[multiplierLabel setText:@""];
 	
-	[currencyValueLabel setText:[NSString stringWithFormat:@"%.4f", [theValue doubleValue]]];
-
+	//[currencyValueLabel setText:[NSString stringWithFormat:@"%.4f", [theValue doubleValue]]];
+	[currencyValueLabel setText:[currencyFormatter stringFromNumber:theValue]];
 	if (theChange)
 	{
-		NSString *changeString = [NSString stringWithFormat:@"%.4f", [theChange doubleValue]];
-		[changeLabel setText:changeString];
-		
+		//NSString *changeString = [NSString stringWithFormat:@"%.4f", [theChange doubleValue]];
+		//[changeLabel setText:changeString];
+		[changeLabel setText:[currencyFormatter stringFromNumber:theChange]];
 		// verde: #0C9D00
 		// rosu: #FF0404
 		
 		if ([theSign isEqualToString:@"+"])
 		{
 			[changeLabel setTextColor:[UIColor colorWithRed:(CGFloat)0x0C/255.0 green:(CGFloat)0x9D/255.0 blue:(CGFloat)0x00/255.0 alpha:1.0]];
-			[changeLabel setText:[NSString stringWithFormat:@"+%@",changeString]];
+			[changeLabel setText:[NSString stringWithFormat:@"+%@",[currencyFormatter stringFromNumber:theValue]]];
 		}
 		else if ([theSign isEqualToString:@"-"])
 		{
@@ -107,6 +116,7 @@
 		}
 		
 	 }
+	[currencyFormatter release];
 }
 
 -(void) setLightCurrencyImageName: (NSString *) imageName

@@ -98,19 +98,19 @@
 	
 	if (![currenciesList count]) 
 	{
-		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să aveți măcar o monedă de referință" title:@"Atenție"];
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să aveți măcar o monedă de referință" title:nil];
 		return;
 	}
 	NSString *startDateString = [dateRangeDictionary objectForKey:@"startDate"];				
 	if (![startDateString length])
 	{
-		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să selectați o dată de start" title:@"Atenție"];		
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să selectați o dată de start" title:nil];		
 		return;		
 	}
 	NSString *endDateString = [dateRangeDictionary objectForKey:@"endDate"];	
 	if (![endDateString length])
 	{
-		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să selectați o dată de final" title:@"Atenție"];		
+		[UIFactory showOkAlert:@"Pentru a genera un grafic, trebuie să selectați o dată de final" title:nil];		
 		return;	
 	}
 	
@@ -121,7 +121,7 @@
 	NSDate *validStartDate = [InfoValutarAPI getValidBankingDayForDay:utcStartDate];
 	NSDate *validEndDate = [InfoValutarAPI getValidBankingDayForDay:utcEndDate];
 	if ([validEndDate isEqual:validStartDate]) {
-		[UIFactory showOkAlert:@"Pentru intervalul selectat nu există date suficiente pentru a genera un grafic. Actualizați sau alegeți alt interval." title:@"Atenție"];		
+		[UIFactory showOkAlert:@"Pentru intervalul selectat nu există date suficiente pentru a genera un grafic. Actualizați sau alegeți alt interval." title:nil];		
 		return;	
 	}
 
@@ -563,7 +563,7 @@
 	}
 	else
 	{
-		[UIFactory showOkAlert:@"Pentru a putea genera un grafic, puteti avea maxim 5 monede" title:@"Atenție"];
+		[UIFactory showOkAlert:@"Pentru a putea genera un grafic, puteti avea maxim 5 monede" title:nil];
 		[currenciesTableView deselectRowAtIndexPath:[currenciesTableView indexPathForSelectedRow] animated:YES];
 	}
 }

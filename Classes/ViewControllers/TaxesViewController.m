@@ -17,6 +17,7 @@
 @implementation TaxesViewController
 
 @synthesize tableDataSource;
+@synthesize taxesHaveBeenUpdated;
 
 - (void)dealloc {
 	
@@ -26,12 +27,44 @@
 	[tableDataSource release];
     [super dealloc];
 }
+-(void)populateTableSource
+{
+	NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"taxesList"];
+	NSMutableArray *savedList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	taxesHaveBeenUpdated = [[NSUserDefaults standardUserDefaults]boolForKey:@"taxesUpdated"];
+	
+	if([savedList count] == 0)
+	{//there are no taxes in NSUserDefaults
+		[self addDefaultTaxesValues];
+		taxesHaveBeenUpdated = YES;
+	}
+	else
+	{
+		if(taxesHaveBeenUpdated == NO) //there are taxes saved in NSUserDefaults, but their value wasn't updated
+		{
+			//search for TVA item in list
+			int i;
+			for(i=0;i<[savedList count];i++)
+				if( [((AdditionFactorItem*)[savedList objectAtIndex:i]).factorName isEqualToString:@"TVA"] == YES)
+					break;
+			AdditionFactorItem *afTVA = [savedList objectAtIndex:i];
+			//The value for TVA isn't 24% && there is a TVA tax in the list
+			if(i< [savedList count] && afTVA.factorValue != [NSDecimalNumber decimalNumberWithString:@"24"])
+			{
+				[afTVA setFactorValue:[NSDecimalNumber decimalNumberWithString:@"24"]];
+				[savedList replaceObjectAtIndex:i withObject:afTVA];
+				taxesHaveBeenUpdated = YES;
+			}
+		}
+		[tableDataSource addObjectsFromArray:savedList];
+	}
 
+}
 - (id)init
 {
     if ((self = [super init])) {
 		//init code
-		
+		NSLog(@"apel init");
 		//set tabbaritem picture
 		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_4.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Procente" image:buttonImage tag:0];
@@ -43,16 +76,15 @@
 		
 		tableDataSource = [[NSMutableArray alloc] init];	
 		
-		NSData *data = [[NSUserDefaults standardUserDefaults ] objectForKey:@"taxesList"];
-		NSMutableArray *savedList = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		[self populateTableSource];
+		/*
 		if ([savedList count])
 			[tableDataSource addObjectsFromArray:savedList];
 		else
 			[self addDefaultTaxesValues];
-		
-		
+		*/
 	}
-    return self;
+	return self;
 }
 
 /*
@@ -60,7 +92,18 @@
 - (void)loadView {
 }
 */
+/*
+-(void)viewWillAppear:(BOOL)animated
+{
+	AdditionFactorItem *afTVA = [tableDataSource objectAtIndex:2];
+	if(afTVA.factorValue != [NSDecimalNumber decimalNumberWithString:@"24"])
+	{
+		[afTVA setFactorValue:[NSDecimalNumber decimalNumberWithString:@"24"]];
+		[tableDataSource replaceObjectAtIndex:2 withObject:afTVA];
 
+	}
+}
+ */
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 	[myTableView deselectRowAtIndexPath:[myTableView indexPathForSelectedRow] animated:YES];
@@ -105,7 +148,6 @@
 #else
 	
 #endif	
-	
 }
 
 -(void) addAction
@@ -182,7 +224,7 @@
 	AdditionFactorItem *af3 = [[AdditionFactorItem alloc] init];
 	[af3 setFactorName:@"TVA"];
 	[af3 setFactorSign:1];
-	[af3 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"19"]];
+	[af3 setFactorValue:[NSDecimalNumber decimalNumberWithString:@"24"]];
 	[tableDataSource addObject:af3];
 	[af3 release];	
 	

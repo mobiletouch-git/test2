@@ -120,7 +120,7 @@
 		[errorObject setErrorMessage:self.contentofNode];
     }
 	else if ([elementName isEqualToString:@"eroare"]) {
-		[UIFactory showOkAlert:[errorObject errorMessage] title:[errorObject errorTitle]];
+		[UIFactory showOkAlert:[errorObject errorMessage] title:nil];
 		[errorObject release];
     }		
 	
@@ -188,7 +188,7 @@
 	
 	if ([appDelegate dataWasUpdated]) 
 		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR a fost actualizat."]
-						 title:@"Convertor Valutar"];
+						 title:nil];
 	else {
 		NSDate *dateForUpdate = [DateFormat normalizeDateFromDate:[NSDate date]];
 		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:dateForUpdate];		

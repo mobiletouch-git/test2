@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AdditionFactorItem.h"
 
+
+
 @interface AddNewTaxViewController : UIViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>{
 
 	AdditionFactorItem *editedAdditionFactor;
@@ -22,10 +24,17 @@
 	UITableView *oneRowTableView;
 	
 	NSNumberFormatter *currencyFormatter;
-
+	
+	AdditionFactorItem* oldAdditionFactor;
+	AdditionFactorItem* newAdditionFactor;
+	NSMutableArray* factorsArray;
+	
+	BOOL oldHasChanged;
 }
 
 @property (nonatomic, retain) AdditionFactorItem *additionFactor;
+@property (nonatomic, retain) UITextField *taxNameTextField;
+@property (nonatomic, retain) UITextField *taxValueTextField;
 
 - (id)initWithAdditionFactor: (AdditionFactorItem *) addFactor;
 
