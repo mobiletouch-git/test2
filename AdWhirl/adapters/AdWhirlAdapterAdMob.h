@@ -19,7 +19,7 @@
 */
 
 #import "AdWhirlAdNetworkAdapter.h"
-#import "AdMobDelegateProtocol.h"
+//#import "AdMobDelegateProtocol.h"
 
 @class AdMobView;
 

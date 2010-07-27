@@ -256,31 +256,21 @@
 		7DF23331114905D700915118 /* UpdateSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DF23330114905D700915118 /* UpdateSettings.plist */; };
 		7DF235CD11490EF300915118 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF235CB11490EF300915118 /* close.png */; };
 		7DF235CE11490EF300915118 /* close_touch.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF235CC11490EF300915118 /* close_touch.png */; };
-		89F3A0D811FDF0750058CD0E /* AdWhirlAdapterAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0A311FDF0750058CD0E /* AdWhirlAdapterAdMob.m */; };
-		89F3A0D911FDF0750058CD0E /* AdWhirlAdapterGoogleAdSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0A511FDF0750058CD0E /* AdWhirlAdapterGoogleAdSense.m */; };
-		89F3A0DA11FDF0750058CD0E /* AdWhirlAdapterGreystripe.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0A711FDF0750058CD0E /* AdWhirlAdapterGreystripe.m */; };
-		89F3A0DB11FDF0750058CD0E /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0A911FDF0750058CD0E /* AdWhirlAdapterIAd.m */; };
-		89F3A0DC11FDF0750058CD0E /* AdWhirlAdapterJumpTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0AB11FDF0750058CD0E /* AdWhirlAdapterJumpTap.m */; };
-		89F3A0DD11FDF0750058CD0E /* AdWhirlAdapterMdotM.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0AD11FDF0750058CD0E /* AdWhirlAdapterMdotM.m */; };
-		89F3A0DE11FDF0750058CD0E /* AdWhirlAdapterMillennial.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0AF11FDF0750058CD0E /* AdWhirlAdapterMillennial.m */; };
-		89F3A0DF11FDF0750058CD0E /* AdWhirlAdapterQuattro.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0B111FDF0750058CD0E /* AdWhirlAdapterQuattro.m */; };
-		89F3A0E011FDF0750058CD0E /* AdWhirlAdapterVideoEgg.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0B311FDF0750058CD0E /* AdWhirlAdapterVideoEgg.m */; };
-		89F3A0E111FDF0750058CD0E /* AdWhirlAdapterZestADZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0B511FDF0750058CD0E /* AdWhirlAdapterZestADZ.m */; };
-		89F3A0E211FDF0750058CD0E /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0BB11FDF0750058CD0E /* AdWhirlAdapterCustom.m */; };
-		89F3A0E311FDF0750058CD0E /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0BD11FDF0750058CD0E /* AdWhirlAdapterEvent.m */; };
-		89F3A0E411FDF0750058CD0E /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0BF11FDF0750058CD0E /* AdWhirlAdapterGeneric.m */; };
-		89F3A0E511FDF0750058CD0E /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C111FDF0750058CD0E /* AdWhirlAdNetworkAdapter+Helpers.m */; };
-		89F3A0E611FDF0750058CD0E /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C211FDF0750058CD0E /* AdWhirlAdNetworkAdapter.m */; };
-		89F3A0E711FDF0750058CD0E /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C411FDF0750058CD0E /* AdWhirlAdNetworkConfig.m */; };
-		89F3A0E811FDF0750058CD0E /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C611FDF0750058CD0E /* AdWhirlAdNetworkRegistry.m */; };
-		89F3A0E911FDF0750058CD0E /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C811FDF0750058CD0E /* AdWhirlConfig.m */; };
-		89F3A0EA11FDF0750058CD0E /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0CA11FDF0750058CD0E /* AdWhirlCustomAdView.m */; };
-		89F3A0EB11FDF0750058CD0E /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0CC11FDF0750058CD0E /* AdWhirlError.m */; };
-		89F3A0EC11FDF0750058CD0E /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0CE11FDF0750058CD0E /* AdWhirlLog.m */; };
-		89F3A0ED11FDF0750058CD0E /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0D011FDF0750058CD0E /* AdWhirlView.m */; };
-		89F3A0EE11FDF0750058CD0E /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89F3A0D111FDF0750058CD0E /* AdWhirlWebBrowser.xib */; };
-		89F3A0EF11FDF0750058CD0E /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0D311FDF0750058CD0E /* AdWhirlWebBrowserController.m */; };
-		89F3A0F011FDF0750058CD0E /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0D411FDF0750058CD0E /* ARRollerView.m */; };
+		898DCFA711FEDC0F0035715A /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C411FDF0750058CD0E /* AdWhirlAdNetworkConfig.m */; };
+		898DCFA811FEDC0F0035715A /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C211FDF0750058CD0E /* AdWhirlAdNetworkAdapter.m */; };
+		898DCFA911FEDC100035715A /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C111FDF0750058CD0E /* AdWhirlAdNetworkAdapter+Helpers.m */; };
+		898DCFB311FEDC170035715A /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0BF11FDF0750058CD0E /* AdWhirlAdapterGeneric.m */; };
+		898DCFB411FEDC180035715A /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0BD11FDF0750058CD0E /* AdWhirlAdapterEvent.m */; };
+		898DCFB511FEDC190035715A /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0BB11FDF0750058CD0E /* AdWhirlAdapterCustom.m */; };
+		898DCFB711FEDC1E0035715A /* ARRollerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0D411FDF0750058CD0E /* ARRollerView.m */; };
+		898DCFB811FEDC1F0035715A /* AdWhirlWebBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0D311FDF0750058CD0E /* AdWhirlWebBrowserController.m */; };
+		898DCFB911FEDC200035715A /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89F3A0D111FDF0750058CD0E /* AdWhirlWebBrowser.xib */; };
+		898DCFBA11FEDC200035715A /* AdWhirlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0D011FDF0750058CD0E /* AdWhirlView.m */; };
+		898DCFBB11FEDC210035715A /* AdWhirlLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0CE11FDF0750058CD0E /* AdWhirlLog.m */; };
+		898DCFBC11FEDC210035715A /* AdWhirlError.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0CC11FDF0750058CD0E /* AdWhirlError.m */; };
+		898DCFBD11FEDC220035715A /* AdWhirlCustomAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0CA11FDF0750058CD0E /* AdWhirlCustomAdView.m */; };
+		898DCFBE11FEDC230035715A /* AdWhirlConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C811FDF0750058CD0E /* AdWhirlConfig.m */; };
+		898DCFBF11FEDC230035715A /* AdWhirlAdNetworkRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C611FDF0750058CD0E /* AdWhirlAdNetworkRegistry.m */; };
 		A590831F1137FDB800DBC952 /* DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = A590831E1137FDB800DBC952 /* DateFormat.m */; };
 /* End PBXBuildFile section */
 
@@ -1177,7 +1167,7 @@
 				7D91EE791152349E00046751 /* blueButton.png in Resources */,
 				7D91EE7A1152349E00046751 /* whiteButton.png in Resources */,
 				7D91EE481152349300046751 /* Settings.bundle in Resources */,
-				89F3A0EE11FDF0750058CD0E /* AdWhirlWebBrowser.xib in Resources */,
+				898DCFB911FEDC200035715A /* AdWhirlWebBrowser.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1283,30 +1273,20 @@
 				7DEA5DDF1175C8D700F02D3B /* CJSONScanner.m in Sources */,
 				7DEA5DE01175C8D700F02D3B /* CJSONSerializer.m in Sources */,
 				7DEA5DE11175C8D700F02D3B /* CSerializedJSONData.m in Sources */,
-				89F3A0D811FDF0750058CD0E /* AdWhirlAdapterAdMob.m in Sources */,
-				89F3A0D911FDF0750058CD0E /* AdWhirlAdapterGoogleAdSense.m in Sources */,
-				89F3A0DA11FDF0750058CD0E /* AdWhirlAdapterGreystripe.m in Sources */,
-				89F3A0DB11FDF0750058CD0E /* AdWhirlAdapterIAd.m in Sources */,
-				89F3A0DC11FDF0750058CD0E /* AdWhirlAdapterJumpTap.m in Sources */,
-				89F3A0DD11FDF0750058CD0E /* AdWhirlAdapterMdotM.m in Sources */,
-				89F3A0DE11FDF0750058CD0E /* AdWhirlAdapterMillennial.m in Sources */,
-				89F3A0DF11FDF0750058CD0E /* AdWhirlAdapterQuattro.m in Sources */,
-				89F3A0E011FDF0750058CD0E /* AdWhirlAdapterVideoEgg.m in Sources */,
-				89F3A0E111FDF0750058CD0E /* AdWhirlAdapterZestADZ.m in Sources */,
-				89F3A0E211FDF0750058CD0E /* AdWhirlAdapterCustom.m in Sources */,
-				89F3A0E311FDF0750058CD0E /* AdWhirlAdapterEvent.m in Sources */,
-				89F3A0E411FDF0750058CD0E /* AdWhirlAdapterGeneric.m in Sources */,
-				89F3A0E511FDF0750058CD0E /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */,
-				89F3A0E611FDF0750058CD0E /* AdWhirlAdNetworkAdapter.m in Sources */,
-				89F3A0E711FDF0750058CD0E /* AdWhirlAdNetworkConfig.m in Sources */,
-				89F3A0E811FDF0750058CD0E /* AdWhirlAdNetworkRegistry.m in Sources */,
-				89F3A0E911FDF0750058CD0E /* AdWhirlConfig.m in Sources */,
-				89F3A0EA11FDF0750058CD0E /* AdWhirlCustomAdView.m in Sources */,
-				89F3A0EB11FDF0750058CD0E /* AdWhirlError.m in Sources */,
-				89F3A0EC11FDF0750058CD0E /* AdWhirlLog.m in Sources */,
-				89F3A0ED11FDF0750058CD0E /* AdWhirlView.m in Sources */,
-				89F3A0EF11FDF0750058CD0E /* AdWhirlWebBrowserController.m in Sources */,
-				89F3A0F011FDF0750058CD0E /* ARRollerView.m in Sources */,
+				898DCFA711FEDC0F0035715A /* AdWhirlAdNetworkConfig.m in Sources */,
+				898DCFA811FEDC0F0035715A /* AdWhirlAdNetworkAdapter.m in Sources */,
+				898DCFA911FEDC100035715A /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */,
+				898DCFB311FEDC170035715A /* AdWhirlAdapterGeneric.m in Sources */,
+				898DCFB411FEDC180035715A /* AdWhirlAdapterEvent.m in Sources */,
+				898DCFB511FEDC190035715A /* AdWhirlAdapterCustom.m in Sources */,
+				898DCFB711FEDC1E0035715A /* ARRollerView.m in Sources */,
+				898DCFB811FEDC1F0035715A /* AdWhirlWebBrowserController.m in Sources */,
+				898DCFBA11FEDC200035715A /* AdWhirlView.m in Sources */,
+				898DCFBB11FEDC210035715A /* AdWhirlLog.m in Sources */,
+				898DCFBC11FEDC210035715A /* AdWhirlError.m in Sources */,
+				898DCFBD11FEDC220035715A /* AdWhirlCustomAdView.m in Sources */,
+				898DCFBE11FEDC230035715A /* AdWhirlConfig.m in Sources */,
+				898DCFBF11FEDC230035715A /* AdWhirlAdNetworkRegistry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
