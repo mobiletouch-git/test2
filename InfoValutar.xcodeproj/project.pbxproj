@@ -1352,20 +1352,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Volumes/Skiiing2/CD/ViewBased/Unknown Path/System/Library/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "74897126-4B62-4EAE-8A35-EFF4108E32CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "74897126-4B62-4EAE-8A35-EFF4108E32CF";
 				SDKROOT = iphoneos4.0;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Distribution;
 		};
