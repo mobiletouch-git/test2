@@ -36,7 +36,11 @@
 	NSDecimalNumber *referenceConverterValue;
 	
 	BOOL converterHasBeenUpdated;
-
+	
+	
+	BOOL keyboardVisible;
+	CGPoint offset;
+	CGRect oldFrame;
 }
 @property (nonatomic, retain)	UIBarButtonItem *editButton;
 @property (nonatomic, retain)	UIBarButtonItem *addButton;	
@@ -54,6 +58,8 @@
 @property (nonatomic, retain)	NSDate *selectedDate;
 @property (nonatomic, retain)	ConverterItem *referenceItem;
 @property (nonatomic, assign) BOOL converterHasBeenUpdated;
+
+
 
 -(void) addDefaultConverterValues;
 -(void) textEditEnded;

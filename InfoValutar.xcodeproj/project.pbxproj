@@ -1367,6 +1367,7 @@
 				PRODUCT_NAME = InfoValutar;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos4.0;
 			};
 			name = Distribution;
 		};

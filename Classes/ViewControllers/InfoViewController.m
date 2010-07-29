@@ -219,7 +219,7 @@
 					break;
 				case 1:
 				{
-					[cell.textLabel setText:@"Trimite impresii"];
+					[cell.textLabel setText:@"Trimiteți impresii"];
 					[cell.detailTextLabel setText:@""];					
 					[cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];	
 				}
