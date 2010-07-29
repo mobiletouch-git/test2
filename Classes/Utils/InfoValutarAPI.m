@@ -415,7 +415,7 @@ static InfoValutarAPI* INSTANCE;
 {
 	[appDelegate setDataWasUpdated:NO];
 	NSString *updateURL = [NSString stringWithFormat:@"http://api.mobiletouch.ro/0.2/curs-valutar/update.php?timestamp=%d", timeStmp];
-	NSLog([updateURL description]);
+	//NSLog([updateURL description]);
 	NSURL *defaultURL = [NSURL URLWithString:updateURL];
 	
 	NSURLRequest *theRequest = [NSURLRequest requestWithURL:defaultURL 

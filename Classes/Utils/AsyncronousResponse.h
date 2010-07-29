@@ -22,7 +22,7 @@
 	UIViewController *parentViewController;
 	NSURLRequest *request;
 	NSMutableData *responseFromRequest;
-	NSObject *parserDelegate;
+	NSObject <NSXMLParserDelegate> *parserDelegate;
 	BOOL connectionDidFinish;
 	NSURLConnection *connectionVar;
 	UIActivityIndicatorView *activityView;
@@ -33,7 +33,7 @@
 @property (readwrite, retain) UIViewController *parentViewController;
 @property (readwrite, retain) NSURLRequest *request;
 @property (readwrite, retain) NSMutableData *responseFromRequest;
-@property (readwrite, retain) NSObject *parserDelegate;
+@property (readwrite, retain) NSObject <NSXMLParserDelegate> *parserDelegate;
 @property (assign) 	id <AsyncDelegate> delegates;
 @property (readwrite, retain) UIActivityIndicatorView *activityView;
 @property (nonatomic,retain) UIAlertView *updateAlert;

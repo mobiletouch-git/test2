@@ -1297,21 +1297,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Volumes/Skiiing2/CD/ViewBased/Unknown Path/System/Library/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "88D44106-6F7A-4284-B9E1-9E9E4EAC4B6E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88D44106-6F7A-4284-B9E1-9E9E4EAC4B6E";
 			};
 			name = Debug;
 		};
@@ -1375,8 +1373,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mirela Focsa (2N3XM75Y9A)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mirela Focsa (2N3XM75Y9A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1389,10 +1387,7 @@
 				INFOPLIST_FILE = "ConvertorValutar-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AdMob\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1402,8 +1397,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = ConvertorValutar;
-				PROVISIONING_PROFILE = "559F6BAF-7034-4ADF-A3AA-B7CA5DC26B17";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "559F6BAF-7034-4ADF-A3AA-B7CA5DC26B17";
+				PROVISIONING_PROFILE = "88D44106-6F7A-4284-B9E1-9E9E4EAC4B6E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88D44106-6F7A-4284-B9E1-9E9E4EAC4B6E";
 				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
@@ -1446,18 +1441,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = CONVERTOR;
 				INFOPLIST_FILE = "ConvertorValutar-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/AdMob\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1467,9 +1459,10 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = ConvertorValutar;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "74897126-4B62-4EAE-8A35-EFF4108E32CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "74897126-4B62-4EAE-8A35-EFF4108E32CF";
 				SDKROOT = iphoneos4.0;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Distribution;
 		};

@@ -10,7 +10,7 @@
 #import "CurrencyItem.h"
 #import "ErrorObject.h"
 
-@interface CurrenciesParserDelegate : NSObject {
+@interface CurrenciesParserDelegate : NSObject <NSXMLParserDelegate> {
 
 @private	
 	NSMutableString *contentofNode;

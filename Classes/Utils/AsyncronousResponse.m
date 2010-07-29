@@ -119,7 +119,7 @@
 {
     NSLog(@"Connection did fail");
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	NSLog([[NSString stringWithFormat:@"%@ - %@",[error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]] description]);
+	//NSLog([[NSString stringWithFormat:@"%@ - %@",[error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]] description]);
 	
 	[UIFactory showOkAlert:@"Vă rugăm verificați conexiunea la Internet și reveniți mai târziu." title:nil];	
 	
