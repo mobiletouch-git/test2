@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "AdditionFactorItem.h"
 #import "ConverterViewController.h"
+#import "SensitiveTableView.h"
 
 @implementation ConverterTableViewCell
 
@@ -165,7 +166,6 @@
 
 -(void) setEditing: (BOOL) yesOrNo
 {
- 
 	const int k = 30;
 	if (yesOrNo)
 	{
@@ -187,42 +187,6 @@
 	
 }
 
--(void) moveView:(UIView *) viewP x:(float) pixP {
-	CGRect fr = [viewP frame];
-	fr.origin.x += pixP;
-	[viewP setFrame:fr];
-}
-
-- (void)scrollCellToCenterOfScreen:(UIView *)theView {
-	
-	UITableView *myTable = [[appDelegate converterViewController] myTableView];
-	UITableViewCell *myCell = (UITableViewCell *) [theView superview];
-	
-	int index = [myTable indexPathForCell:myCell].row;
-	
-	int summ = 0;
-	for (int i=0;i<index;i++) {
-		ConverterItem *co = [[appDelegate converterViewController].tableDataSource objectAtIndex:i];
-		if ([co.additionFactors count]) 
-			summ += 60;
-		else 
-			summ += 45;
-		
-	}
-	
-	float cellHeight = myCell.frame.size.height;
-	CGFloat viewCenterY = summ + cellHeight / 2;
-	
-	CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-	
-	CGFloat availableHeight = applicationFrame.size.height - 266;	// Remove area covered by keyboard 216 || 80
-	
-	CGFloat y = viewCenterY - availableHeight / 2.0;
-	if (y < 0) {
-		y = 0;
-	}
-	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, y) animated:YES];
-}
 
 #pragma mark UITextFieldDelegate
 
@@ -238,48 +202,52 @@
 	[[[appDelegate converterViewController] datePicker] setHidden:YES];
 	[[[appDelegate converterViewController] titleSeg] setSelectedSegmentIndex:-1];			
 	[[[appDelegate converterViewController] titleSeg] setEnabled:NO];		
-//	[[[appDelegate converterViewController] myTableView] setScrollEnabled:NO];
 	
-	[self scrollCellToCenterOfScreen:textField];
+	CGRect textFieldFrame = [self.superview convertRect:textField.frame fromView:self];	
+	[(SensitiveTableView *)self.superview setRelativeTextFieldFrame:textFieldFrame];
+	[(SensitiveTableView *)self.superview setCallBackObject:self];
+	[(SensitiveTableView *)self.superview setCallBackSelector:@selector (textFieldShouldReturn:)];
+	[(SensitiveTableView *)self.superview setTextField:textField];
 	
+	
+	[NSTimer scheduledTimerWithTimeInterval:0.3 
+									 target:self
+								   selector:@selector (shrinkTable) 
+								   userInfo:nil 
+									repeats:NO];
 	return YES;
 }
 
-// Deprecated
--(float) computeOffsetForCellInArray: (NSArray *) cells
-						  dataSource: (NSArray *) tableDataSource
+-(void) shrinkTable
 {
-	float computed = 0;
-	for (int i=0; i <[cells count]; i++)
-	{
-		id cellAtIndex = [cells objectAtIndex:i];
-		if (cellAtIndex == self)
-		{
-			if (i==0)
-				computed = 0-2*self.bounds.size.height;
-			else if (i==1)
-				computed = 0-self.bounds.size.height;
-			else if (i>=3)
-			{
-				int foundAtIndex = 0;
-				for (int j=0; j<[tableDataSource count];j++)
-				{
-					ConverterItem *current = [tableDataSource objectAtIndex:j];
-					if (current == self.converter)
-						foundAtIndex = j;
-				}
-				
-				if (foundAtIndex>=6 && [cells count]==7)
-					computed = ((foundAtIndex-6)+(-2+i))*self.bounds.size.height;				
-				else
-					computed = (i-2)*self.bounds.size.height;
-				
-			}
-		}
-	}	
 	
-	return computed;
+	if (!((SensitiveTableView *)self.superview).isShrinked)
+	{
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.1];
+		[UIView setAnimationCurve:UIViewAnimationCurveLinear];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+
+#if defined(CONVERTOR)	
+	[(SensitiveTableView *)self.superview setFrame:CGRectMake(0, kTopPadding, 320, [[self superview] superview].frame.size.height - ((216-kTopPadding)+50))];
+#else
+	[(SensitiveTableView *)self.superview setFrame:CGRectMake(0, 0, 320, [[self superview] superview].frame.size.height - (216-50))];
+#endif		
+		
+
+		[UIView commitAnimations];	
+	}
+	
 }
+
+- (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+	
+	((SensitiveTableView *)self.superview).isShrinked=YES;
+	CGRect textFieldFrame = ((SensitiveTableView *)self.superview).relativeTextFieldFrame;	
+	[(SensitiveTableView *)self.superview scrollRectToVisible:textFieldFrame animated:YES];
+}
+
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -289,6 +257,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+	
 	if (![[appDelegate converterViewController] textChanged])
 	{
 		[converterValueTextField setText:oldValue];
@@ -299,7 +268,6 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-//	[[appDelegate converterViewController] textEditEnded];
 	[textField resignFirstResponder];	
 	 
 	NSDecimalNumber *nrFromString;
@@ -314,7 +282,16 @@
 	[self.converter setConverterValue:nrFromString];
 		
 	[[appDelegate converterViewController] setReferenceItem:self.converter];
-	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
+//	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
+	
+	
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.3];
+	[UIView setAnimationCurve:UIViewAnimationCurveLinear];
+	[(SensitiveTableView *)self.superview setFrame:CGRectMake(0.0, kTopPadding, 320, 368-kTopPadding)];
+	[UIView commitAnimations];
+	((SensitiveTableView *)self.superview).isShrinked=NO;
+	
 	[[[appDelegate converterViewController] myTableView] reloadData];
 	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
 	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];	
@@ -375,14 +352,19 @@
 }
 
 - (void)cancelAction {
+
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.3];
+	[UIView setAnimationCurve:UIViewAnimationCurveLinear];
+	[(SensitiveTableView *)self.superview setFrame:CGRectMake(0.0, kTopPadding, 320, 368-kTopPadding)];
+	[UIView commitAnimations];
+	((SensitiveTableView *)self.superview).isShrinked=NO;	
 	
 	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];		
-	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];		
 	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
 	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];
 	[converterValueTextField setText:oldValue];
 	[converterValueTextField resignFirstResponder];
-//	[self textFieldShouldReturn:converterValueTextField];
 }
 
 @end

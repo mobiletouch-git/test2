@@ -11,10 +11,11 @@
 #import "ConverterItem.h"
 #import "AdWhirlDelegateProtocol.h"
 #import "AddNewTaxViewController.h"
+#import "SensitiveTableView.h"
 
 @interface ConverterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdWhirlDelegate>{
 	
-	UITableView *myTableView;
+	SensitiveTableView *myTableView;
 	NSMutableArray *tableDataSource;
 	NSMutableArray *selectedReferenceDay;
 	

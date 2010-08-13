@@ -30,8 +30,6 @@
 - (void)dealloc {
 	
 	[[NSNotificationCenter defaultCenter]removeObserver:self name:@"taxChanged" object:nil];
-	[[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 	
 	[editButton release];
 	[addButton release];
@@ -144,26 +142,11 @@
 		
 		[self setSelectedDate:validBankingDate];
 		
-		/*
-		 NSDate *todayDate = [DateFormat normalizeDateFromDate:[NSDate date]];
-		 NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:todayDate];
-		 [self setSelectedDate:utcDate];
-		 
-		 NSDate *validBankingDate = [InfoValutarAPI getValidBankingDayForDay:[self selectedDate]];
-		 
-		 [self setSelectedDate:validBankingDate];
-		 */
-		
+	
 		tableDataSource = [[NSMutableArray alloc] init];	
 		selectedReferenceDay = [[NSMutableArray alloc] init];	
 		
-		/*
-		if ([savedList count])
-			[tableDataSource addObjectsFromArray:savedList];
-		else
-			[self addDefaultConverterValues];
-		*/
-		
+	
 		[self populateTableSource];
 		
 		NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"converterReferenceItem"];
@@ -270,15 +253,6 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *path = [paths objectAtIndex:0]; 
 	NSLog(@"%@",path);
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector (keyboardDidShow:)
-												 name: UIKeyboardDidShowNotification object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector (keyboardDidHide:)
-												 name: UIKeyboardDidHideNotification object:nil];
-	
-	
 
 	doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
 												  style:UIBarButtonItemStyleDone
@@ -307,7 +281,7 @@
 	
 	//initialize and place tableView
 	CGRect tableViewFrame = CGRectMake(0.0, kTopPadding, 320, 368-kTopPadding);
-	myTableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
+	myTableView = [[SensitiveTableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
 	myTableView.delegate = self;
 	myTableView.dataSource = self;
 	myTableView.autoresizesSubviews = YES;
@@ -737,67 +711,5 @@
 	[myTableView reloadData];
 }
 
-
-#pragma mark -
-#pragma mark Keyboard notifications
--(void) keyboardDidShow: (NSNotification *)notif 
-{
-	// If keyboard is visible, return
-	if (keyboardVisible) 
-	{
-		NSLog(@"Keyboard is already visible. Ignoring notification.");
-		return;
-	}
-	/*
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.2];
-	[UIView setAnimationCurve:UIViewAnimationCurveLinear];
-	*/
-	// Get the size of the keyboard.
-	NSDictionary* info = [notif userInfo];
-	NSValue* beginValue = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-	CGSize keyboardSize = [beginValue CGRectValue].size;
-	
-	// Save the current location so we can restore
-	// when keyboard is dismissed
-	offset = myTableView.contentOffset;
-
-	// Resize the table view to make room for the keyboard
-	CGRect viewFrame = myTableView.frame;
-
-	oldFrame = myTableView.frame;
-	viewFrame.size.height -= (keyboardSize.height-50);
-	myTableView.frame = viewFrame;
-	
-	//[UIView commitAnimations];
-	// Keyboard is now visible
-	keyboardVisible = YES;
-}
--(void) keyboardDidHide: (NSNotification *)notif 
-{
-	/*
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.2];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-	*/
-	
-	// Is the keyboard already shown
-	if (!keyboardVisible) 
-	{
-		NSLog(@"Keyboard is already hidden. Ignoring notification.");
-		return;
-	}
-	
-	// Reset the height of the scroll view to its original value
-	myTableView.frame = CGRectMake(0, 0, oldFrame.size.width, oldFrame.size.height);
-	
-	// Reset the scrollview to previous location
-	myTableView.contentOffset = offset;
-	
-	//[UIView commitAnimations];
-	
-	// Keyboard is no longer visible
-	keyboardVisible = NO;	
-}
 
 @end

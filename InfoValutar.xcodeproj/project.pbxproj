@@ -256,6 +256,8 @@
 		7DF23331114905D700915118 /* UpdateSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DF23330114905D700915118 /* UpdateSettings.plist */; };
 		7DF235CD11490EF300915118 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF235CB11490EF300915118 /* close.png */; };
 		7DF235CE11490EF300915118 /* close_touch.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DF235CC11490EF300915118 /* close_touch.png */; };
+		89879FFB12156B9C001BF490 /* SensitiveTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89879FFA12156B9C001BF490 /* SensitiveTableView.m */; };
+		89879FFC12156B9C001BF490 /* SensitiveTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89879FFA12156B9C001BF490 /* SensitiveTableView.m */; };
 		898DCFA711FEDC0F0035715A /* AdWhirlAdNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C411FDF0750058CD0E /* AdWhirlAdNetworkConfig.m */; };
 		898DCFA811FEDC0F0035715A /* AdWhirlAdNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C211FDF0750058CD0E /* AdWhirlAdNetworkAdapter.m */; };
 		898DCFA911FEDC100035715A /* AdWhirlAdNetworkAdapter+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F3A0C111FDF0750058CD0E /* AdWhirlAdNetworkAdapter+Helpers.m */; };
@@ -446,6 +448,8 @@
 		7DF23330114905D700915118 /* UpdateSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UpdateSettings.plist; path = Resources/UpdateSettings.plist; sourceTree = "<group>"; };
 		7DF235CB11490EF300915118 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = Resources/close.png; sourceTree = "<group>"; };
 		7DF235CC11490EF300915118 /* close_touch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_touch.png; path = Resources/close_touch.png; sourceTree = "<group>"; };
+		89879FF912156B9C001BF490 /* SensitiveTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SensitiveTableView.h; path = Classes/Utils/SensitiveTableView.h; sourceTree = "<group>"; };
+		89879FFA12156B9C001BF490 /* SensitiveTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SensitiveTableView.m; path = Classes/Utils/SensitiveTableView.m; sourceTree = "<group>"; };
 		89F3A0A211FDF0750058CD0E /* AdWhirlAdapterAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterAdMob.h; sourceTree = "<group>"; };
 		89F3A0A311FDF0750058CD0E /* AdWhirlAdapterAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdWhirlAdapterAdMob.m; sourceTree = "<group>"; };
 		89F3A0A411FDF0750058CD0E /* AdWhirlAdapterGoogleAdSense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterGoogleAdSense.h; sourceTree = "<group>"; };
@@ -841,6 +845,8 @@
 		7DBF9402111309CB0042CD97 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				89879FF912156B9C001BF490 /* SensitiveTableView.h */,
+				89879FFA12156B9C001BF490 /* SensitiveTableView.m */,
 				A590831D1137FDB800DBC952 /* DateFormat.h */,
 				A590831E1137FDB800DBC952 /* DateFormat.m */,
 				7DBF9404111309E90042CD97 /* AsyncronousResponse.h */,
@@ -1008,6 +1014,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "S.C. Mobile Touch S.R.L.";
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "InfoValutar" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -1222,6 +1231,7 @@
 				7DEA5DDA1175C8D700F02D3B /* CJSONScanner.m in Sources */,
 				7DEA5DDB1175C8D700F02D3B /* CJSONSerializer.m in Sources */,
 				7DEA5DDC1175C8D700F02D3B /* CSerializedJSONData.m in Sources */,
+				89879FFC12156B9C001BF490 /* SensitiveTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1287,6 +1297,7 @@
 				898DCFBD11FEDC220035715A /* AdWhirlCustomAdView.m in Sources */,
 				898DCFBE11FEDC230035715A /* AdWhirlConfig.m in Sources */,
 				898DCFBF11FEDC230035715A /* AdWhirlAdNetworkRegistry.m in Sources */,
+				89879FFB12156B9C001BF490 /* SensitiveTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1297,8 +1308,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1308,8 +1319,8 @@
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "88D44106-6F7A-4284-B9E1-9E9E4EAC4B6E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88D44106-6F7A-4284-B9E1-9E9E4EAC4B6E";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};
@@ -1475,6 +1486,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "F6E4B967-453C-43EA-9056-C87AC1F1EAF3";

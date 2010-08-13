@@ -33,10 +33,7 @@
 
 -(void) setConverterItem: (ConverterItem *) aConverter;
 -(void) setEditing: (BOOL) yesOrNo;
--(float) computeOffsetForCellInArray: (NSArray *) cells
-						  dataSource: (NSArray *) tableDataSource;
 
--(void) moveView:(UIView *) viewP x:(float) pixP;
 - (void)cancelAction;
 
 @end
