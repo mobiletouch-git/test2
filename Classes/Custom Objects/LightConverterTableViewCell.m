@@ -66,7 +66,7 @@
 	NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
 	[formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[formatter setMinimumFractionDigits:2];
+	[formatter setMinimumFractionDigits:0];
 	[formatter setMaximumFractionDigits:2];
 	[formatter setLocale: roLocale];
 	
@@ -86,10 +86,10 @@
 	{
 		AdditionFactorItem *af = [aConverter.additionFactors objectAtIndex:i];
 		if (af.factorSign>0)
-			additionString = [additionString stringByAppendingFormat:@" + %@",[formatter stringFromNumber:af.factorValue]];
+			additionString = [additionString stringByAppendingFormat:@" + %@",[[formatter stringFromNumber:af.factorValue]stringByAppendingString:@"%"]];
 			//additionString = [additionString stringByAppendingFormat:@" + %.2f%%", [af.factorValue doubleValue]];
 		if (af.factorSign<0)
-			additionString = [additionString stringByAppendingFormat:@" - %@",[formatter stringFromNumber:af.factorValue]];
+			additionString = [additionString stringByAppendingFormat:@" - %@",[[formatter stringFromNumber:af.factorValue]stringByAppendingString:@"%"]];
 			//additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
 	}
 	

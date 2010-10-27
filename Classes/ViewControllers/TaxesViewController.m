@@ -13,6 +13,7 @@
 #import "AddNewTaxViewController.h"
 #import "InfoValutarAPI.h"
 #import "AdWhirlView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation TaxesViewController
 
@@ -139,7 +140,7 @@
 	myTableView.dataSource = self;
 	myTableView.autoresizesSubviews = YES;
 	myTableView.scrollEnabled=YES;
-	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
+	//myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	[self.view addSubview:myTableView];
 
 #if defined(CONVERTOR)	
@@ -152,7 +153,6 @@
 
 -(void) addAction
 {
-	NSLog(@"Add new tax action");
 	[self addNewTaxAction];		
 }
 
@@ -188,10 +188,11 @@
 
 -(void) editAction
 {
-	[myTableView setEditing:YES];
+	[myTableView setEditing:YES animated:YES];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
-	[self.navigationItem setRightBarButtonItem:nil];	
-	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationRight];			
+	[self.navigationItem setRightBarButtonItem:nil];
+	
+	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];			
 	[myTableView reloadData];
 }
 
@@ -200,7 +201,7 @@
 	[myTableView setEditing:NO];	
 	[self.navigationItem setLeftBarButtonItem:editButton];	
 	[self.navigationItem setRightBarButtonItem:addButton];		
-	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];		
+	[myTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationRight];		
 	[myTableView reloadData];		
 }
 
@@ -361,7 +362,16 @@
 	[myTableView deselectRowAtIndexPath:[myTableView indexPathForSelectedRow] animated:YES];
 	
 	AddNewTaxViewController *newTaxView = [[AddNewTaxViewController alloc] initWithAdditionFactor:nil];
-	[self.navigationController pushViewController:newTaxView animated:YES];
+	
+	CATransition *transition = [CATransition animation];
+	transition.duration = 0.5;
+	transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	transition.type = kCATransitionMoveIn;
+	transition.subtype = kCATransitionFromTop;
+	transition.delegate = self;
+	[self.navigationController.view.layer addAnimation:transition forKey:nil];
+	
+	[self.navigationController pushViewController:newTaxView animated:NO];
 	[newTaxView release];
 }
 
@@ -369,6 +379,7 @@
 {
 	AddNewTaxViewController *newTaxView = [[AddNewTaxViewController alloc] initWithAdditionFactor:existingTax];
 	[self.navigationController pushViewController:newTaxView animated:YES];
+	
 	[newTaxView release];
 }
 

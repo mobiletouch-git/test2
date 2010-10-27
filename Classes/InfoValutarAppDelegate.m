@@ -71,11 +71,13 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    
+- (void)applicationDidFinishLaunching:(UIApplication *)application {   
     // Override point for customization after app launch    
 
 //	[self populate];
+	
+	//delege nsuserdefaults - for testing purposes
+	//[[NSUserDefaults standardUserDefaults] setPersistentDomain:[NSDictionary dictionary] forName:[[NSBundle mainBundle] bundleIdentifier]];
 
 	[self initializeDatabase];
 	[self readFromDefaults];
@@ -137,6 +139,45 @@
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
 	
+	NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+	//write tabbar position
+	
+	NSMutableArray *converterList = [converterViewController tableDataSource];
+	NSData *converterListData = [NSKeyedArchiver archivedDataWithRootObject:converterList];
+	[prefs setObject:converterListData forKey:@"converterList"];
+	
+	ConverterItem *item = [[self converterViewController] referenceItem];
+	NSData *converterReferenceData = [NSKeyedArchiver archivedDataWithRootObject: item];
+	[prefs setObject:converterReferenceData forKey:@"converterReferenceItem"];
+	[prefs setBool:[converterViewController converterHasBeenUpdated] forKey:@"converterUpdated"];
+	
+	NSMutableArray *taxesList = [taxesViewController tableDataSource];
+	NSData *taxesListData = [NSKeyedArchiver archivedDataWithRootObject:taxesList];
+	[prefs setObject:taxesListData forKey:@"taxesList"];
+	[prefs setBool:[taxesViewController taxesHaveBeenUpdated] forKey:@"taxesUpdated"];
+	
+	NSMutableDictionary *dateRangeDictionary = [statisticsViewController dateRangeDictionary];
+	NSData *dateRangeDictionaryData = [NSKeyedArchiver archivedDataWithRootObject:dateRangeDictionary];
+	[prefs setObject:dateRangeDictionaryData forKey:@"dateRangeDictionary"];
+	
+	NSMutableArray *currenciesList = [statisticsViewController currenciesList];
+	NSData *currenciesListData = [NSKeyedArchiver archivedDataWithRootObject:currenciesList];
+	[prefs setObject:currenciesListData forKey:@"statisticsCurrenciesList"];
+	
+	[prefs synchronize];
+	
+    NSError *error = nil;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+			/*
+			 Replace this implementation with code to handle the error appropriately.
+			 
+			 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+			 */
+			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+			abort();
+        } 
+    }	
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -144,6 +185,7 @@
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
+
 }
 
 
@@ -152,7 +194,6 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
-	
 	NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
 	//write tabbar position
 	
@@ -195,11 +236,27 @@
 	
 }
 
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	BOOL settingsUpdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"sAutomaticUpdate"];
+	NSString *settingsModeString = [[NSUserDefaults standardUserDefaults] stringForKey:@"currencyModeKey"];
+	if ([settingsModeString isEqualToString:@"Cursul licitat"]){
+		[self setDisplayValidMode:NO];
+	}
+	else{
+		[self setDisplayValidMode:YES];
+	}
+	if (settingsUpdate) {
+		userAction = NO; 
+		[self checkForUpdates];
+	}
+	
+	[converterViewController viewWillAppear:NO];
+	[currencyViewController viewWillAppear:NO];
+	
 }
 
 
@@ -417,8 +474,9 @@
 				if (![fridayUTCDate compare:validBankingDate]) // is saturday and we have the friday currency
 				{
 					mustUpdate = NO;
-					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]
-									 title:nil];					
+					if (userAction) {
+						[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]title:nil];					
+					}
 				}
 				else
 					mustUpdate =YES;
@@ -433,8 +491,9 @@
 				if (![fridayUTCDate compare:validBankingDate]) // is saturday and we have the friday currency
 				{
 					mustUpdate = NO;
-					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]
-									 title:nil];					
+					if (userAction) {
+						[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]title:nil];					
+					}
 				}
 				else
 					mustUpdate =YES;
@@ -449,9 +508,9 @@
 		
 	}
 	else {												// Latest valid banking date is up to date
-		if (userAction)
-			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]
-							 title:nil];
+		if (userAction) {
+			[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR este la zi."]title:nil];
+		}
 	}
 	
 	userAction = YES;

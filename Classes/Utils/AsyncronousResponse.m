@@ -39,12 +39,12 @@
 	
 	
 	activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.frame = CGRectMake(120.0,70.0,50.0,50.0);
+    activityView.frame = CGRectMake(120.0,55.0,50.0,50.0);
 	activityView.hidesWhenStopped = YES;
 	[activityView setTag:33];
 	
 	updateAlert = [[UIAlertView alloc] initWithTitle:@""
-											 message:@"Vă rugăm asteptați. Aplicația se actualizează.\n" 
+											 message:@"Aplicația se actualizează.\n" 
 											delegate:nil
 								   cancelButtonTitle:nil 
 								   otherButtonTitles:nil];

@@ -23,6 +23,7 @@
 	graphView = nil;
 	
 	[plots release];
+	[plotsValues release];
 	[startDate release];
 	[endDate release];
 	[totalDays release];
@@ -50,11 +51,14 @@
 	
 	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
 	[totalDays addObject:startDate];
-	
-	while ((![endDate compare:nextDay] == NSOrderedSame) || [endDate compare:nextDay] == NSOrderedDescending) {
+	int counter = 0;
+	while ([endDate compare:nextDay] != NSOrderedSame || [endDate compare:nextDay] == NSOrderedDescending) {
 		{
 			nextDay = [DateFormat getNextDayForDay:nextDay];
 			nextDay = [InfoValutarAPI getUTCFormateDateFromDate:nextDay];
+			counter++;
+			NSLog(@"nexDay:%@",nextDay);
+			NSLog(@"counter:%d",counter);
 			[totalDays addObject:nextDay];
 		}
 	}

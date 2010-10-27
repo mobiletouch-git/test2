@@ -63,7 +63,7 @@
 		[self addSubview:converterAdditionLabel];		
 		
 		converterValueTextField = [[UITextField alloc] init];
-		[converterValueTextField setFrame:CGRectMake(150, 8, 160,30)];
+		[converterValueTextField setFrame:CGRectMake(140, 8, 170,30)];
 		converterValueTextField.borderStyle = UITextBorderStyleRoundedRect;
 		converterValueTextField.textColor = [UIColor blackColor];
 		converterValueTextField.font = [UIFont systemFontOfSize:18.0];
@@ -94,7 +94,7 @@
 		currencyFormatter = [[NSNumberFormatter alloc] init];
 		[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-		[currencyFormatter setMinimumFractionDigits:2];
+		[currencyFormatter setMinimumFractionDigits:0];
 		[currencyFormatter setMaximumFractionDigits:2];
 		[currencyFormatter setLocale: roLocale];
 		
@@ -136,10 +136,10 @@
 	{
 		AdditionFactorItem *af = [aConverter.additionFactors objectAtIndex:i];
 		if (af.factorSign>0)
-			additionString = [additionString stringByAppendingFormat:@" + %@",[currencyFormatter stringFromNumber:af.factorValue]];
+			additionString = [additionString stringByAppendingFormat:@" + %@",[[currencyFormatter stringFromNumber:af.factorValue]stringByAppendingString:@"%"]];
 			//additionString = [additionString stringByAppendingFormat:@" + %.2f%%", [af.factorValue doubleValue]];
 		if (af.factorSign<0)
-			additionString = [additionString stringByAppendingFormat:@" - %@",[currencyFormatter stringFromNumber:af.factorValue]];
+			additionString = [additionString stringByAppendingFormat:@" - %@",[[currencyFormatter stringFromNumber:af.factorValue]stringByAppendingString:@"%"]];
 			//additionString = [additionString stringByAppendingFormat:@" - %.2f%%", [af.factorValue doubleValue]];
 	}
 	

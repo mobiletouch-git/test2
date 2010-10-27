@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-	self.title = @"Alegeți";
+	self.title = @"Alegeți moneda";
 	
 	tableDataSource = [[NSMutableArray alloc] initWithArray:[[appDelegate converterViewController] selectedReferenceDay]];
 	

@@ -96,6 +96,14 @@
 	[myTableView deselectRowAtIndexPath:[myTableView indexPathForSelectedRow] animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+
+	[super viewWillAppear:animated];
+	NSLog(@"view will appear");
+	[self pageUpdate];
+}
+ 
+
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -165,7 +173,7 @@
 	myTableView.dataSource = self;
 	myTableView.autoresizesSubviews = YES;
 	myTableView.scrollEnabled=YES;
-	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
+	//myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
 	[self.view addSubview:myTableView];
 	
 	[self.view addSubview:[self getHeaderView]];	

@@ -6,7 +6,7 @@
 +(UITextField *)newTextField:(NSString *)placeHolderText;
 {
 	
-	UITextField *returnTextField = [[[UITextField alloc] init] autorelease];
+	UITextField *returnTextField = [[UITextField alloc] init];
     returnTextField.borderStyle = UITextBorderStyleNone;
     returnTextField.textColor = [UIColor blackColor];
 	returnTextField.font = [UIFont systemFontOfSize:13.0];
@@ -24,7 +24,7 @@
 }
 
 +(UITextView *)newTextViewWithFrame: (CGRect)frame{
-	UITextView *returnTextView = [[[UITextView alloc] initWithFrame:frame] autorelease];
+	UITextView *returnTextView = [[UITextView alloc] initWithFrame:frame];
 	returnTextView.textColor = [UIColor blackColor];
 	returnTextView.font = [UIFont systemFontOfSize:13.0];
     returnTextView.backgroundColor = [UIColor whiteColor];
@@ -47,7 +47,7 @@
 		font = [UIFont systemFontOfSize:fontSize];
 	}
 	
-	UILabel *newLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+	UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 	newLabel.backgroundColor = [UIColor whiteColor];
 	newLabel.opaque = YES;
 	newLabel.textColor = primaryColor;

@@ -89,7 +89,7 @@
 	NSNumberFormatter* currencyFormatter = [[NSNumberFormatter alloc] init];
 	[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 	[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[currencyFormatter setMinimumFractionDigits:2];
+	[currencyFormatter setMinimumFractionDigits:0];
 	[currencyFormatter setMaximumFractionDigits:2];
 	[currencyFormatter setLocale: roLocale];
 
@@ -114,7 +114,7 @@
 		[taxSignImageView setImage:[UIImage imageNamed:@"edit_remove.png"]];
 	
 	if (aFactor.factorValue)
-		[percentLabel setText:[currencyFormatter stringFromNumber:aFactor.factorValue]];
+		[percentLabel setText:[[currencyFormatter stringFromNumber:aFactor.factorValue] stringByAppendingString:@"%"]];
 	
 	[currencyFormatter release];
 	

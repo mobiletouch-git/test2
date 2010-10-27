@@ -261,7 +261,8 @@
 		else
 		{
 			[cell setAccessoryType:UITableViewCellAccessoryNone];			
-			[cell setActive:NO];	
+			[cell setActive:NO];
+			//[cell	setActive:YES];
 		}
 		
 		if ([additionList count]!=3)
@@ -300,6 +301,17 @@
 						
 					[oneRowTableView reloadData];					
 					return;
+				}else {
+					if ([additionList count]==3) {
+						if (!addF.checked)
+						{						
+							[tableView reloadData];
+							
+							[oneRowTableView reloadData];
+							[UIFactory showOkAlert:[NSString stringWithFormat:@"Pot fi selectate cel multe 3 procente."]title:nil];
+							return;
+						}
+					}
 				}
 				
 				if ([additionList count]<=2)									

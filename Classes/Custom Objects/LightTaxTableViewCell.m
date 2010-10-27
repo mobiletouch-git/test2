@@ -66,7 +66,7 @@
 	NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
 	[formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[formatter setMinimumFractionDigits:2];
+	[formatter setMinimumFractionDigits:0];
 	[formatter setMaximumFractionDigits:2];
 	[formatter setLocale: roLocale];
 	
@@ -78,7 +78,7 @@
 		[taxSignImageView setImage:[UIImage imageNamed:@"edit_remove.png"]];
 	
 	if (aFactor.factorValue)
-		[percentLabel setText:[formatter stringFromNumber:aFactor.factorValue]];
+		[percentLabel setText:[[formatter stringFromNumber:aFactor.factorValue]stringByAppendingString:@"%"]];
 	
 	[formatter release];
 	//	[percentLabel setText:[NSString stringWithFormat:@"%.2f%%", [aFactor.factorValue doubleValue]]];

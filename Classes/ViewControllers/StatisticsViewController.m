@@ -55,7 +55,8 @@
 			dateRangeDictionary = [savedRanges retain];
 		else
 		{
-			dateRangeDictionary = [[NSMutableDictionary alloc] init];			
+			dateRangeDictionary = [[NSMutableDictionary alloc] init];	
+			//[dateRangeDictionary setValue:[DateFormat normalizedStringFromDate: [NSDate date]] forKey: @"endDate"];
 		}
 		
 		NSData *data2 = [[NSUserDefaults standardUserDefaults ] objectForKey:@"statisticsCurrenciesList"];
@@ -181,6 +182,14 @@
 												  action:@selector(editAction)];
 	 [self.navigationItem setLeftBarButtonItem:editButton];
 	 
+	 UIBarButtonItem *cancelButton = [[ UIBarButtonItem alloc] init];
+	 
+	 cancelButton.title = kCancel;
+	 
+	 self.navigationItem.backBarButtonItem = cancelButton;
+	 
+	 [cancelButton release];
+	 
 #if defined(CONVERTOR)	
 	 [self.view addSubview:[InfoValutarAPI displayCompanyLogo]];
 	 [self.view addSubview:[AdWhirlView requestAdWhirlViewWithDelegate:self]];
@@ -294,6 +303,15 @@
 	[currenciesTableView deselectRowAtIndexPath:[currenciesTableView indexPathForSelectedRow] animated:YES];	
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	/*
+	NSLog(@"dateRangeDictionary:%@",dateRangeDictionary);
+	if (![dateRangeDictionary count]) {
+		[dateRangeDictionary setValue:[DateFormat normalizedStringFromDate: [NSDate date]] forKey: @"endDate"];
+	}*/
+}
+
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -363,8 +381,6 @@
 {
 	if (tableView == dateRangeTableView)
 		return @"Perioada";
-	else	if (tableView == currenciesTableView)
-		return @"Pentru";
 	return nil;
 }
 
@@ -394,7 +410,7 @@
 			case 1:
 			{
 				NSString *endDateString = [dateRangeDictionary objectForKey:@"endDate"];	
-				[cell.textLabel setText:@"Pana la:"];
+				[cell.textLabel setText:@"Până la:"];
 				[cell.detailTextLabel setText:endDateString];			
 			}
 				break;

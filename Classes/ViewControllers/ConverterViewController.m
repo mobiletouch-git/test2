@@ -208,10 +208,14 @@
 	if (validBankingDate)
 	{
 		NSMutableArray *selectedCurrencies;
-		if ([appDelegate displayValidMode])		
-			selectedCurrencies = [InfoValutarAPI getValidCurrenciesForDate:validBankingDate];			
-		else
+		if ([appDelegate displayValidMode]){
+			//NSLog(@"valabil");
+			selectedCurrencies = [InfoValutarAPI getValidCurrenciesForDate:validBankingDate];
+		}
+		else{
+			//NSLog(@"licitat");
 			selectedCurrencies = [InfoValutarAPI getCurrenciesForDate:validBankingDate];
+		}
 		if ([selectedCurrencies count])
 		{
 			[selectedReferenceDay removeAllObjects];			
@@ -245,6 +249,12 @@
  }
  */
 
+
+-(void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	NSLog(@"view will appear");
+	[self updateCurrentDate];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -287,6 +297,10 @@
 	myTableView.autoresizesSubviews = YES;
 	myTableView.scrollEnabled=YES;
 	myTableView.allowsSelectionDuringEditing= YES; // very important, otherwise cells won't respond to touches
+	//adds separator space between table cells and keyboard
+	myTableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 20, 0);
+	myTableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
+
 	[self.view addSubview:myTableView];
 	
 	NSString *todayString = [DateFormat businessStringFromDate:self.selectedDate];	
@@ -710,6 +724,5 @@
 	}
 	[myTableView reloadData];
 }
-
 
 @end

@@ -58,8 +58,9 @@
 
 -(void) resignAction
 {
-	[callBackObject performSelector:callBackSelector withObject:self.textField];
-//	[self.textField resignFirstResponder];
+	//Commented because of edit bug
+	//[callBackObject performSelector:callBackSelector withObject:self.textField];
+	[self.textField resignFirstResponder];
 }
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {

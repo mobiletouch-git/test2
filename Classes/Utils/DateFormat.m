@@ -64,10 +64,20 @@
 	return formattedDateString;
 }
 
-+(NSDate *) dateFromNormalizedString:(NSString *)dateString
++(NSDate *)dateFromNormalizedString:(NSString *)string {    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    //#define kDEFAULT_DATE_TIME_FORMAT (@"yyyy-MM-dd’T'HH:mm:ss’Z'")
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    NSDate *date = [formatter dateFromString:string];
+    [formatter release];
+    return date;
+}
+
++(NSDate *) dateFromNormalizedStringOld:(NSString *)dateString
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"dd-MM-yyyy"];
+	[dateFormatter setDateFormat:@"dd-mm-yyyy"];
 	NSDate *newDate = [dateFormatter dateFromString:dateString];
 	[dateFormatter release];
 	return newDate;
@@ -251,7 +261,7 @@
 {
 	NSDateComponents *comps = [[NSDateComponents alloc] init];
 	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];	
-	[comps setDay:1];
+	[comps setHour:24];
 	NSDate *newDate = [gregorian dateByAddingComponents:comps toDate:date options:0];
 	[comps release];
 	[gregorian release];

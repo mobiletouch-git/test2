@@ -12,6 +12,7 @@
 #import "UIFactory.h"
 #import "TaxTableViewCell.h"
 #import "TaxesViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AddNewTaxViewController
 
@@ -63,17 +64,29 @@
 		}
 		else
 		{
-			self.title = kAddNewTax;					
+			self.title = kAddNewTax;	
+			
+			UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
+																			 style:UIBarButtonItemStyleBordered
+																			target:self
+																			action:@selector(popViewWithModalLikeAnimation)];
+			self.navigationItem.leftBarButtonItem = cancelButton;
+			[cancelButton release];
+			
+			
+			
 			additionFactor = [[AdditionFactorItem alloc] init];
 			[additionFactor setFactorValue:[NSDecimalNumber decimalNumberWithString:@"0"]];
 			[additionFactor setFactorSign:1];
 			
-			saveButton = [[UIBarButtonItem alloc] initWithTitle:kAdd
+			saveButton = [[UIBarButtonItem alloc] initWithTitle:@"OK"
 														  style:UIBarButtonItemStyleDone 
 														 target:self 
 														 action:@selector(saveAction)];				
 		}
 		[self.navigationItem setRightBarButtonItem:saveButton];
+		
+
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(text1DidChange:) 
@@ -87,6 +100,18 @@
 	
 	}
     return self;
+}
+
+-(void) popViewWithModalLikeAnimation{
+	CATransition *transition = [CATransition animation];
+	transition.duration = 0.5;
+	transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+	transition.type = kCATransitionReveal;
+	transition.subtype = kCATransitionFromBottom;
+	transition.delegate = self;
+	[self.navigationController.view.layer addAnimation:transition forKey:nil];
+	
+	[self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void) saveAction
@@ -162,7 +187,7 @@
 	taxNameTextField.backgroundColor = [UIColor clearColor];
 	taxNameTextField.keyboardAppearance = UIKeyboardAppearanceDefault;
 	taxNameTextField.keyboardType = UIReturnKeyDefault;
-	taxNameTextField.placeholder = @"Nume";	
+	taxNameTextField.placeholder = @"Denumire";	
 	taxNameTextField.returnKeyType = UIReturnKeyDefault;	
 	taxNameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 	[taxNameTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
@@ -185,21 +210,25 @@
 	taxValueTextField.keyboardType = UIKeyboardTypeNumberPad;
 	
 	taxValueTextField.returnKeyType = UIReturnKeyDefault;	
-	taxValueTextField.placeholder = @"Valoare";
+	taxValueTextField.placeholder = @"0,00";
 	taxValueTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 	[taxValueTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
 	//	taxValueTextField.clearButtonMode = UITextFieldViewModeWhileEditing;	// has a clear 'x' button to the right
 	[self.view addSubview:taxValueTextField];
 	
-	if ([self.additionFactor factorValue])
+	if ([self.additionFactor factorValue] && ([[self.additionFactor factorValue] compare:[NSDecimalNumber zero]]))
 		[taxValueTextField setText:[currencyFormatter stringFromNumber:[self.additionFactor factorValue]]];
 		//[taxValueTextField setText:[NSString stringWithFormat:@"%.2f", [[self.additionFactor factorValue] doubleValue]]];
 	
+	[self performSelector:@selector(showTheKeyboardWithDelay) withObject:nil afterDelay:0.4];
+	
+	
+	/*
 	if ([[self.additionFactor factorName] length])
 		[taxValueTextField becomeFirstResponder];
 	else
 		[taxNameTextField becomeFirstResponder];
-	
+	*/
 	minusSignButton = [UIFactory newButtonWithTitle:nil 
 											 target:self 
 										   selector:@selector (minusAction) 
@@ -244,6 +273,13 @@
 	newAdditionFactor = [[AdditionFactorItem alloc]init];
 	factorsArray = [[NSMutableArray alloc]init];
 	oldHasChanged = NO;
+}
+
+-(void) showTheKeyboardWithDelay{
+	if ([[self.additionFactor factorName] length])
+		[taxValueTextField becomeFirstResponder];
+	else
+		[taxNameTextField becomeFirstResponder];
 }
 
 
@@ -355,6 +391,10 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+	if (textField == taxValueTextField) {
+		[taxValueTextField setText:[currencyFormatter stringFromNumber:[self.additionFactor factorValue]]];
+		NSLog(@"factor value :%@",[currencyFormatter stringFromNumber:[self.additionFactor factorValue]]);
+	}
 	//Retain the initial value of the addition factor
 	if(oldHasChanged == NO)
 	{
@@ -448,21 +488,31 @@
 
 
 - (void) text1DidChange:(NSNotification *)note {
-	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length])
+	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && ([[currencyFormatter numberFromString:taxValueTextField.text] floatValue] != [[currencyFormatter numberFromString:@"0"] floatValue]))
 		[saveButton  setEnabled:YES];
 	else
 		[saveButton  setEnabled:NO];
-	[self.additionFactor setFactorName:taxNameTextField.text];
-	
+	NSString *taxNameTextFieldTrimmed = [taxNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	[self.additionFactor setFactorName:taxNameTextFieldTrimmed];	
 	[oneRowTableView reloadData];	
 }
 - (void) text2DidChange:(NSNotification *)note {
-	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length])
+	if ([[taxNameTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && [[taxValueTextField.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] && ([[currencyFormatter numberFromString:taxValueTextField.text] floatValue] != [[currencyFormatter numberFromString:@"0"] floatValue]))
 		[saveButton  setEnabled:YES];
 	else
 		[saveButton  setEnabled:NO];
-		
-	NSNumber* number = [currencyFormatter numberFromString:taxValueTextField.text];
+	
+	
+	NSNumber* number;
+	
+	if(![taxValueTextField.text length]){
+		NSLog(@"true");
+		number = [currencyFormatter numberFromString:@"0"];
+	}else{
+		NSLog(@"false");
+		number = [currencyFormatter numberFromString:taxValueTextField.text];
+	}
+	
 	NSString* string = [NSString stringWithFormat:@"%@",number];
 	[self.additionFactor setFactorValue: [NSDecimalNumber decimalNumberWithString:string]];
 	

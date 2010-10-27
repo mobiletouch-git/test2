@@ -186,9 +186,9 @@
 		[prefs synchronize];
 	}
 	
-	if ([appDelegate dataWasUpdated]) 
-		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR a fost actualizat."]
-						 title:nil];
+	if ([appDelegate dataWasUpdated]) {
+		//[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR a fost actualizat."]title:nil];
+	}
 	else {
 		NSDate *dateForUpdate = [DateFormat normalizeDateFromDate:[NSDate date]];
 		NSDate *utcDate = [InfoValutarAPI getUTCFormateDateFromDate:dateForUpdate];		

@@ -99,15 +99,6 @@
 	
 	[self.navigationItem setRightBarButtonItem:saveButton];
 	
-	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:kCancel
-																	 style:UIBarButtonItemStyleBordered
-																	target:self 
-																	action:@selector(cancelAction)];	
-	
-	[self.navigationItem setLeftBarButtonItem:cancelButton];
-	[cancelButton release];
-	
-	
 	float height = 216.0f; 
 	datePicker = [[UIDatePicker alloc] initWithFrame: CGRectMake(0.0, 369.0-height, 320.0, height)];
 	datePicker.datePickerMode = UIDatePickerModeDate;
@@ -204,10 +195,6 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
--(void) cancelAction{
-	
-	[self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
