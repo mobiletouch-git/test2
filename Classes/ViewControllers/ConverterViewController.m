@@ -323,11 +323,9 @@
 
 	[self.view addSubview:datePicker];
 	
-#if defined(CONVERTOR)	
+#ifdef CONVERTOR
 	[self.view addSubview:[InfoValutarAPI displayCompanyLogo]];
 	[self.view addSubview:[AdWhirlView requestAdWhirlViewWithDelegate:self]];	
-#else
-	
 #endif		
 	
 }

@@ -57,8 +57,6 @@
 			nextDay = [DateFormat getNextDayForDay:nextDay];
 			nextDay = [InfoValutarAPI getUTCFormateDateFromDate:nextDay];
 			counter++;
-			NSLog(@"nexDay:%@",nextDay);
-			NSLog(@"counter:%d",counter);
 			[totalDays addObject:nextDay];
 		}
 	}
