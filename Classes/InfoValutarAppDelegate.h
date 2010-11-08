@@ -41,6 +41,10 @@
 	NSInteger globalTimeStamp;
 	BOOL userAction, dataWasUpdated;
 	BOOL displayValidMode;
+	
+	//Triggers the date update function when entering the foreground
+	BOOL updateCurrentDateConverter;
+	BOOL updateCurrentDateCurrency;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -67,6 +71,8 @@
 @property (nonatomic, assign) NSInteger globalTimeStamp;
 @property (nonatomic, assign) BOOL dataWasUpdated;
 @property (nonatomic, assign) BOOL displayValidMode;
+@property (nonatomic, assign) BOOL updateCurrentDateConverter; 
+@property (nonatomic, assign) BOOL updateCurrentDateCurrency;
 
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;

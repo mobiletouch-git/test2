@@ -148,12 +148,15 @@
 	[converterAdditionLabel setText:additionString];
 
 	
-	if ([self.converter converterValue]) {
+	if ([[self.converter converterValue] doubleValue]) {
 	
 		[converterValueTextField setText:[currencyFormatter stringFromNumber:[self.converter converterValue]]];
 		//[converterValueTextField setText:[NSString stringWithFormat:@"%.2f", [ doubleValue]]];
 
+	}else {
+		[converterValueTextField setText:@"0,00"];
 	}
+
 }
 
 
@@ -282,7 +285,7 @@
 	[self.converter setConverterValue:nrFromString];
 		
 	[[appDelegate converterViewController] setReferenceItem:self.converter];
-//	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
+	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	
 	
 	[UIView beginAnimations:nil context:nil];

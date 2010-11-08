@@ -7,6 +7,7 @@
 //
 
 #import "SensitiveTableView.h"
+#import "Constants.h"
 
 
 @implementation SensitiveTableView
@@ -59,8 +60,9 @@
 -(void) resignAction
 {
 	//Commented because of edit bug
-	//[callBackObject performSelector:callBackSelector withObject:self.textField];
-	[self.textField resignFirstResponder];
+	[callBackObject performSelector:callBackSelector withObject:self.textField];
+	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"Resign date picker" object:nil userInfo:nil];
 }
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {

@@ -27,18 +27,20 @@
 		currencyFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,5,32,32)];
 		[self addSubview:currencyFlagImageView];
 		
-		currencyNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
-		[currencyNameLabel setFrame:CGRectMake(50,12,40,20)];
+		currencyNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:16 bold:YES];
+		[currencyNameLabel setFrame:CGRectMake(50,12,80,20)];
 		[currencyNameLabel setTextAlignment:UITextAlignmentLeft];		
 		currencyNameLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:currencyNameLabel];
 		
+		/*
 		multiplierLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:12 bold:YES];
 		[multiplierLabel setFrame:CGRectMake(95,13,30,20)];
 		[multiplierLabel setFont:[UIFont systemFontOfSize:12]];
 		[multiplierLabel setTextColor:[UIColor lightGrayColor]];
 		multiplierLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:multiplierLabel];
+		 */
 		
 		currencyValueLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
 		[currencyValueLabel setFrame:CGRectMake(122,11,70,20)];
@@ -84,11 +86,17 @@
 	
 	if (imageName)
 		[currencyFlagImageView setImage:[UIImage imageNamed:imageName]];
-	[currencyNameLabel setText:theName];
+	
 	if (theMValue)
-		[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];
+	{
+		[currencyNameLabel setText:[[NSString stringWithFormat:@"%d ", [theMValue intValue]] stringByAppendingString:theName]];
+		//[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];
+	}
 	else
-		[multiplierLabel setText:@""];
+	{
+		[currencyNameLabel setText:theName];
+		//[multiplierLabel setText:@""];
+	}
 	
 	//[currencyValueLabel setText:[NSString stringWithFormat:@"%.4f", [theValue doubleValue]]];
 	[currencyValueLabel setText:[currencyFormatter stringFromNumber:theValue]];
@@ -97,13 +105,14 @@
 		//NSString *changeString = [NSString stringWithFormat:@"%.4f", [theChange doubleValue]];
 		//[changeLabel setText:changeString];
 		[changeLabel setText:[currencyFormatter stringFromNumber:theChange]];
+		
 		// verde: #0C9D00
 		// rosu: #FF0404
 		
 		if ([theSign isEqualToString:@"+"])
 		{
 			[changeLabel setTextColor:[UIColor colorWithRed:(CGFloat)0x0C/255.0 green:(CGFloat)0x9D/255.0 blue:(CGFloat)0x00/255.0 alpha:1.0]];
-			[changeLabel setText:[NSString stringWithFormat:@"+%@",[currencyFormatter stringFromNumber:theValue]]];
+			[changeLabel setText:[NSString stringWithFormat:@"+%@",[currencyFormatter stringFromNumber:theChange]]];
 		}
 		else if ([theSign isEqualToString:@"-"])
 		{

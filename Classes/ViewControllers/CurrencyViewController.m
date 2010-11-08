@@ -100,7 +100,10 @@
 
 	[super viewWillAppear:animated];
 	NSLog(@"view will appear");
-	[self pageUpdate];
+	if (appDelegate.updateCurrentDateCurrency) {
+		[self updateCurrentDate];
+		appDelegate.updateCurrentDateCurrency = NO;
+	}
 }
  
 

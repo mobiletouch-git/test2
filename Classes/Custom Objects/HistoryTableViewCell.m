@@ -22,12 +22,14 @@
 		dateLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:dateLabel];
 		
+		/*
 		multiplierLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:12 bold:YES];
 		[multiplierLabel setFrame:CGRectMake(125,5,30,20)];
 		[multiplierLabel setFont:[UIFont systemFontOfSize:12]];
 		[multiplierLabel setTextColor:[UIColor lightGrayColor]];
 		multiplierLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:multiplierLabel];
+		 */
 		
 		currencyValueLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
 		[currencyValueLabel setFrame:CGRectMake(162,5,70,20)];
@@ -71,11 +73,12 @@
 	
 	if (currencyDate)
 		[dateLabel setText:[DateFormat DBformatDateFromDate: currencyDate]];
-	
+	/*
 	if (theMValue)
 		[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];
 	else
 		[multiplierLabel setText:@""];
+	 */
 	
 	[currencyValueLabel setText:[currencyFormatter stringFromNumber: theValue]];
 	

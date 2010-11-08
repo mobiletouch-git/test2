@@ -30,6 +30,7 @@
 @synthesize currencyFullDictionary;
 @synthesize globalTimeStamp, dataWasUpdated;
 @synthesize displayValidMode;
+@synthesize updateCurrentDateConverter,updateCurrentDateCurrency;
 
 #pragma mark -
 #pragma mark Memory management
@@ -81,6 +82,8 @@
 
 	[self initializeDatabase];
 	[self readFromDefaults];
+	updateCurrentDateConverter = YES;
+	updateCurrentDateCurrency = YES;
 	userAction = YES;
 	id setting = [[NSUserDefaults standardUserDefaults] objectForKey:@"sAutomaticUpdate"];
 	if (!setting)
@@ -253,7 +256,8 @@
 		userAction = NO; 
 		[self checkForUpdates];
 	}
-	
+	updateCurrentDateConverter = YES;
+	updateCurrentDateCurrency = YES;
 	[converterViewController viewWillAppear:NO];
 	[currencyViewController viewWillAppear:NO];
 	

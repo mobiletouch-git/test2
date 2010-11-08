@@ -125,7 +125,10 @@
 {
     if ((self = [super init])) {
 		//init code
-	
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelAction) name:@"Resign date picker" object:nil];
+
+		
 		//set tabbaritem picture
 		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_2.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Convertor" image:buttonImage tag:-1];
@@ -253,7 +256,11 @@
 -(void)viewWillAppear:(BOOL)animated{
 	[super viewWillAppear:animated];
 	NSLog(@"view will appear");
-	[self updateCurrentDate];
+	if (appDelegate.updateCurrentDateConverter) {
+		[self updateCurrentDate];
+		appDelegate.updateCurrentDateConverter = NO;
+	}
+	
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -263,6 +270,7 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *path = [paths objectAtIndex:0]; 
 	NSLog(@"%@",path);
+
 
 	doneButton = [[UIBarButtonItem alloc] initWithTitle:kDone
 												  style:UIBarButtonItemStyleDone
@@ -451,8 +459,6 @@
 }
 
 
-
-
 -(void) editAction
 {
 	NSLog(@"Edit action");	
@@ -465,18 +471,20 @@
 	[myTableView reloadData];	
 }
 
+
 -(void) cancelAction
 {
-	NSLog(@"Cancel action");		
-	if (!datePicker.hidden)
-	{
-		[self.navigationItem setLeftBarButtonItem:editButton];
-		[self.navigationItem setRightBarButtonItem:addButton];
-		[datePicker setHidden:YES];		
+	NSLog(@"Cancel action");
+	if(!myTableView.editing){
+		if (!datePicker.hidden)
+		{
+			[self.navigationItem setLeftBarButtonItem:editButton];
+			[self.navigationItem setRightBarButtonItem:addButton];
+			[datePicker setHidden:YES];		
+		}
+		[titleSeg setSelectedSegmentIndex:-1];		
+		[titleSeg setHidden:NO];		
 	}
-	[titleSeg setSelectedSegmentIndex:-1];		
-	[titleSeg setHidden:NO];		
-	
 }
 
 -(void) doneAction

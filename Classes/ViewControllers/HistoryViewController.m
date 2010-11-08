@@ -102,7 +102,10 @@
 	yearPicker.backgroundColor=[UIColor whiteColor];
 	[self.view addSubview:yearPicker];
 	
-	self.title = selectedCurrency.currencyName;
+	if (selectedCurrency.multiplierValue) {
+		self.title = [[selectedCurrency.multiplierValue stringValue] stringByAppendingFormat:@" %@",selectedCurrency.currencyName];
+	}else
+		self.title = selectedCurrency.currencyName;
 	
 }
 
