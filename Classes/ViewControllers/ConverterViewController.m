@@ -463,6 +463,7 @@
 {
 	NSLog(@"Edit action");	
 	[myTableView setEditing:YES];
+	[appDelegate setTableViewIsInEditMode:YES];
 	[self.navigationItem setLeftBarButtonItem:doneButton];
 	[self.navigationItem setRightBarButtonItem:nil];
 	[titleSeg setHidden:YES];
@@ -475,7 +476,8 @@
 -(void) cancelAction
 {
 	NSLog(@"Cancel action");
-	if(!myTableView.editing){
+	NSLog(@"is table editing:%d",myTableView.editing);
+	if(myTableView.editing == NO){
 		if (!datePicker.hidden)
 		{
 			[self.navigationItem setLeftBarButtonItem:editButton];
@@ -535,6 +537,7 @@
 	if (myTableView.editing)
 	{
 		[myTableView setEditing:NO];
+		[appDelegate setTableViewIsInEditMode:NO];
 		[self.navigationItem setLeftBarButtonItem:editButton];
 		[self.navigationItem setRightBarButtonItem:addButton];
 		

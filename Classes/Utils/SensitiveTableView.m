@@ -60,9 +60,10 @@
 -(void) resignAction
 {
 	//Commented because of edit bug
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"Resign date picker" object:nil userInfo:nil];
 	[callBackObject performSelector:callBackSelector withObject:self.textField];
 	[[[appDelegate converterViewController] titleSeg] setEnabled:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"Resign date picker" object:nil userInfo:nil];
+	
 }
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {

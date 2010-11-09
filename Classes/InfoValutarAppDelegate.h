@@ -45,6 +45,9 @@
 	//Triggers the date update function when entering the foreground
 	BOOL updateCurrentDateConverter;
 	BOOL updateCurrentDateCurrency;
+	
+	//So when editing the edit and add buttons won't appear
+	BOOL tableViewIsInEditMode;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -73,6 +76,7 @@
 @property (nonatomic, assign) BOOL displayValidMode;
 @property (nonatomic, assign) BOOL updateCurrentDateConverter; 
 @property (nonatomic, assign) BOOL updateCurrentDateCurrency;
+@property (nonatomic, assign) BOOL tableViewIsInEditMode;
 
 - (NSString *)applicationDocumentsDirectory;
 -(void) initializeDatabase;

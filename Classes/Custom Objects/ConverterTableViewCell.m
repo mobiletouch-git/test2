@@ -4,7 +4,7 @@
 //
 //  Created by Mobile Touch SRL on 15.02.2010.
 //  Copyright 2010 Mobile Touch SRL. All rights reserved.
-//
+// emy
 
 #import "ConverterTableViewCell.h"
 #import "UIFactory.h"
@@ -94,7 +94,7 @@
 		currencyFormatter = [[NSNumberFormatter alloc] init];
 		[currencyFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
 		[currencyFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-		[currencyFormatter setMinimumFractionDigits:0];
+		[currencyFormatter setMinimumFractionDigits:2];
 		[currencyFormatter setMaximumFractionDigits:2];
 		[currencyFormatter setLocale: roLocale];
 		
@@ -148,15 +148,12 @@
 	[converterAdditionLabel setText:additionString];
 
 	
-	if ([[self.converter converterValue] doubleValue]) {
-	
+	if ([self.converter converterValue]) {
+		
 		[converterValueTextField setText:[currencyFormatter stringFromNumber:[self.converter converterValue]]];
 		//[converterValueTextField setText:[NSString stringWithFormat:@"%.2f", [ doubleValue]]];
-
-	}else {
-		[converterValueTextField setText:@"0,00"];
+		
 	}
-
 }
 
 
@@ -271,6 +268,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+	NSLog(@"called");
 	[textField resignFirstResponder];	
 	 
 	NSDecimalNumber *nrFromString;
@@ -285,7 +283,7 @@
 	[self.converter setConverterValue:nrFromString];
 		
 	[[appDelegate converterViewController] setReferenceItem:self.converter];
-	[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
+	//[[[appDelegate converterViewController] myTableView] setContentOffset:CGPointMake(0, 0) animated:YES];	
 	
 	
 	[UIView beginAnimations:nil context:nil];
@@ -296,8 +294,11 @@
 	((SensitiveTableView *)self.superview).isShrinked=NO;
 	
 	[[[appDelegate converterViewController] myTableView] reloadData];
-	[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
-	[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];	
+	
+	if(!appDelegate.tableViewIsInEditMode){
+		[[appDelegate converterViewController].navigationItem setLeftBarButtonItem:[appDelegate converterViewController].editButton];
+		[[appDelegate converterViewController].navigationItem setRightBarButtonItem:[appDelegate converterViewController].addButton];	
+	}
 
     return YES;
 }

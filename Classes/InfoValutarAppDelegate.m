@@ -30,7 +30,7 @@
 @synthesize currencyFullDictionary;
 @synthesize globalTimeStamp, dataWasUpdated;
 @synthesize displayValidMode;
-@synthesize updateCurrentDateConverter,updateCurrentDateCurrency;
+@synthesize updateCurrentDateConverter,updateCurrentDateCurrency, tableViewIsInEditMode;
 
 #pragma mark -
 #pragma mark Memory management
