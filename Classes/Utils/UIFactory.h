@@ -22,4 +22,5 @@
 			   darkTextColor:(BOOL)darkTextColor;
 + (void) showOkAlert:(NSString*)msg title:(NSString*)title;
 
++ (NSString *) getNameForImage: (NSString*)photoName ;
 @end

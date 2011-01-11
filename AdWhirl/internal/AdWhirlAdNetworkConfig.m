@@ -3,13 +3,13 @@
  AdNetwork.m
 
  Copyright 2009 AdMob, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,8 @@
 #import "AdWhirlConfig.h"
 #import "AdWhirlAdNetworkRegistry.h"
 #import "AdWhirlLog.h"
+#import "AdWhirlError.h"
+#import "AdWhirlClassWrapper.h"
 
 #define kAdWhirlPubIdKey @"pubid"
 
@@ -35,7 +37,9 @@
 @synthesize credentials;
 @synthesize adapterClass;
 
-- (id)initWithDictionary:(NSDictionary *)adNetConfigDict {
+- (id)initWithDictionary:(NSDictionary *)adNetConfigDict
+       adNetworkRegistry:(AdWhirlAdNetworkRegistry *)registry
+                   error:(AdWhirlError **)error {
   self = [super init];
 
   if (self != nil) {
@@ -47,19 +51,22 @@
     id pri = [adNetConfigDict objectForKey:AWAdNetworkConfigKeyPriority];
 
     if (ntype == nil || netId == nil || netName == nil || pri == nil) {
-      AWLogWarn(@"Ad network config has no network type, network id, network name, or priority");
+      NSString *errorMsg =
+        @"Ad network config has no network type, network id, network name, or priority";
+      if (error != nil) {
+        *error = [AdWhirlError errorWithCode:AdWhirlConfigDataError
+                                 description:errorMsg];
+      }
+      else {
+        AWLogWarn(errorMsg);
+      }
+
       [self release];
       return nil;
     }
-    
+
     if (awIntVal(&temp, ntype)) {
       networkType = temp;
-      adapterClass = [[AdWhirlAdNetworkRegistry sharedRegistry] adapterClassFor:networkType];
-      if (adapterClass == nil) {
-        AWLogWarn(@"Ad network type %d not supported, no adapter found", networkType);
-        [self release];
-        return nil;
-      }
     }
     if ([netId isKindOfClass:[NSString class]]) {
       nid = [[NSString alloc] initWithString:netId];
@@ -67,18 +74,30 @@
     if ([netName isKindOfClass:[NSString class]]) {
       networkName = [[NSString alloc] initWithString:netName];
     }
+
+    double tempDouble;
     if (weight == nil) {
-      trafficPercentage = 0;
+      trafficPercentage = 0.0;
     }
-    else if (awIntVal(&temp, weight)) {
-      trafficPercentage = temp;
+    else if (awDoubleVal(&tempDouble, weight)) {
+      trafficPercentage = tempDouble;
     }
+
     if (awIntVal(&temp, pri)) {
       priority = temp;
     }
-    
+
     if (networkType == 0 || nid == nil || networkName == nil || priority == 0) {
-      AWLogWarn(@"Ad network config has invalid network type, network id, network name or priority");
+      NSString *errorMsg =
+        @"Ad network config has invalid network type, network id, network name or priority";
+      if (error != nil) {
+        *error = [AdWhirlError errorWithCode:AdWhirlConfigDataError
+                                 description:errorMsg];
+      }
+      else {
+        AWLogWarn(errorMsg);
+      }
+
       [self release];
       return nil;
     }
@@ -97,8 +116,25 @@
                        nil];
       }
     }
-  } 
-  
+
+    adapterClass = [registry adapterClassFor:networkType].theClass;
+    if (adapterClass == nil) {
+      NSString *errorMsg =
+      [NSString stringWithFormat:@"Ad network type %d not supported, no adapter found",
+       networkType];
+      if (error != nil) {
+        *error = [AdWhirlError errorWithCode:AdWhirlConfigDataError
+                                 description:errorMsg];
+      }
+      else {
+        AWLogWarn(errorMsg);
+      }
+
+      [self release];
+      return nil;
+    }
+  }
+
   return self;
 }
 
@@ -118,7 +154,7 @@
     creds = [creds stringByAppendingString:@"}"];
   }
   return [NSString stringWithFormat:
-          @"name:%@ type:%d nid:%@ weight:%d priority:%d creds:%@",
+          @"name:%@ type:%d nid:%@ weight:%lf priority:%d creds:%@",
           networkName, networkType, nid, trafficPercentage, priority, creds];
 }
 
@@ -126,7 +162,7 @@
   [nid release], nid = nil;
   [networkName release], networkName = nil;
   [credentials release], credentials = nil;
-  
+
   [super dealloc];
 }
 

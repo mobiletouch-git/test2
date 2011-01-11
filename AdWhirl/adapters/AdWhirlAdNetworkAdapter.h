@@ -1,7 +1,7 @@
 /*
 
  AdWhirlAdNetworkAdapter.h
- 
+
  Copyright 2009 AdMob, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,11 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
 */
 
 #import "AdWhirlDelegateProtocol.h"
+#import "AdWhirlConfig.h"
 
 typedef enum {
   AdWhirlAdNetworkTypeAdMob       = 1,
@@ -40,7 +41,8 @@ typedef enum {
   AdWhirlAdNetworkTypeEvent	      = 17,
   AdWhirlAdNetworkTypeInMobi      = 18,
   AdWhirlAdNetworkTypeIAd         = 19,
-  AdWhirlAdNetworkTypeZestADZ	  = 20
+  AdWhirlAdNetworkTypeZestADZ	  = 20,
+  AdWhirlAdNetworkTypeBrightRoll	  = 21
 } AdWhirlAdNetworkType;
 
 @class AdWhirlView;
@@ -82,6 +84,21 @@ typedef enum {
 - (void)getAd;
 
 /**
+ * When called, the adapter must remove itself as a delegate or notification
+ * observer from the underlying ad network SDK. Subclasses must implement this
+ * method, even if the underlying SDK doesn't have a way of removing delegate
+ * (in which case, you should contact the ad network). Note that this method
+ * will be called in dealloc at AdWhirlAdNetworkAdapter, before adNetworkView
+ * is released. Care must be taken if you also keep a reference of your ad view
+ * in a separate instance variable, as you may have released that variable
+ * before this gets called in AdWhirlAdNetworkAdapter's dealloc. Use
+ * adNetworkView, defined in this class, instead of your own instance variable.
+ * This function should also be idempotent, i.e. get called multiple times and
+ * not crash.
+ */
+- (void)stopBeingDelegate;
+
+/**
  * Subclasses return YES to ask AdWhirlView to send metric requests to the
  * AdWhirl server for ad impressions. Default is YES.
  */
@@ -91,6 +108,13 @@ typedef enum {
  * Tell the adapter that the interface orientation changed or is about to change
  */
 - (void)rotateToOrientation:(UIInterfaceOrientation)orientation;
+
+/**
+ * Some ad transition types may cause issues with particular ad networks. The
+ * adapter should know whether the given animation type is OK. Defaults to
+ * YES.
+ */
+- (BOOL)isBannerAnimationOK:(AWBannerAnimationType)animType;
 
 @property (nonatomic,assign) id<AdWhirlDelegate> adWhirlDelegate;
 @property (nonatomic,assign) AdWhirlView *adWhirlView;

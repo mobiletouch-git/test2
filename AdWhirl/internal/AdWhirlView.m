@@ -3,32 +3,34 @@
  AdWhirlView.m
 
  Copyright 2009 AdMob, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
 */
 
 #import "AdWhirlView.h"
 #import "AdWhirlView+.h"
-#import "AdWhirlConfig.h"
+#import "AdWhirlConfigStore.h"
 #import "AdWhirlAdNetworkConfig.h"
 #import "CJSONDeserializer.h"
 #import "AdWhirlLog.h"
 #import "AdWhirlAdNetworkAdapter.h"
 #import "AdWhirlError.h"
+#import "AdWhirlConfigStore.h"
+#import "AWNetworkReachabilityWrapper.h"
 
 #define kAdWhirlViewAdSubViewTag   1000
-#define kAWMinimumTimeBetweenFreshAdRequests 4.9f
+
 
 NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
   AdWhirlAdNetworkConfig *acfg = a, *bcfg = b;
@@ -40,58 +42,23 @@ NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
     return NSOrderedSame;
 }
 
+
 @implementation AdWhirlView
+
+#pragma mark Properties getters/setters
 
 @synthesize delegate;
 @synthesize config;
-@synthesize prioritizedAdNetworks;
+@synthesize prioritizedAdNetCfgs;
 @synthesize currAdapter;
 @synthesize lastAdapter;
 @synthesize lastRequestTime;
 @synthesize refreshTimer;
 @synthesize lastError;
 @synthesize showingModalView;
-
-+ (AdWhirlView *)requestAdWhirlViewWithDelegate:(id<AdWhirlDelegate>)delegate {
-  if (![delegate respondsToSelector:@selector(viewControllerForPresentingModalView)]) {
-    [NSException raise:@"AdWhirlIncompleteDelegateException"
-                format:@"AdWhirlDelegate must implement viewControllerForPresentingModalView"];
-  }
-  return [[[AdWhirlView alloc] initWithDelegate:delegate] autorelease];
-}
-
-static id<AdWhirlDelegate> classAdWhirlDelegateForConfig = nil;
-
-+ (void)startPreFetchingConfigurationDataWithDelegate:(id<AdWhirlDelegate>)delegate {
-  if (classAdWhirlDelegateForConfig != nil) return;
-  classAdWhirlDelegateForConfig = delegate;
-  [AdWhirlConfig fetchConfig:[delegate adWhirlApplicationKey] delegate:(id<AdWhirlConfigDelegate>)self];
-}
-
-- (id)initWithDelegate:(id<AdWhirlDelegate>)d {
-  self = [super initWithFrame:kAdWhirlViewDefaultFrame];
-  if (self != nil) {
-    delegate = d;
-    self.backgroundColor = [UIColor clearColor];
-    self.clipsToBounds = YES; // to prevent ugly artifacts if ad network banners are bigger than the default frame
-    showingModalView = NO;
-    appInactive = NO;
-
-    AdWhirlConfig *cfg = [AdWhirlConfig fetchConfig:[delegate adWhirlApplicationKey] delegate:self];
-    self.config = cfg;
-
-    NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
-    [notifCenter addObserver:self
-                    selector:@selector(resignActive:)
-                        name:UIApplicationWillResignActiveNotification
-                      object:nil];
-    [notifCenter addObserver:self
-                    selector:@selector(becomeActive:)
-                        name:UIApplicationDidBecomeActiveNotification
-                      object:nil];
-  }
-  return self;
-}
+@synthesize configStore;
+@synthesize rollOverReachability;
+@synthesize testDarts;
 
 - (void)setDelegate:(id <AdWhirlDelegate>)theDelegate {
   [self willChangeValueForKey:@"delegate"];
@@ -105,230 +72,393 @@ static id<AdWhirlDelegate> classAdWhirlDelegateForConfig = nil;
   [self didChangeValueForKey:@"delegate"];
 }
 
-- (void)prepAdNetworks {
-  NSMutableArray *freshNets = [[NSMutableArray alloc] initWithArray:config.adNetworkConfigs];
-  [freshNets sortUsingFunction:adNetworkPriorityComparer context:nil];
-  totalPercent = 0;
-  for (AdWhirlAdNetworkConfig *cfg in freshNets) {
+
+#pragma mark Life cycle methods
+
++ (AdWhirlView *)requestAdWhirlViewWithDelegate:(id<AdWhirlDelegate>)delegate {
+  if (![delegate respondsToSelector:
+                        @selector(viewControllerForPresentingModalView)]) {
+    [NSException raise:@"AdWhirlIncompleteDelegateException"
+                format:@"AdWhirlDelegate must implement"
+                       @" viewControllerForPresentingModalView"];
+  }
+  AdWhirlView *adView
+    = [[[AdWhirlView alloc] initWithDelegate:delegate] autorelease];
+  [adView startGetConfig];  // errors are communicated via delegate
+  return adView;
+}
+
+- (id)initWithDelegate:(id<AdWhirlDelegate>)d {
+  self = [super initWithFrame:kAdWhirlViewDefaultFrame];
+  if (self != nil) {
+    delegate = d;
+    self.backgroundColor = [UIColor clearColor];
+    // to prevent ugly artifacts if ad network banners are bigger than the
+    // default frame
+    self.clipsToBounds = YES;
+    showingModalView = NO;
+    appInactive = NO;
+
+    // default config store. Can be overridden for testing
+    self.configStore = [AdWhirlConfigStore sharedStore];
+
+    // get notified of app activity
+    NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
+    [notifCenter addObserver:self
+                    selector:@selector(resignActive:)
+                        name:UIApplicationWillResignActiveNotification
+                      object:nil];
+    [notifCenter addObserver:self
+                    selector:@selector(becomeActive:)
+                        name:UIApplicationDidBecomeActiveNotification
+                      object:nil];
+
+    // remember pending ad requests, so we don't make more than one
+    // request per ad network at a time
+    pendingAdapters = [[NSMutableDictionary alloc] initWithCapacity:30];
+  }
+  return self;
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  delegate = nil;
+  [config removeDelegate:self];
+  [config release], config = nil;
+  [prioritizedAdNetCfgs release], prioritizedAdNetCfgs = nil;
+  totalPercent = 0.0;
+  requesting = NO;
+  currAdapter.adWhirlDelegate = nil, currAdapter.adWhirlView = nil;
+  [currAdapter release], currAdapter = nil;
+  lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
+  [lastAdapter release], lastAdapter = nil;
+  [lastRequestTime release], lastRequestTime = nil;
+  [pendingAdapters release], pendingAdapters = nil;
+  if (refreshTimer != nil) {
+    [refreshTimer invalidate];
+    [refreshTimer release], refreshTimer = nil;
+  }
+  [lastError release], lastError = nil;
+
+  [super dealloc];
+}
+
+
+#pragma mark Config and setup methods
+
+static id<AdWhirlDelegate> classAdWhirlDelegateForConfig = nil;
+
++ (void)startPreFetchingConfigurationDataWithDelegate:
+                                            (id<AdWhirlDelegate>)delegate {
+  if (classAdWhirlDelegateForConfig != nil) {
+    AWLogWarn(@"Called startPreFetchingConfig when another fetch is"
+              @" in progress");
+    return;
+  }
+  classAdWhirlDelegateForConfig = delegate;
+  [[AdWhirlConfigStore sharedStore] getConfig:[delegate adWhirlApplicationKey]
+                                     delegate:(id<AdWhirlConfigDelegate>)self];
+}
+
++ (void)updateAdWhirlConfigWithDelegate:(id<AdWhirlDelegate>)delegate {
+  if (classAdWhirlDelegateForConfig != nil) {
+    AWLogWarn(@"Called updateConfig when another fetch is in progress");
+    return;
+  }
+  classAdWhirlDelegateForConfig = delegate;
+  [[AdWhirlConfigStore sharedStore]
+                              fetchConfig:[delegate adWhirlApplicationKey]
+                                 delegate:(id<AdWhirlConfigDelegate>)self];
+}
+
+- (void)startGetConfig {
+  // Invalidate ad refresh timer as it may change with the new config
+  if (self.refreshTimer) {
+    [self.refreshTimer invalidate];
+    self.refreshTimer = nil;
+  }
+
+  configFetchAttempts = 0;
+  AdWhirlConfig *cfg = [configStore getConfig:[delegate adWhirlApplicationKey]
+                                     delegate:(id<AdWhirlConfigDelegate>)self];
+  self.config = cfg;
+}
+
+- (void)attemptFetchConfig {
+  AdWhirlConfig *cfg = [configStore
+                                  fetchConfig:[delegate adWhirlApplicationKey]
+                                     delegate:(id<AdWhirlConfigDelegate>)self];
+  if (cfg != nil) {
+    self.config = cfg;
+  }
+}
+
+- (void)updateAdWhirlConfig {
+  // Invalidate ad refresh timer as it may change with the new config
+  if (self.refreshTimer) {
+    [self.refreshTimer invalidate];
+    self.refreshTimer = nil;
+  }
+
+  // Request new config
+  AWLogDebug(@"======== Updating config ========");
+  configFetchAttempts = 0;
+  [self attemptFetchConfig];
+}
+
+#pragma mark Ads management private methods
+
+- (void)buildPrioritizedAdNetCfgsAndMakeRequest {
+  NSMutableArray *freshNetCfgs = [[NSMutableArray alloc] init];
+  for (AdWhirlAdNetworkConfig *cfg in config.adNetworkConfigs) {
+    // do not add the ad network in rotation if there's already a stray
+    // pending ad request to this ad network (due to network outage or plain
+    // slow request)
+    NSNumber *netKey = [NSNumber numberWithInt:(int)cfg.networkType];
+    if ([pendingAdapters objectForKey:netKey] == nil) {
+      [freshNetCfgs addObject:cfg];
+    }
+    else {
+      AWLogDebug(@"Already has pending ad request for network type %d,"
+                 @" not adding ad network config %@",
+                 cfg.networkType, cfg);
+    }
+  }
+  [freshNetCfgs sortUsingFunction:adNetworkPriorityComparer context:nil];
+  totalPercent = 0.0;
+  for (AdWhirlAdNetworkConfig *cfg in freshNetCfgs) {
     totalPercent += cfg.trafficPercentage;
   }
-  self.prioritizedAdNetworks = freshNets;
-  [freshNets release];
+  self.prioritizedAdNetCfgs = freshNetCfgs;
+  [freshNetCfgs release];
+
+  [self makeAdRequest:YES];
 }
 
 static BOOL randSeeded = NO;
-
-- (AdWhirlAdNetworkConfig *)nextNetworkByPercent {
-  // get random number based on the current totalPercent
-  // walk down the prioritizedAdNetworks array subtracting the totalPercent
-  // return AdNetwork.
-  if (!randSeeded) {
-    srandom(CFAbsoluteTimeGetCurrent());
+- (double)nextDart {
+  if (testDarts != nil) {
+    if (testDartIndex >= [testDarts count]) {
+      testDartIndex = 0;
+    }
+    NSNumber *nextDartNum = [testDarts objectAtIndex:testDartIndex];
+    double dart = [nextDartNum doubleValue];
+    if (dart >= totalPercent) {
+      dart = totalPercent - 0.001;
+    }
+    testDartIndex++;
+    return dart;
   }
-  long randNum = random();
-  
-  int dart = randNum % totalPercent;
-  
-  int tempTotal = 0;
-  
+  else {
+    if (!randSeeded) {
+      srandom(CFAbsoluteTimeGetCurrent());
+      randSeeded = YES;
+    }
+    return ((double)(random()-1)/RAND_MAX) * totalPercent;
+  }
+}
+
+- (AdWhirlAdNetworkConfig *)nextNetworkCfgByPercent {
+  if ([prioritizedAdNetCfgs count] == 0) {
+    return nil;
+  }
+
+  double dart = [self nextDart];
+
+  double tempTotal = 0.0;
+
   AdWhirlAdNetworkConfig *result = nil;
-  for (AdWhirlAdNetworkConfig *network in prioritizedAdNetworks) {
+  for (AdWhirlAdNetworkConfig *network in prioritizedAdNetCfgs) {
+    result = network; // make sure there is always a network chosen
     tempTotal += network.trafficPercentage;
     if (dart < tempTotal) {
       // this is the one to use.
-      result = network;
       break;
     }
   }
-  
-  AWLogDebug(@"nextNetworkByPercent chosen %@ (%@), dart %d in %d",
+
+  AWLogDebug(@">>>> By Percent chosen %@ (%@), dart %lf in %lf",
         result.nid, result.networkName, dart, totalPercent);
   return result;
 }
 
-- (AdWhirlAdNetworkConfig *)nextNetworkByPriority {
-  AdWhirlAdNetworkConfig *result = [prioritizedAdNetworks objectAtIndex:0];
-  AWLogDebug(@"nextNetworkByPriority chosen %@ (%@)", result.nid, result.networkName);
+- (AdWhirlAdNetworkConfig *)nextNetworkCfgByPriority {
+  if ([prioritizedAdNetCfgs count] == 0) {
+    return nil;
+  }
+  AdWhirlAdNetworkConfig *result = [prioritizedAdNetCfgs objectAtIndex:0];
+  AWLogDebug(@">>>> By Priority chosen %@ (%@)",
+             result.nid, result.networkName);
   return result;
 }
 
-- (void)makeFirstAdRequest
-{
-  [self makeAdRequest:YES];
-}
-
-- (void)makeAdRequest:(BOOL)isFirstRequest
-{
-  // only make request in main thread
-  if (![NSThread isMainThread]) {
-    // respawn this call on the main thread.
-    if (isFirstRequest) {
-      [self performSelectorOnMainThread:@selector(makeFirstAdRequest) withObject:nil waitUntilDone:NO];      
-    }
-    else {
-      [self performSelectorOnMainThread:@selector(rollOver) withObject:nil waitUntilDone:NO];            
-    }
-    return;
-  }
-  
-  if ([prioritizedAdNetworks count] == 0) {
+- (void)makeAdRequest:(BOOL)isFirstRequest {
+  if ([prioritizedAdNetCfgs count] == 0) {
     // ran out of ad networks
-    [lastError release];
-    lastError = [[AdWhirlError alloc] initWithCode:AdWhirlAdRequestNoMoreAdNetworks
-                                       description:@"No more ad networks for roll over"];
-    if ([delegate respondsToSelector:@selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
-      [[self retain] autorelease]; // to prevent self being freed before this returns
-      [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
-    }
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestNoMoreAdNetworks
+                            description:@"No more ad networks to roll over"];
     return;
   }
 
-  @synchronized(self) {
-    if (requesting) {
-      AWLogWarn(@"Already requesting ad");
-      return;
-    }
-    requesting = YES;
+  if (showingModalView) {
+    AWLogDebug(@"Modal view is active, not going to request another ad");
+    return;
   }
-  
-  AdWhirlAdNetworkConfig *nextAdNetwork = nil;
-  
-  if(isFirstRequest)
-  {
-    nextAdNetwork = [self nextNetworkByPercent];    
+
+  self.rollOverReachability = nil;  // stop any roll over reachability checks
+
+  if (requesting) {
+    // it is OK to request a new one while another one is in progress
+    // the adapter callbacks from the old adapter will be ignored.
+    // User-initiated request ad will be blocked in requestFreshAd.
+    AWLogDebug(@"Already requesting ad, will request a new one.");
   }
-  else
-  {
-    nextAdNetwork = [self nextNetworkByPriority];
+  requesting = YES;
+
+  AdWhirlAdNetworkConfig *nextAdNetCfg = nil;
+
+  if (isFirstRequest && totalPercent > 0.0) {
+    nextAdNetCfg = [self nextNetworkCfgByPercent];
+  }
+  else {
+    nextAdNetCfg = [self nextNetworkCfgByPriority];
+  }
+  if (nextAdNetCfg == nil) {
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestNoMoreAdNetworks
+                            description:@"No more ad networks to request"];
+    return;
   }
 
   AdWhirlAdNetworkAdapter *adapter =
-    [[nextAdNetwork.adapterClass alloc] initWithAdWhirlDelegate:delegate
+    [[nextAdNetCfg.adapterClass alloc] initWithAdWhirlDelegate:delegate
                                                            view:self
                                                          config:config
-                                                  networkConfig:nextAdNetwork];
+                                                  networkConfig:nextAdNetCfg];
+  // keep the last adapter around to catch stale ad network delegate calls
+  // during transitions
   self.lastAdapter = self.currAdapter;
   self.currAdapter = adapter;
   [adapter release];
-  
-  // take nextAdNetwork out so we don't request again when we roll over
-  [prioritizedAdNetworks removeObject:nextAdNetwork];
 
-  if(lastRequestTime)
+  // take nextAdNetCfg out so we don't request again when we roll over
+  [prioritizedAdNetCfgs removeObject:nextAdNetCfg];
+
+  if (lastRequestTime) {
     [lastRequestTime release];
+  }
   lastRequestTime = [[NSDate date] retain];
+
+  // remember this pending request so we do not request again when we make
+  // new ad requests
+  NSNumber *netTypeKey = [NSNumber numberWithInt:(int)nextAdNetCfg.networkType];
+  [pendingAdapters setObject:currAdapter forKey:netTypeKey];
+
+  // If last adapter is of the same network type, make the last adapter stop
+  // being an ad network view delegate to prevent the last adapter from calling
+  // back to this AdWhirlView during the transition and afterwards.
+  // We should not do this for all adapters, because if the last adapter is
+  // still in progress, we need to know about it in the adapter callbacks.
+  // That the last adapter is the same type as the new adapter is possible only
+  // if the last ad request finished, i.e. called back to its adapters. There
+  // are cases, e.g. iAd, when the ad network may call back multiple times,
+  // because of internal refreshes.
+  if (self.lastAdapter.networkConfig.networkType ==
+                                  self.currAdapter.networkConfig.networkType) {
+    [self.lastAdapter stopBeingDelegate];
+  }
 
   [currAdapter getAd];
 }
 
-- (void)_requestFreshAdInternal {
-  NSTimeInterval sinceLast = -[lastRequestTime timeIntervalSinceNow];
-  if (lastRequestTime == nil || sinceLast > kAWMinimumTimeBetweenFreshAdRequests) {
-    @synchronized(self) {
-      if (!config) {
-        [lastError release];
-        lastError = [[AdWhirlError alloc] initWithCode:AdWhirlAdRequestNoConfigError
-                                           description:@"No ad configuration"];
-        // no config, can't do anything
-        if ([delegate respondsToSelector:@selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
-          [[self retain] autorelease]; // to prevent self being freed before this returns
-          [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
-        }
-        return;
-      }
-      [self prepAdNetworks];
-    }
-    [self makeFirstAdRequest];
-  }
-  else if (sinceLast <= kAWMinimumTimeBetweenFreshAdRequests) {
-    [lastError release];
-    NSString *desc = [NSString stringWithFormat:
-                      @"Requesting fresh ad too soon! It has been only %lfs. Minimum %lfs",
-                      sinceLast, kAWMinimumTimeBetweenFreshAdRequests];
-    lastError = [[AdWhirlError alloc] initWithCode:AdWhirlAdRequestTooSoonError
-                                       description:desc];
-    if ([delegate respondsToSelector:@selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
-      [[self retain] autorelease]; // to prevent self being freed before this returns
-      [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
-    }
-    return;
-  }
+- (BOOL)canRefresh {
+  return !(ignoreNewAdRequests
+           || ignoreAutoRefreshTimer
+           || appInactive
+           || showingModalView);
 }
 
+- (void)timerRequestFreshAd {
+  if (![self canRefresh]) {
+    AWLogDebug(@"Not going to refresh due to flags, app not active or modal");
+    return;
+  }
+  if (lastRequestTime != nil) {
+    NSTimeInterval sinceLast = -[lastRequestTime timeIntervalSinceNow];
+    if (sinceLast <= kAWMinimumTimeBetweenFreshAdRequests) {
+      AWLogDebug(@"Ad refresh timer fired too soon after last ad request,"
+                 @" ignoring");
+      return;
+    }
+  }
+  AWLogDebug(@"======== Refreshing ad due to timer ========");
+  [self buildPrioritizedAdNetCfgsAndMakeRequest];
+}
+
+#pragma mark Ads management public methods
+
 - (void)requestFreshAd {
-  // public method, hence more checks with delegate calls
+  // only make request in main thread
+  if (![NSThread isMainThread]) {
+    [self performSelectorOnMainThread:@selector(requestFreshAd)
+                           withObject:nil
+                        waitUntilDone:NO];
+    return;
+  }
   if (ignoreNewAdRequests) {
     // don't request new ad
-    [lastError release];
-    lastError = [[AdWhirlError alloc] initWithCode:AdWhirlAdRequestIgnoredError
-                                       description:@"ignoreNewAdRequests flag set"];
-    if ([delegate respondsToSelector:@selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
-      [[self retain] autorelease]; // to prevent self being freed before this returns
-      [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
-    }
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestIgnoredError
+                            description:@"ignoreNewAdRequests flag set"];
+    return;
   }
   if (requesting) {
     // don't request if there's a request outstanding
-    [lastError release];
-    lastError = [[AdWhirlError alloc] initWithCode:AdWhirlAdRequestInProgressError
-                                       description:@"Ad request already in progress"];
-    if ([delegate respondsToSelector:@selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
-      [[self retain] autorelease]; // to prevent self being freed before this returns
-      [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestInProgressError
+                            description:@"Ad request already in progress"];
+    return;
+  }
+  if (showingModalView) {
+    // don't request if there's a modal view active
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestModalActiveError
+                            description:@"Modal view active"];
+    return;
+  }
+  if (!config) {
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestNoConfigError
+                            description:@"No ad configuration"];
+    return;
+  }
+  if (lastRequestTime != nil) {
+    NSTimeInterval sinceLast = -[lastRequestTime timeIntervalSinceNow];
+    if (sinceLast <= kAWMinimumTimeBetweenFreshAdRequests) {
+      NSString *desc
+        = [NSString stringWithFormat:
+           @"Requesting fresh ad too soon! It has been only %lfs. Minimum %lfs",
+           sinceLast, kAWMinimumTimeBetweenFreshAdRequests];
+      [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestTooSoonError
+                              description:desc];
+      return;
     }
   }
-  [self _requestFreshAdInternal];
-}
-
-- (void)requestFreshAdTimer {
-  self.refreshTimer = nil;
-  if (![self canRefresh]) {
-    // don't make ad request, but schedule the next one
-    [self scheduleNextAdRefresh];
-  }
-  else if (ignoreNewAdRequests) {
-    // don't make ad request at all
-    AWLogDebug(@"Received ad timer, but ignoreNewAdRequests flag set. Do not make request");
-  }
-  else {
-    [self _requestFreshAdInternal];
-  }
-}
-
-- (void)scheduleNextAdRefresh {
-  if (config.refreshInterval > kAWMinimumTimeBetweenFreshAdRequests
-      && !ignoreNewAdRequests) {
-    AWLogDebug(@"Scheduling next ad refresh after %lfs", config.refreshInterval);
-    if (refreshTimer) {
-      [refreshTimer invalidate];
-    }
-    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:config.refreshInterval
-                                                         target:self
-                                                       selector:@selector(requestFreshAdTimer)
-                                                       userInfo:nil
-                                                        repeats:NO];
-  }
+  [self buildPrioritizedAdNetCfgsAndMakeRequest];
 }
 
 - (void)rollOver {
-  if (ignoreNewAdRequests) return; // don't request ad
+  if (ignoreNewAdRequests) {
+    return;
+  }
+  // only make request in main thread
+  if (![NSThread isMainThread]) {
+    [self performSelectorOnMainThread:@selector(rollOver)
+                           withObject:nil
+                        waitUntilDone:NO];
+    return;
+  }
   [self makeAdRequest:NO];
 }
 
 - (BOOL)adExists {
   UIView *currAdView = [self viewWithTag:kAdWhirlViewAdSubViewTag];
   return currAdView != nil;
-}
-
-- (CGSize)actualAdSize {
-  if (currAdapter == nil || currAdapter.adNetworkView == nil)
-    return kAdWhirlViewDefaultSize;
-  return currAdapter.adNetworkView.frame.size;
-}
-
-- (void)rotateToOrientation:(UIInterfaceOrientation)orientation {
-  if (currAdapter == nil) return;
-  [currAdapter rotateToOrientation:orientation];
 }
 
 - (NSString *)mostRecentNetworkName {
@@ -344,12 +474,80 @@ static BOOL randSeeded = NO;
   ignoreAutoRefreshTimer = NO;
 }
 
+- (BOOL)isIgnoringAutoRefreshTimer {
+  return ignoreAutoRefreshTimer;
+}
+
 - (void)ignoreNewAdRequests {
   ignoreNewAdRequests = YES;
 }
 
 - (void)doNotIgnoreNewAdRequests {
   ignoreNewAdRequests = NO;
+}
+
+- (BOOL)isIgnoringNewAdRequests {
+  return ignoreNewAdRequests;
+}
+
+
+#pragma mark Stats reporting methods
+
+- (void)metricPing:(NSURL *)endPointBaseURL
+               nid:(NSString *)nid
+           netType:(AdWhirlAdNetworkType)type {
+  // use config.appKey not from [delegate adWhirlApplicationKey] as delegate
+  // can be niled out at this point. Attempt at Issue #42 .
+  NSString *query
+    = [NSString stringWithFormat:
+       @"?appid=%@&nid=%@&type=%d&country_code=%@&appver=%d&client=1",
+       config.appKey,
+       nid,
+       type,
+       [[NSLocale currentLocale] localeIdentifier],
+       kAdWhirlAppVer];
+  NSURL *metURL = [NSURL URLWithString:query
+                         relativeToURL:endPointBaseURL];
+  AWLogDebug(@"Sending metric ping to %@", metURL);
+  NSURLRequest *metRequest = [NSURLRequest requestWithURL:metURL];
+  [NSURLConnection connectionWithRequest:metRequest
+                                delegate:nil]; // fire and forget
+}
+
+- (void)reportExImpression:(NSString *)nid netType:(AdWhirlAdNetworkType)type {
+  NSURL *baseURL = nil;
+  if ([delegate respondsToSelector:@selector(adWhirlImpMetricURL)]) {
+    baseURL = [delegate adWhirlImpMetricURL];
+  }
+  if (baseURL == nil) {
+    baseURL = [NSURL URLWithString:kAdWhirlDefaultImpMetricURL];
+  }
+  [self metricPing:baseURL nid:nid netType:type];
+}
+
+- (void)reportExClick:(NSString *)nid netType:(AdWhirlAdNetworkType)type {
+  NSURL *baseURL = nil;
+  if ([delegate respondsToSelector:@selector(adWhirlClickMetricURL)]) {
+    baseURL = [delegate adWhirlClickMetricURL];
+  }
+  if (baseURL == nil) {
+    baseURL = [NSURL URLWithString:kAdWhirlDefaultClickMetricURL];
+  }
+  [self metricPing:baseURL nid:nid netType:type];
+}
+
+
+#pragma mark UI methods
+
+- (CGSize)actualAdSize {
+  if (currAdapter == nil || currAdapter.adNetworkView == nil)
+    return kAdWhirlViewDefaultSize;
+  return currAdapter.adNetworkView.frame.size;
+}
+
+- (void)rotateToOrientation:(UIInterfaceOrientation)orientation {
+  if (currAdapter == nil) return;
+  [currAdapter rotateToOrientation:orientation];
 }
 
 - (void)transitionToView:(UIView *)view {
@@ -362,30 +560,36 @@ static BOOL randSeeded = NO;
   if (currAdView) {
     // swap
     currAdView.tag = 0;
-    if (config.bannerAnimationType == AWBannerAnimationTypeNone) {
+
+    AWBannerAnimationType animType;
+    if (config.bannerAnimationType == AWBannerAnimationTypeRandom) {
+      if (!randSeeded) {
+        srandom(CFAbsoluteTimeGetCurrent());
+      }
+      // range is 1 to 7, inclusive
+      animType = (random() % 7) + 1;
+      AWLogDebug(@"Animation type chosen by random is %d", animType);
+    }
+    else {
+      animType = config.bannerAnimationType;
+    }
+    if (![currAdapter isBannerAnimationOK:animType]) {
+      animType = AWBannerAnimationTypeNone;
+    }
+
+    if (animType == AWBannerAnimationTypeNone) {
       [currAdView removeFromSuperview];
       [self addSubview:view];
-      if ([delegate respondsToSelector:@selector(adWhirlDidAnimateToNewAdIn:)]) {
+      if ([delegate respondsToSelector:
+                                    @selector(adWhirlDidAnimateToNewAdIn:)]) {
         // no animation, callback right away
-        [(NSObject *)delegate performSelectorOnMainThread:@selector(adWhirlDidAnimateToNewAdIn:)
-                                               withObject:self
-                                            waitUntilDone:NO];
+        [(NSObject *)delegate
+              performSelectorOnMainThread:@selector(adWhirlDidAnimateToNewAdIn:)
+                               withObject:self
+                            waitUntilDone:NO];
       }
     }
     else {
-      AWBannerAnimationType animType;
-      if (config.bannerAnimationType == AWBannerAnimationTypeRandom) {
-        if (!randSeeded) {
-          srandom(CFAbsoluteTimeGetCurrent());
-        }
-        // range is 1 to 7, inclusive
-        animType = (random() % 7) + 1;
-        AWLogDebug(@"Animation type chosen by random is %d", animType);
-      }
-      else {
-        animType = config.bannerAnimationType;
-      }
-      
       switch (animType) {
         case AWBannerAnimationTypeSlideFromLeft:
         {
@@ -411,12 +615,14 @@ static BOOL randSeeded = NO;
           // no setup required for other animation types
           break;
       }
-      
+
       [currAdView retain]; // will be released when animation is done
-      AWLogDebug(@"Beginning AdWhirlAdTransition animation currAdView %x incoming %x", currAdView, view);
+      AWLogDebug(@"Beginning AdWhirlAdTransition animation"
+                 @" currAdView %x incoming %x", currAdView, view);
       [UIView beginAnimations:@"AdWhirlAdTransition" context:currAdView];
       [UIView setAnimationDelegate:self];
-      [UIView setAnimationDidStopSelector:@selector(newAdAnimationDidStopWithAnimationID:finished:context:)];
+      [UIView setAnimationDidStopSelector:
+            @selector(newAdAnimationDidStopWithAnimationID:finished:context:)];
       [UIView setAnimationBeginsFromCurrentState:YES];
       [UIView setAnimationDuration:1.0];
       // cache has to set to NO because of VideoEgg
@@ -425,25 +631,29 @@ static BOOL randSeeded = NO;
           [self addSubview:view];
           [currAdView removeFromSuperview];
           [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-                                 forView:self cache:NO];
+                                 forView:self
+                                   cache:NO];
           break;
         case AWBannerAnimationTypeFlipFromRight:
           [self addSubview:view];
           [currAdView removeFromSuperview];
           [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
-                                 forView:self cache:NO];
+                                 forView:self
+                                   cache:NO];
           break;
         case AWBannerAnimationTypeCurlUp:
           [self addSubview:view];
           [currAdView removeFromSuperview];
           [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp
-                                 forView:self cache:NO];
+                                 forView:self
+                                   cache:NO];
           break;
         case AWBannerAnimationTypeCurlDown:
           [self addSubview:view];
           [currAdView removeFromSuperview];
           [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown
-                                 forView:self cache:NO];
+                                 forView:self
+                                   cache:NO];
           break;
         case AWBannerAnimationTypeSlideFromLeft:
         case AWBannerAnimationTypeSlideFromRight:
@@ -464,14 +674,15 @@ static BOOL randSeeded = NO;
       [UIView commitAnimations];
     }
   }
-  else {
+  else {  // currAdView
     // new
     [self addSubview:view];
     if ([delegate respondsToSelector:@selector(adWhirlDidAnimateToNewAdIn:)]) {
       // no animation, callback right away
-      [(NSObject *)delegate performSelectorOnMainThread:@selector(adWhirlDidAnimateToNewAdIn:)
-                                             withObject:self
-                                          waitUntilDone:NO];
+      [(NSObject *)delegate
+              performSelectorOnMainThread:@selector(adWhirlDidAnimateToNewAdIn:)
+                               withObject:self
+                            waitUntilDone:NO];
     }
   }
 }
@@ -480,13 +691,14 @@ static BOOL randSeeded = NO;
   [self transitionToView:bannerView];
 }
 
-// Called at the end of the new ad animation; we use this opportunity to do memory management cleanup.
-// See the comment in adDidLoad:.
+// Called at the end of the new ad animation; we use this opportunity to do
+// memory management cleanup. See the comment in adDidLoad:.
 - (void)newAdAnimationDidStopWithAnimationID:(NSString *)animationID
                                     finished:(BOOL)finished
                                      context:(void *)context
 {
-  AWLogDebug(@"animation %@ finished %@ context %x", animationID, finished? @"YES":@"NO", context);
+  AWLogDebug(@"animation %@ finished %@ context %x",
+             animationID, finished? @"YES":@"NO", context);
   UIView *adViewToRemove = (UIView *)context;
   [adViewToRemove removeFromSuperview];
   [adViewToRemove release]; // was retained before beginAnimations
@@ -497,120 +709,6 @@ static BOOL randSeeded = NO;
   }
 }
 
-- (void)adapter:(AdWhirlAdNetworkAdapter *)adapter didReceiveAdView:(UIView *)view {
-  UIView *currAdView = [self viewWithTag:kAdWhirlViewAdSubViewTag];
-  AWLogDebug(@"Received ad from adapter (nid %@)", adapter.networkConfig.nid);
-  [self transitionToView:view];
-  requesting = NO;
-  if ([adapter shouldSendExMetric]) {
-    [self notifyExImpression:adapter.networkConfig.nid netType:adapter.networkConfig.networkType];
-  }
-  if ([delegate respondsToSelector:@selector(adWhirlDidReceiveAd:)]) {
-    [delegate adWhirlDidReceiveAd:self];
-  }
-  if (currAdView != view) {
-    // for ad networks that refreshes itself and calls the call back function,
-    // don't call schedule next ad refresh as that may push AdWhirl refresh
-    // back again and again.
-    [self scheduleNextAdRefresh];
-  }
-}
-
-- (void)adapter:(AdWhirlAdNetworkAdapter *)adapter didFailAd:(NSError *)error {
-  AWLogDebug(@"Failed to receive ad from adapter (nid %@): %@",
-             adapter.networkConfig.nid, error);
-  requesting = NO;
-  BOOL doNotify = [delegate respondsToSelector:@selector(adWhirlDidFailToReceiveAd:usingBackup:)];
-  if ([prioritizedAdNetworks count] == 0) {
-    // we have run out of networks to try and need to error out.
-    // just call the delegate's failed method.
-    [lastError release];
-    lastError = [[AdWhirlError alloc] initWithCode:AdWhirlAdRequestNoMoreAdNetworks
-                                       description:@"No more ad networks for roll over"];
-    if (doNotify) {
-      [[self retain] autorelease]; // to prevent self being freed before this returns
-      [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
-    }
-    return;
-  }
-  [lastError release], lastError = nil; // no error really, just need to roll over
-  if (doNotify) {
-    [delegate adWhirlDidFailToReceiveAd:self usingBackup:YES];
-  }
-  
-  // keep trying, but don't call makeAdRequest or rollOver directly. Let
-  // the current stack finish
-  [self performSelectorOnMainThread:@selector(rollOver) withObject:nil waitUntilDone:NO];            
-}
-
-- (void)adapterDidFinishAdRequest:(AdWhirlAdNetworkAdapter *)adapter {
-  // view is supplied via other mechanism (e.g. Generic Notification)
-  requesting = NO;
-  if ([adapter shouldSendExMetric]) {
-    [self notifyExImpression:adapter.networkConfig.nid netType:adapter.networkConfig.networkType];
-  }
-  [self scheduleNextAdRefresh];
-}
-
-- (void)metricPing:(NSURL *)endPointBaseURL nid:(NSString *)nid netType:(AdWhirlAdNetworkType)type {
-  NSString *query = [NSString stringWithFormat:@"?appid=%@&nid=%@&type=%d&country_code=%@&appver=%d&client=1",
-                     [delegate adWhirlApplicationKey],
-                     nid,
-                     type,
-                     [[NSLocale currentLocale] localeIdentifier],
-                     kAdWhirlAppVer];
-  NSURL *metURL = [NSURL URLWithString:query
-                         relativeToURL:endPointBaseURL];
-  AWLogDebug(@"Sending metric ping to %@", metURL);
-  NSURLRequest *metRequest = [NSURLRequest requestWithURL:metURL];
-  [NSURLConnection connectionWithRequest:metRequest
-                                delegate:nil]; // fire and forget
-}
-
-- (void)notifyExImpression:(NSString *)nid netType:(AdWhirlAdNetworkType)type {
-  NSURL *baseURL = nil;
-  if ([delegate respondsToSelector:@selector(adWhirlImpMetricURL)]) {
-    baseURL = [delegate adWhirlImpMetricURL];
-  }
-  if (baseURL == nil) {
-    baseURL = [NSURL URLWithString:kAdWhirlDefaultImpMetricURL];
-  }
-  [self metricPing:baseURL nid:nid netType:type];
-}
-
-- (void)notifyExClick:(NSString *)nid netType:(AdWhirlAdNetworkType)type {
-  NSURL *baseURL = nil;
-  if ([delegate respondsToSelector:@selector(adWhirlClickMetricURL)]) {
-    baseURL = [delegate adWhirlClickMetricURL];
-  }
-  if (baseURL == nil) {
-    baseURL = [NSURL URLWithString:kAdWhirlDefaultClickMetricURL];
-  }
-  [self metricPing:baseURL nid:nid netType:type];
-}
-
-- (BOOL)canRefresh {
-  return !ignoreAutoRefreshTimer && !appInactive && !showingModalView;
-}
-
-- (void)dealloc {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-  delegate = nil;
-  [config removeDelegate:self];
-  [config release], config = nil;
-  [prioritizedAdNetworks release], prioritizedAdNetworks = nil;
-  totalPercent = 0;
-  requesting = NO;
-  currAdapter.adWhirlDelegate = nil, currAdapter.adWhirlView = nil;
-  [currAdapter release], currAdapter = nil;
-  lastAdapter.adWhirlDelegate = nil, lastAdapter.adWhirlView = nil;
-  [lastAdapter release], lastAdapter = nil;
-  [lastRequestTime release], lastRequestTime = nil;
-  [refreshTimer release], refreshTimer = nil;
-  [lastError release], lastError = nil;
-
-  [super dealloc];
-}
 
 #pragma mark UIView touch methods
 
@@ -626,12 +724,13 @@ static BOOL randSeeded = NO;
   if (itsInside && currAdapter != nil && lastNotifyAdapter != currAdapter
       && [self _isEventATouch30:event]
       && [currAdapter shouldSendExMetric]) {
-    self.showingModalView = YES; // prevent reload
     lastNotifyAdapter = currAdapter;
-    [self notifyExClick:currAdapter.networkConfig.nid netType:currAdapter.networkConfig.networkType];
+    [self reportExClick:currAdapter.networkConfig.nid
+                netType:currAdapter.networkConfig.networkType];
   }
   return itsInside;
 }
+
 
 #pragma mark UIView methods
 
@@ -642,11 +741,148 @@ static BOOL randSeeded = NO;
   }
 }
 
+
+#pragma mark Adapter callbacks
+
+// Chores that are common to all adapter callbacks
+- (void)adRequestReturnsForAdapter:(AdWhirlAdNetworkAdapter *)adapter {
+  // no longer pending. Need to retain and autorelease the adapter
+  // since the adapter may not be retained anywhere else other than the pending
+  // dict
+  NSNumber *netTypeKey
+    = [NSNumber numberWithInt:(int)adapter.networkConfig.networkType];
+  AdWhirlAdNetworkAdapter *pendingAdapter
+    = [pendingAdapters objectForKey:netTypeKey];
+  if (pendingAdapter != nil) {
+    if (pendingAdapter != adapter) {
+      // Possible if the ad refreshes itself and sends callbacks doing so, while
+      // a new ad of the same network is pending (e.g. iAd)
+      AWLogError(@"Stored pending adapter %@ for network type %@ is different"
+                 @" from the one sending the adapter callback %@",
+                 pendingAdapter,
+                 netTypeKey,
+                 adapter);
+    }
+    [[pendingAdapter retain] autorelease];
+    [pendingAdapters removeObjectForKey:netTypeKey];
+  }
+}
+
+- (void)adapter:(AdWhirlAdNetworkAdapter *)adapter
+          didReceiveAdView:(UIView *)view {
+  [self adRequestReturnsForAdapter:adapter];
+  if (adapter != currAdapter) {
+    AWLogDebug(@"Received didReceiveAdView from a stale adapter %@", adapter);
+    return;
+  }
+  AWLogDebug(@"Received ad from adapter (nid %@)", adapter.networkConfig.nid);
+
+  // UIView operations should be performed on main thread
+  [self performSelectorOnMainThread:@selector(transitionToView:)
+                         withObject:view
+                      waitUntilDone:NO];
+  requesting = NO;
+
+  // report impression and notify delegate
+  if ([adapter shouldSendExMetric]) {
+    [self reportExImpression:adapter.networkConfig.nid
+                     netType:adapter.networkConfig.networkType];
+  }
+  if ([delegate respondsToSelector:@selector(adWhirlDidReceiveAd:)]) {
+    [delegate adWhirlDidReceiveAd:self];
+  }
+}
+
+- (void)adapter:(AdWhirlAdNetworkAdapter *)adapter didFailAd:(NSError *)error {
+  [self adRequestReturnsForAdapter:adapter];
+  if (adapter != currAdapter) {
+    AWLogDebug(@"Received didFailAd from a stale adapter %@: %@",
+               adapter, error);
+    return;
+  }
+  AWLogDebug(@"Failed to receive ad from adapter (nid %@): %@",
+             adapter.networkConfig.nid, error);
+  requesting = NO;
+
+  if ([prioritizedAdNetCfgs count] == 0) {
+    // we have run out of networks to try and need to error out.
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestNoMoreAdNetworks
+                            description:@"No more ad networks to roll over"];
+    return;
+  }
+
+  // try to roll over, but before we do, check to see if the failure is because
+  // network has gotten unreachable. If so, don't roll over. Use www.google.com
+  // as test, assuming www.google.com itself is always up if there's network.
+  self.rollOverReachability
+    = [AWNetworkReachabilityWrapper reachabilityWithHostname:@"www.google.com"
+                                            callbackDelegate:self];
+  if (self.rollOverReachability == nil) {
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestNoNetworkError
+                            description:@"Failed network reachability test"];
+    return;
+  }
+  if (![self.rollOverReachability scheduleInCurrentRunLoop]) {
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestNoNetworkError
+                            description:@"Failed network reachability test"];
+    return;
+  }
+}
+
+- (void)adapterDidFinishAdRequest:(AdWhirlAdNetworkAdapter *)adapter {
+  [self adRequestReturnsForAdapter:adapter];
+  if (adapter != currAdapter) {
+    AWLogDebug(@"Received adapterDidFinishAdRequest from a stale adapter");
+    return;
+  }
+  // view is supplied via other mechanism (e.g. Generic Notification or Event)
+  requesting = NO;
+
+  // report impression. No need to notify delegate because delegate is notified
+  // via Generic Notification or event.
+  if ([adapter shouldSendExMetric]) {
+    [self reportExImpression:adapter.networkConfig.nid
+                     netType:adapter.networkConfig.networkType];
+  }
+}
+
+
+#pragma mark AWNetworkReachabilityDelegate methods
+
+- (void)reachabilityNotReachable:(AWNetworkReachabilityWrapper *)reach {
+  if (reach == self.rollOverReachability) {
+    self.rollOverReachability = nil;  // release it and unschedule
+    [self notifyDelegateOfErrorWithCode:AdWhirlAdRequestNoNetworkError
+                            description:@"No network connection for rollover"];
+    return;
+  }
+  AWLogWarn(@"Unrecognized reachability called not reachable %s:%d",
+            __FILE__, __LINE__);
+}
+
+- (void)reachabilityBecameReachable:(AWNetworkReachabilityWrapper *)reach {
+  if (reach == self.rollOverReachability) {
+    // not an error, just need to rollover
+    [lastError release], lastError = nil;
+    if ([delegate respondsToSelector:
+         @selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
+      [delegate adWhirlDidFailToReceiveAd:self usingBackup:YES];
+    }
+    self.rollOverReachability = nil;   // release it and unschedule
+    [self rollOver];
+    return;
+  }
+  AWLogWarn(@"Unrecognized reachability called reachable %s:%d",
+            __FILE__, __LINE__);
+}
+
+
 #pragma mark AdWhirlConfigDelegate methods
 
 + (NSURL *)adWhirlConfigURL {
   if (classAdWhirlDelegateForConfig != nil
-      && [classAdWhirlDelegateForConfig respondsToSelector:@selector(adWhirlConfigURL)]) {
+      && [classAdWhirlDelegateForConfig respondsToSelector:
+                                        @selector(adWhirlConfigURL)]) {
     return [classAdWhirlDelegateForConfig adWhirlConfigURL];
   }
   return nil;
@@ -655,51 +891,75 @@ static BOOL randSeeded = NO;
 + (void)adWhirlConfigDidReceiveConfig:(AdWhirlConfig *)config {
   AWLogDebug(@"Fetched Ad network config: %@", config);
   if (classAdWhirlDelegateForConfig != nil
-      && [classAdWhirlDelegateForConfig respondsToSelector:@selector(adWhirlDidReceiveConfig:)]) {
+      && [classAdWhirlDelegateForConfig respondsToSelector:
+                                        @selector(adWhirlDidReceiveConfig:)]) {
     [classAdWhirlDelegateForConfig adWhirlDidReceiveConfig:nil];
   }
+  classAdWhirlDelegateForConfig = nil;
 }
 
 + (void)adWhirlConfigDidFail:(AdWhirlConfig *)cfg error:(NSError *)error {
   AWLogError(@"Failed pre-fetching AdWhirl config: %@", error);
+  classAdWhirlDelegateForConfig = nil;
 }
 
 - (void)adWhirlConfigDidReceiveConfig:(AdWhirlConfig *)cfg {
   if (self.config != cfg) {
-    AWLogWarn(@"AdWhirlView: getting adWhirlConfigDidReceiveConfig callback from unknown AdWhirlConfig object");
+    AWLogWarn(@"AdWhirlView: getting adWhirlConfigDidReceiveConfig callback"
+              @" from unknown AdWhirlConfig object");
     return;
   }
-  // now decide which ad network to use and fetch ad
   AWLogDebug(@"Fetched Ad network config: %@", cfg);
   if ([delegate respondsToSelector:@selector(adWhirlDidReceiveConfig:)]) {
     [delegate adWhirlDidReceiveConfig:self];
   }
-  @synchronized(self) {
-    if (cfg.adsAreOff) {
-      if ([delegate respondsToSelector:@selector(adWhirlReceivedNotificationAdsAreOff:)]) {
-        [[self retain] autorelease]; // to prevent self being freed before this returns
-        [delegate adWhirlReceivedNotificationAdsAreOff:self];
-      }
-      return;
+  if (cfg.adsAreOff) {
+    if ([delegate respondsToSelector:
+                        @selector(adWhirlReceivedNotificationAdsAreOff:)]) {
+      // to prevent self being freed before this returns, in case the
+      // delegate decides to release this
+      [self retain];
+      [delegate adWhirlReceivedNotificationAdsAreOff:self];
+      [self autorelease];
     }
-    [self prepAdNetworks];
+    return;
   }
-  [self makeFirstAdRequest];
+
+  // Perform ad network data structure build and request in main thread
+  // to avoid contention
+  [self performSelectorOnMainThread:
+                            @selector(buildPrioritizedAdNetCfgsAndMakeRequest)
+                         withObject:nil
+                      waitUntilDone:NO];
+
+  // Setup recurring timer for ad refreshes, if required
+  if (config.refreshInterval > kAWMinimumTimeBetweenFreshAdRequests) {
+    self.refreshTimer
+      = [NSTimer scheduledTimerWithTimeInterval:config.refreshInterval
+                                         target:self
+                                       selector:@selector(timerRequestFreshAd)
+                                       userInfo:nil
+                                        repeats:YES];
+  }
 }
 
 - (void)adWhirlConfigDidFail:(AdWhirlConfig *)cfg error:(NSError *)error {
   if (self.config != nil && self.config != cfg) {
     // self.config could be nil if this is called before init is finished
-    AWLogWarn(@"AdWhirlView: getting adWhirlConfigDidFail callback from unknown AdWhirlConfig object");
+    AWLogWarn(@"AdWhirlView: getting adWhirlConfigDidFail callback from unknown"
+              @" AdWhirlConfig object");
     return;
   }
-  self.config = cfg;
-  AWLogError(@"Failed fetching AdWhirl config: %@", error);
-  [lastError release];
-  lastError = [error retain];
-  if ([delegate respondsToSelector:@selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
-    [[self retain] autorelease]; // to prevent self being freed before this returns
-    [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
+  configFetchAttempts++;
+  if (configFetchAttempts < 3) {
+    // schedule in run loop to avoid recursive calls to this function
+    [self performSelectorOnMainThread:@selector(attemptFetchConfig)
+                           withObject:self
+                        waitUntilDone:NO];
+  }
+  else {
+    AWLogError(@"Failed fetching AdWhirl config: %@", error);
+    [self notifyDelegateOfError:error];
   }
 }
 
@@ -711,7 +971,7 @@ static BOOL randSeeded = NO;
 }
 
 
-#pragma mark active status notification methods
+#pragma mark Active status notification callbacks
 
 - (void)resignActive:(NSNotification *)notification {
   AWLogDebug(@"App become inactive, AdWhirlView will stop requesting ads");
@@ -723,5 +983,29 @@ static BOOL randSeeded = NO;
   appInactive = NO;
 }
 
+
+#pragma mark AdWhirlDelegate helper methods
+
+- (void)notifyDelegateOfErrorWithCode:(NSInteger)errorCode
+                          description:(NSString *)desc {
+  NSError *error = [[AdWhirlError alloc] initWithCode:errorCode
+                                          description:desc];
+  [self notifyDelegateOfError:error];
+  [error release];
+}
+
+- (void)notifyDelegateOfError:(NSError *)error {
+  [error retain];
+  [lastError release];
+  lastError = error;
+  if ([delegate respondsToSelector:
+                          @selector(adWhirlDidFailToReceiveAd:usingBackup:)]) {
+    // to prevent self being freed before this returns, in case the
+    // delegate decides to release this
+    [self retain];
+    [delegate adWhirlDidFailToReceiveAd:self usingBackup:NO];
+    [self autorelease];
+  }
+}
 
 @end

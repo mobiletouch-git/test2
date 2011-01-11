@@ -65,5 +65,5 @@
 -(void) addDefaultConverterValues;
 -(void) textEditEnded;
 -(void) updateCurrentDate;
-
+-(void) doneAction;
 @end

@@ -12,6 +12,7 @@
 #import "UIFactory.h"
 #import "Constants.h"
 #import "CurrenciesParserDelegate.h"
+#import "Reachability.h"
 
 @implementation UINavigationBar (CustomImage)
 
@@ -288,7 +289,7 @@
     if (!success) {
         NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
     }
-	
+	//NSLog(@"path for file: %@",writableDBPath);
 }
 
 -(void) readFromDefaults
@@ -423,6 +424,12 @@
 
 -(void) checkForUpdates
 {	
+	Reachability *isNetworkAvailable=[Reachability reachabilityForInternetConnection];
+	if (![isNetworkAvailable isReachable]) {
+		[UIFactory showOkAlert:@"Conectare imposibila. \n Aplicatia necesita conexiune la internet pentru actualizare." title:@"No Internet Connection"];
+		return;
+	}
+		 
 	//Test if update is needed and initiate update
 	
 	NSDate *now = [NSDate date];

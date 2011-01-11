@@ -408,6 +408,10 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+	if (textField == taxValueTextField&&[taxValueTextField.text isEqualToString:@"0,00"]) {
+		taxValueTextField.textColor=[UIColor grayColor];
+	}
+	NSLog(@"textFieldDidEndEditing");
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -420,13 +424,17 @@
 
 - (BOOL) textField:(UITextField*)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)textEntered {
 	
+
+	
 	if (textField == taxNameTextField)
 	{
+		
 		NSUInteger newLength = [textField.text length] + [textEntered length] - range.length;
 		return (newLength > 20) ? NO : YES;
 	}
 	if (textField == taxValueTextField)
 	{
+		taxValueTextField.textColor=[UIColor blackColor];
 		/*NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
 		 BOOL shouldChange = YES;
 		 
@@ -464,7 +472,7 @@
 		if (![myCharSet characterIsMember:c]) 
 			return NO;
 		
-		//lenght <= 13
+		//lenght <= 6
 		if ([textField.text length]>5)
 			return NO;
 		

@@ -130,7 +130,7 @@
 
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_2.png"];
+		UIImage *buttonImage = [UIImage imageNamed:@"convertor_icon.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Convertor" image:buttonImage tag:-1];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];
@@ -261,6 +261,19 @@
 		appDelegate.updateCurrentDateConverter = NO;
 	}
 	
+	
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+	if (myTableView.editing) {
+		[self doneAction];
+	}else if (!datePicker.hidden){
+		return;
+	}else if (datePicker.hidden&&[tableDataSource count]) {
+		[self.navigationItem setLeftBarButtonItem:editButton];
+	}else {
+		[self.navigationItem setLeftBarButtonItem:nil];
+	}
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -293,7 +306,11 @@
 												  style:UIBarButtonItemStyleBordered
 												 target:self 
 												 action:@selector(editAction)];
-	[self.navigationItem setLeftBarButtonItem:editButton];
+	if ([tableDataSource count]) {
+		[self.navigationItem setLeftBarButtonItem:editButton];
+	}else {
+		[self.navigationItem setLeftBarButtonItem:nil];
+	}
 	
 	
 	
@@ -480,7 +497,11 @@
 	if(myTableView.editing == NO){
 		if (!datePicker.hidden)
 		{
-			[self.navigationItem setLeftBarButtonItem:editButton];
+			if ([tableDataSource count]) {
+				[self.navigationItem setLeftBarButtonItem:editButton];
+			}else {
+				[self.navigationItem setLeftBarButtonItem:nil];
+			}
 			[self.navigationItem setRightBarButtonItem:addButton];
 			[datePicker setHidden:YES];		
 		}
@@ -500,7 +521,12 @@
 //		[titleButton setTitle:[DateFormat DBformatDateFromDate:self.selectedDate] forState:UIControlStateNormal];
 		[titleSeg setTitle:[DateFormat businessStringFromDate:self.selectedDate] forSegmentAtIndex:0];
 		
-		[self.navigationItem setLeftBarButtonItem:editButton];
+		if ([tableDataSource count]) {
+			[self.navigationItem setLeftBarButtonItem:editButton];
+		}else {
+			[self.navigationItem setLeftBarButtonItem:nil];
+		}
+		
 		[self.navigationItem setRightBarButtonItem:addButton];
 		
 		[datePicker setHidden:YES];		
@@ -538,7 +564,11 @@
 	{
 		[myTableView setEditing:NO];
 		[appDelegate setTableViewIsInEditMode:NO];
-		[self.navigationItem setLeftBarButtonItem:editButton];
+		if ([tableDataSource count]) {
+			[self.navigationItem setLeftBarButtonItem:editButton];
+		}else {
+			[self.navigationItem setLeftBarButtonItem:nil];
+		}
 		[self.navigationItem setRightBarButtonItem:addButton];
 		
 	}
@@ -552,7 +582,12 @@
 
 -(void) textEditEnded {
 	//end edit
-	[self.navigationItem setLeftBarButtonItem:editButton];
+	NSLog(@"textEditEnded");
+	if ([tableDataSource count]) {
+		[self.navigationItem setLeftBarButtonItem:editButton];
+	}else {
+		[self.navigationItem setLeftBarButtonItem:nil];
+	}
 	[self.navigationItem setRightBarButtonItem:addButton];	
 }
 

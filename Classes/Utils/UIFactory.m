@@ -135,5 +135,14 @@
 	[alertView release];	
 }
 
++ (NSString *) getNameForImage: (NSString*)photoName 
+{
+    NSString *deviceModel = [[UIDevice currentDevice] platformString];
+    if([deviceModel isEqualToString:@"iPod touch 4G"] || [deviceModel isEqualToString:@"iPhone 4G"])
+        return [NSString stringWithFormat:@"%@@2x.png", photoName];
+    else
+        return [NSString stringWithFormat:@"%@.png", photoName];
+    
+}
 
 @end

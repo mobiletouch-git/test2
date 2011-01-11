@@ -1,7 +1,7 @@
 /*
 
  AdWhirlAdNetworkAdapter.m
- 
+
  Copyright 2009 AdMob, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
 */
 
 #import "AdWhirlAdNetworkAdapter.h"
@@ -48,7 +48,12 @@
 }
 
 - (void)getAd {
-  AWLogCrit(@"Calling getAd not allowed. Subclass of AdWhirlAdNetworkAdapter must implement -getAd.");
+  AWLogCrit(@"Subclass of AdWhirlAdNetworkAdapter must implement -getAd.");
+  [self doesNotRecognizeSelector:_cmd];
+}
+
+- (void)stopBeingDelegate {
+  AWLogCrit(@"Subclass of AdWhirlAdNetworkAdapter must implement -stopBeingDelegate.");
   [self doesNotRecognizeSelector:_cmd];
 }
 
@@ -62,7 +67,12 @@
              orientation, NSStringFromClass([self class]));
 }
 
+- (BOOL)isBannerAnimationOK:(AWBannerAnimationType)animType {
+  return YES;
+}
+
 - (void)dealloc {
+  [self stopBeingDelegate];
   adWhirlDelegate = nil;
   adWhirlView = nil;
   [adWhirlConfig release], adWhirlConfig = nil;

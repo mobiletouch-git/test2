@@ -69,13 +69,13 @@
 
 
 - (id)initWithAdWhirlDelegate:(id<AdWhirlDelegate>)delegate
-			 view:(AdWhirlView *)view
-		       config:(AdWhirlConfig *)config
-		networkConfig:(AdWhirlAdNetworkConfig *)netConf {
+       view:(AdWhirlView *)view
+           config:(AdWhirlConfig *)config
+    networkConfig:(AdWhirlAdNetworkConfig *)netConf {
   self = [super initWithAdWhirlDelegate:delegate
-		view:view
-		config:config
-		networkConfig:netConf];
+    view:view
+    config:config
+    networkConfig:netConf];
   if (self != nil) {
     adData = [[NSMutableData alloc] init];
     imageData = [[NSMutableData alloc] init];
@@ -100,8 +100,9 @@
     if (requesting) return;
     requesting = YES;
   }
-       
-  NSString *appKey = adWhirlConfig.appKey;        
+           
+  NSString *appKey = networkConfig.pubId;
+
   if ([adWhirlDelegate respondsToSelector:@selector(MdotMApplicationKey)] ) {
     appKey = [adWhirlDelegate MdotMApplicationKey];
   }
@@ -110,11 +111,11 @@
   NSBundle *bundle = [NSBundle mainBundle];
   NSLocale *locale = [NSLocale currentLocale];
   NSString *userAgent = [NSString stringWithFormat:@"%@ %@ (%@; %@ %@; %@)",
-				  [bundle objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-				  [bundle objectForInfoDictionaryKey:@"CFBundleVersion"],
-				  [device model],
-				  [device systemName], [device systemVersion],
-				  [locale localeIdentifier]];
+          [bundle objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+          [bundle objectForInfoDictionaryKey:@"CFBundleVersion"],
+          [device model],
+          [device systemName], [device systemVersion],
+          [locale localeIdentifier]];
   int test;
   if ( [self useTestAd] ) {
     test = 1;
@@ -122,9 +123,9 @@
     test = 0;
        
   NSString *str = [NSString stringWithFormat:
-			      @"http://ads.mdotm.com/ads/feed.php?appver=%d&v=%@&apikey=mdotm&appkey=%@&width=320&height=50&fmt=json&ua=%@&test=%d",
-			    kAdWhirlAppVer, [[UIDevice currentDevice] systemVersion],
-			    appKey, userAgent, test];
+            @"http://ads.mdotm.com/ads/feed.php?appver=%d&v=%@&apikey=mdotm&appkey=%@&deviceid=%@&width=320&height=50&fmt=json&ua=%@&test=%d",
+          kAdWhirlAppVer, [[UIDevice currentDevice] systemVersion],
+          appKey, [[UIDevice currentDevice] uniqueIdentifier], userAgent, test];
                
   NSMutableDictionary *userContextDic = [[NSMutableDictionary alloc] initWithCapacity:2];
   if ( [userContextDic count] > 0 ) {
@@ -139,7 +140,7 @@
        
 
   NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:adRequest
-						   delegate:self];
+               delegate:self];
   self.adConnection = conn;
   [conn release];
   [adRequestURL release];
@@ -157,7 +158,7 @@
     return NO;
   }
   else if (selector == @selector(userContext)
-	   && ![adWhirlDelegate respondsToSelector:@selector(userContext)]) {
+     && ![adWhirlDelegate respondsToSelector:@selector(userContext)]) {
     return NO;
   }  return [super respondsToSelector:selector];
 }
@@ -298,6 +299,13 @@
   return YES;
 }
 
+- (void)stopBeingDelegate {
+    AdWhirlCustomAdView *theAdView = (AdWhirlCustomAdView *)self.adNetworkView;
+    if (theAdView != nil) {
+        theAdView.delegate = nil;
+    }
+}
+
 - (void)dealloc {
   [locationManager release], locationManager = nil;
   [adConnection release], adConnection = nil;
@@ -376,7 +384,7 @@
   if (ad.clickMetricsURL != nil) {
     NSURLRequest *metRequest = [NSURLRequest requestWithURL:ad.clickMetricsURL];
     [NSURLConnection connectionWithRequest:metRequest
-		     delegate:nil]; // fire and forget
+         delegate:nil]; // fire and forget
   }
   if (ad.redirectURL == nil) {
     AWLogError(@"MdotM ad redirect URL is nil");

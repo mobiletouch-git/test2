@@ -1,7 +1,7 @@
 /*
 
  AdWhirlAdapterJumpTap.m
- 
+
  Copyright 2009 AdMob, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
 */
 
 #import "AdWhirlAdapterJumpTap.h"
@@ -42,10 +42,15 @@
   widget.frame = kAdWhirlViewDefaultFrame;
   widget.refreshInterval = 0; // do not self-refresh
   self.adNetworkView = widget;
-  
+
   if ([adWhirlDelegate respondsToSelector:@selector(jumptapTransitionType)]) {
     widget.transition = [adWhirlDelegate jumptapTransitionType];
   }
+  [widget release];
+}
+
+- (void)stopBeingDelegate {
+  // no way to set JTAdWidget's delegate to nil
 }
 
 - (void)dealloc {
@@ -55,7 +60,42 @@
 #pragma mark JTAdWidgetDelegate methods
 
 - (NSString *)publisherId:(id)theWidget {
-  return networkConfig.pubId;
+  NSString *pubId = networkConfig.pubId;
+  if (pubId == nil) {
+    NSDictionary *cred = networkConfig.credentials;
+    if (cred != nil) {
+      pubId = [cred objectForKey:@"publisherID"];
+    }
+  }
+  return pubId;
+}
+
+- (NSString *)site:(id)theWidget {
+  NSString *siteId = nil;
+  if ([adWhirlDelegate respondsToSelector:@selector(jumptapSiteId)]) {
+     siteId = [adWhirlDelegate jumptapSiteId];
+  }
+  if (siteId == nil) {
+    NSDictionary *cred = networkConfig.credentials;
+    if (cred != nil) {
+      siteId = [cred objectForKey:@"siteID"];
+    }
+  }
+  return siteId;
+}
+
+- (NSString *)adSpot:(id)theWidget {
+  NSString *spotId = nil;
+  if ([adWhirlDelegate respondsToSelector:@selector(jumptapSpotId)]) {
+    spotId = [adWhirlDelegate jumptapSpotId];
+  }
+  if (spotId == nil) {
+    NSDictionary *cred = networkConfig.credentials;
+    if (cred != nil) {
+      spotId = [cred objectForKey:@"spotID"];
+    }
+  }
+  return spotId;
 }
 
 - (BOOL)shouldRenderAd:(id)theWidget {
@@ -84,14 +124,6 @@
       && ![adWhirlDelegate respondsToSelector:@selector(locationInfo)]) {
     return NO;
   }
-  else if (selector == @selector(site:)
-           && ![adWhirlDelegate respondsToSelector:@selector(jumptapSiteId)]) {
-    return NO;
-  }
-  else if (selector == @selector(adSpot:)
-           && ![adWhirlDelegate respondsToSelector:@selector(jumptapSpotId)]) {
-    return NO;
-  }
   else if (selector == @selector(query:)
            && ![adWhirlDelegate respondsToSelector:@selector(keywords)]) {
     return NO;
@@ -108,13 +140,6 @@
 }
 
 #pragma mark JTAdWidgetDelegate methods -Targeting
-- (NSString *)site:(id)theWidget {
-  return [adWhirlDelegate jumptapSiteId];
-}
-
-- (NSString *)adSpot:(id)theWidget {
-  return [adWhirlDelegate jumptapSpotId];
-}
 
 - (NSString *)query:(id)theWidget {
   return [adWhirlDelegate keywords];

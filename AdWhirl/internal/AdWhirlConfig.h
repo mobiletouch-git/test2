@@ -1,7 +1,7 @@
 /*
 
  AdWhirlConfig.h
- 
+
  Copyright 2009 AdMob, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +15,11 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- 
+
 */
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
 
 @class AdWhirlConfig;
@@ -43,6 +45,7 @@ typedef enum {
 } AWBannerAnimationType;
 
 @class AdWhirlAdNetworkConfig;
+@class AdWhirlAdNetworkRegistry;
 
 @interface AdWhirlConfig : NSObject {
   NSString *appKey;
@@ -59,19 +62,24 @@ typedef enum {
   AWBannerAnimationType bannerAnimationType;
   NSInteger fullscreenWaitInterval;
   NSInteger fullscreenMaxAds;
-  
+
   NSMutableArray *delegates;
-  NSURLConnection *connection;
-  NSMutableData *receivedData;
-  BOOL fetched;
+  BOOL hasConfig;
+
+  AdWhirlAdNetworkRegistry *adNetworkRegistry;
 }
 
-+ (AdWhirlConfig *)fetchConfig:(NSString *)appKey delegate:(id<AdWhirlConfigDelegate>)delegate;
-
-- (void)removeDelegate:(id<AdWhirlConfigDelegate>)delegate;
+- (id)initWithAppKey:(NSString *)ak delegate:(id<AdWhirlConfigDelegate>)delegate;
+- (BOOL)parseConfig:(NSData *)data error:(NSError **)error;
+- (BOOL)addDelegate:(id<AdWhirlConfigDelegate>)delegate;
+- (BOOL)removeDelegate:(id<AdWhirlConfigDelegate>)delegate;
+- (void)notifyDelegatesOfFailure:(NSError *)error;
 
 @property (nonatomic,readonly) NSString *appKey;
 @property (nonatomic,readonly) NSURL *configURL;
+
+@property (nonatomic,readonly) BOOL hasConfig;
+
 @property (nonatomic,readonly) BOOL adsAreOff;
 @property (nonatomic,readonly) NSArray *adNetworkConfigs;
 @property (nonatomic,readonly) UIColor *backgroundColor;
@@ -82,7 +90,14 @@ typedef enum {
 @property (nonatomic,readonly) NSInteger fullscreenWaitInterval;
 @property (nonatomic,readonly) NSInteger fullscreenMaxAds;
 
+@property (nonatomic,assign) AdWhirlAdNetworkRegistry *adNetworkRegistry;
+
 @end
 
-BOOL awIntVal(NSInteger *var, id val);
 
+// Convenience conversion functions, converts val into native types var.
+// val can be NSNumber or NSString, all else will cause function to fail
+// On failure, return NO.
+BOOL awIntVal(NSInteger *var, id val);
+BOOL awFloatVal(CGFloat *var, id val);
+BOOL awDoubleVal(double *var, id val);

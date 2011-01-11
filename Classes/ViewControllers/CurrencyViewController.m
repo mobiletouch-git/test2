@@ -43,7 +43,7 @@
 		//init code
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_1.png"];
+		UIImage *buttonImage = [UIImage imageNamed:@"curs_bnr_icon.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Curs BNR" image:buttonImage tag:0];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];

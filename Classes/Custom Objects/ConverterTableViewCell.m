@@ -63,7 +63,7 @@
 		[self addSubview:converterAdditionLabel];		
 		
 		converterValueTextField = [[UITextField alloc] init];
-		[converterValueTextField setFrame:CGRectMake(140, 8, 170,30)];
+		[converterValueTextField setFrame:CGRectMake(110, 8, 200,30)];
 		converterValueTextField.borderStyle = UITextBorderStyleRoundedRect;
 		converterValueTextField.textColor = [UIColor blackColor];
 		converterValueTextField.font = [UIFont systemFontOfSize:18.0];
@@ -257,20 +257,22 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-	
+	NSLog(@"textFieldDidEndEditing in ConverterTableViewCell");
 	if (![[appDelegate converterViewController] textChanged])
 	{
 		[converterValueTextField setText:oldValue];
+	}else {
+		[self textFieldShouldReturn:textField];
 	}
-
 }
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+	
 	NSLog(@"called");
 	[textField resignFirstResponder];	
-	 
+	
 	NSDecimalNumber *nrFromString;
 	if (![textField.text length])
 		nrFromString = [NSDecimalNumber decimalNumberWithString:@"0"];
@@ -331,8 +333,8 @@
 	if (![myCharSet characterIsMember:c]) 
 		return NO;
 	
-	//lenght <= 13
-	if ([textField.text length]>12)
+	//lenght <= 18
+	if ([textField.text length]>17)
 		return NO;
 	
 	NSDecimalNumber *currentNumber = [NSDecimalNumber decimalNumberWithString:currentNSString];
@@ -356,7 +358,7 @@
 }
 
 - (void)cancelAction {
-
+	NSLog(@"cancel Action: convertorTableViewCell");
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.3];
 	[UIView setAnimationCurve:UIViewAnimationCurveLinear];

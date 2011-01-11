@@ -34,7 +34,7 @@
     if (self = [super initWithStyle:style]) {
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"tabInfo.png"];
+		UIImage *buttonImage = [UIImage imageNamed:@"info_icon.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Info" image:buttonImage tag:0];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];

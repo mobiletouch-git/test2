@@ -41,7 +41,7 @@
 #define kCancel @"Anulați"
 #define kOrder @"Ordonare"
 #define kEdit @"Editare"
-#define kSave @"Salvați"
+#define kSave @"OK"
 #define kDone @"OK"
 #define kOk @"OK"
 #define kAddNewCurrency @"Monedă nouă"
