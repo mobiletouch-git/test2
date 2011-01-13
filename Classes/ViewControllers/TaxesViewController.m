@@ -67,7 +67,7 @@
 		//init code
 		NSLog(@"apel init");
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"procente_icon.png"];
+		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_4.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Procente" image:buttonImage tag:0];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];

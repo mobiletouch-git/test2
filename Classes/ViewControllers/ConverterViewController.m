@@ -130,7 +130,7 @@
 
 		
 		//set tabbaritem picture
-		UIImage *buttonImage = [UIImage imageNamed:@"convertor_icon.png"];
+		UIImage *buttonImage = [UIImage imageNamed:@"icon_tab_1.png"];
 		UITabBarItem *tempTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Convertor" image:buttonImage tag:-1];
 		self.tabBarItem = tempTabBarItem;
 		[tempTabBarItem release];

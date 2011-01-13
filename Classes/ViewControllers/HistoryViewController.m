@@ -133,19 +133,20 @@
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	int selectedRow = [yearPicker selectedRowInComponent:0];
 	NSString *yearString = [yearArray objectAtIndex:selectedRow];
+	
 
-	NSString *startDateString = [NSString stringWithFormat:@"01-01-%@ 00:00:00 +0000", yearString];
-	NSString *endDateString = [NSString stringWithFormat:@"31-12-%@ 00:00:00 +0000", yearString];
+	NSString *startDateString = [NSString stringWithFormat:@"01-01-%@ 00:00:01 +0000", yearString];
+	NSString *endDateString = [NSString stringWithFormat:@"31-12-%@ 00:00:01 +0000", yearString];
 	
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss ZZ"];
+	[dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss Z"];
 
 	NSDate *startDate = [dateFormatter dateFromString:startDateString];
 	NSDate *endDate = [dateFormatter dateFromString:endDateString];
 	
 	[dateFormatter release];
 	
-	NSLog(@"Start %@ end %@", startDate, endDate);
+	NSLog(@"Start string %@ end string %@ start date %@ end date %@", startDateString,endDateString,startDate, endDate);
 	
 	NSMutableArray *bruteData = [InfoValutarAPI getDataForInterval:startDate 
 														   endDate:endDate

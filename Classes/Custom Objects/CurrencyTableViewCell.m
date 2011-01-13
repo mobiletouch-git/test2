@@ -89,7 +89,7 @@
 	
 	if (theMValue)
 	{
-		[currencyNameLabel setText:[[NSString stringWithFormat:@"%d ", [theMValue intValue]] stringByAppendingString:theName]];
+		[currencyNameLabel setText:[NSString stringWithFormat:@"%d%@", [theMValue intValue],theName]];
 		//[multiplierLabel setText:[NSString stringWithFormat:@"x%d", [theMValue intValue]]];
 	}
 	else

@@ -9,15 +9,13 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>Iconita.png</string>
+	<string>app_icon_pro.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.mobiletouchit.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
-	<key>UILaunchImageFile</key>
-	<string>convertor_valutar_loading_screen.png</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>

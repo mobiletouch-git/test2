@@ -31,7 +31,7 @@ static InfoValutarAPI* INSTANCE;
 +(UIImageView *) displayCompanyLogo
 {
 	UIImageView *companyLogo = [[[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,50)] autorelease];
-	[companyLogo setImage:[UIImage imageNamed:@"mobile_touch_logo.png"]];
+	[companyLogo setImage:[UIImage imageNamed:@"banner_offline.png"]];
 	[companyLogo setTag:111]; // company logo tag
 	return companyLogo;
 }

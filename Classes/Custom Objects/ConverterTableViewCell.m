@@ -20,6 +20,8 @@
 
 
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter]removeObserver:self];
+	
 	[doneButton release];
 	[cancelButton release];
 	[converter release];
@@ -39,7 +41,9 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // Initialization code
 		
-		converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,6,32,32)];
+		[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(cancelAction) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
+		
+		 converterFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,6,32,32)];
 		[self addSubview:converterFlagImageView];
 		
 		converterNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:17 bold:YES];
@@ -166,20 +170,20 @@
 
 -(void) setEditing: (BOOL) yesOrNo
 {
-	const int k = 30;
+	const int k = 40;
 	if (yesOrNo)
 	{
-		[converterFlagImageView setFrame:CGRectMake(10+k,6,32,32)];
-		[multiplierLabel setFrame:CGRectMake(92+k,13,30,20)];		
-		[converterNameLabel setFrame:CGRectMake(48+k,11,42,23)];
+		[converterFlagImageView setFrame:CGRectMake(5+k,6,32,32)];
+		[multiplierLabel setFrame:CGRectMake(82+k,13,30,20)];		
+		[converterNameLabel setFrame:CGRectMake(42+k,11,42,23)];
 		[converterAdditionLabel setFrame:CGRectMake(8+k,40,304,15)];					
 		[converterValueTextField setHidden:YES]; 
 	}
 	else
 	{
-		[converterFlagImageView setFrame:CGRectMake(10,6,32,32)];
-		[multiplierLabel setFrame:CGRectMake(92,13,30,20)];		
-		[converterNameLabel setFrame:CGRectMake(48,11,42,23)];
+		[converterFlagImageView setFrame:CGRectMake(5,6,32,32)];
+		[multiplierLabel setFrame:CGRectMake(82,13,30,20)];		
+		[converterNameLabel setFrame:CGRectMake(42,11,42,23)];
 		[converterAdditionLabel setFrame:CGRectMake(8,40,304,15)];	
 		[converterValueTextField setHidden:NO]; 
 	}
@@ -358,6 +362,9 @@
 }
 
 - (void)cancelAction {
+	if (!converterValueTextField.editing) {
+		return;
+	}
 	NSLog(@"cancel Action: convertorTableViewCell");
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.3];

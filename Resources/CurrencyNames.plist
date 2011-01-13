@@ -23,9 +23,9 @@
 	<key>GBP</key>
 	<string>Lira sterlină</string>
 	<key>HUF</key>
-	<string>100 Forinţi maghiari</string>
+	<string>Forinţi maghiari</string>
 	<key>JPY</key>
-	<string>100 Yeni japonezi</string>
+	<string>Yeni japonezi</string>
 	<key>MDL</key>
 	<string>Leul moldovenesc</string>
 	<key>NOK</key>
@@ -49,7 +49,7 @@
 	<key>INR</key>
 	<string>Rupia indiană</string>
 	<key>KRW</key>
-	<string>100 Woni sud-coreeni</string>
+	<string>Woni sud-coreeni</string>
 	<key>MXN</key>
 	<string>Peso-ul mexican</string>
 	<key>NZD</key>
