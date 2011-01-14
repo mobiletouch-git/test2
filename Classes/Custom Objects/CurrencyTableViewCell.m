@@ -24,11 +24,11 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // Initialization code
 		
-		currencyFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,5,32,32)];
+		currencyFlagImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5,5,32,32)];
 		[self addSubview:currencyFlagImageView];
 		
 		currencyNameLabel = [UIFactory newLabelWithPrimaryColor:[UIColor blackColor] selectedColor:[UIColor whiteColor] fontSize:16 bold:YES];
-		[currencyNameLabel setFrame:CGRectMake(50,12,80,20)];
+		[currencyNameLabel setFrame:CGRectMake(40,12,80,20)];
 		[currencyNameLabel setTextAlignment:UITextAlignmentLeft];		
 		currencyNameLabel.adjustsFontSizeToFitWidth=YES;			
 		[self addSubview:currencyNameLabel];

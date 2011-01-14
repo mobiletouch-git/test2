@@ -14,6 +14,9 @@
 	
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"yyyyMM"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
+	
 	NSString *formattedDateString = [dateFormatter stringFromDate:theDate];
 	[dateFormatter release];
 	return formattedDateString;
@@ -24,6 +27,8 @@
 {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateFormat:@"dd/MM/yyyy"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSString *formattedDateString = [dateFormatter stringFromDate:date];
 	return formattedDateString;
 }
@@ -32,6 +37,8 @@
 {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateFormat:@"LLLL dd, yyyy"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSString *formattedDateString = [dateFormatter stringFromDate:date];
 	return formattedDateString;
 }
@@ -41,6 +48,9 @@
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"yyyy-MM-dd"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
+	
 	NSString *formattedDateString = [dateFormatter stringFromDate:date];
 	[dateFormatter release];
 	return formattedDateString;
@@ -50,6 +60,8 @@
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd-MM-yyyy"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSString *formattedDateString = [dateFormatter stringFromDate:date];
 	[dateFormatter release];
 	return formattedDateString;
@@ -59,6 +71,8 @@
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd.MM.yyyy"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSString *formattedDateString = [dateFormatter stringFromDate:date];
 	[dateFormatter release];
 	return formattedDateString;
@@ -69,6 +83,8 @@
     [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     //#define kDEFAULT_DATE_TIME_FORMAT (@"yyyy-MM-dd’T'HH:mm:ss’Z'")
     [formatter setDateFormat:@"dd-MM-yyyy"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[formatter setLocale:locale];
     NSDate *date = [formatter dateFromString:string];
     [formatter release];
     return date;
@@ -78,6 +94,8 @@
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd-mm-yyyy"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSDate *newDate = [dateFormatter dateFromString:dateString];
 	[dateFormatter release];
 	return newDate;
@@ -94,6 +112,8 @@
 {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateFormat:@"LLLL yyyy"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSString *formattedDateString = [dateFormatter stringFromDate:date];
 	return formattedDateString;
 }
@@ -102,9 +122,12 @@
 {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateFormat:@"yyyyMM"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSDate *theDate= [dateFormatter dateFromString:dictionaryKey];
 	
 	[dateFormatter setDateFormat:@"LLLL yyyy"];
+	
 	NSString *formattedDateString = [dateFormatter stringFromDate:theDate];
 	
 	return formattedDateString;
