@@ -86,7 +86,7 @@
 	
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"];
 	[dateFormatter setLocale:roLocale];
 	[roLocale release];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];

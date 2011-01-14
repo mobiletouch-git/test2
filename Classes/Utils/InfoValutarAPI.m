@@ -40,6 +40,7 @@ static InfoValutarAPI* INSTANCE;
 	
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateStyle:NSDateFormatterLongStyle];
+	
 	NSLocale *loc = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
 	[dateFormatter setLocale:loc];
 	
@@ -366,6 +367,8 @@ static InfoValutarAPI* INSTANCE;
 	
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 	NSTimeZone *timeZoneRO = [NSTimeZone timeZoneWithName:@"Europe/Bucharest"];	
 	[dateFormatter setTimeZone:timeZoneRO];
 	

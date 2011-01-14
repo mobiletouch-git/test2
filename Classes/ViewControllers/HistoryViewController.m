@@ -140,6 +140,9 @@
 	
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss Z"];
+	
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
 
 	NSDate *startDate = [dateFormatter dateFromString:startDateString];
 	NSDate *endDate = [dateFormatter dateFromString:endDateString];
@@ -164,6 +167,9 @@
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"dd-MM-yyyy"];
 
+	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"] autorelease];
+	[dateFormatter setLocale:locale];
+	
 	for (int i=1;i<=12;i++)
 	{
 		NSMutableDictionary *dictionaryForMonth = [NSMutableDictionary dictionary];
