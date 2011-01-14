@@ -86,9 +86,13 @@
 	
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+<<<<<<< .mine
+
+=======
 	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"];
 	[dateFormatter setLocale:roLocale];
 	[roLocale release];
+>>>>>>> .r2189
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	
 	self.graphView.xValuesFormatter = dateFormatter;
@@ -251,7 +255,7 @@
 	
 	int counter = 0;
 	NSNumber *lastValidNumber = [NSNumber numberWithFloat:-1.0];
-	
+	 
 	for (int i=0; i <[totalDays count] && counter<[valuesForPlot count];i++)
 	{
 		Currency *managed = [valuesForPlot objectAtIndex:counter];
@@ -263,26 +267,28 @@
 		float dblValue = [valueString floatValue];
 		NSNumber *numberToAdd = [NSNumber numberWithFloat:dblValue*1000];
 	
-		if ([dateForEntry compare:dateInCalendar] == NSOrderedSame)
-		{
-			[array addObject:numberToAdd];	
-			lastValidNumber = [NSNumber numberWithFloat:[numberToAdd floatValue]];
-			counter+=1;
-		}
-		else if ([dateForEntry compare:dateInCalendar] == NSOrderedDescending)
-		{
-
-			if (![array count] || ([[array lastObject] compare:[NSNumber numberWithFloat:0.0]] == NSOrderedSame))
-			{
-				NSNumber *numberToAdd = [NSNumber numberWithFloat:-1.0];
-				[array addObject:numberToAdd];
-			}
-			else {
-				[array addObject:lastValidNumber];							
-			}
-
-			
-		}		
+		[array addObject:numberToAdd];	
+		counter++;
+		//if ([dateForEntry compare:dateInCalendar] == NSOrderedSame)
+//		{
+//			[array addObject:numberToAdd];	
+//			lastValidNumber = [NSNumber numberWithFloat:[numberToAdd floatValue]];
+//			counter+=1;
+//		}
+//		else if ([dateForEntry compare:dateInCalendar] == NSOrderedDescending)
+//		{
+//
+//			if (![array count] || ([[array lastObject] compare:[NSNumber numberWithFloat:0.0]] == NSOrderedSame))
+//			{
+//				NSNumber *numberToAdd = [NSNumber numberWithFloat:-1.0];
+//				[array addObject:numberToAdd];
+//			}
+//			else {
+//				[array addObject:lastValidNumber];							
+//			}
+//
+//			
+//		}		
 	}
 
 	NSLog(@"First object %f last object %f", [[array objectAtIndex:0] floatValue], [[array lastObject] floatValue]);
