@@ -68,8 +68,6 @@
 		if (i==0) {
 			totalDays=[[results valueForKey:@"currencyDate"] retain];
 		}
-		//[totalDays addObject:[results objectAtIndex:i]];
-		//NSLog(@"results: %@",[results valueForKey:@"currencyDate"]);
 		[plotsValues addObject:results];
 	}
 /*
