@@ -50,14 +50,14 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
-	[totalDays addObject:startDate];
+	//[totalDays addObject:startDate];
 	//int counter = 0;
 	while ([endDate compare:nextDay] != NSOrderedSame || [endDate compare:nextDay] == NSOrderedDescending) {
 		{
 			nextDay = [DateFormat getNextDayForDay:nextDay];
 			nextDay = [InfoValutarAPI getUTCFormateDateFromDate:nextDay];
 			//counter++;
-			[totalDays addObject:nextDay];
+			//[totalDays addObject:nextDay];
 		}
 	}
 	
@@ -65,7 +65,11 @@
 	{
 		CurrencyItem *ci = [plots objectAtIndex:i];
 		NSMutableArray *results = [InfoValutarAPI getDataForInterval:startDate endDate:endDate currencyName:ci.currencyName];
-	//	[totalDays addObject:[ci valueForKey:@"currencyDate"]];
+		if (i==0) {
+			totalDays=[[results valueForKey:@"currencyDate"] retain];
+		}
+		//[totalDays addObject:[results objectAtIndex:i]];
+		//NSLog(@"results: %@",[results valueForKey:@"currencyDate"]);
 		[plotsValues addObject:results];
 	}
 /*
@@ -140,7 +144,7 @@
 //	self.graphView.dataSource = self;
 	
 	plotsValues = [[NSMutableArray alloc] initWithCapacity:[plots count]];
-	totalDays = [[NSMutableArray alloc] init];
+	//totalDays = [[NSMutableArray alloc] init];
 	
 	NSLog(@"Start loading");	
 
@@ -248,12 +252,12 @@
 	NSMutableArray *array = [NSMutableArray array];
 	NSArray *valuesForPlot = [plotsValues objectAtIndex:plotIndex];
 	
-	int counter = 0;
+	//int counter = 0;
 	//NSNumber *lastValidNumber = [NSNumber numberWithFloat:-1.0];
 	 
-	for (int i=0;  i<[totalDays count]&&counter<[valuesForPlot count];i++)
+	for (int i=0;  i<[totalDays count];i++)
 	{
-		Currency *managed = [valuesForPlot objectAtIndex:counter];
+		Currency *managed = [valuesForPlot objectAtIndex:i];
 
 	//	NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
 	//	NSDate *dateInCalendar = [totalDays objectAtIndex:i];
@@ -263,7 +267,7 @@
 		NSNumber *numberToAdd = [NSNumber numberWithFloat:dblValue*1000];
 	
 		[array addObject:numberToAdd];	
-		counter++;
+		
 		//if ([dateForEntry compare:dateInCalendar] == NSOrderedSame)
 //		{
 //			[array addObject:numberToAdd];	
