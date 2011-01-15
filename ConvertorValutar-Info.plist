@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
-	<false/>
+	<true/>
 	<key>SBUsesNetwork</key>
 	<true/>
 </dict>

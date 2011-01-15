@@ -51,12 +51,12 @@
 	
 	NSDate *nextDay = [NSDate dateWithTimeIntervalSinceReferenceDate:[startDate timeIntervalSinceReferenceDate]];
 	[totalDays addObject:startDate];
-	int counter = 0;
+	//int counter = 0;
 	while ([endDate compare:nextDay] != NSOrderedSame || [endDate compare:nextDay] == NSOrderedDescending) {
 		{
 			nextDay = [DateFormat getNextDayForDay:nextDay];
 			nextDay = [InfoValutarAPI getUTCFormateDateFromDate:nextDay];
-			counter++;
+			//counter++;
 			[totalDays addObject:nextDay];
 		}
 	}
@@ -65,6 +65,7 @@
 	{
 		CurrencyItem *ci = [plots objectAtIndex:i];
 		NSMutableArray *results = [InfoValutarAPI getDataForInterval:startDate endDate:endDate currencyName:ci.currencyName];
+	//	[totalDays addObject:[ci valueForKey:@"currencyDate"]];
 		[plotsValues addObject:results];
 	}
 /*
@@ -86,13 +87,7 @@
 	
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-<<<<<<< .mine
 
-=======
-	NSLocale *roLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ro_RO"];
-	[dateFormatter setLocale:roLocale];
-	[roLocale release];
->>>>>>> .r2189
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	
 	self.graphView.xValuesFormatter = dateFormatter;
@@ -254,14 +249,14 @@
 	NSArray *valuesForPlot = [plotsValues objectAtIndex:plotIndex];
 	
 	int counter = 0;
-	NSNumber *lastValidNumber = [NSNumber numberWithFloat:-1.0];
+	//NSNumber *lastValidNumber = [NSNumber numberWithFloat:-1.0];
 	 
-	for (int i=0; i <[totalDays count] && counter<[valuesForPlot count];i++)
+	for (int i=0;  i<[totalDays count]&&counter<[valuesForPlot count];i++)
 	{
 		Currency *managed = [valuesForPlot objectAtIndex:counter];
 
-		NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
-		NSDate *dateInCalendar = [totalDays objectAtIndex:i];
+	//	NSDate *dateForEntry = [managed valueForKey:@"currencyDate"];
+	//	NSDate *dateInCalendar = [totalDays objectAtIndex:i];
 		
 		NSString *valueString = [managed valueForKey:@"currencyValue"];
 		float dblValue = [valueString floatValue];
