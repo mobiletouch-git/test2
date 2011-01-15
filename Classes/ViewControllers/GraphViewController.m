@@ -88,10 +88,9 @@
 	self.graphView.yValuesFormatter = ynumberFormatter;
 	
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
-	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-
-	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
-	
+	//[dateFormatter setTimeStyle:NSDateFormatterNoStyle];	
+	//[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[dateFormatter setDateFormat:@"dd/MM/yy"];
 	self.graphView.xValuesFormatter = dateFormatter;
 	
 	[dateFormatter release];        
