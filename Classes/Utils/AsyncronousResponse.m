@@ -44,7 +44,7 @@
 	[activityView setTag:33];
 	
 	updateAlert = [[UIAlertView alloc] initWithTitle:@""
-											 message:@"Aplicația se actualizează.\n" 
+											 message:@"Actualizare curs BNR\n" 
 											delegate:nil
 								   cancelButtonTitle:nil 
 								   otherButtonTitles:nil];
