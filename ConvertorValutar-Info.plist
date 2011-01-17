@@ -9,7 +9,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Convertor</string>
 	<key>CFBundleIconFile</key>
-	<string>app_icon.png</string>
+	<string>convertor.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.mobiletouchit.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
