@@ -275,6 +275,18 @@
 
 -(void) initializeDatabase
 {
+    BOOL updateDetected = NO;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *updateVersion = [userDefaults objectForKey:@"CurrentApplicationVersion"];
+    NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    
+    if ([bundleVersion isEqualToString:updateVersion] == NO) {
+        updateDetected = YES;
+        [userDefaults setObject:bundleVersion forKey:@"CurrentApplicationVersion"];
+    }
+    
     BOOL success;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
@@ -282,9 +294,10 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"InfoValutar.sqlite"];
     success = [fileManager fileExistsAtPath:writableDBPath];
-    if (success) return;
+    if (success && updateDetected == NO) return;
     
     NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"InfoValutar.sqlite"];
+    [fileManager removeItemAtPath:writableDBPath error:nil];
     success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
     if (!success) {
         NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
