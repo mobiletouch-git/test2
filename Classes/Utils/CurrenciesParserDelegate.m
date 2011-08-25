@@ -224,7 +224,7 @@
 		[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR licitat în data de %@ nu a fost încă publicat.", dateToShowString]
 						 title:nil];
 		
-		
+		return;
 	}
 	
 	[[appDelegate currencyViewController] updateCurrentDate];
