@@ -1544,8 +1544,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1555,8 +1553,6 @@
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};
@@ -1564,7 +1560,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1574,7 +1569,6 @@
 				GCC_PREFIX_HEADER = InfoValutar_Prefix.pch;
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -1582,15 +1576,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "<Multiple values>";
+				CODE_SIGN_IDENTITY = "iPhone Developer: radu-bogdan onu (9744SENG9M)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "A3D38D20-CA18-4DD0-B81B-E5AAB3FEF80B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "<Multiple values>";
+				PROVISIONING_PROFILE = "1842D9FA-0530-4619-A06C-8E981D438F31";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -1599,8 +1591,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1608,8 +1598,6 @@
 				INFOPLIST_FILE = "InfoValutar-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = InfoValutar;
-				PROVISIONING_PROFILE = "E7638DAA-1AC3-4B80-93BB-D34208BB9FF8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E7638DAA-1AC3-4B80-93BB-D34208BB9FF8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1619,8 +1607,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1643,8 +1629,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = ConvertorValutar;
-				PROVISIONING_PROFILE = "1692C073-612D-4321-8D0B-2FBACE67C50E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1692C073-612D-4321-8D0B-2FBACE67C50E";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1653,8 +1637,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -1677,7 +1659,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = ConvertorValutar;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos4.0;
 				ZERO_LINK = NO;
 			};
@@ -1688,7 +1669,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: S.C. Mobile Touch S.R.L.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = CONVERTOR;
@@ -1706,7 +1686,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = ConvertorValutar;
 				PROVISIONING_PROFILE = "9BD0E7F1-00BF-4FB7-9F2E-88AC1AFF849B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9BD0E7F1-00BF-4FB7-9F2E-88AC1AFF849B";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1716,8 +1695,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vasile Alaiba (V7HA4BNBVZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: radu-bogdan onu (9744SENG9M)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1725,8 +1703,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "1692C073-612D-4321-8D0B-2FBACE67C50E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EF7D1E06-7BA5-4128-A4E2-23B50568672D";
+				PROVISIONING_PROFILE = "1842D9FA-0530-4619-A06C-8E981D438F31";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1735,12 +1712,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "<Multiple values>";
+				CODE_SIGN_IDENTITY = "iPhone Developer: radu-bogdan onu (9744SENG9M)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "<Multiple values>";
+				PROVISIONING_PROFILE = "1842D9FA-0530-4619-A06C-8E981D438F31";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Release;

@@ -463,7 +463,7 @@
 					[UIFactory showOkAlert:[NSString stringWithFormat:@"Cursul BNR licitat în data de %@ nu a fost încă publicat.",todayStr]
 									 title:nil];
 				}
-				mustUpdate = NO;	
+				mustUpdate = YES;	
 				
 				if ([InfoValutarAPI isMondayInRomania])
 				{
@@ -532,6 +532,22 @@
 											inViewController:currencyViewController];
 	}
 	
+}
+
+-(void)removeAllStores
+{
+    NSArray *stores = [persistentStoreCoordinator persistentStores];
+    
+    for(NSPersistentStore *store in stores) {
+        [[NSFileManager defaultManager] removeItemAtPath:store.URL.path error:nil];
+        [persistentStoreCoordinator removePersistentStore:store error:nil];
+    }
+    
+    [managedObjectContext release];
+    managedObjectContext = nil;
+    
+    [persistentStoreCoordinator release], 
+    persistentStoreCoordinator = nil;
 }
 
 @end

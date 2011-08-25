@@ -84,5 +84,7 @@
 -(void) initializeLayout;
 -(void) checkForUpdates;
 -(void) populate;
+-(void)removeAllStores;
+
 @end
 

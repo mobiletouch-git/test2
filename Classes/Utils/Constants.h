@@ -34,7 +34,7 @@
 
 #define definedColor ([UIColor colorWithRed:0.149 green:0.435 blue:0.118 alpha:1.0])
 
-#define kSampleConfigURL @"http://mob.adwhirl.com/getInfo.php"
+#define kSampleConfigURL @"http://mob.adwhirl.com/getInfo.php?appid=96c35b3ea0af459caa2e8eefce81d075"
 
 #define remoteServer @"http://api.mobiletouch.ro/0.1/checker"
 

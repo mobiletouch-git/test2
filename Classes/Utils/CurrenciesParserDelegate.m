@@ -38,6 +38,7 @@
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
+ //   [appDelegate removeAllStores];
 }
 
 
@@ -130,15 +131,27 @@
 		[currReference setCurrencyValue:valueNumber];
 		//insert the object
 		
-		Currency *newCurrency = [NSEntityDescription insertNewObjectForEntityForName:@"Currency" inManagedObjectContext:[appDelegate managedObjectContext]];		
-		
-		[newCurrency setCurrencyName:[currReference currencyName]];
-		[newCurrency setCurrencyMultiplier:[currReference multiplierValue]];
-		[newCurrency setCurrencyValue:[currReference currencyValue]];
-		[newCurrency setCurrencyDate:currentDate];
-		
-		[appDelegate setDataWasUpdated:YES];
-		
+//        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Currency" inManagedObjectContext:[appDelegate managedObjectContext]];
+//        
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"currencyName == %@ AND currencyDate == %@" argumentArray:[NSArray arrayWithObjects:[currReference currencyName],currentDate, nil]];
+//        NSFetchRequest *newFetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+//        newFetchRequest.predicate = predicate;
+//        newFetchRequest.entity = entity;
+//        
+//       int doesValueAlreadyExist = [[appDelegate managedObjectContext]countForFetchRequest:newFetchRequest error:nil];
+//        
+//        if (doesValueAlreadyExist == 0) 
+        {
+            Currency *newCurrency = [NSEntityDescription insertNewObjectForEntityForName:@"Currency" inManagedObjectContext:[appDelegate managedObjectContext]];		
+            
+            [newCurrency setCurrencyName:[currReference currencyName]];
+            [newCurrency setCurrencyMultiplier:[currReference multiplierValue]];
+            [newCurrency setCurrencyValue:[currReference currencyValue]];
+            [newCurrency setCurrencyDate:currentDate];
+            
+            [appDelegate setDataWasUpdated:YES];
+        }
+            		
 /*		NSError *error = nil;
 		
 		if (![[appDelegate managedObjectContext] save:&error]) {
