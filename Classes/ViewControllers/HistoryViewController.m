@@ -48,10 +48,14 @@
     return self;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
 	NSString *currentYear = [NSString stringWithFormat:@"%d", [DateFormat currentYear]];
 	
 	yearButton = [[UIBarButtonItem alloc] initWithTitle:currentYear
@@ -87,7 +91,7 @@
 	
 	NSLog(@"First %d last %d", minYear, maxYear);	
 	
-	for (int i=minYear;i<=maxYear;i++)
+	for (int i=maxYear;i>=minYear;i--)
 	{
 		NSString *currentYearString = [NSString stringWithFormat:@"%d", i];
 		[yearArray addObject:currentYearString];
@@ -106,7 +110,7 @@
 		self.title = [[selectedCurrency.multiplierValue stringValue] stringByAppendingFormat:@" %@",selectedCurrency.currencyName];
 	}else
 		self.title = selectedCurrency.currencyName;
-	
+	[self refreshDataSource];
 }
 
 
@@ -358,6 +362,7 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"number of sections = %i", [tableDataSource count]);
     return [tableDataSource count];
 }
 
@@ -379,7 +384,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSDictionary *dictForMonth = [tableDataSource objectAtIndex:section];	
 	NSArray *monthData = [dictForMonth objectForKey:@"monthData"];
-	
+	NSLog(@"number of rows = %i", [monthData count]);
     return [monthData count];
 }
 
